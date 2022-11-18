@@ -9,8 +9,8 @@ public class CharacterStats : MonoBehaviour
     public int currHealth;
     public int maxHealth;
 
-    public int currStamina;
-    public int maxStamina;
+    public float currStamina;
+    public float maxStamina;
 
     public int meleeAtk;
     public int rangedAtk;

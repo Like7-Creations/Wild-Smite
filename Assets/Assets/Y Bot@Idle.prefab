@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 1103716657052305605}
   - component: {fileID: 1103716657052305604}
   - component: {fileID: 1103716657052305624}
+  - component: {fileID: -6272690691803679190}
   - component: {fileID: 1103716657052305625}
   m_Layer: 0
   m_Name: Y Bot@Idle
@@ -101,6 +102,7 @@ Transform:
   - {fileID: 930383956566656024}
   - {fileID: 3253945069867515609}
   - {fileID: 4939283044024409442}
+  - {fileID: 1540701683909131245}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -158,6 +160,7 @@ MonoBehaviour:
   jumpHeight: 1
   turnSmoothTime: 0.1
   gravity: -9.81
+  playerPrefab: {fileID: 256803733047961420}
 --- !u!114 &1103716657052305624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +176,26 @@ MonoBehaviour:
   isAttacking: 0
   combo: 0
   Sword: {fileID: 1103716657642829991}
+  Companion: {fileID: 7963204577340183229}
+  bullet: {fileID: 1472468272477937308, guid: fdadadf755217ef44b76cce7eb349612, type: 3}
+--- !u!114 &-6272690691803679190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256803733047961420}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4dc069126edaeb4cbd8b21e4dc24245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currHealth: 0
+  maxHealth: 0
+  currStamina: 0
+  maxStamina: 0
+  meleeAtk: 0
+  rangedAtk: 0
 --- !u!114 &1103716657052305625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +238,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fa3c5d2d-b72c-41eb-9f51-57560bf3bc36
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1103716657052305624}
+        m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
+        m_MethodName: Rotation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c893ad87-c6db-4a68-a654-5738bcca1552
+    m_ActionName: Player/Rotation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
@@ -2593,6 +2632,37 @@ Transform:
   - {fileID: 6259349595336305331}
   m_Father: {fileID: 7813625466339523776}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7963204577340183229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1540701683909131245}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1540701683909131245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963204577340183229}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.223, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 638254469450120694}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8187892122159208865
 GameObject:

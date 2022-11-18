@@ -21,6 +21,10 @@ public class DummyEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(health <= 0)
+        {
+            Destroy(transform.gameObject);
+        }
         transform.LookAt(player.transform);
         dist = Vector3.Distance(transform.position, player.transform.position);
 
@@ -50,6 +54,5 @@ public class DummyEnemy : MonoBehaviour
             animator.ResetTrigger("Hitted");
             hitted = false;
         }
-
     }
 }

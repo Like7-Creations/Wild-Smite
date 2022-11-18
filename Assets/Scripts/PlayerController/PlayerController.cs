@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    
+    PlayerInput lmao;
     [Header("Player Movement Settings")]
     CharacterController controller;
     public float playerSpeed;
@@ -15,25 +15,34 @@ public class PlayerController : MonoBehaviour
     float turnSmoothVelocity;
     private Vector2 movementInput;
     [SerializeField] private float gravity = -9.81f;
-
+    public GameObject playerPrefab;
     Animator animator;
+
+    public CharacterStats playerStats;
+    
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        //playerStats = FindObjectOfType<CharacterStats>();
+        /*var p1 = PlayerInput.Instantiate(playerPrefab,
+            controlScheme: "Keyboard", device: Keyboard.current); //Split keyboard stuff
+        var p2 = PlayerInput.Instantiate(playerPrefab,
+            controlScheme: "Keyboard(2)", device: Keyboard.current);*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        /*float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");*/
 
         Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y).normalized;
 
         float targetangle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
+        controller.Move(new Vector3(0, -9.81f, 0));
         if (direction != Vector3.zero)
         {
             transform.rotation = Quaternion.Euler(0, angle, 0f);
@@ -41,6 +50,12 @@ public class PlayerController : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
 
             controller.Move(moveDir.normalized * playerSpeed * Time.deltaTime);
+
+
+            //InvokeRepeating("lostStamina", 1f, 1);
+
+            playerStats.currStamina -= 1 * Time.deltaTime * 3;
+            playerStats.CheckStamina();
         }
 
         if (direction != Vector3.zero)
@@ -53,11 +68,16 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Running", false);
             animator.SetBool("Idle", true);
         }
-
     }
 
     public void onMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
+        Debug.Log("input detected");
     }
+
+   /* public virtual void loseStamina()
+    {
+        currStamina -= 1;
+    }*/
 }

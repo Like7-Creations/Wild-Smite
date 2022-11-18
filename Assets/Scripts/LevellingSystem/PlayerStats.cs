@@ -28,7 +28,7 @@ public class PlayerStats : CharacterStats
     void SetStats()
     {
         playerUI.healthAmount.text = currHealth.ToString();
-        playerUI.staminaAmount.text = currStamina.ToString();
+        playerUI.staminaAmount.text = currStamina.ToString("0");
     }
 
     public override void Die()
