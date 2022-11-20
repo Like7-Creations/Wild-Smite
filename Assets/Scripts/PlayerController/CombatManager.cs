@@ -15,13 +15,14 @@ public class CombatManager : MonoBehaviour
     public GameObject bullet;
     Vector2 rotation;
 
-    PlayerStats playstat;
+   // CharacterStats cS;
+    //PlayerStats playstat;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         Sword.GetComponent<BoxCollider>().enabled = false;
-        playstat = GetComponent<PlayerStats>();
+        //playstat = GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
@@ -72,7 +73,7 @@ public class CombatManager : MonoBehaviour
             if (c.GetComponent<DummyEnemy>() != null)
             {
                 DummyEnemy enemy = c.GetComponent<DummyEnemy>();
-                enemy.health -= playstat.meleeAtk;
+               // enemy.health -= cS.currentMelee;
                 enemy.hitted = true;
                 Debug.Log("test");
             }
@@ -89,7 +90,7 @@ public class CombatManager : MonoBehaviour
             if (c.GetComponent<DummyEnemy>() != null)
             {
                 DummyEnemy enemy = c.GetComponent<DummyEnemy>();
-                // enemy.health -= playstat.meleeAtk;
+                //enemy.health -= cS.currentMelee;
                 enemy.health -= 100;
                 //Destroy(enemy.transform);
                 Debug.Log("test");
@@ -116,6 +117,9 @@ public class CombatManager : MonoBehaviour
             Companion.transform.rotation = Quaternion.RotateTowards(Companion.transform.rotation, newrotation, 1000 * Time.deltaTime);
             Rigidbody bullets = Instantiate(bullet, Companion.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             bullets.AddForce(Companion.transform.forward * 200, ForceMode.Impulse);
+
+            //if bullets collide with Enemy Object then
+            //do enemy.health -= cS.currentRanged;
         }
         //else ranged = false;
     }

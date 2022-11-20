@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     public GameObject playerPrefab;
     Animator animator;
-
-    public CharacterStats playerStats;
     
 
     void Start()
@@ -54,8 +52,6 @@ public class PlayerController : MonoBehaviour
 
             //InvokeRepeating("lostStamina", 1f, 1);
 
-            playerStats.currStamina -= 1 * Time.deltaTime * 3;
-            playerStats.CheckStamina();
         }
 
         if (direction != Vector3.zero)
