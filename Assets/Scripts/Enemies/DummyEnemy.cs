@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DummyEnemy : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class DummyEnemy : MonoBehaviour
     public float health;
     CharacterController controller;
     Vector3 movement;
+
+    public TextMeshProUGUI hitText;
+    DisplayStats displayStats;
+
+    public float hitPointDelay;
+
 
    // private Material whiteMat;
    // private Material defaultMat;
@@ -23,15 +30,21 @@ public class DummyEnemy : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        displayStats = FindObjectOfType<DisplayStats>();
+
+        hitText.enabled = false;
        // smr = GetComponent<SkinnedMeshRenderer>();
 
-       // whiteMat = Resources.Load("WhiteFlash", typeof(Material)) as Material;
+        // whiteMat = Resources.Load("WhiteFlash", typeof(Material)) as Material;
         //defaultMat = smr.material;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+
         if(health <= 0)
         {
             Destroy(transform.gameObject);
@@ -63,9 +76,15 @@ public class DummyEnemy : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Zombie Reaction Hit"))
         {
             Debug.Log("I GOT HIT");
+
+            StartCoroutine(DisplayHitPoint(displayStats.meleeAtk, hitPointDelay));
+
+            //if ranged attack do this line
+            //StartCoroutine(DisplayHitPoint(displayStats.rangedAtk, hitPointDelay));
+
             //health = health - 1;
             //smr.material = whiteMat;
-           // Invoke("ResetMaterial", 5f);
+            // Invoke("ResetMaterial", 5f);
             animator.ResetTrigger("Hitted");
             hitted = false;
         }
@@ -73,8 +92,24 @@ public class DummyEnemy : MonoBehaviour
         //call GetDamaged Func from DisplayStats script whereever the enemy deals damage//
     }
 
-  /*  void ResetMaterial()
+     void LateUpdate() // to make Hitpoint text UI look at camera at all times, runs in late update so it happens after everything else is done.
+     {
+        hitText.transform.LookAt(hitText.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+     }
+
+    /*  void ResetMaterial()
+      {
+          smr.material = defaultMat;
+      }*/
+
+    IEnumerator DisplayHitPoint(float hitpoint, float hitPointDelay)
     {
-        smr.material = defaultMat;
-    }*/
+        hitText.text = hitpoint.ToString();
+        hitText.enabled = true;
+        yield return new WaitForSeconds(hitPointDelay);
+        hitText.enabled = false;
+    }
+
+
+
 }

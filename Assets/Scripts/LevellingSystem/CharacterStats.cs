@@ -15,9 +15,9 @@ public class CharacterStats : ScriptableObject
     [Range(0, 100)]
     public float currentStamina;
     [Range(0, 100)]
-    public int currentMelee;
+    public int currentMelee = 10;
     [Range(0, 100)]
-    public int currentRanged;
+    public int currentRanged = 10;
 
     #endregion
 
@@ -29,9 +29,9 @@ public class CharacterStats : ScriptableObject
     [Range(0, 100)]
     public float maxStamina;
     [Range(0, 100)]
-    public int maxMelee;
+    public int maxMelee = 20;
     [Range(0, 100)]
-    public int maxRanged;
+    public int maxRanged = 20;
 
     #endregion
 

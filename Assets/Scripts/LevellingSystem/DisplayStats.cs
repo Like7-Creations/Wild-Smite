@@ -12,6 +12,9 @@ public class DisplayStats : MonoBehaviour
     [Space(5)]
     public TextMeshProUGUI health;
     public TextMeshProUGUI stamina;
+
+    public int meleeAtk;
+    public int rangedAtk;
     #endregion
 
     public void Start()
@@ -20,6 +23,8 @@ public class DisplayStats : MonoBehaviour
 
         stat.currentHealth = stat.maxHealth;
         stat.currentStamina = stat.maxStamina;
+        meleeAtk = stat.currentMelee;
+        rangedAtk = stat.currentRanged;
 
         #endregion
 
