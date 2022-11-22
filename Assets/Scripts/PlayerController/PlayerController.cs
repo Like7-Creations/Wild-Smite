@@ -64,12 +64,22 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Running", false);
             animator.SetBool("Idle", true);
         }
+
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dashing"))
+        {
+            animator.SetBool("Dashing", false);
+        }
     }
 
     public void onMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
         Debug.Log("input detected");
+    }
+    public void Dash()
+    {
+        animator.SetBool("Dashing", true);
     }
 
    /* public virtual void loseStamina()
