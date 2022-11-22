@@ -42,9 +42,6 @@ public class DummyEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-
         if(health <= 0)
         {
             Destroy(transform.gameObject);
@@ -101,6 +98,13 @@ public class DummyEnemy : MonoBehaviour
       {
           smr.material = defaultMat;
       }*/
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Bullet")
+        {
+            health -= displayStats.stat.currentRanged;
+        }
+    }
 
     IEnumerator DisplayHitPoint(float hitpoint, float hitPointDelay)
     {

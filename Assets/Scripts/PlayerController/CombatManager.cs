@@ -15,14 +15,14 @@ public class CombatManager : MonoBehaviour
     public GameObject bullet;
     Vector2 rotation;
 
-   // CharacterStats cS;
+    DisplayStats cS;
     //PlayerStats playstat;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         Sword.GetComponent<BoxCollider>().enabled = false;
-        //playstat = GetComponent<PlayerStats>();
+        cS = GetComponent<DisplayStats>();
     }
 
     // Update is called once per frame
@@ -30,6 +30,7 @@ public class CombatManager : MonoBehaviour
     {
        // Attack();
         RangeAttack(rotation);
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             AOE();
@@ -73,7 +74,8 @@ public class CombatManager : MonoBehaviour
             if (c.GetComponent<DummyEnemy>() != null)
             {
                 DummyEnemy enemy = c.GetComponent<DummyEnemy>();
-               // enemy.health -= cS.currentMelee;
+                enemy.health -= cS.stat.currentMelee;
+                //Debug.Log(cS.stat.currentMelee);
                 enemy.hitted = true;
                 Debug.Log("test");
             }
