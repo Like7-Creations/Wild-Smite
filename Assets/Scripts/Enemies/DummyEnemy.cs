@@ -18,6 +18,10 @@ public class DummyEnemy : MonoBehaviour
 
     public float hitPointDelay;
 
+    public ParticleSystem hiteffect = null;
+
+    FlashDamage fD;
+
 
    // private Material whiteMat;
    // private Material defaultMat;
@@ -29,6 +33,7 @@ public class DummyEnemy : MonoBehaviour
     {
         player = FindObjectOfType<PlayerController>();
         animator = GetComponent<Animator>();
+        fD = FindObjectOfType<FlashDamage>();
         controller = GetComponent<CharacterController>();
         displayStats = FindObjectOfType<DisplayStats>();
 
@@ -75,6 +80,14 @@ public class DummyEnemy : MonoBehaviour
             Debug.Log("I GOT HIT");
 
             StartCoroutine(DisplayHitPoint(displayStats.meleeAtk, hitPointDelay));
+
+            //change Material Temporarily
+            fD.HitEnemy();
+
+            //play hit effect of robot getting hit
+            hiteffect.Play();
+
+            //add sound effect of robot getting hit..
 
             //if ranged attack do this line
             //StartCoroutine(DisplayHitPoint(displayStats.rangedAtk, hitPointDelay));
