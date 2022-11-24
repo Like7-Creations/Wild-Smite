@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.G))  //If the G-Key is pressed the closest AI will take 20 damage. This is just for testing and a better way of calling
 		{                   					 
-			GetClosestAI().GetComponent<UltimateAI>().TakeDamage(20, this);  // the TakeDamage() function is from the player itself when attacking the AI
+			//GetClosestAI().GetComponent<UltimateAI>().TakeDamage(20, this);  // the TakeDamage() function is from the player itself when attacking the AI
 																			 // (e.g. if you have a pistol its bullets should call this function whenever
 																			 // they collide with the AI).
 		}
@@ -59,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
 
 	public void Die()
 	{
-		foreach (UltimateAI ai in Object.FindObjectsOfType(typeof(UltimateAI))) if (ai.players.Contains(this)) ai.players.Remove(this);
+		//foreach (UltimateAI ai in Object.FindObjectsOfType(typeof(UltimateAI))) if (ai.players.Contains(this)) ai.players.Remove(this);
 		Destroy(this.gameObject);
 	}
 }

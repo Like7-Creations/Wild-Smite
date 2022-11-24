@@ -29,7 +29,7 @@ namespace Ultimate.AI
 		[Header("Needed Objects")]
 		[Space]
 		[Tooltip("Assign the player object.")]
-		public List<PlayerHealth> players;
+		public List<PlayerController> players;
 
 		[Space]
 		[Header("AI Parameters")]
@@ -345,6 +345,7 @@ namespace Ultimate.AI
 
 			if (!attackOnProvoke || type == Type.NPC) provoked = true; //If the AI is set to hostile it will automatically get provoked.
 			if (useRagdoll) DisableRagdolls(); //And if you have any ragdolls set they are disabled so they won't gain any unnecessary velocity.
+			provoked = true;
 		}
 
 		private void Update() //This function is being triggerd once each frame.
@@ -372,8 +373,8 @@ namespace Ultimate.AI
 				return;
 			}
 
-			if (IKPoint != null && player != null) playerIKPosition = player.gameObject.GetComponent<PlayerHealth>().IKPosition;
-			if (type == Type.Ranged) playerCenter = player.GetComponent<PlayerHealth>().playerCenter;
+			//if (IKPoint != null && player != null) playerIKPosition = player.gameObject.GetComponent<PlayerHealth>().IKPosition;
+			//if (type == Type.Ranged) playerCenter = player.GetComponent<PlayerController>().playerCenter;
 
 			Vector3 distanceToPlayer = player.position - transform.position; //Defining a vector to store the distance between the AI and the player.
 			if (distanceToPlayer.magnitude <= chaseRange && provoked && distanceToPlayer.magnitude > attackRange && !isDead && Time.timeScale != 0 && GetComponent<FieldOfView>().canSee)
@@ -472,6 +473,7 @@ namespace Ultimate.AI
 				{
 					attacking = true;
 					int randomNumber = Random.Range(0, attackAnimations); //We are getting a random number. And here we are creating a string using the number and the word attack.
+					StartCoroutine(AttackPlayer());
 					anim.SetTrigger("Attack" + randomNumber.ToString());  //This way a trigger is being formed and sent to the animator.
 					return;
 				}
@@ -481,7 +483,7 @@ namespace Ultimate.AI
 				timeToRotate = true; //A simple bool for rotating is set to true.
 				Vector3 closeShootRange = new Vector3(attackRange, attackRange) * 1 / 3; //A close range is defined and if the player is in that range the AI should stop moving.
 				if (distanceToPlayer.magnitude <= closeShootRange.magnitude) agent.ResetPath(); if (distanceToPlayer.magnitude > closeShootRange.magnitude) agent.SetDestination(player.transform.position);
-				StartCoroutine(AttackPlayer()); //Right after the attack method is being executed.
+				//StartCoroutine(AttackPlayer()); //Right after the attack method is being executed.
 				attacking = true; //And so is that bool.
 			}
 
@@ -532,8 +534,10 @@ namespace Ultimate.AI
 
 		public void MeleeAttack()
 		{
-			player.GetComponent<PlayerHealth>().health -= damageToDeal; //Here the given damage is taken from the player's health when successfully attacking.
-
+			Debug.Log("HITINGNGNG");
+			//player.GetComponent<PlayerHealth>().health -= damageToDeal; //Here the given damage is taken from the player's health when successfully attacking.
+			//player.GetComponent<DisplayStats>().stat.currentHealth -= (int)damageToDeal;
+			player.GetComponent<DisplayStats>().GetDamaged((int)damageToDeal);
 			var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
 			audioSource.PlayOneShot(clip);
 
@@ -586,7 +590,7 @@ namespace Ultimate.AI
 				if (effectParticles != null) foreach (ParticleSystem effectParticle in effectParticles) effectParticle.Play(); //The particles are played.
 				effectsDealt++;
 
-				player.GetComponent<PlayerHealth>().health -= poisonDamage; //Then the damage of the poison is subtracted from the player's health.
+				player.GetComponent<DisplayStats>().stat.currentHealth -= poisonDamage; //Then the damage of the poison is subtracted from the player's health.
 
 				infected = true;
 				yield return new WaitForSeconds(effectFrequency); //A timer is created to wait until the next effect is applied.
@@ -597,7 +601,7 @@ namespace Ultimate.AI
 				if (effectParticles != null) foreach (ParticleSystem effectParticle in effectParticles) effectParticle.Play(); //The particles are played.
 				effectsDealt++;
 
-				player.GetComponent<PlayerHealth>().health -= burnDamage; //Then the damage of the fire is subtracted from the player's health.
+				player.GetComponent<DisplayStats>().stat.currentHealth -= burnDamage; //Then the damage of the fire is subtracted from the player's health.
 
 				infected = true;
 				yield return new WaitForSeconds(effectFrequency); //A timer is created to wait until the next effect is applied.
@@ -1091,7 +1095,7 @@ namespace Ultimate.AI
 			}
 		}
 
-		public void TakeDamage(int damageToTake, PlayerHealth attacker)
+		public void TakeDamage(int damageToTake, PlayerController attacker)
 		{
 			if (attackOnProvoke) provoked = true;
 
@@ -1169,17 +1173,17 @@ namespace Ultimate.AI
 		{
 			List<Transform> playerTransforms = new List<Transform>();
 
-			foreach (PlayerHealth pl in players) playerTransforms.Add(pl.transform);
+			foreach (PlayerController pl in players) playerTransforms.Add(pl.transform);
 
 			Vector3 position = transform.position; //Every player is added in a special list and then we order the list based on the distance between each player and the AI.
 			return playerTransforms.OrderBy(o => (o.transform.position - position).sqrMagnitude).FirstOrDefault();
 		}
 
-		private List<PlayerHealth> GetHeardPlayers() //Same thing for the heard players.
+		private List<PlayerController> GetHeardPlayers() //Same thing for the heard players.
 		{
 			List<Transform> playerTransforms = new List<Transform>();
 
-			foreach (PlayerHealth pl in players)
+			foreach (PlayerController pl in players)
 			{
 				Vector3 distance = pl.transform.position - transform.position; //The only difference is that we need to see if the player we heard is actually in range.
 				if (distance.magnitude < hearingRange) playerTransforms.Add(pl.transform);
@@ -1188,11 +1192,11 @@ namespace Ultimate.AI
 			Vector3 position = transform.position; //Every player is added in a special list and then we order the list based on the distance between each player and the AI.
 			playerTransforms.OrderBy(o => (o.transform.position - position).sqrMagnitude).FirstOrDefault();
 
-			List<PlayerHealth> heardPlayers = new List<PlayerHealth>();
+			List<PlayerController> heardPlayers = new List<PlayerController>();
 
 			for (int i = playerTransforms.Count - 1; i >= 0; i--)
 			{
-				PlayerHealth pl = playerTransforms[i].GetComponent<PlayerHealth>();
+				PlayerController pl = playerTransforms[i].GetComponent<PlayerController>();
 				if (pl.GetComponent<AudioSource>().isPlaying) heardPlayers.Add(pl);
 			}
 

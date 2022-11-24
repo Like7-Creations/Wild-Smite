@@ -5343,12 +5343,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - {fileID: 2135722790}
-  - {fileID: 638254469141291990}
+  - {fileID: 2135722793}
+  - {fileID: 638254469141291993}
   moveSpeed: 7
-  chaseRange: 1
+  chaseRange: 5
   idlingDuration: 2
-  attackRange: 0.66
+  attackRange: 4
   wanderRange: 4
   hearingRange: 0
   lookSpeed: 10
@@ -5362,7 +5362,7 @@ MonoBehaviour:
   hearingPointSet: 0
   isDead: 0
   type: 0
-  attackEffect: 6
+  attackEffect: 0
   poisonDamage: 0
   burnDamage: 0
   healthRegain: 0
@@ -5378,8 +5378,8 @@ MonoBehaviour:
   goToHeardPointAfterMultipleSounds: 0
   hearingPercentage: 0
   neededSoundsToHear: 0
-  damageToDeal: 0
-  attackRate: 0
+  damageToDeal: 10
+  attackRate: 1
   clipAmmo: 0
   reloadTime: 0
   projectile: {fileID: 0}
@@ -5410,7 +5410,7 @@ MonoBehaviour:
   inPlayer: 0
   firstPathGotten: 0
   idling: 0
-  canDisplayCount: 1
+  canDisplayCount: 0
   verSuitable: 1
   ragdollCreated: 0
 --- !u!114 &1391373301
@@ -5439,7 +5439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341fa5375f86fb14496ed05cf9c9aada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 1
+  viewRadius: 5
   viewAngle: 256
   targetMask:
     serializedVersion: 2
@@ -6489,8 +6489,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505174888}
-  m_LocalRotation: {x: 0.23395479, y: -0.017234677, z: 0.0041479203, w: 0.9720859}
-  m_LocalPosition: {x: 0, y: 4.91, z: -0.499}
+  m_LocalRotation: {x: 0.14656688, y: 0.40933564, z: -0.06680568, w: 0.89805317}
+  m_LocalPosition: {x: -10, y: 4.91, z: -0.499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7556,16 +7556,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6761093900367768003, guid: 423aadb0ab23e0d49afec8607c2ea917,
-        type: 3}
-      propertyPath: health
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6761093900367768003, guid: 423aadb0ab23e0d49afec8607c2ea917,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6928686926672203227, guid: 423aadb0ab23e0d49afec8607c2ea917,
         type: 3}
       propertyPath: m_Name
@@ -8402,16 +8392,16 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1843637574}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2135722790 stripped
+--- !u!114 &2135722793 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6761093900367768003, guid: 423aadb0ab23e0d49afec8607c2ea917,
+  m_CorrespondingSourceObject: {fileID: 7847185749964825171, guid: 423aadb0ab23e0d49afec8607c2ea917,
     type: 3}
   m_PrefabInstance: {fileID: 1843637574}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0440f13038cd1af43a4c36eb3514cdd5, type: 3}
+  m_Script: {fileID: 11500000, guid: bc89e90a238ab404b936301ed5ae52f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &638254469141291988 stripped
@@ -8420,16 +8410,16 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7185490656808678581}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &638254469141291990 stripped
+--- !u!114 &638254469141291993 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6761093900367768003, guid: 423aadb0ab23e0d49afec8607c2ea917,
+  m_CorrespondingSourceObject: {fileID: 7847185749964825171, guid: 423aadb0ab23e0d49afec8607c2ea917,
     type: 3}
   m_PrefabInstance: {fileID: 7185490656808678581}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0440f13038cd1af43a4c36eb3514cdd5, type: 3}
+  m_Script: {fileID: 11500000, guid: bc89e90a238ab404b936301ed5ae52f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7185490656808678581
@@ -8439,16 +8429,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6761093900367768003, guid: 423aadb0ab23e0d49afec8607c2ea917,
-        type: 3}
-      propertyPath: health
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6761093900367768003, guid: 423aadb0ab23e0d49afec8607c2ea917,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6928686926672203227, guid: 423aadb0ab23e0d49afec8607c2ea917,
         type: 3}
       propertyPath: m_Name

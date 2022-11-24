@@ -2015,7 +2015,6 @@ GameObject:
   - component: {fileID: 7847185749964825171}
   - component: {fileID: 7847185749964825167}
   - component: {fileID: 7847185749964825166}
-  - component: {fileID: 6761093900367768003}
   - component: {fileID: 7185490656901562421}
   m_Layer: 0
   m_Name: Y Bot@Idle
@@ -2098,6 +2097,7 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   gravity: -9.81
   playerPrefab: {fileID: 6928686926672203227}
+  refer: {x: 0, y: 0, z: 0}
 --- !u!114 &7847185749964825167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2226,22 +2226,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &6761093900367768003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6928686926672203227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0440f13038cd1af43a4c36eb3514cdd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  IKPosition: {fileID: 0}
-  audioSource: {fileID: 0}
-  playerCenter: {fileID: 0}
 --- !u!114 &7185490656901562421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,6 +2239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat: {fileID: 11400000, guid: c214ca78b94bb614b875cafe1ed37a9f, type: 2}
+  beginDelay: 0
   health: {fileID: 0}
   stamina: {fileID: 0}
   meleeAtk: 0

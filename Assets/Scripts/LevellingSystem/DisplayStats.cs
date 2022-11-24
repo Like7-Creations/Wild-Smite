@@ -6,6 +6,9 @@ public class DisplayStats : MonoBehaviour
     public CharacterStats stat;
     PlayerController pC;
 
+    [SerializeField] bool beginDelay;
+    float delay;
+
 
     #region Text Holders
     [Header("[Health & Stamina Text Holders]")]
@@ -20,7 +23,7 @@ public class DisplayStats : MonoBehaviour
     public void Start()
     {
         #region Stats Equal Max-Values
-
+        pC = GetComponent<PlayerController>();
         stat.currentHealth = stat.maxHealth;
         stat.currentStamina = stat.maxStamina;
         meleeAtk = stat.currentMelee;
@@ -47,18 +50,35 @@ public class DisplayStats : MonoBehaviour
     public void Update()
     {
         #region If Running
-        if (Input.GetKey("left shift") && Input.GetKey("w")|| (Input.GetKey("left shift") && Input.GetKey("a") || (Input.GetKey("left shift") && Input.GetKey("s") || (Input.GetKey("left shift") && Input.GetKey("d")))))
+        if (stat.currentStamina > 0 && Input.GetKey("left shift") & pC.refer != Vector3.zero)
         {
-            stat.currentStamina += stat.staminaDownRate * Time.deltaTime;
-            GetComponent<Animator>().speed = 3;
+            if (!beginDelay)
+            {
+                stat.currentStamina += stat.staminaDownRate * Time.deltaTime;
+                Debug.Log("IM SPEEEDINGNGGNGGNG");
+                GetComponent<Animator>().speed = 3;
+            }
         }
-        else if (Input.GetKey("w") || (Input.GetKey("a") || (Input.GetKey("s") || (Input.GetKey("d")))))
+        else if (stat.currentStamina <= 100 || pC.refer != Vector3.zero && !beginDelay)
         {
-            stat.currentStamina += stat.staminaUpRate * Time.deltaTime;
-            GetComponent<Animator>().speed = 1;
+                Debug.Log("regeneration");
+                GetComponent<Animator>().speed = 1;
+                stat.currentStamina += stat.staminaUpRate * Time.deltaTime;
+        }
+        if(stat.currentStamina <= 0.5f)
+        {
+            beginDelay = true;
         }
 
-        //if(stamina)
+        if(beginDelay)
+        {
+            delay += Time.deltaTime;
+            if(delay >= 1)
+            {
+                beginDelay = false;
+                delay = 0;
+            }
+        }
         #endregion
 
 

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     public GameObject playerPrefab;
     Animator animator;
+    public Vector3 refer;
     
 
     void Start()
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");*/
 
         Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y).normalized;
-
+        refer = direction;
         float targetangle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
         controller.Move(new Vector3(0, -9.81f, 0));
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dashing"))
         {
             animator.SetBool("Dashing", false);
+            GetComponent<DisplayStats>().stat.currentStamina -= 0.5f;
         }
     }
 
