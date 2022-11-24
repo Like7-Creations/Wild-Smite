@@ -679,7 +679,7 @@ namespace Ultimate.AI
 			if (!reactToSounds) //First off we are checking whether we need to execute the rest of the code bellow. If it doesn't react to sounds it is pointless to do so.
 			{
 				Vector3 distanceToWalkPoint = transform.position - wanderPoint; //Then we are defining a vector to store the distance between the current point and our AI.
-				if (!wanderPointSet || (distanceToWalkPoint.magnitude < 1f)) //And it that's the case we will just check if the AI is missing a random point and will pick one using the function "GetWanderPoint".
+				if (!wanderPointSet || (distanceToWalkPoint.magnitude < 4f)) //And it that's the case we will just check if the AI is missing a random point and will pick one using the function "GetWanderPoint".
 				{
 					GetWanderPoint();
 					return;

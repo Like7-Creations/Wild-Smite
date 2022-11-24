@@ -50,11 +50,15 @@ public class DisplayStats : MonoBehaviour
         if (Input.GetKey("left shift") && Input.GetKey("w")|| (Input.GetKey("left shift") && Input.GetKey("a") || (Input.GetKey("left shift") && Input.GetKey("s") || (Input.GetKey("left shift") && Input.GetKey("d")))))
         {
             stat.currentStamina += stat.staminaDownRate * Time.deltaTime;
+            GetComponent<Animator>().speed = 3;
         }
         else if (Input.GetKey("w") || (Input.GetKey("a") || (Input.GetKey("s") || (Input.GetKey("d")))))
         {
             stat.currentStamina += stat.staminaUpRate * Time.deltaTime;
+            GetComponent<Animator>().speed = 1;
         }
+
+        //if(stamina)
         #endregion
 
 
