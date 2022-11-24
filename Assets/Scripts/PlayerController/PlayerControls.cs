@@ -62,6 +62,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AreaOfEffect"",
+                    ""type"": ""Button"",
+                    ""id"": ""2e1fdea9-0c8f-4405-a88e-8321f8756f63"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -339,6 +348,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b8925ff-2c4b-4504-ac2b-5307fe8b2515"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""AreaOfEffect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -390,6 +410,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Rotation = m_Player.FindAction("Rotation", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        m_Player_AreaOfEffect = m_Player.FindAction("AreaOfEffect", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -453,6 +474,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Rotation;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Dash;
+    private readonly InputAction m_Player_AreaOfEffect;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -461,6 +483,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Rotation => m_Wrapper.m_Player_Rotation;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
+        public InputAction @AreaOfEffect => m_Wrapper.m_Player_AreaOfEffect;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -482,6 +505,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @AreaOfEffect.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAreaOfEffect;
+                @AreaOfEffect.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAreaOfEffect;
+                @AreaOfEffect.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAreaOfEffect;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -498,6 +524,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @AreaOfEffect.started += instance.OnAreaOfEffect;
+                @AreaOfEffect.performed += instance.OnAreaOfEffect;
+                @AreaOfEffect.canceled += instance.OnAreaOfEffect;
             }
         }
     }
@@ -535,5 +564,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnRotation(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnAreaOfEffect(InputAction.CallbackContext context);
     }
 }

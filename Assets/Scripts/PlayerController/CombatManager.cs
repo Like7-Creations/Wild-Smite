@@ -10,7 +10,7 @@ public class CombatManager : MonoBehaviour
     public int combo;
     public GameObject Sword;
     bool test;
-    bool ranged;
+    bool shooting;
     public GameObject Companion;
     public GameObject bullet;
     Vector2 rotation;
