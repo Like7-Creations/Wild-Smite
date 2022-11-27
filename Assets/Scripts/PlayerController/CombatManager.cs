@@ -138,10 +138,10 @@ public class CombatManager : MonoBehaviour
         /*float targetangle = Mathf.Atan2(playerDir.x, playerDir.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
         Vector3 moveDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;*/
-       // if (playerDir.magnitude > 0f)
+        // if (playerDir.magnitude > 0f)
         //{
-            /*Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
-            Companion.transform.rotation = Quaternion.RotateTowards(Companion.transform.rotation, newrotation, 1000 * Time.deltaTime);*/
+        /*Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
+        Companion.transform.rotation = Quaternion.RotateTowards(Companion.transform.rotation, newrotation, 1000 * Time.deltaTime);*/
             Companion.transform.LookAt(Aim);
             Rigidbody bullets = Instantiate(bullet, Companion.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             bullets.AddForce(Companion.transform.forward * 200, ForceMode.Impulse);

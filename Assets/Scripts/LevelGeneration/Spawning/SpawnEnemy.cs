@@ -16,8 +16,6 @@ public class SpawnEnemy : MonoBehaviour
 
     void SpawnEnemies()
     {
-        
-
         for (int i = 0; i < EnemyCount; i++)
         {
             Vector3 randPos = transform.position + Random.insideUnitSphere * radius;
