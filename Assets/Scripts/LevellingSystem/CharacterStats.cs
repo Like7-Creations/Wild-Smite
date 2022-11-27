@@ -10,28 +10,46 @@ public class CharacterStats : ScriptableObject
     #region Current Values
     [Header("[Current Values]")]
     [Space(5)]
-    [Range(0, 100)]
-    public int currentHealth;
-    [Range(0, 100)]
+  
+    public float currentHealth;
+
     public float currentStamina;
-    [Range(0, 100)]
-    public int currentMelee = 10;
-    [Range(0, 100)]
-    public int currentRanged = 10;
+    
+    public int currentMelee;
+   
+    public int currentRanged;
 
     #endregion
 
-    #region Maximum Values
-    [Header("[Maximum Values]")]
+
+    #region Player Stats
+    [Header("[Player Stats]")]
     [Space(5)]
-    [Range(0, 100)]
-    public int maxHealth;
-    [Range(0, 100)]
-    public float maxStamina;
-    [Range(0, 100)]
-    public int maxMelee = 20;
-    [Range(0, 100)]
-    public int maxRanged = 20;
+  
+    public float PlayerHealth = 100;
+ 
+    public float PlayerStamina = 100;
+  
+    public int PlayerMeleeAtk = 10;
+    
+    public int PlayerRangedAtk = 10;
+   
+    //public float PlayerAoeDamage = 20;
+   
+    //public float PlayerAoeRanged = 20;
+   
+    public float  PlayerChargeAttack = 0;
+
+    #endregion
+
+    #region Max Values
+    [Header("[Max Values]")]
+    [Space(5)]
+
+    public float maxChargeAttackMultiplier = 20;
+
+    public float maxPlayerChargeAttackTime = 20;
+  
 
     #endregion
 
@@ -41,16 +59,20 @@ public class CharacterStats : ScriptableObject
     [Range(0, 100)]
     public float staminaUpRate;
     [Range(0, 100)]
-    public int healthUpRate;
+    public float healthUpRate;
+    [Range(0, 100)]
+    public float attackMultiplierUpRate;
     #endregion
 
     #region Decrease Values
     [Header("[-Decrease Values]")]
     [Space(5)]
     [Range(0, -100)]
-    public int healthDownRate;
+    public float healthDownRate;
     [Range(0, -100)]
     public float staminaDownRate;
+    [Range(0, 100)]
+    public float attackMultiplierDownRate;
 
     #endregion
 

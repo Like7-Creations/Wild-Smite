@@ -15,6 +15,7 @@ public class DummyEnemy : MonoBehaviour
 
     public TextMeshProUGUI hitText;
     DisplayStats displayStats;
+    CharacterStats cS;
 
     public float hitPointDelay;
 
@@ -74,10 +75,42 @@ public class DummyEnemy : MonoBehaviour
         {
             animator.SetTrigger("Hitted");
         }
-
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Zombie Reaction Hit"))
         {
-            Debug.Log("I GOT HIT");
+            TakeDamage();
+        }
+
+        //call GetDamaged Func from DisplayStats script whereever the enemy deals damage//
+    }
+
+     void LateUpdate() // to make Hitpoint text UI look at camera at all times, runs in late update so it happens after everything else is done.
+     {
+        hitText.transform.LookAt(hitText.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+     }
+
+    /*  void ResetMaterial()
+      {
+          smr.material = defaultMat;
+      }*/
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Bullet")
+        {
+            health -= displayStats.rangedAtk;
+        }
+    }
+
+    IEnumerator DisplayHitPoint(float hitpoint, float hitPointDelay)
+    {
+        hitText.text = hitpoint.ToString();
+        hitText.enabled = true;
+        yield return new WaitForSeconds(hitPointDelay);
+        hitText.enabled = false;
+    }
+
+   public void TakeDamage()
+    {
+         Debug.Log("I GOT HIT");
 
             StartCoroutine(DisplayHitPoint(displayStats.meleeAtk, hitPointDelay));
 
@@ -97,36 +130,6 @@ public class DummyEnemy : MonoBehaviour
             // Invoke("ResetMaterial", 5f);
             animator.ResetTrigger("Hitted");
             hitted = false;
-        }
-
-        //call GetDamaged Func from DisplayStats script whereever the enemy deals damage//
     }
-
-     void LateUpdate() // to make Hitpoint text UI look at camera at all times, runs in late update so it happens after everything else is done.
-     {
-        hitText.transform.LookAt(hitText.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
-     }
-
-    /*  void ResetMaterial()
-      {
-          smr.material = defaultMat;
-      }*/
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Bullet")
-        {
-            health -= displayStats.stat.currentRanged;
-        }
-    }
-
-    IEnumerator DisplayHitPoint(float hitpoint, float hitPointDelay)
-    {
-        hitText.text = hitpoint.ToString();
-        hitText.enabled = true;
-        yield return new WaitForSeconds(hitPointDelay);
-        hitText.enabled = false;
-    }
-
-
 
 }

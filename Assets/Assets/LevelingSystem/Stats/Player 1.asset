@@ -14,16 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Player 1
   description: hi, im player 1
-  currentHealth: 100
-  currentStamina: 100
-  currentMelee: 10
-  currentRanged: 10
-  maxHealth: 100
-  maxStamina: 100
-  maxMelee: 20
-  maxRanged: 20
+  currentHealth: 0
+  currentStamina: 0
+  currentMelee: 0
+  currentRanged: 0
+  PlayerHealth: 100
+  PlayerStamina: 100
+  PlayerMeleeAtk: 10
+  PlayerRangedAtk: 10
+  PlayerChargeAttack: 0
+  maxChargeAttackMultiplier: 20
+  maxPlayerChargeAttackTime: 20
   staminaUpRate: 2
   healthUpRate: 0
+  attackMultiplierUpRate: 2
   healthDownRate: 0
-  staminaDownRate: -5
+  staminaDownRate: -100
+  attackMultiplierDownRate: 0
   death: 0
