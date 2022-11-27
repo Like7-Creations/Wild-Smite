@@ -13,6 +13,19 @@ public class DummyEnemy : MonoBehaviour
     CharacterController controller;
     Vector3 movement;
 
+    public MeleeEnemy meleestats;
+    public RangeEnemy rangestats;
+    [SerializeField] float currentDamage;
+    [SerializeField] float level;
+    [SerializeField] float CurrentLevel;
+
+    public enum enemyType
+    {
+        range, melee
+    }
+
+    public enemyType enemyTypelol;
+
     public TextMeshProUGUI hitText;
     DisplayStats displayStats;
 
@@ -31,13 +44,18 @@ public class DummyEnemy : MonoBehaviour
 
     void Start()
     {
+        CurrentLevel = 1;
+        CurrentLevel = meleestats.Level;
         player = FindObjectOfType<PlayerController>();
         animator = GetComponent<Animator>();
         fD = FindObjectOfType<FlashDamage>();
         controller = GetComponent<CharacterController>();
         displayStats = FindObjectOfType<DisplayStats>();
-
         hitText.enabled = false;
+        currentDamage = Random.Range(meleestats.min_meleeDMG, meleestats.max_meleeDMG);
+        Debug.Log(currentDamage);
+       // ScaleStats();
+        Debug.Log(currentDamage);
        // smr = GetComponent<SkinnedMeshRenderer>();
 
         // whiteMat = Resources.Load("WhiteFlash", typeof(Material)) as Material;
@@ -47,6 +65,11 @@ public class DummyEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(CurrentLevel != meleestats.Level)
+        {
+            ScaleStats();
+            CurrentLevel = meleestats.Level;
+        }
         if(health <= 0)
         {
             Destroy(transform.gameObject);
@@ -119,6 +142,30 @@ public class DummyEnemy : MonoBehaviour
         }
     }
 
+    void ScaleStats()
+    {
+        if(enemyTypelol == enemyType.melee)
+        {
+            meleestats.min_Health = meleestats.min_Health * meleestats.hpMultiplier;
+            meleestats.min_Health = Mathf.RoundToInt(meleestats.min_Health);
+
+            meleestats.min_meleeDMG = meleestats.min_meleeDMG * meleestats.dmgMultiplier; // round to nearest 5
+            meleestats.max_meleeDMG = meleestats.max_meleeDMG * meleestats.dmgMultiplier;// round to nearest 5
+            meleestats.min_meleeDMG = Mathf.RoundToInt(meleestats.min_meleeDMG);
+            meleestats.max_meleeDMG = Mathf.RoundToInt(meleestats.max_meleeDMG);
+
+
+
+            currentDamage = Random.Range(meleestats.min_meleeDMG, meleestats.max_meleeDMG);
+        }
+        if (enemyTypelol == enemyType.range)
+        {
+            rangestats.min_rangeDMG = rangestats.min_rangeDMG * rangestats.dmgMultiplier; // round to nearest 5
+            rangestats.max_rangeDMG = rangestats.min_rangeDMG * rangestats.dmgMultiplier;// round to nearest 5
+            //rangestats.min_rangeDMG
+            currentDamage = Random.Range(rangestats.min_rangeDMG, rangestats.max_rangeDMG);
+        }
+    }
     IEnumerator DisplayHitPoint(float hitpoint, float hitPointDelay)
     {
         hitText.text = hitpoint.ToString();
