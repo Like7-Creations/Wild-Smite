@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dashing"))
         {
             animator.SetBool("Dashing", false);
-            GetComponent<DisplayStats>().stat.currentStamina -= 0.5f;
+            GetComponent<DisplayStats>().currentStamina -= 0.5f;
         }
     }
 
@@ -84,8 +84,15 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Dashing", true);
     }
 
-   /* public virtual void loseStamina()
+    public void CheckForEnemies()
     {
-        currStamina -= 1;
-    }*/
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 4f);
+        foreach (Collider c in colliders)
+        {
+            if (c.GetComponent<DummyEnemy>())
+            {
+                c.GetComponent<DummyEnemy>().TakeDamage();
+            }
+        }
+    }
 }
