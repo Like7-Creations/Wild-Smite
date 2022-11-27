@@ -100,26 +100,7 @@ public class DummyEnemy : MonoBehaviour
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Zombie Reaction Hit"))
         {
-            Debug.Log("I GOT HIT");
-
-            StartCoroutine(DisplayHitPoint(displayStats.meleeAtk, hitPointDelay));
-
-            //change Material Temporarily
-            fD.HitEnemy();
-
-            //play hit effect of robot getting hit
-            hiteffect.Play();
-
-            //add sound effect of robot getting hit..
-
-            //if ranged attack do this line
-            //StartCoroutine(DisplayHitPoint(displayStats.rangedAtk, hitPointDelay));
-
-            //health = health - 1;
-            //smr.material = whiteMat;
-            // Invoke("ResetMaterial", 5f);
-            animator.ResetTrigger("Hitted");
-            hitted = false;
+            TakeDamage();
         }
 
         //call GetDamaged Func from DisplayStats script whereever the enemy deals damage//
@@ -138,7 +119,7 @@ public class DummyEnemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Bullet")
         {
-            health -= displayStats.stat.currentRanged;
+            health -= displayStats.rangedAtk; 
         }
     }
 
@@ -146,24 +127,37 @@ public class DummyEnemy : MonoBehaviour
     {
         if(enemyTypelol == enemyType.melee)
         {
+            //health
             meleestats.min_Health = meleestats.min_Health * meleestats.hpMultiplier;
             meleestats.min_Health = Mathf.RoundToInt(meleestats.min_Health);
-
+            //dmg
             meleestats.min_meleeDMG = meleestats.min_meleeDMG * meleestats.dmgMultiplier; // round to nearest 5
             meleestats.max_meleeDMG = meleestats.max_meleeDMG * meleestats.dmgMultiplier;// round to nearest 5
             meleestats.min_meleeDMG = Mathf.RoundToInt(meleestats.min_meleeDMG);
             meleestats.max_meleeDMG = Mathf.RoundToInt(meleestats.max_meleeDMG);
-
-
-
+            //resistance
+            meleestats.min_meleeDEF = meleestats.min_meleeDEF * meleestats.resMultiplier; // round to nearest 5
+            meleestats.max_meleeDEF = meleestats.max_meleeDEF * meleestats.resMultiplier;// round to nearest 5
+            meleestats.min_meleeDEF = Mathf.RoundToInt(meleestats.min_meleeDEF);
+            meleestats.max_meleeDEF = Mathf.RoundToInt(meleestats.max_meleeDEF);
             currentDamage = Random.Range(meleestats.min_meleeDMG, meleestats.max_meleeDMG);
         }
         if (enemyTypelol == enemyType.range)
         {
+            //health
+            rangestats.min_Health = meleestats.min_Health * meleestats.hpMultiplier;
+            rangestats.min_Health = Mathf.RoundToInt(meleestats.min_Health);
+            //dmg
             rangestats.min_rangeDMG = rangestats.min_rangeDMG * rangestats.dmgMultiplier; // round to nearest 5
-            rangestats.max_rangeDMG = rangestats.min_rangeDMG * rangestats.dmgMultiplier;// round to nearest 5
-            //rangestats.min_rangeDMG
-            currentDamage = Random.Range(rangestats.min_rangeDMG, rangestats.max_rangeDMG);
+           // rangestats.max_rangeDMG = rangestats.min_rangeDMG * rangestats.dmgMultiplier;// round to nearest 5
+            //rangestats.min_rangeDMG = Mathf.RoundToInt(rangestats.min_rangeDMG);
+            rangestats.max_rangeDMG = Mathf.RoundToInt(rangestats.max_rangeDMG);
+            //resis
+            rangestats.min_rangeDEF = rangestats.min_rangeDEF * rangestats.resMultiplier; // round to nearest 5
+            rangestats.max_rangeDEF = rangestats.max_rangeDEF * rangestats.resMultiplier;// round to nearest 5
+            rangestats.min_rangeDEF = Mathf.RoundToInt(rangestats.min_rangeDEF);
+            rangestats.max_rangeDEF = Mathf.RoundToInt(rangestats.max_rangeDEF);
+            //currentDamage = Random.Range(rangestats.min_rangeDMG, rangestats.max_rangeDMG);
         }
     }
     IEnumerator DisplayHitPoint(float hitpoint, float hitPointDelay)
@@ -174,6 +168,28 @@ public class DummyEnemy : MonoBehaviour
         hitText.enabled = false;
     }
 
+    public void TakeDamage()
+    {
+        Debug.Log("I GOT HIT");
 
+        StartCoroutine(DisplayHitPoint(displayStats.meleeAtk, hitPointDelay));
+
+        //change Material Temporarily
+        fD.HitEnemy();
+
+        //play hit effect of robot getting hit
+        hiteffect.Play();
+
+        //add sound effect of robot getting hit..
+
+        //if ranged attack do this line
+        //StartCoroutine(DisplayHitPoint(displayStats.rangedAtk, hitPointDelay));
+
+        //health = health - 1;
+        //smr.material = whiteMat;
+        // Invoke("ResetMaterial", 5f);
+        animator.ResetTrigger("Hitted");
+        hitted = false;
+    }
 
 }

@@ -322,7 +322,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17618418}
-  m_LocalRotation: {x: 0.1465669, y: 0.40933564, z: -0.06680568, w: 0.89805317}
+  m_LocalRotation: {x: 0.14656691, y: 0.40933564, z: -0.0668057, w: 0.89805317}
   m_LocalPosition: {x: 0, y: 0.48199996, z: -0.499}
   m_LocalScale: {x: 1, y: 1.6186148, z: 0.6940403}
   m_ConstrainProportionsScale: 0
@@ -644,6 +644,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -771,6 +777,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -898,6 +910,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -949,6 +967,12 @@ PrefabInstance:
       objectReference: {fileID: 1600178930}
     - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
         type: 3}
+      propertyPath: meleestats
+      value: 
+      objectReference: {fileID: 11400000, guid: e7ba0f9f9acbe73499eb304848aa7b60,
+        type: 2}
+    - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
+        type: 3}
       propertyPath: hitPointDelay
       value: 1
       objectReference: {fileID: 0}
@@ -965,7 +989,7 @@ PrefabInstance:
     - target: {fileID: 9008318508187672128, guid: 19cc6d0e8301f9647bd235ade70f17b4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9008318508187672128, guid: 19cc6d0e8301f9647bd235ade70f17b4,
         type: 3}
@@ -1354,7 +1378,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245633066}
-  m_LocalRotation: {x: 0.09906588, y: 0.23861277, z: -0.024477001, w: 0.9657385}
+  m_LocalRotation: {x: 0.09906587, y: 0.23861277, z: -0.024477001, w: 0.9657385}
   m_LocalPosition: {x: 0, y: 0.48199996, z: -0.499}
   m_LocalScale: {x: 1, y: 1.6186148, z: 0.6940403}
   m_ConstrainProportionsScale: 0
@@ -1543,6 +1567,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -1768,6 +1798,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -2395,6 +2431,12 @@ PrefabInstance:
       objectReference: {fileID: 1600178930}
     - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
         type: 3}
+      propertyPath: meleestats
+      value: 
+      objectReference: {fileID: 11400000, guid: e7ba0f9f9acbe73499eb304848aa7b60,
+        type: 2}
+    - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
+        type: 3}
       propertyPath: hitPointDelay
       value: 1
       objectReference: {fileID: 0}
@@ -2770,6 +2812,12 @@ PrefabInstance:
       objectReference: {fileID: 1600178930}
     - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
         type: 3}
+      propertyPath: meleestats
+      value: 
+      objectReference: {fileID: 11400000, guid: e7ba0f9f9acbe73499eb304848aa7b60,
+        type: 2}
+    - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
+        type: 3}
       propertyPath: hitPointDelay
       value: 1
       objectReference: {fileID: 0}
@@ -2940,6 +2988,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -3067,6 +3121,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -3271,6 +3331,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -3398,6 +3464,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -3525,6 +3597,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -3731,6 +3809,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -3858,6 +3942,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -3985,6 +4075,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -4358,6 +4454,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -4485,6 +4587,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -4612,6 +4720,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -4854,6 +4968,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -4981,6 +5101,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -5104,6 +5230,12 @@ PrefabInstance:
       propertyPath: hiteffect
       value: 
       objectReference: {fileID: 1600178930}
+    - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
+        type: 3}
+      propertyPath: meleestats
+      value: 
+      objectReference: {fileID: 11400000, guid: e7ba0f9f9acbe73499eb304848aa7b60,
+        type: 2}
     - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
         type: 3}
       propertyPath: hitPointDelay
@@ -6195,6 +6327,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -6535,6 +6673,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -6662,6 +6806,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -6788,6 +6938,12 @@ PrefabInstance:
       propertyPath: hiteffect
       value: 
       objectReference: {fileID: 1600178930}
+    - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
+        type: 3}
+      propertyPath: meleestats
+      value: 
+      objectReference: {fileID: 11400000, guid: e7ba0f9f9acbe73499eb304848aa7b60,
+        type: 2}
     - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
         type: 3}
       propertyPath: hitPointDelay
@@ -7311,6 +7467,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -7438,6 +7600,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -7571,6 +7739,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -7698,6 +7872,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}
@@ -8513,7 +8693,7 @@ Transform:
   - {fileID: 1536791735}
   - {fileID: 104242379}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1911648211
 PrefabInstance:
@@ -8537,6 +8717,12 @@ PrefabInstance:
       propertyPath: hiteffect
       value: 
       objectReference: {fileID: 1600178930}
+    - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
+        type: 3}
+      propertyPath: meleestats
+      value: 
+      objectReference: {fileID: 11400000, guid: e7ba0f9f9acbe73499eb304848aa7b60,
+        type: 2}
     - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
         type: 3}
       propertyPath: hitPointDelay
@@ -8631,6 +8817,12 @@ PrefabInstance:
       propertyPath: hiteffect
       value: 
       objectReference: {fileID: 1600178930}
+    - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
+        type: 3}
+      propertyPath: meleestats
+      value: 
+      objectReference: {fileID: 11400000, guid: e7ba0f9f9acbe73499eb304848aa7b60,
+        type: 2}
     - target: {fileID: 7809178864843644246, guid: 19cc6d0e8301f9647bd235ade70f17b4,
         type: 3}
       propertyPath: hitPointDelay
@@ -8938,6 +9130,12 @@ MonoBehaviour:
   hitted: 0
   dist: 0
   health: 50
+  meleestats: {fileID: 0}
+  rangestats: {fileID: 0}
+  currentDamage: 0
+  level: 0
+  CurrentLevel: 0
+  enemyTypelol: 0
   hitText: {fileID: 0}
   hitPointDelay: 0
   hiteffect: {fileID: 0}

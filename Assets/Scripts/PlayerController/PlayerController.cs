@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     PlayerInput lmao;
     [Header("Player Movement Settings")]
     CharacterController controller;
+    DisplayStats stats;
     public float playerSpeed;
     public float jumpHeight = 1;
     public float turnSmoothTime = 0.1f;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        stats = GetComponent<DisplayStats>();
         //playerStats = FindObjectOfType<CharacterStats>();
         /*var p1 = PlayerInput.Instantiate(playerPrefab,
             controlScheme: "Keyboard", device: Keyboard.current); //Split keyboard stuff
@@ -86,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckForEnemies()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 4f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, stats.stat.PlayerRangedAtk);
         foreach (Collider c in colliders)
         {
             if (c.GetComponent<DummyEnemy>())

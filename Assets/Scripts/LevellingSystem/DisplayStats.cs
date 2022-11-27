@@ -161,6 +161,8 @@ public class DisplayStats : MonoBehaviour
             currentChargeAttackCount = 0;
 
         }
+        meleeAtk = stat.PlayerMeleeAtk;
+        rangedAtk = stat.PlayerRangedAtk;
         reachedMax = false;
 
 
