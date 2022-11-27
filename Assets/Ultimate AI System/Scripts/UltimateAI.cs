@@ -590,7 +590,7 @@ namespace Ultimate.AI
 				if (effectParticles != null) foreach (ParticleSystem effectParticle in effectParticles) effectParticle.Play(); //The particles are played.
 				effectsDealt++;
 
-				player.GetComponent<DisplayStats>().stat.currentHealth -= poisonDamage; //Then the damage of the poison is subtracted from the player's health.
+				player.GetComponent<DisplayStats>().meleeAtk -= poisonDamage; //Then the damage of the poison is subtracted from the player's health.
 
 				infected = true;
 				yield return new WaitForSeconds(effectFrequency); //A timer is created to wait until the next effect is applied.
@@ -601,7 +601,7 @@ namespace Ultimate.AI
 				if (effectParticles != null) foreach (ParticleSystem effectParticle in effectParticles) effectParticle.Play(); //The particles are played.
 				effectsDealt++;
 
-				player.GetComponent<DisplayStats>().stat.currentHealth -= burnDamage; //Then the damage of the fire is subtracted from the player's health.
+				player.GetComponent<DisplayStats>().meleeAtk -= burnDamage; //Then the damage of the fire is subtracted from the player's health.
 
 				infected = true;
 				yield return new WaitForSeconds(effectFrequency); //A timer is created to wait until the next effect is applied.

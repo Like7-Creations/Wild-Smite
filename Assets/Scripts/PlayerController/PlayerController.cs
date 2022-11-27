@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dashing"))
         {
             animator.SetBool("Dashing", false);
-            GetComponent<DisplayStats>().currentStamina -= 0.5f;
+            GetComponent<DisplayStats>().stat.dashStamina -= 0.5f;
         }
     }
 

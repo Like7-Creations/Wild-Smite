@@ -96,7 +96,7 @@ public class CombatManager : MonoBehaviour
             if (c.GetComponent<DummyEnemy>() != null)
             {
                 DummyEnemy enemy = c.GetComponent<DummyEnemy>();
-                enemy.health -= cS.stat.currentMelee;
+                enemy.health -= cS.meleeAtk;
                 //Debug.Log(cS.stat.currentMelee);
                 enemy.hitted = true;
                 Debug.Log("test");

@@ -35,7 +35,7 @@ public class DisplayStats : MonoBehaviour
     public float currentChargeAttackCount;
     public int meleeAtk;
     public int rangedAtk;
-
+    public float attackMultiplierUpRate;
 
     public GameObject releasePanel;
 
@@ -58,7 +58,7 @@ public class DisplayStats : MonoBehaviour
 
 
         reachedMax = false;
-        stat.attackMultiplierUpRate = 2;
+        attackMultiplierUpRate = 2;
         currentChargeAttackCount = 0;   
         currentStamina = 100;
         currentHealth = 100;
@@ -91,7 +91,7 @@ public class DisplayStats : MonoBehaviour
         {
             if (!beginDelay)
             {
-                currentStamina += stat.staminaDownRate * Time.deltaTime;
+                currentStamina -= stat.staminaUpRate * Time.deltaTime;
                 Debug.Log("IM SPEEEDINGNGGNGGNG");
                 GetComponent<Animator>().speed = 3;
             }
@@ -102,7 +102,7 @@ public class DisplayStats : MonoBehaviour
                 GetComponent<Animator>().speed = 1;
                 currentStamina += stat.staminaUpRate * Time.deltaTime;
         }
-        if(stat.currentStamina <= 0.5f)
+        if(currentStamina <= 0.5f)
         {
             beginDelay = true;
         }
@@ -133,15 +133,15 @@ public class DisplayStats : MonoBehaviour
             Debug.Log("increase chargeatk variable");
             stillCharging = true;
 
-            currentChargeAttackCount += stat.attackMultiplierUpRate * Time.deltaTime;
-            currentAttackMultiplier += stat.attackMultiplierUpRate * Time.deltaTime;
+            currentChargeAttackCount += attackMultiplierUpRate * Time.deltaTime;
+            currentAttackMultiplier += attackMultiplierUpRate * Time.deltaTime;
             
 
             if ((int)currentChargeAttackCount >= (int)stat.maxPlayerChargeAttackTime)
             {
                 reachedMax = true;
                 releasePanel.gameObject.SetActive(true);
-                stat.attackMultiplierUpRate = 0;
+                attackMultiplierUpRate = 0;
             }
         }
         else if(Input.GetKeyUp("p") && currentStamina >= 50)
@@ -155,9 +155,10 @@ public class DisplayStats : MonoBehaviour
             currentAttackMultiplier = currentChargeAttackCount / stat.maxPlayerChargeAttackTime * stat.maxChargeAttackMultiplier;
             meleeAtk = stat.PlayerMeleeAtk + (stat.PlayerMeleeAtk * (int)currentAttackMultiplier);
             rangedAtk = stat.PlayerRangedAtk + (stat.PlayerRangedAtk * (int)currentAttackMultiplier);
+
             pC.CheckForEnemies();
-       
-            stat.attackMultiplierUpRate = 2;
+
+            attackMultiplierUpRate = 2;
             currentChargeAttackCount = 0;
 
         }

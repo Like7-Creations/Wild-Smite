@@ -7,21 +7,6 @@ public class CharacterStats : ScriptableObject
     [TextArea(10, 20)] public string description;
     #region Values And Bools
 
-    #region Current Values
-    [Header("[Current Values]")]
-    [Space(5)]
-  
-    public float currentHealth;
-
-    public float currentStamina;
-    
-    public int currentMelee;
-   
-    public int currentRanged;
-
-    #endregion
-
-
     #region Player Stats
     [Header("[Player Stats]")]
     [Space(5)]
@@ -34,45 +19,36 @@ public class CharacterStats : ScriptableObject
     
     public int PlayerRangedAtk = 10;
    
-    //public float PlayerAoeDamage = 20;
-   
-    //public float PlayerAoeRanged = 20;
-   
     public float  PlayerChargeAttack = 0;
 
     #endregion
 
-    #region Max Values
-    [Header("[Max Values]")]
+    #region AoE Variables
+    [Header("[AoE Variables]")]
     [Space(5)]
 
     public float maxChargeAttackMultiplier = 20;
 
     public float maxPlayerChargeAttackTime = 20;
-  
 
     #endregion
 
-    #region Increase Values
-    [Header("[+Increase Values]")]
+    #region Recovery Rates
+    [Header("[Recovery Rates]")]
     [Space(5)]
     [Range(0, 100)]
     public float staminaUpRate;
-    [Range(0, 100)]
-    public float healthUpRate;
-    [Range(0, 100)]
-    public float attackMultiplierUpRate;
     #endregion
 
-    #region Decrease Values
-    [Header("[-Decrease Values]")]
+    #region Stamina Consumption
+    [Header("[-Stamina Consumption]")]
     [Space(5)]
     [Range(0, -100)]
-    public float healthDownRate;
+    public float sprintStamina;
     [Range(0, -100)]
-    public float staminaDownRate;
+    public float dashStamina;
     [Range(0, 100)]
-    public float attackMultiplierDownRate;
+    public float chargeStamina;
 
     #endregion
 
