@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     PlayerInput lmao;
     [Header("Player Movement Settings")]
     CharacterController controller;
+    DisplayStats stats;
     public float playerSpeed;
     public float jumpHeight = 1;
     public float turnSmoothTime = 0.1f;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        stats = GetComponent<DisplayStats>();
         //playerStats = FindObjectOfType<CharacterStats>();
         /*var p1 = PlayerInput.Instantiate(playerPrefab,
             controlScheme: "Keyboard", device: Keyboard.current); //Split keyboard stuff
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dashing"))
         {
             animator.SetBool("Dashing", false);
-            GetComponent<DisplayStats>().stat.currentStamina -= 0.5f;
+            GetComponent<DisplayStats>().currentStamina -= 0.5f;
         }
     }
 
@@ -84,8 +86,15 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Dashing", true);
     }
 
-   /* public virtual void loseStamina()
+    public void CheckForEnemies()
     {
-        currStamina -= 1;
-    }*/
+        Collider[] colliders = Physics.OverlapSphere(transform.position, stats.stat.PlayerRangedAtk);
+        foreach (Collider c in colliders)
+        {
+            if (c.GetComponent<DummyEnemy>())
+            {
+                c.GetComponent<DummyEnemy>().TakeDamage();
+            }
+        }
+    }
 }

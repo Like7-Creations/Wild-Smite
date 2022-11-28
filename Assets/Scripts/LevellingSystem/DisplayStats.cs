@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class DisplayStats : MonoBehaviour
 {
@@ -8,26 +10,60 @@ public class DisplayStats : MonoBehaviour
 
     [SerializeField] bool beginDelay;
     float delay;
+    public float staminaFromChargeAttack;
+    [SerializeField] bool stillCharging;
+
+    [SerializeField] bool reachedMax;
+
+
 
 
     #region Text Holders
     [Header("[Health & Stamina Text Holders]")]
     [Space(5)]
+
+    public float currentHealth;
+    public float currentStamina;
+
+
     public TextMeshProUGUI health;
     public TextMeshProUGUI stamina;
+    public TextMeshProUGUI chargeAttack;
 
+    public float currentAttackMultiplier;
+
+    public float currentChargeAttackCount;
     public int meleeAtk;
     public int rangedAtk;
-    #endregion
 
+
+    public GameObject releasePanel;
+
+
+
+    #endregion
+    private void Awake()
+    {
+        currentChargeAttackCount = stat.PlayerChargeAttack;
+        currentHealth = stat.PlayerHealth;
+        currentStamina = stat.PlayerStamina;
+        meleeAtk = stat.PlayerMeleeAtk;
+        rangedAtk = stat.PlayerRangedAtk;
+
+    }
     public void Start()
     {
         #region Stats Equal Max-Values
         pC = GetComponent<PlayerController>();
-        stat.currentHealth = stat.maxHealth;
-        stat.currentStamina = stat.maxStamina;
-        meleeAtk = stat.currentMelee;
-        rangedAtk = stat.currentRanged;
+
+
+        reachedMax = false;
+        stat.attackMultiplierUpRate = 2;
+        currentChargeAttackCount = 0;   
+        currentStamina = 100;
+        currentHealth = 100;
+        releasePanel.gameObject.SetActive(false);
+
 
         #endregion
 
@@ -39,8 +75,9 @@ public class DisplayStats : MonoBehaviour
 
         #region Bar Max Value-start
 
-        health.text = stat.currentHealth.ToString("0");
-        stamina.text = stat.currentStamina.ToString("0");
+        health.text = currentHealth.ToString("0");
+        stamina.text = currentHealth.ToString("0");
+        chargeAttack.text = currentChargeAttackCount.ToString("0");
 
         #endregion
         UpdateUI();
@@ -50,20 +87,20 @@ public class DisplayStats : MonoBehaviour
     public void Update()
     {
         #region If Running
-        if (stat.currentStamina > 0 && Input.GetKey("left shift") & pC.refer != Vector3.zero)
+        if (currentStamina > 0 && Input.GetKey("left shift") & pC.refer != Vector3.zero)
         {
             if (!beginDelay)
             {
-                stat.currentStamina += stat.staminaDownRate * Time.deltaTime;
+                currentStamina += stat.staminaDownRate * Time.deltaTime;
                 Debug.Log("IM SPEEEDINGNGGNGGNG");
                 GetComponent<Animator>().speed = 3;
             }
         }
-        else if (stat.currentStamina <= 100 || pC.refer != Vector3.zero && !beginDelay)
+        else if (currentStamina <= 100 || pC.refer != Vector3.zero && !beginDelay)
         {
                 Debug.Log("regeneration");
                 GetComponent<Animator>().speed = 1;
-                stat.currentStamina += stat.staminaUpRate * Time.deltaTime;
+                currentStamina += stat.staminaUpRate * Time.deltaTime;
         }
         if(stat.currentStamina <= 0.5f)
         {
@@ -83,13 +120,55 @@ public class DisplayStats : MonoBehaviour
 
 
         #region If Health Is Less Or Equal To 0 
-        if (stat.currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
         #endregion
 
+        #region AoE Calculations and charging
 
+        if (Input.GetKey("p") && currentStamina >= 50) //check condition
+        {
+            Debug.Log("increase chargeatk variable");
+            stillCharging = true;
+
+            currentChargeAttackCount += stat.attackMultiplierUpRate * Time.deltaTime;
+            currentAttackMultiplier += stat.attackMultiplierUpRate * Time.deltaTime;
+            
+
+            if ((int)currentChargeAttackCount >= (int)stat.maxPlayerChargeAttackTime)
+            {
+                reachedMax = true;
+                releasePanel.gameObject.SetActive(true);
+                stat.attackMultiplierUpRate = 0;
+            }
+        }
+        else if(Input.GetKeyUp("p") && currentStamina >= 50)
+        {
+            //play AOE Animaton
+            stillCharging = false;
+            currentStamina -= staminaFromChargeAttack;
+            releasePanel.gameObject.SetActive(false);
+
+            //m = t / T * M
+            currentAttackMultiplier = currentChargeAttackCount / stat.maxPlayerChargeAttackTime * stat.maxChargeAttackMultiplier;
+            meleeAtk = stat.PlayerMeleeAtk + (stat.PlayerMeleeAtk * (int)currentAttackMultiplier);
+            rangedAtk = stat.PlayerRangedAtk + (stat.PlayerRangedAtk * (int)currentAttackMultiplier);
+            pC.CheckForEnemies();
+       
+            stat.attackMultiplierUpRate = 2;
+            currentChargeAttackCount = 0;
+
+        }
+        meleeAtk = stat.PlayerMeleeAtk;
+        rangedAtk = stat.PlayerRangedAtk;
+        reachedMax = false;
+
+
+
+
+        #endregion
         UpdateUI();
 
     }
@@ -98,21 +177,23 @@ public class DisplayStats : MonoBehaviour
     {
 
         #region Math Clamps
-        stat.currentHealth = (int)Mathf.Clamp(stat.currentHealth, 0, 100f);
-        stat.currentStamina = Mathf.Clamp(stat.currentStamina, 0, 100f);
+        currentHealth = Mathf.Clamp(currentHealth, 0, 100f);
+        currentStamina = Mathf.Clamp(currentStamina, 0, 100f);
+        currentChargeAttackCount = Mathf.Clamp(currentChargeAttackCount, 0, 100f);
         #endregion
 
         #region Health & Stamina Values
 
-        health.text = stat.currentHealth.ToString("0");
-        stamina.text = stat.currentStamina.ToString("0");
+        health.text = currentHealth.ToString("0");
+        stamina.text = currentStamina.ToString("0");
+        chargeAttack.text= currentChargeAttackCount.ToString("0");
 
         #endregion
     }
 
     public void GetDamaged(int amount)
     {
-        stat.currentHealth -= amount;
+        currentHealth -= amount;
         UpdateUI();
     }
 
