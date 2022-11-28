@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5594aef57c86eb24f8f230524aa05015, type: 3}
   m_Name: MeleeGuy
   m_EditorClassIdentifier: 
-  Level: 1
+  Level: 2
   CurrentLevel: 0
-  min_Health: 0
-  max_Health: 0
-  moveSpeed: 0
-  min_meleeDMG: 18
-  max_meleeDMG: 52
-  min_meleeDEF: 0
-  max_meleeDEF: 0
-  meleeCD: 0
-  hpMultiplier: 1.15
+  Health: {x: 79, y: 131}
+  moveSpeed: {x: 1, y: 1}
+  cur_Health: {x: 87, y: 145}
+  cur_moveSpeed: {x: 1, y: 1}
+  meleeDMG: {x: 5, y: 15}
+  meleeDEF: {x: -0.25, y: 0.25}
+  meleeCD: 3
+  cur_meleeDMG: {x: 7, y: 20}
+  cur_meleeDEF: {x: 0, y: 0}
+  cur_meleeCD: 3
+  hpMultiplier: 1.05
   dmgMultiplier: 1.15
   resMultiplier: 1

@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d9a1d00827fec479e3b7fe34991a6e, type: 3}
   m_Name: RangeGuy
   m_EditorClassIdentifier: 
-  Level: 0
+  Level: 1
   CurrentLevel: 0
-  min_Health: 0
-  max_Health: 0
-  moveSpeed: 0
-  rangedDMG: 0
-  rangedRes: 0
-  rangedCD: 0
+  min_Health: 50
+  max_Health: 100
+  moveSpeed: 1
+  min_rangeDMG: {x: 5, y: 10}
+  max_rangeDMG: 15
+  min_rangeDEF: -0.25
+  max_rangeDEF: 0.25
+  rangeCD: 3
+  hpMultiplier: 1.05
+  dmgMultiplier: 1.15
+  resMultiplier: 1
