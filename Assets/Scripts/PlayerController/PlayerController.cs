@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     CharacterController controller;
     DisplayStats stats;
     public float playerSpeed;
+    [HideInInspector] public float originalSpeed;
     public float jumpHeight = 1;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         stats = GetComponent<DisplayStats>();
+        originalSpeed = playerSpeed;
         //playerStats = FindObjectOfType<CharacterStats>();
         /*var p1 = PlayerInput.Instantiate(playerPrefab,
             controlScheme: "Keyboard", device: Keyboard.current); //Split keyboard stuff
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour
     public void onMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
-        Debug.Log("input detected");
+       // Debug.Log("input detected");
     }
     public void Dash()
     {

@@ -53,9 +53,9 @@ public class DummyEnemy : MonoBehaviour
         displayStats = FindObjectOfType<DisplayStats>();
         hitText.enabled = false;
         //currentDamage = Random.Range(meleestats.min_meleeDMG, meleestats.max_meleeDMG);
-        Debug.Log(currentDamage);
+        //Debug.Log(currentDamage);
        // ScaleStats();
-        Debug.Log(currentDamage);
+        //Debug.Log(currentDamage);
 
         meleestats.cur_Health = meleestats.Health;
         meleestats.cur_meleeDMG = meleestats.meleeDMG;
@@ -107,6 +107,7 @@ public class DummyEnemy : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Zombie Reaction Hit"))
         {
             TakeDamage();
+            hitted = false;
         }
 
         //call GetDamaged Func from DisplayStats script whereever the enemy deals damage//
@@ -125,7 +126,8 @@ public class DummyEnemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Bullet")
         {
-            health -= displayStats.rangedAtk; 
+            health -= displayStats.rangedAtk;
+            TakeDamage();
         }
     }
 
@@ -203,7 +205,6 @@ public class DummyEnemy : MonoBehaviour
         //smr.material = whiteMat;
         // Invoke("ResetMaterial", 5f);
         animator.ResetTrigger("Hitted");
-        hitted = false;
     }
 
 }

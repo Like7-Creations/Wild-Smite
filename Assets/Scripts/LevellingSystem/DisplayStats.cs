@@ -92,13 +92,13 @@ public class DisplayStats : MonoBehaviour
             if (!beginDelay)
             {
                 currentStamina += stat.staminaDownRate * Time.deltaTime;
-                Debug.Log("IM SPEEEDINGNGGNGGNG");
+                //SDebug.Log("IM SPEEEDINGNGGNGGNG");
                 GetComponent<Animator>().speed = 3;
             }
         }
         else if (currentStamina <= 100 || pC.refer != Vector3.zero && !beginDelay)
         {
-                Debug.Log("regeneration");
+                //Debug.Log("regeneration");
                 GetComponent<Animator>().speed = 1;
                 currentStamina += stat.staminaUpRate * Time.deltaTime;
         }
