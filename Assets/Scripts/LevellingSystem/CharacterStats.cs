@@ -1,8 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Stat File", menuName = "Stat/New Player Stat or Enemy Stat")]
 public class CharacterStats : ScriptableObject
 {
+    
     [TextArea(5, 20)] public new string name;
     [TextArea(10, 20)] public string description;
     #region Values And Bools
@@ -21,6 +23,13 @@ public class CharacterStats : ScriptableObject
    
     public float  PlayerChargeAttack = 0;
 
+    public float PlayerLevel = 1;
+
+    public float PlayerXP;
+
+    public float PlayerRequiredXp;
+
+
     #endregion
 
     #region AoE Variables
@@ -38,6 +47,14 @@ public class CharacterStats : ScriptableObject
     [Space(5)]
     [Range(0, 100)]
     public float staminaUpRate;
+    #endregion
+
+    #region Multiplier
+    [Header("[Multipliers]")]
+    [Space(5)]
+
+    public float xpMultiplier = 1.25f;
+
     #endregion
 
     #region Stamina Consumption

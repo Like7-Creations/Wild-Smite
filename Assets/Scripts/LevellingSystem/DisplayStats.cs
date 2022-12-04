@@ -18,6 +18,12 @@ public class DisplayStats : MonoBehaviour
 
     [SerializeField] bool reachedMax;
 
+    public ParticleSystem aoeCharging = null;
+    public ParticleSystem aoeAttack = null;
+
+   
+    
+
 
 
 
@@ -32,6 +38,8 @@ public class DisplayStats : MonoBehaviour
     public TextMeshProUGUI health;
     public TextMeshProUGUI stamina;
     public TextMeshProUGUI chargeAttack;
+
+
 
     public float currentAttackMultiplier;
 
@@ -53,6 +61,8 @@ public class DisplayStats : MonoBehaviour
         meleeAtk = stat.PlayerMeleeAtk;
         rangedAtk = stat.PlayerRangedAtk;
 
+     
+
     }
     public void Start()
     {
@@ -61,6 +71,7 @@ public class DisplayStats : MonoBehaviour
 
 
         reachedMax = false;
+
         attackMultiplierUpRate = 2;
         currentChargeAttackCount = 0;   
         currentStamina = 100;
@@ -84,7 +95,6 @@ public class DisplayStats : MonoBehaviour
 
         #endregion
         UpdateUI();
-
     }
 
     public void Update()
@@ -134,6 +144,8 @@ public class DisplayStats : MonoBehaviour
         if (Input.GetKey("p") && currentStamina >= 50) //check condition
         {
             Debug.Log("increase chargeatk variable");
+            aoeCharging.Play();
+
             stillCharging = true;
 
             currentChargeAttackCount += attackMultiplierUpRate * Time.deltaTime;
@@ -150,6 +162,9 @@ public class DisplayStats : MonoBehaviour
         else if(Input.GetKeyUp("p") && currentStamina >= 50)
         {
             //play AOE Animaton
+           
+            aoeAttack.Play();
+
             stillCharging = false;
             currentStamina -= staminaFromChargeAttack;
             releasePanel.gameObject.SetActive(false);
@@ -164,11 +179,12 @@ public class DisplayStats : MonoBehaviour
             currentChargeAttackCount = 0;
 
         }
+       
         meleeAtk = stat.PlayerMeleeAtk;
         rangedAtk = stat.PlayerRangedAtk;
         reachedMax = false;
 
-        #endregion
+        #endregion  
         UpdateUI();
 
     }
@@ -180,6 +196,7 @@ public class DisplayStats : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, 100f);
         currentStamina = Mathf.Clamp(currentStamina, 0, 100f);
         currentChargeAttackCount = Mathf.Clamp(currentChargeAttackCount, 0, 100f);
+
         #endregion
 
         #region Health & Stamina Values
@@ -203,4 +220,6 @@ public class DisplayStats : MonoBehaviour
         stat.death = true;
         Debug.Log("you have died");
     }
+
+ 
 }
