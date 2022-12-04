@@ -74,8 +74,8 @@ public class DisplayStats : MonoBehaviour
 
         attackMultiplierUpRate = 2;
         currentChargeAttackCount = 0;   
-        currentStamina = 100;
-        currentHealth = 100;
+       currentStamina = 100;
+       currentHealth = 100;
         releasePanel.gameObject.SetActive(false);
 
 
@@ -189,12 +189,12 @@ public class DisplayStats : MonoBehaviour
 
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
 
         #region Math Clamps
-        currentHealth = Mathf.Clamp(currentHealth, 0, 100f);
-        currentStamina = Mathf.Clamp(currentStamina, 0, 100f);
+        currentHealth = Mathf.Clamp(currentHealth, 0, 190);
+        currentStamina = Mathf.Clamp(currentStamina, 0, 190);
         currentChargeAttackCount = Mathf.Clamp(currentChargeAttackCount, 0, 100f);
 
         #endregion

@@ -8,9 +8,7 @@ public class XPManager : MonoBehaviour
     public CharacterStats cS;
     public TextMeshProUGUI currentXpText, requiredXpText, levelText;
     public float currentXp, requiredXp, level;
-    public float xpMultiplier = 1.25f;
-
-    public float[] levelCount;
+    DisplayStats stat;
 
     private void Awake()
     {
@@ -23,16 +21,16 @@ public class XPManager : MonoBehaviour
 
     private void Start()
     {
+        stat = GetComponent<DisplayStats>();
         currentXpText.text = currentXp.ToString("0");
 
+        requiredXp = cS.PlayerRequiredXp;
         requiredXpText.text = requiredXp.ToString("0");
 
         levelText.text = cS.PlayerLevel.ToString("0");
 
         level = cS.PlayerLevel;
         currentXp = cS.PlayerXP;
-        //requiredXp = cS.PlayerRequiredXp;
-
     }
 
     public void AddXp(int xp)
@@ -45,13 +43,26 @@ public class XPManager : MonoBehaviour
             cS.PlayerLevel++;
 
             //Formula Round to Nearest 10th
-            requiredXp = (requiredXp + 1) * xpMultiplier;
+            requiredXp = (requiredXp + 1) * cS.xpMultiplier;
             requiredXp = requiredXp / 10;
             requiredXp = Mathf.Round(requiredXp);
             requiredXp = requiredXp * 10;
-        
+
+            stat.currentHealth += 10;
+            stat.currentStamina += 10;
+            stat.meleeAtk += 4;
+            stat.rangedAtk  += 4;
+
+            cS.PlayerHealth = stat.currentHealth;
+            cS.PlayerStamina = stat.currentStamina;
+            cS.PlayerMeleeAtk = stat.meleeAtk;
+            cS.PlayerRangedAtk =  stat.rangedAtk;
 
             cS.PlayerRequiredXp = requiredXp;
+
+            stat.health.text = stat.currentHealth.ToString("0");
+            stat.stamina.text = stat.currentStamina.ToString("0");
+
             levelText.text = cS.PlayerLevel.ToString("0");
             requiredXpText.text = requiredXp.ToString("0");
 
@@ -59,7 +70,5 @@ public class XPManager : MonoBehaviour
 
         cS.PlayerXP = currentXp;
         currentXpText.text = currentXp.ToString("0");
-
     }
-
 }
