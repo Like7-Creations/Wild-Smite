@@ -7,9 +7,12 @@ public abstract class EnemyStats : ScriptableObject
     [Header("General Stats")]
     public int Level;
     public int CurrentLevel;
-    public float min_Health;
-    public float max_Health;
-    public float moveSpeed;
+    [Header("Base General Stats")]
+    public Vector2 Health;
+    public Vector2 moveSpeed;
+    [Header("Current General Stats")]
+    public Vector2 cur_Health;
+    public Vector2 cur_moveSpeed;
 
    // [Header("Level multipliers")]
     

@@ -52,10 +52,16 @@ public class DummyEnemy : MonoBehaviour
         controller = GetComponent<CharacterController>();
         displayStats = FindObjectOfType<DisplayStats>();
         hitText.enabled = false;
-        currentDamage = Random.Range(meleestats.min_meleeDMG, meleestats.max_meleeDMG);
-        Debug.Log(currentDamage);
+        //currentDamage = Random.Range(meleestats.min_meleeDMG, meleestats.max_meleeDMG);
+        //Debug.Log(currentDamage);
        // ScaleStats();
-        Debug.Log(currentDamage);
+        //Debug.Log(currentDamage);
+
+        meleestats.cur_Health = meleestats.Health;
+        meleestats.cur_meleeDMG = meleestats.meleeDMG;
+        meleestats.cur_meleeDEF = meleestats.meleeDEF;
+        meleestats.cur_meleeCD = meleestats.meleeCD;
+        meleestats.cur_moveSpeed = meleestats.moveSpeed;
        // smr = GetComponent<SkinnedMeshRenderer>();
 
         // whiteMat = Resources.Load("WhiteFlash", typeof(Material)) as Material;
@@ -101,6 +107,7 @@ public class DummyEnemy : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Zombie Reaction Hit"))
         {
             TakeDamage();
+            hitted = false;
         }
 
         //call GetDamaged Func from DisplayStats script whereever the enemy deals damage//
@@ -119,7 +126,8 @@ public class DummyEnemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Bullet")
         {
-            health -= displayStats.rangedAtk; 
+            health -= displayStats.rangedAtk;
+            TakeDamage();
         }
     }
 
@@ -128,21 +136,29 @@ public class DummyEnemy : MonoBehaviour
         if(enemyTypelol == enemyType.melee)
         {
             //health
-            meleestats.min_Health = meleestats.min_Health * meleestats.hpMultiplier;
-            meleestats.min_Health = Mathf.RoundToInt(meleestats.min_Health);
+            meleestats.cur_Health.x = meleestats.cur_Health.x * meleestats.hpMultiplier;
+            meleestats.cur_Health.y = meleestats.cur_Health.y * meleestats.hpMultiplier;
+            meleestats.cur_Health.x = Mathf.RoundToInt(meleestats.cur_Health.x);
+            meleestats.cur_Health.y = Mathf.RoundToInt(meleestats.cur_Health.y);
+            //speed
+            meleestats.cur_moveSpeed.x = meleestats.cur_moveSpeed.x * meleestats.hpMultiplier;
+            meleestats.cur_moveSpeed.y = meleestats.cur_moveSpeed.y * meleestats.hpMultiplier;
+            meleestats.cur_moveSpeed.x = Mathf.RoundToInt(meleestats.cur_moveSpeed.x);
+            meleestats.cur_moveSpeed.y = Mathf.RoundToInt(meleestats.cur_moveSpeed.y);
             //dmg
-            meleestats.min_meleeDMG = meleestats.min_meleeDMG * meleestats.dmgMultiplier; // round to nearest 5
-            meleestats.max_meleeDMG = meleestats.max_meleeDMG * meleestats.dmgMultiplier;// round to nearest 5
-            meleestats.min_meleeDMG = Mathf.RoundToInt(meleestats.min_meleeDMG);
-            meleestats.max_meleeDMG = Mathf.RoundToInt(meleestats.max_meleeDMG);
+            meleestats.cur_meleeDMG.x = meleestats.cur_meleeDMG.x * meleestats.dmgMultiplier; // round to nearest 5
+            meleestats.cur_meleeDMG.y = meleestats.cur_meleeDMG.y * meleestats.dmgMultiplier;// round to nearest 5
+            meleestats.cur_meleeDMG.x = Mathf.RoundToInt(meleestats.cur_meleeDMG.x);
+            meleestats.cur_meleeDMG.y = Mathf.RoundToInt(meleestats.cur_meleeDMG.y);
             //resistance
-            meleestats.min_meleeDEF = meleestats.min_meleeDEF * meleestats.resMultiplier; // round to nearest 5
-            meleestats.max_meleeDEF = meleestats.max_meleeDEF * meleestats.resMultiplier;// round to nearest 5
-            meleestats.min_meleeDEF = Mathf.RoundToInt(meleestats.min_meleeDEF);
-            meleestats.max_meleeDEF = Mathf.RoundToInt(meleestats.max_meleeDEF);
-            currentDamage = Random.Range(meleestats.min_meleeDMG, meleestats.max_meleeDMG);
+            meleestats.cur_meleeDEF.x = meleestats.cur_meleeDEF.x * meleestats.resMultiplier; // round to nearest 5
+            meleestats.cur_meleeDEF.y = meleestats.cur_meleeDEF.y * meleestats.resMultiplier;// round to nearest 5
+            meleestats.cur_meleeDEF.x = Mathf.RoundToInt(meleestats.cur_meleeDEF.x);
+            meleestats.cur_meleeDEF.y = Mathf.RoundToInt(meleestats.cur_meleeDEF.y);
+            CurrentLevel = meleestats.Level;
+            //currentDamage = Random.Range(meleestats.cur_meleeDMG.x, meleestats.cur_meleeDMG.y);
         }
-        if (enemyTypelol == enemyType.range)
+        /*if (enemyTypelol == enemyType.range)
         {
             //health
             rangestats.min_Health = meleestats.min_Health * meleestats.hpMultiplier;
@@ -158,7 +174,7 @@ public class DummyEnemy : MonoBehaviour
             rangestats.min_rangeDEF = Mathf.RoundToInt(rangestats.min_rangeDEF);
             rangestats.max_rangeDEF = Mathf.RoundToInt(rangestats.max_rangeDEF);
             //currentDamage = Random.Range(rangestats.min_rangeDMG, rangestats.max_rangeDMG);
-        }
+        }*/
     }
     IEnumerator DisplayHitPoint(float hitpoint, float hitPointDelay)
     {
@@ -189,7 +205,6 @@ public class DummyEnemy : MonoBehaviour
         //smr.material = whiteMat;
         // Invoke("ResetMaterial", 5f);
         animator.ResetTrigger("Hitted");
-        hitted = false;
     }
 
 }

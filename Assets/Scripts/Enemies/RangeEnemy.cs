@@ -6,11 +6,9 @@ using UnityEngine;
 public class RangeEnemy : EnemyStats
 {
     [Header("Range Stats")]
-    public Vector2 min_rangeDMG;
-    public float max_rangeDMG;
+    public Vector2 rangeDMG;
     [Space(10)]
-    public float min_rangeDEF;
-    public float max_rangeDEF;
+    public Vector2 rangeDEF;
     [Space(10)]
     public float rangeCD;
 

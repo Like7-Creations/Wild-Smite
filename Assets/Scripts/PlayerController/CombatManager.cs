@@ -5,26 +5,38 @@ using UnityEngine.InputSystem;
 
 public class CombatManager : MonoBehaviour
 {
-    [SerializeField]bool isAttacking;
+    PlayerController playerController;
     Animator animator;
+    [Header("Melee Settings")]
+    [SerializeField]bool isAttacking;
     public int combo;
     public GameObject Sword;
-    bool test;
-    bool shooting;
+    [SerializeField] float hitDetectionDirection;
+    [SerializeField] float hitDetectionAngle;
+    [SerializeField] float hitRadius;
+    public GameObject trail;
+    
+    [Space(5)]
+    [Header("Range Settings")]
     public GameObject Companion;
     public GameObject bullet;
     Vector2 rotation;
     Vector3 mousePos;
     Vector3 Aim;
-
+    float timer;
+    [SerializeField]float FireRate;
+    [SerializeField] float bulletSpeed;
+    bool fired;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
+
 
     DisplayStats cS;
     //PlayerStats playstat;
 
     void Start()
     {
+        playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
         Sword.GetComponent<BoxCollider>().enabled = false;
         cS = GetComponent<DisplayStats>();
@@ -44,7 +56,7 @@ public class CombatManager : MonoBehaviour
         mousePos.z = 100f;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         Debug.DrawRay(transform.position, mousePos - transform.position, Color.blue);*/
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") & !fired)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -52,25 +64,38 @@ public class CombatManager : MonoBehaviour
             if(Physics.Raycast(ray, out hit, 100))
             {
                 Aim = hit.point;
+                Aim.y = 1;
                 Debug.Log(hit.transform.name);
                 RangeAttack();
             }
             Debug.DrawRay(transform.position, hit.point - transform.position, Color.blue);
+        }
+        if (fired)
+        {
+            timer += Time.deltaTime;
+            if(timer > FireRate)
+            {
+                timer = 0;
+                fired = false;
+            }
         }
     }
 
 
     public void Attack(InputAction.CallbackContext context)
     {
-       // if(Input.GetButtonDown("Fire1") & !isAttacking)
+        // if(Input.GetButtonDown("Fire1") & !isAttacking)
         //{
-            isAttacking = true;
-            animator.SetTrigger("" + combo);
+        //playerController.playerSpeed = 0;
+        isAttacking = true;
+        animator.SetTrigger("" + combo);
+
         //}
     }
 
     public void startCombo()
     {
+        //playerController.playerSpeed = playerController.originalSpeed;
         isAttacking = false;
         if(combo < 3)
         {
@@ -86,22 +111,42 @@ public class CombatManager : MonoBehaviour
 
     public void EnableCollider()
     {
-        Sword.GetComponent<BoxCollider>().enabled = true;
-        test = true;
+        //Sword.GetComponent<BoxCollider>().enabled = true;
         Collider[] hits;
-        Debug.Log("Hitting");
-        hits = Physics.OverlapSphere(Sword.transform.position, 1);
+        trail.GetComponent<TrailRenderer>().emitting = true;
+        //Debug.Log("Hitting");
+        playerController.playerSpeed = 0;
+        hits = Physics.OverlapSphere(transform.position, hitRadius);
         foreach (Collider c in hits)
         {
             if (c.GetComponent<DummyEnemy>() != null)
             {
                 DummyEnemy enemy = c.GetComponent<DummyEnemy>();
-                enemy.health -= cS.meleeAtk;
+                /*enemy.health -= cS.stat.currentMelee;
                 //Debug.Log(cS.stat.currentMelee);
                 enemy.hitted = true;
-                Debug.Log("test");
+                Debug.Log("test");*/
+                Debug.Log("Enemy is in sphere");
+                Vector3 player = transform.position;
+                Vector3 toEnemy = enemy.gameObject.transform.position - player;
+                toEnemy.y = 0;
+                if(toEnemy.magnitude <= hitDetectionDirection)
+                {
+                    if(Vector3.Dot(toEnemy.normalized, transform.position) >
+                        Mathf.Cos(hitDetectionAngle * 0.5f * Mathf.Deg2Rad))
+                    {
+                        enemy.hitted = true;
+                        enemy.TakeDamage();
+                    }
+                }
             }
         }
+    }
+    public void DisableCollider()
+    {
+        trail.GetComponent<TrailRenderer>().emitting = false;
+        Sword.GetComponent<BoxCollider>().enabled = false;
+        playerController.playerSpeed = playerController.originalSpeed;
     }
 
     public void AOE()
@@ -117,14 +162,9 @@ public class CombatManager : MonoBehaviour
                 //enemy.health -= cS.currentMelee;
                 enemy.health -= 100;
                 //Destroy(enemy.transform);
-                Debug.Log("test");
+                //Debug.Log("test");
             }
         }
-    }
-    public void DisableCollider()
-    {
-        Sword.GetComponent<BoxCollider>().enabled = false;
-        test = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -132,24 +172,29 @@ public class CombatManager : MonoBehaviour
 
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, hitRadius);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Color c = new Color(0.8f,0,0,0.4f);
+        UnityEditor.Handles.color = c;
+
+        Vector3 rotatedForward = Quaternion.Euler(0,
+            -hitDetectionDirection * 0.5f,
+            0) * transform.forward;
+
+        UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, hitDetectionAngle, hitRadius);
+    }
     public void RangeAttack(/*Vector2 input*/)
     {
-        //Vector3 playerDir = Vector3.right * input.x + Vector3.forward * input.y;
-        /*float targetangle = Mathf.Atan2(playerDir.x, playerDir.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
-        Vector3 moveDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;*/
-       // if (playerDir.magnitude > 0f)
-        //{
-            /*Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
-            Companion.transform.rotation = Quaternion.RotateTowards(Companion.transform.rotation, newrotation, 1000 * Time.deltaTime);*/
-            Companion.transform.LookAt(Aim);
-            Rigidbody bullets = Instantiate(bullet, Companion.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            bullets.AddForce(Companion.transform.forward * 200, ForceMode.Impulse);
-
-            //if bullets collide with Enemy Object then
-            //do enemy.health -= cS.currentRanged;
-        //}
-        //else ranged = false;
+        Companion.transform.LookAt(Aim);
+        Rigidbody bullets = Instantiate(bullet, Companion.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+        bullets.AddForce(Companion.transform.forward * bulletSpeed, ForceMode.Impulse);
+        fired = true;
     }
 
     public void Rotation(InputAction.CallbackContext context)
