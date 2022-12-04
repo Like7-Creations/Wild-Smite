@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Player 1
   description: hi, im player 1
-  currentHealth: 0
-  currentStamina: 0
-  currentMelee: 0
-  currentRanged: 0
   PlayerHealth: 100
   PlayerStamina: 100
   PlayerMeleeAtk: 10
@@ -26,9 +22,7 @@ MonoBehaviour:
   maxChargeAttackMultiplier: 20
   maxPlayerChargeAttackTime: 20
   staminaUpRate: 2
-  healthUpRate: 0
-  attackMultiplierUpRate: 2
-  healthDownRate: 0
-  staminaDownRate: -100
-  attackMultiplierDownRate: 0
+  sprintStamina: 2
+  dashStamina: 2
+  chargeStamina: 2
   death: 0

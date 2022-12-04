@@ -41,11 +41,11 @@ public class CharacterStats : ScriptableObject
     #endregion
 
     #region Stamina Consumption
-    [Header("[-Stamina Consumption]")]
+    [Header("[Stamina Consumption]")]
     [Space(5)]
-    [Range(0, -100)]
+    [Range(0, 100)]
     public float sprintStamina;
-    [Range(0, -100)]
+    [Range(0, 100)]
     public float dashStamina;
     [Range(0, 100)]
     public float chargeStamina;
