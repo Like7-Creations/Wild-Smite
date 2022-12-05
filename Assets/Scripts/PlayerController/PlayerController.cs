@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     public GameObject playerPrefab;
     Animator animator;
     public Vector3 refer;
+
+    public XPManager xp;
+    
     
 
     void Start()
@@ -27,6 +30,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         stats = GetComponent<DisplayStats>();
+        xp = GetComponent<XPManager>();
         originalSpeed = playerSpeed;
         //playerStats = FindObjectOfType<CharacterStats>();
         /*var p1 = PlayerInput.Instantiate(playerPrefab,
@@ -74,7 +78,12 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dashing"))
         {
             animator.SetBool("Dashing", false);
-            GetComponent<DisplayStats>().currentStamina -= 0.5f;
+            GetComponent<DisplayStats>().stat.dashStamina -= 0.5f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            xp.AddXp(10);
         }
     }
 
