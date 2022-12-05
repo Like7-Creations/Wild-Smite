@@ -6,37 +6,56 @@ using UnityEngine;
 
 public class FlashDamage : MonoBehaviour
 {
-    SkinnedMeshRenderer smR;
+    [SerializeField] SkinnedMeshRenderer smR;
 
+    public Material mat0;
     public Material mat1;
-    public Material mat2;
 
     public Material redMat;
     public float flashTime = 5f;
+    public bool flashing;
 
     void Start()
     {
         smR = GetComponent<SkinnedMeshRenderer>();
-        mat1.color = smR.material.color;
-        mat2.color = smR.material.color;
+        mat0 = smR.materials[0];
+        mat1 = smR.materials[1];
+    }
+
+
+    private void Update()
+    {
+        if (flashing)
+        {
+            plsHappen();
+            Eflash();
+        }
     }
 
     public void HitEnemy()
     {
-       Debug.Log("Turned White color"); 
-        StartCoroutine(Eflash());
+        //Debug.Log("Turned White color");
+        flashing = true;
+        //StartCoroutine(Eflash());
+        Eflash();
     }
 
-    IEnumerator Eflash()
+    public void plsHappen()
+    { 
+        smR.materials[0] = redMat;
+        smR.materials[1] = redMat;
+    }
+
+    public void Eflash()
     {
+        smR.materials[0] = redMat;
+        smR.materials[1] = redMat;
 
-        mat1.color = redMat.color;
-        mat2.color = redMat.color;
+        //yield return new WaitForSeconds(flashTime);
 
-        yield return new WaitForSeconds(flashTime);
-
-        mat1.color = smR.material.color;
-        mat2.color = smR.material.color;
+        /*smR.materials[0] = mat0;
+        smR.materials[1] = mat1;*/
+        flashing = false;
 
     }
 }

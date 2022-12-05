@@ -8,6 +8,7 @@ public class DummyEnemy : MonoBehaviour
     PlayerController player;
     Animator animator;
     public bool hitted;
+    public bool hitTest;
     [SerializeField] float dist;
     public float health;
     CharacterController controller;
@@ -18,6 +19,7 @@ public class DummyEnemy : MonoBehaviour
     [SerializeField] float currentDamage;
     [SerializeField] float level;
     [SerializeField] float CurrentLevel;
+
 
     public enum enemyType
     {
@@ -33,7 +35,9 @@ public class DummyEnemy : MonoBehaviour
 
     public ParticleSystem hiteffect = null;
 
-    FlashDamage fD;
+    public FlashDamage fD;
+
+    public GameObject testObject;
 
 
    // private Material whiteMat;
@@ -71,6 +75,11 @@ public class DummyEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 thisobj = transform.position;
+        Vector3 testobj = transform.rotation * thisobj.normalized * 3;
+       /* Vector3 toPlayer = player.transform.position - transform.position;
+        controller.Move(toPlayer.normalized * 3 * Time.deltaTime);*/
+        ///testObject.transform.position = testobj + thisobj;
         if(CurrentLevel != meleestats.Level)
         {
             ScaleStats();
@@ -102,11 +111,15 @@ public class DummyEnemy : MonoBehaviour
         if (hitted)
         {
             animator.SetTrigger("Hitted");
+            TakeDamage();
+            hitTest = true;
         }
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Zombie Reaction Hit"))
         {
-            TakeDamage();
+            //TakeDamage();
+            animator.ResetTrigger("Hitted");
+            hitTest = false;
             hitted = false;
         }
 
@@ -128,6 +141,17 @@ public class DummyEnemy : MonoBehaviour
         {
             health -= displayStats.rangedAtk;
             TakeDamage();
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 pos = transform.position;
+        pos.y = 1;
+        if (hitTest)
+        {
+            Gizmos.DrawSphere(pos, 1);
         }
     }
 
@@ -186,25 +210,29 @@ public class DummyEnemy : MonoBehaviour
 
     public void TakeDamage()
     {
-        Debug.Log("I GOT HIT");
+        //Debug.Log("I GOT HIT");
 
-        StartCoroutine(DisplayHitPoint(displayStats.meleeAtk, hitPointDelay));
+       //StartCoroutine(DisplayHitPoint(displayStats.meleeAtk, hitPointDelay));
 
         //change Material Temporarily
+
         fD.HitEnemy();
 
         //play hit effect of robot getting hit
         hiteffect.Play();
-
         //add sound effect of robot getting hit..
 
         //if ranged attack do this line
         //StartCoroutine(DisplayHitPoint(displayStats.rangedAtk, hitPointDelay));
+        Vector3 knockBack = transform.position - transform.forward * 0.05f;
+        knockBack.y = 0;
+        transform.position = knockBack;
 
         //health = health - 1;
         //smr.material = whiteMat;
         // Invoke("ResetMaterial", 5f);
-        animator.ResetTrigger("Hitted");
+        //hitTest = false;
+       // animator.ResetTrigger("Hitted");
     }
 
 }
