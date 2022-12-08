@@ -98,6 +98,9 @@ public class DisplayStats : MonoBehaviour
 
     public void Update()
     {
+
+
+
         #region If Running
         if (currentStamina > 0 && Input.GetKey("left shift") & pC.refer != Vector3.zero)
         {
@@ -110,9 +113,11 @@ public class DisplayStats : MonoBehaviour
         }
         else if (currentStamina <= 100 || pC.refer != Vector3.zero && !beginDelay)
         {
+            
                 //Debug.Log("regeneration");
                 GetComponent<Animator>().speed = 1;
-                currentStamina += stat.staminaUpRate * Time.deltaTime;
+                currentStamina += stat.sprintStamina * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0, stat.PlayerStamina);
         }
         if(currentStamina <= 0.5f)
         {
