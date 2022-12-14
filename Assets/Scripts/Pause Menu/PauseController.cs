@@ -6,15 +6,15 @@ public class PauseController : MonoBehaviour
 {
     [SerializeField] PauseController[] pauseMenus;
     [SerializeField] GameObject PauseUI;
-    
+
     public static bool IsPaused;
 
 
     void Start()
     {
-        pauseMenus = new PauseController[2];
+        //pauseMenus = new PauseController[2];
 
-        pauseMenus = FindObjectsOfType<PauseController>();
+        //pauseMenus = FindObjectsOfType<PauseController>();
     }
 
     void Update()
@@ -22,24 +22,11 @@ public class PauseController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Attempting To Pause");
-
-            for (int i = 0; i < pauseMenus.Length; i++)
-            {
-                if (pauseMenus[i] != this)
-                {
-                    Debug.Log("Game is Already Paused");
-                    IsPaused = false;
-                    PauseUI.SetActive(false);
-                }
-
-                else if (pauseMenus[i] == this)
-                {
-                    if (IsPaused)
-                        ResumeGame();
-                    else
-                        PauseGame();
-                }
-            }
+            
+            if (IsPaused)
+                ResumeGame();
+            else
+                PauseGame();
         }
     }
 
