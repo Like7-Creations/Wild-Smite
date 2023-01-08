@@ -108,14 +108,14 @@ public class DisplayStats : MonoBehaviour
             {
                 currentStamina -= stat.sprintStamina * Time.deltaTime;
                 //SDebug.Log("IM SPEEEDINGNGGNGGNG");
-                GetComponent<Animator>().speed = 3;
+                //GetComponent<Animator>().speed = 3;
             }
         }
         else if (currentStamina <= 100 || pC.refer != Vector3.zero && !beginDelay)
         {
             
                 //Debug.Log("regeneration");
-                GetComponent<Animator>().speed = 1;
+                //GetComponent<Animator>().speed = 1;
                 currentStamina += stat.sprintStamina * Time.deltaTime;
             currentStamina = Mathf.Clamp(currentStamina, 0, stat.PlayerStamina);
         }

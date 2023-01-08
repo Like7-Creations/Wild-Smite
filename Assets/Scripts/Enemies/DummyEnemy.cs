@@ -224,9 +224,9 @@ public class DummyEnemy : MonoBehaviour
 
         //if ranged attack do this line
         StartCoroutine(DisplayHitPoint(displayStats.rangedAtk, hitPointDelay));
-        Vector3 knockBack = transform.position - transform.forward * 0.05f;
+        /*Vector3 knockBack = transform.position - transform.forward * 0.05f;
         knockBack.y = 0;
-        transform.position = knockBack;
+        transform.position = knockBack;*/
 
         //health = health - 1;
         //smr.material = whiteMat;
