@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    PlayerInput lmao;
     [Header("Player Movement Settings")]
     CharacterController controller;
     DisplayStats stats;
@@ -20,6 +19,10 @@ public class PlayerController : MonoBehaviour
     public GameObject playerPrefab;
     Animator animator;
     public Vector3 refer;
+    public float DashSpeed;
+    public float DashTime;
+    public TrailRenderer DashTrail;
+    Vector3 Dashdir;
 
     public XPManager xp;
     
@@ -55,15 +58,25 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
-
+            Dashdir = moveDir;
             controller.Move(moveDir.normalized * playerSpeed * Time.deltaTime);
 
-
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
+            }else animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
             //InvokeRepeating("lostStamina", 1f, 1);
 
         }
+        else animator.SetFloat("X", 0f, 0.05f, Time.deltaTime);
+        
+        if(Input.GetKeyDown(KeyCode.E)) 
+        {
+            DashTrail.emitting= true;
+            StartCoroutine(Dashing());
+        }
 
-        if (direction != Vector3.zero)
+        /*if (direction != Vector3.zero)
         {
             animator.SetBool("Running", true);
             animator.SetBool("Idle", false);
@@ -72,7 +85,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Running", false);
             animator.SetBool("Idle", true);
-        }
+        }*/
 
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dashing"))
@@ -90,11 +103,25 @@ public class PlayerController : MonoBehaviour
     public void onMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
-       // Debug.Log("input detected");
+        /*if (Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetFloat("X", 1f, 1f, Time.deltaTime );
+        }
+        else animator.SetFloat("X", 0.5f, 0.1f, Time.deltaTime);*/
+        // Debug.Log("input detected");
     }
-    public void Dash()
+
+    public IEnumerator Dashing()
     {
-        animator.SetBool("Dashing", true);
+        float startTime = Time.time;
+
+        while(Time.time < startTime + DashTime)
+        {
+            controller.Move(Dashdir * DashSpeed * Time.deltaTime);
+            yield return null;
+        }
+        DashTrail.emitting = false;
+        Debug.Log("Dashhinggg");
     }
 
     public void CheckForEnemies()
