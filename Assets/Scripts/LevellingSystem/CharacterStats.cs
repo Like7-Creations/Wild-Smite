@@ -46,20 +46,6 @@ public class CharacterStats : ScriptableObject
 
 
     #endregion
-    #region Stat Point Consumption Variables
-    [Header("[Stat Point Consumption Variables]")]
-    [Space(5)]
-
-    public float healthStatPointConsumption;
-
-    public float staminaStatPointConsumption;
-
-    public int meleeAtkStatPointConsumption;
-
-    public int rangedAtkStatPointConsumption;
-
-
-    #endregion
 
     #region AoE Variables
     [Header("[AoE Variables]")]

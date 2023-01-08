@@ -120,7 +120,7 @@ public class XPManager : MonoBehaviour
     public void InceaseStatHealth()
     {
         Debug.Log("dog");
-        stat.currentPlayerStatPoint -= cS.healthStatPointConsumption;
+        stat.currentPlayerStatPoint -= 1;
         stat.currentHealth += cS.healthStatPointInc;
         cS.PlayerStatPoint = stat.currentPlayerStatPoint;
         currentPlayerStatPointText.text = cS.PlayerStatPoint.ToString("0");
@@ -129,7 +129,7 @@ public class XPManager : MonoBehaviour
 
     public void InceaseStatStamina()
     {
-        stat.currentPlayerStatPoint -= cS.staminaStatPointConsumption;
+        stat.currentPlayerStatPoint -= 1;
         stat.currentStamina += cS.staminaStatPointInc;
         cS.PlayerStatPoint = stat.currentPlayerStatPoint;
         currentPlayerStatPointText.text = cS.PlayerStatPoint.ToString("0");
@@ -138,7 +138,7 @@ public class XPManager : MonoBehaviour
 
     public void InceaseStatMelee()
     {
-        stat.currentPlayerStatPoint -= cS.meleeAtkStatPointConsumption;
+        stat.currentPlayerStatPoint -= 1;
         stat.meleeAtk += cS.meleeAtkStatPointInc;
         cS.PlayerStatPoint = stat.currentPlayerStatPoint;
         cS.PlayerMeleeAtk = stat.meleeAtk;
@@ -148,7 +148,7 @@ public class XPManager : MonoBehaviour
 
     public void InceaseStatRanged()
     {
-        stat.currentPlayerStatPoint -= cS.rangedAtkStatPointConsumption;
+        stat.currentPlayerStatPoint -= 1;
         stat.rangedAtk += cS.rangedAtkStatPointInc;
         cS.PlayerRangedAtk = stat.rangedAtk;
         cS.PlayerStatPoint = stat.currentPlayerStatPoint;
