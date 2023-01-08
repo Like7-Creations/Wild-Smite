@@ -33,6 +33,8 @@ public class DisplayStats : MonoBehaviour
     public float currentHealth;
     public float currentStamina;
 
+    public float currentPlayerStatPoint;
+
 
     public TextMeshProUGUI health;
     public TextMeshProUGUI stamina;
@@ -59,8 +61,6 @@ public class DisplayStats : MonoBehaviour
         currentStamina = stat.PlayerStamina;
         meleeAtk = stat.PlayerMeleeAtk;
         rangedAtk = stat.PlayerRangedAtk;
-
-     
 
     }
     public void Start()
@@ -208,6 +208,7 @@ public class DisplayStats : MonoBehaviour
         health.text = currentHealth.ToString("0");
         stamina.text = currentStamina.ToString("0");
         chargeAttack.text= currentChargeAttackCount.ToString("0");
+
 
         #endregion
     }
