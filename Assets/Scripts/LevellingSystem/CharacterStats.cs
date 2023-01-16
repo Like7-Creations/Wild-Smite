@@ -28,6 +28,36 @@ public class CharacterStats : ScriptableObject
 
     public float PlayerRequiredXp;
 
+    public float PlayerStatPoint;
+
+
+    #endregion
+    #region Stat Point Variables - Increase
+    [Header("[Stat Point Variables - Increase]")]
+    [Space(5)]
+
+    public float healthStatPointInc;
+
+    public float staminaStatPointInc;
+
+    public int meleeAtkStatPointInc;
+
+    public int rangedAtkStatPointInc;
+
+
+    #endregion
+    #region Stat Point Consumption Variables
+    [Header("[Stat Point Consumption Variables]")]
+    [Space(5)]
+
+    public float healthStatPointConsumption;
+
+    public float staminaStatPointConsumption;
+
+    public int meleeAtkStatPointConsumption;
+
+    public int rangedAtkStatPointConsumption;
+
 
     #endregion
 
