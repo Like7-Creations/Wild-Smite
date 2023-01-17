@@ -21,7 +21,10 @@ public class DynamicBar_Slider : MonoBehaviour
     [Range(0, 500)]
     public float maxValue;
     public float reduceSpeed = 2;
-    float currentValue, desiredValue;
+    public float reduceDelay = 0;
+    bool runDelay;
+    float delayTimer;
+    float currentValue, desiredValue, prevValue;
     public float barMaxValue;
 
     [Header("Sliders")]
@@ -48,6 +51,7 @@ public class DynamicBar_Slider : MonoBehaviour
 
         currentValue = maxValue;
         desiredValue = maxValue;
+        prevValue = desiredValue;
 
         SetMidBars();
         UpdateSliderValues();
@@ -58,6 +62,36 @@ public class DynamicBar_Slider : MonoBehaviour
     {
         SetMidBars();
 
+        if (desiredValue != prevValue && !runDelay)
+        {
+            Debug.Log($"{gameObject.name} Value Has Changed");
+            runDelay = true;
+        }
+
+        if (runDelay && reduceDelay > 0 && runDelay)
+        {
+            Debug.Log($"{gameObject.name} running Delay for {reduceDelay} seconds");
+            delayTimer += Time.deltaTime;
+            if (delayTimer >= reduceDelay)
+            {
+                Debug.Log($"{gameObject.name} Delay Finished, Updating Values");
+                ValuesUpdateLogic();
+                prevValue = desiredValue;
+                delayTimer = 0;
+                runDelay = false;
+            }
+        }
+        else
+        {
+            //Debug.Log($"{gameObject.name} No Delay, Updating Values");
+            ValuesUpdateLogic();
+            if (prevValue != desiredValue)
+                prevValue = desiredValue;
+        }
+    }
+
+    void ValuesUpdateLogic()
+    {
         if (currentValue > desiredValue)
         {
             currentValue = Mathf.MoveTowards(currentValue, desiredValue, reduceSpeed * Time.deltaTime);
@@ -65,7 +99,7 @@ public class DynamicBar_Slider : MonoBehaviour
         }
         else if (currentValue < desiredValue)
         {
-            currentValue = desiredValue;            
+            currentValue = desiredValue;
         }
 
         UpdateSliderValues();
