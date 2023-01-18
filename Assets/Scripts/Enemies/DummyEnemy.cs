@@ -5,7 +5,7 @@ using TMPro;
 
 public class DummyEnemy : MonoBehaviour
 {
-    PlayerController player;
+    PlayerMovement player;
     Animator animator;
     public bool hitted;
     public bool hitTest;
@@ -14,8 +14,6 @@ public class DummyEnemy : MonoBehaviour
     CharacterController controller;
     Vector3 movement;
 
-    public MeleeEnemy meleestats;
-    public RangeEnemy rangestats;
     [SerializeField] float currentDamage;
     [SerializeField] float level;
     [SerializeField] float CurrentLevel;
@@ -49,8 +47,8 @@ public class DummyEnemy : MonoBehaviour
     void Start()
     {
         CurrentLevel = 1;
-        CurrentLevel = meleestats.Level;
-        player = FindObjectOfType<PlayerController>();
+        //CurrentLevel = meleestats.Level;
+        player = FindObjectOfType<PlayerMovement>();
         animator = GetComponent<Animator>();
         fD = FindObjectOfType<FlashDamage>();
         controller = GetComponent<CharacterController>();
@@ -61,11 +59,11 @@ public class DummyEnemy : MonoBehaviour
        // ScaleStats();
         //Debug.Log(currentDamage);
 
-        meleestats.cur_Health = meleestats.Health;
+        /*meleestats.cur_Health = meleestats.Health;
         meleestats.cur_meleeDMG = meleestats.meleeDMG;
         meleestats.cur_meleeDEF = meleestats.meleeDEF;
         meleestats.cur_meleeCD = meleestats.meleeCD;
-        meleestats.cur_moveSpeed = meleestats.moveSpeed;
+        meleestats.cur_moveSpeed = meleestats.moveSpeed;*/
        // smr = GetComponent<SkinnedMeshRenderer>();
 
         // whiteMat = Resources.Load("WhiteFlash", typeof(Material)) as Material;
@@ -80,11 +78,11 @@ public class DummyEnemy : MonoBehaviour
        /* Vector3 toPlayer = player.transform.position - transform.position;
         controller.Move(toPlayer.normalized * 3 * Time.deltaTime);*/
         ///testObject.transform.position = testobj + thisobj;
-        if(CurrentLevel != meleestats.Level)
+        /*if(CurrentLevel != meleestats.Level)
         {
             ScaleStats();
             CurrentLevel = meleestats.Level;
-        }
+        }*/
         if(health <= 0)
         {
             Destroy(transform.gameObject);
@@ -160,7 +158,7 @@ public class DummyEnemy : MonoBehaviour
         if(enemyTypelol == enemyType.melee)
         {
             //health
-            meleestats.cur_Health.x = meleestats.cur_Health.x * meleestats.hpMultiplier;
+           /* meleestats.cur_Health.x = meleestats.cur_Health.x * meleestats.hpMultiplier;
             meleestats.cur_Health.y = meleestats.cur_Health.y * meleestats.hpMultiplier;
             meleestats.cur_Health.x = Mathf.RoundToInt(meleestats.cur_Health.x);
             meleestats.cur_Health.y = Mathf.RoundToInt(meleestats.cur_Health.y);
@@ -178,8 +176,8 @@ public class DummyEnemy : MonoBehaviour
             meleestats.cur_meleeDEF.x = meleestats.cur_meleeDEF.x * meleestats.resMultiplier; // round to nearest 5
             meleestats.cur_meleeDEF.y = meleestats.cur_meleeDEF.y * meleestats.resMultiplier;// round to nearest 5
             meleestats.cur_meleeDEF.x = Mathf.RoundToInt(meleestats.cur_meleeDEF.x);
-            meleestats.cur_meleeDEF.y = Mathf.RoundToInt(meleestats.cur_meleeDEF.y);
-            CurrentLevel = meleestats.Level;
+            meleestats.cur_meleeDEF.y = Mathf.RoundToInt(meleestats.cur_meleeDEF.y);*/
+            //CurrentLevel = meleestats.Level;
             //currentDamage = Random.Range(meleestats.cur_meleeDMG.x, meleestats.cur_meleeDMG.y);
         }
         /*if (enemyTypelol == enemyType.range)

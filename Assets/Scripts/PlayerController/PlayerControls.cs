@@ -71,6 +71,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprinting"",
+                    ""type"": ""Button"",
+                    ""id"": ""ebc7b23c-f77b-4102-ab53-d830b0a12141"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=2,pressPoint=2)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -296,17 +305,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""83faa7f8-2797-4193-bd2d-dfd4ad6386c0"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Rotation"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""9464cd6b-60ae-4a6b-af64-cbf448596bac"",
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
@@ -341,8 +339,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6eecc7d7-1b15-4475-ae94-e4b2c66efbe3"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Dash"",
@@ -368,6 +366,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""AreaOfEffect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""990df9e9-980a-489e-b54c-5217aaa1f67b"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Hold(duration=6,pressPoint=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Sprinting"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -422,6 +431,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_AreaOfEffect = m_Player.FindAction("AreaOfEffect", throwIfNotFound: true);
+        m_Player_Sprinting = m_Player.FindAction("Sprinting", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -486,6 +496,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_AreaOfEffect;
+    private readonly InputAction m_Player_Sprinting;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -495,6 +506,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @AreaOfEffect => m_Wrapper.m_Player_AreaOfEffect;
+        public InputAction @Sprinting => m_Wrapper.m_Player_Sprinting;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -519,6 +531,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AreaOfEffect.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAreaOfEffect;
                 @AreaOfEffect.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAreaOfEffect;
                 @AreaOfEffect.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAreaOfEffect;
+                @Sprinting.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprinting;
+                @Sprinting.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprinting;
+                @Sprinting.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprinting;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -538,6 +553,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AreaOfEffect.started += instance.OnAreaOfEffect;
                 @AreaOfEffect.performed += instance.OnAreaOfEffect;
                 @AreaOfEffect.canceled += instance.OnAreaOfEffect;
+                @Sprinting.started += instance.OnSprinting;
+                @Sprinting.performed += instance.OnSprinting;
+                @Sprinting.canceled += instance.OnSprinting;
             }
         }
     }
@@ -576,5 +594,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnAreaOfEffect(InputAction.CallbackContext context);
+        void OnSprinting(InputAction.CallbackContext context);
     }
 }
