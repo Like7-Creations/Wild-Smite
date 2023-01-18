@@ -223,7 +223,7 @@ public class DummyEnemy : MonoBehaviour
         //add sound effect of robot getting hit..
 
         //if ranged attack do this line
-        //StartCoroutine(DisplayHitPoint(displayStats.rangedAtk, hitPointDelay));
+        StartCoroutine(DisplayHitPoint(displayStats.rangedAtk, hitPointDelay));
         Vector3 knockBack = transform.position - transform.forward * 0.05f;
         knockBack.y = 0;
         transform.position = knockBack;

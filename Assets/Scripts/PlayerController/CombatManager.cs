@@ -20,6 +20,9 @@ public class CombatManager : MonoBehaviour
     [SerializeField] float hitRadiusDivison;
     public GameObject trail;
     public GameObject trailTwo;
+    [SerializeField]DummyEnemy ClosestEnemy;
+    bool Closer;
+    [SerializeField]float ForwardTest;
     
     [Space(5)]
     [Header("Range Settings")]
@@ -58,7 +61,32 @@ public class CombatManager : MonoBehaviour
         {
             AOE();
         }
-
+        if (isAttacking)
+        {
+            Vector3 thisobj = ClosestEnemy.transform.position;
+            Vector3 playerPos = ClosestEnemy.transform.rotation * thisobj.normalized * 0.8f;
+            float dist = Vector3.Distance(thisobj, transform.position);
+            transform.LookAt(ClosestEnemy.transform.position);
+            if (dist > hitRadius / hitRadiusDivison)
+            {
+                playerController.enabled = false;
+                trailTwo.GetComponent<TrailRenderer>().emitting = true;
+                animator.applyRootMotion = false;
+                transform.LookAt(ClosestEnemy.transform.position);
+                ClosestEnemy.hitted = true;
+                if (!Closer)
+                {
+                    Vector3 targetPos = playerPos + thisobj;
+                    transform.position = Vector3.MoveTowards(transform.position, targetPos, 10 * Time.deltaTime);
+                    transform.LookAt(ClosestEnemy.transform.position);
+                    if(dist < 1.5f)
+                    {
+                        animator.applyRootMotion = true;
+                        isAttacking = false;
+                    }
+                }
+            }
+        }
         /*mousePos = Input.mousePosition;
         mousePos.z = 100f;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -86,7 +114,9 @@ public class CombatManager : MonoBehaviour
                 fired = false;
             }
         }
+        Debug.Log("Compile?");
 
+        List<DummyEnemy> enemiesInDot = new List<DummyEnemy>();
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, hitRadius);
         foreach (Collider c in hits)
@@ -105,6 +135,7 @@ public class CombatManager : MonoBehaviour
                         Mathf.Cos(hitDetectionAngle * 0.5f * Mathf.Deg2Rad))
                     {
                         enemyFound = true;
+                        enemiesInDot.Add(enemy);
                         Debug.Log("In Dot Product");
                     }
                 }
@@ -115,6 +146,7 @@ public class CombatManager : MonoBehaviour
                         Mathf.Cos((hitDetectionAngle * hitDetectionAngleMulti) * 0.5f * Mathf.Deg2Rad))
                     {
                         enemycloser = true;
+                        enemiesInDot.Add(enemy);
                         Debug.Log("Enemy Is Closer");
                     }
                 }
@@ -125,6 +157,12 @@ public class CombatManager : MonoBehaviour
                 enemycloser = false;
             }
         }
+        //closestEnemy = GetClosestEnemy(enemiesInDot);
+        ClosestEnemy = GetClosestEnemy(enemiesInDot);
+        /*if(ClosestEnemy != null)
+        {
+            isAttacking = true;
+        }*/
     }
 
 
@@ -146,6 +184,7 @@ public class CombatManager : MonoBehaviour
         if(combo < 3)
         {
             combo++;
+            playerController.enabled = false;
         }
     }
     public void FinishAni()
@@ -153,17 +192,18 @@ public class CombatManager : MonoBehaviour
         //Debug.Log("hello?");
         isAttacking = false;
         combo = 0;
+        playerController.enabled = true;
     }
 
     public void EnableCollider()
     {
         DummyEnemy closestEnemy = null;
-        bool Closer = false;
+        //bool Closer = false;
         List<DummyEnemy> enemiesInDot = new List<DummyEnemy>();
         Sword.GetComponent<BoxCollider>().enabled = true;
         trail.GetComponent<TrailRenderer>().emitting = true;
-        playerController.playerSpeed = 0;
-        Collider[] hits;
+        //playerController.playerSpeed = 0;
+        /*Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, hitRadius);
         foreach (Collider c in hits)
         {
@@ -201,24 +241,32 @@ public class CombatManager : MonoBehaviour
                 }
 
             }
-        }
-        closestEnemy = GetClosestEnemy(enemiesInDot);
-        Debug.Log($"closest enemy is{closestEnemy.gameObject.name}");
+        }*/
+       /* closestEnemy = GetClosestEnemy(enemiesInDot);
+        ClosestEnemy = closestEnemy;*/
+        //Debug.Log($"closest enemy is{closestEnemy.gameObject.name}");
 
-        if (closestEnemy != null)
+        if (ClosestEnemy != null)
         {
-            Vector3 thisobj = closestEnemy.transform.position;
+            isAttacking = true;
+            ClosestEnemy.hitted = true;
+            /*Vector3 thisobj = closestEnemy.transform.position;
             Vector3 playerPos = closestEnemy.transform.rotation * thisobj.normalized * 0.8f;
             float dist = Vector3.Distance(thisobj, transform.position);
+            transform.LookAt(closestEnemy.transform.position);
             if (dist > 1)
             {
                 playerController.enabled = false;
                 trailTwo.GetComponent<TrailRenderer>().emitting = true;
                 animator.applyRootMotion = false;
-                transform.LookAt(thisobj);
+                transform.LookAt(closestEnemy.transform.position);
                 closestEnemy.hitted = true;
-                if (!Closer) transform.position = playerPos + thisobj;
-            }
+                if (!Closer)
+                {
+                    transform.position = playerPos + thisobj;
+                    transform.LookAt(closestEnemy.transform.position);
+                }
+            }*/
         }
     }
 
@@ -242,12 +290,12 @@ public class CombatManager : MonoBehaviour
 
     public void DisableCollider()
     {
-        playerController.enabled = true;
         animator.applyRootMotion = true;
         trail.GetComponent<TrailRenderer>().emitting = false;
         trailTwo.GetComponent<TrailRenderer>().emitting = false;
         Sword.GetComponent<BoxCollider>().enabled = false;
-        playerController.playerSpeed = playerController.originalSpeed;
+        //playerController.playerSpeed = playerController.originalSpeed;
+        playerController.enabled = true;
     }
 
     public void AOE()
