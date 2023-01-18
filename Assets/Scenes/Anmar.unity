@@ -4700,7 +4700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100.19995, y: 48.19995}
+  m_AnchoredPosition: {x: -100.2, y: 48.2}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1380608855
@@ -5781,7 +5781,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 28.466074
+  field of view: 28.399178
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -5806,7 +5806,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505174888}
-  m_LocalRotation: {x: 0.12917195, y: 0.5325078, z: -0.08263273, w: 0.8324194}
+  m_LocalRotation: {x: 0.12917197, y: 0.5325078, z: -0.08263272, w: 0.83241934}
   m_LocalPosition: {x: -10, y: 4.91, z: -0.49900007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -7309,6 +7309,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7185490656901562421, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
+      propertyPath: stat
+      value: 
+      objectReference: {fileID: 11400000, guid: 2f5a2d3cf9499f14186c441ecc1cd1a4, type: 2}
+    - target: {fileID: 7185490656901562421, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
       propertyPath: health
       value: 
       objectReference: {fileID: 1751385248}
@@ -7316,6 +7320,18 @@ PrefabInstance:
       propertyPath: stamina
       value: 
       objectReference: {fileID: 11461417}
+    - target: {fileID: 7185490656901562421, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
+      propertyPath: meleeAtk
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185490656901562421, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185490656901562421, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
+      propertyPath: rangedAtk
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7740690091336587105, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -7360,6 +7376,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7847185749964825167, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847185751591260720, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9184599920723643956, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1022625529149906712, guid: ba841347a1d96fc49acf054c9695a000, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
 --- !u!1 &1885891331
@@ -7726,7 +7754,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2077993172}
   - component: {fileID: 2077993171}
-  - component: {fileID: 2077993173}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -7747,12 +7774,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
-  m_MaxPlayerCount: 1
+  m_MaxPlayerCount: 2
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1103716657052305604, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: change
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_PlayerLeftEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -7792,20 +7831,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2077993173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2077993170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3a57ad1288194d4dbc8bef4590a7bd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gamemode: {fileID: 11400000, guid: b3c1bda5a97236147a218da0a29b1af2, type: 2}
-  playerTwoChars: {fileID: 0}
 --- !u!1 &2098584385
 GameObject:
   m_ObjectHideFlags: 0
@@ -7963,11 +7988,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5618185472674508649, guid: 4390e1b0acd6ed14898cb617c7035669, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8324194
+      value: 0.83241934
       objectReference: {fileID: 0}
     - target: {fileID: 5618185472674508649, guid: 4390e1b0acd6ed14898cb617c7035669, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.12917195
+      value: 0.12917197
       objectReference: {fileID: 0}
     - target: {fileID: 5618185472674508649, guid: 4390e1b0acd6ed14898cb617c7035669, type: 3}
       propertyPath: m_LocalRotation.y
@@ -7975,7 +8000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5618185472674508649, guid: 4390e1b0acd6ed14898cb617c7035669, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.08263273
+      value: -0.08263272
       objectReference: {fileID: 0}
     - target: {fileID: 5618185472674508654, guid: 4390e1b0acd6ed14898cb617c7035669, type: 3}
       propertyPath: m_LookAt
@@ -8049,10 +8074,6 @@ PrefabInstance:
     - target: {fileID: 6928686926672203227, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
       propertyPath: m_Name
       value: Y Bot@Idle
-      objectReference: {fileID: 0}
-    - target: {fileID: 6928686926672203227, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7185490656901562421, guid: 423aadb0ab23e0d49afec8607c2ea917, type: 3}
       propertyPath: health

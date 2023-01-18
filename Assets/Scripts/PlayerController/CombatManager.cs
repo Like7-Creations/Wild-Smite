@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Threading;
+using Ultimate.AI;
+using UnityEditor;
+using UnityEditor.Experimental.TerrainAPI;
 
 public class CombatManager : MonoBehaviour
 {
@@ -20,7 +23,8 @@ public class CombatManager : MonoBehaviour
     [SerializeField] float hitRadiusDivison;
     public GameObject trail;
     public GameObject trailTwo;
-    [SerializeField]DummyEnemy ClosestEnemy;
+    //[SerializeField]DummyEnemy ClosestEnemy;
+    [SerializeField] UltimateAI ClosestEnemy;
     bool Closer;
     [SerializeField]float ForwardTest;
     
@@ -37,8 +41,8 @@ public class CombatManager : MonoBehaviour
     bool fired;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
-    [SerializeField] bool enemyFound;
-    [SerializeField] bool enemycloser;
+    [HideInInspector] public bool enemyFound;
+    [HideInInspector] public bool enemycloser;
 
 
     DisplayStats cS;
@@ -56,75 +60,24 @@ public class CombatManager : MonoBehaviour
     void Update()
     {
         // Attack();
-
+        #region AOE Stuff
         if (Input.GetKeyDown(KeyCode.Q))
         {
             AOE();
         }
-        if (isAttacking)
-        {
-            Vector3 thisobj = ClosestEnemy.transform.position;
-            Vector3 playerPos = ClosestEnemy.transform.rotation * thisobj.normalized * 0.8f;
-            float dist = Vector3.Distance(thisobj, transform.position);
-            transform.LookAt(ClosestEnemy.transform.position);
-            if (dist > hitRadius / hitRadiusDivison)
-            {
-                playerController.enabled = false;
-                trailTwo.GetComponent<TrailRenderer>().emitting = true;
-                animator.applyRootMotion = false;
-                transform.LookAt(ClosestEnemy.transform.position);
-                ClosestEnemy.hitted = true;
-                if (!Closer)
-                {
-                    Vector3 targetPos = playerPos + thisobj;
-                    transform.position = Vector3.MoveTowards(transform.position, targetPos, 10 * Time.deltaTime);
-                    transform.LookAt(ClosestEnemy.transform.position);
-                    if(dist < 1.5f)
-                    {
-                        animator.applyRootMotion = true;
-                        isAttacking = false;
-                    }
-                }
-            }
-        }
-        /*mousePos = Input.mousePosition;
-        mousePos.z = 100f;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        Debug.DrawRay(transform.position, mousePos - transform.position, Color.blue);*/
-        if (Input.GetButton("Fire1") & !fired)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        #endregion
 
-            if (Physics.Raycast(ray, out hit, 100))
-            {
-                Aim = hit.point;
-                Aim.y = 1;
-                // Debug.Log(hit.transform.name);
-                RangeAttack();
-            }
-            Debug.DrawRay(transform.position, hit.point - transform.position, Color.blue);
-        }
-        if (fired)
-        {
-            timer += Time.deltaTime;
-            if (timer > FireRate)
-            {
-                timer = 0;
-                fired = false;
-            }
-        }
-        Debug.Log("Compile?");
+        #region Find Enemies & Closest Enemy With CheckSphere
 
-        List<DummyEnemy> enemiesInDot = new List<DummyEnemy>();
+        List<UltimateAI> enemiesInDot = new List<UltimateAI>();
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, hitRadius);
         foreach (Collider c in hits)
         {
 
-            if (c.GetComponent<DummyEnemy>() != null)
+            if (c.GetComponent<UltimateAI>() != null)
             {
-                DummyEnemy enemy = c.GetComponent<DummyEnemy>();
+                UltimateAI enemy = c.GetComponent<UltimateAI>();
                 Vector3 player = transform.position;
                 Vector3 toEnemy = enemy.gameObject.transform.position - player;
                 toEnemy.y = 0;
@@ -157,29 +110,81 @@ public class CombatManager : MonoBehaviour
                 enemycloser = false;
             }
         }
-        //closestEnemy = GetClosestEnemy(enemiesInDot);
         ClosestEnemy = GetClosestEnemy(enemiesInDot);
-        /*if(ClosestEnemy != null)
+        /*if (ClosestEnemy != null)
         {
             isAttacking = true;
         }*/
+        #endregion
+
+        if (isAttacking & ClosestEnemy != null)
+        {
+            Vector3 thisobj = ClosestEnemy.transform.position;
+            Vector3 playerPos = ClosestEnemy.transform.rotation * thisobj.normalized * 0.8f;
+            float dist = Vector3.Distance(thisobj, transform.position);
+            thisobj.y = 0;
+            transform.LookAt(thisobj);
+            if (dist > hitRadius / hitRadiusDivison)
+            {
+                playerController.enabled = false;
+                trailTwo.GetComponent<TrailRenderer>().emitting = true;
+                animator.applyRootMotion = false;
+                //transform.LookAt(ClosestEnemy.transform.position);
+                //ClosestEnemy.hitted = true;
+                if (!Closer)
+                {
+                    Vector3 targetPos = playerPos + thisobj;
+                    transform.position = Vector3.MoveTowards(transform.position, targetPos, 10 * Time.deltaTime);
+                    //transform.LookAt(ClosestEnemy.transform.position);
+                    if(dist < 1.5f)
+                    {
+                        animator.applyRootMotion = true;
+                        isAttacking = false;
+                    }
+                }
+            }
+        }
+        #region Range System
+        mousePos = Input.mousePosition;
+        mousePos.z = 100f;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        Debug.DrawRay(transform.position, mousePos - transform.position, Color.blue);
+        
+        if (Input.GetButton("Fire1") & !fired)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100) && hit.collider.tag != "Player")
+            {
+                Aim = hit.point;
+                Aim.y = 1;
+                // Debug.Log(hit.transform.name);
+                RangeAttack();
+            }
+            Debug.DrawRay(transform.position, hit.point - transform.position, Color.blue);
+        }
+
+        if (fired)
+        {
+            timer += Time.deltaTime;
+            if (timer > FireRate)
+            {
+                timer = 0;
+                fired = false;
+            }
+        }
+        #endregion
     }
 
 
     public void Attack(InputAction.CallbackContext context)
     {
-        // if(Input.GetButtonDown("Fire1") & !isAttacking)
-        //{
-        //playerController.playerSpeed = 0;
         isAttacking = true;
         animator.SetTrigger("" + combo);
-
-        //}
     }
 
     public void startCombo()
     {
-        //playerController.playerSpeed = playerController.originalSpeed;
         isAttacking = false;
         if(combo < 3)
         {
@@ -189,7 +194,6 @@ public class CombatManager : MonoBehaviour
     }
     public void FinishAni()
     {
-        //Debug.Log("hello?");
         isAttacking = false;
         combo = 0;
         playerController.enabled = true;
@@ -202,6 +206,7 @@ public class CombatManager : MonoBehaviour
         List<DummyEnemy> enemiesInDot = new List<DummyEnemy>();
         Sword.GetComponent<BoxCollider>().enabled = true;
         trail.GetComponent<TrailRenderer>().emitting = true;
+        #region Deprecated Animation Event
         //playerController.playerSpeed = 0;
         /*Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, hitRadius);
@@ -242,11 +247,11 @@ public class CombatManager : MonoBehaviour
 
             }
         }*/
-       /* closestEnemy = GetClosestEnemy(enemiesInDot);
-        ClosestEnemy = closestEnemy;*/
+        /* closestEnemy = GetClosestEnemy(enemiesInDot);
+         ClosestEnemy = closestEnemy;*/
         //Debug.Log($"closest enemy is{closestEnemy.gameObject.name}");
 
-        if (ClosestEnemy != null)
+        /*if (ClosestEnemy != null)
         {
             isAttacking = true;
             ClosestEnemy.hitted = true;
@@ -266,26 +271,9 @@ public class CombatManager : MonoBehaviour
                     transform.position = playerPos + thisobj;
                     transform.LookAt(closestEnemy.transform.position);
                 }
-            }*/
-        }
-    }
-
-
-    DummyEnemy GetClosestEnemy(List<DummyEnemy> enemiesInDot)
-    {
-        DummyEnemy tMin = null;
-        float minDist = Mathf.Infinity;
-        Vector3 currentPos = transform.position;
-        foreach (DummyEnemy t in enemiesInDot)
-        {
-            float dist = Vector3.Distance(t.transform.position, currentPos);
-            if (dist < minDist)
-            {
-                tMin = t;
-                minDist = dist;
             }
-        }
-        return tMin;
+        }*/
+        #endregion
     }
 
     public void DisableCollider()
@@ -298,10 +286,57 @@ public class CombatManager : MonoBehaviour
         playerController.enabled = true;
     }
 
+    UltimateAI GetClosestEnemy(List<UltimateAI> enemiesInDot)
+    {
+        UltimateAI tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+        foreach (UltimateAI t in enemiesInDot)
+        {
+            float dist = Vector3.Distance(t.transform.position, currentPos);
+            if (dist < minDist)
+            {
+                tMin = t;
+                minDist = dist;
+            }
+        }
+        return tMin;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+      /* 
+        if (other.GetComponent<DummyEnemy>() != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                transform.LookAt(other.transform.position);
+                Debug.Log("enemy collided");
+                DummyEnemy enemy = other.GetComponent<DummyEnemy>();
+                enemy.hitted = true;
+            }
+        }*/
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        /*if (other.GetComponent<DummyEnemy>() != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                transform.LookAt(other.transform.position);
+                Debug.Log("enemy collided");
+                DummyEnemy enemy = other.GetComponent<DummyEnemy>();
+                enemy.hitted = true;
+            }
+        }*/
+    }
+
+
+
     public void AOE()
     {
         Collider[] hits;
-        Debug.Log("Hitting");
+        //Debug.Log("Hitting");
         hits = Physics.OverlapSphere(Sword.transform.position, 5);
         foreach (Collider c in hits)
         {
@@ -363,5 +398,22 @@ public class CombatManager : MonoBehaviour
     public void Rotation(InputAction.CallbackContext context)
     {
         rotation = context.ReadValue<Vector2>();
+    }
+}
+
+[CustomEditor(typeof(CombatManager))]
+public class MyEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        var myscript = target as CombatManager;
+
+        myscript.enemyFound = GUILayout.Toggle(myscript.enemyFound, "enemyFound");
+
+        if(myscript.enemyFound )
+        {
+            myscript.enemycloser = GUILayout.Toggle(myscript.enemycloser ,"EnemyCloser");
+        }
     }
 }

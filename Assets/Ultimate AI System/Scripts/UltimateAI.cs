@@ -29,7 +29,7 @@ namespace Ultimate.AI
 		[Header("Needed Objects")]
 		[Space]
 		[Tooltip("Assign the player object.")]
-		public List<PlayerHealth> players;
+		public List<PlayerController> players;
 
 		[Space]
 		[Header("AI Parameters")]
@@ -372,8 +372,8 @@ namespace Ultimate.AI
 				return;
 			}
 
-			if (IKPoint != null && player != null) playerIKPosition = player.gameObject.GetComponent<PlayerHealth>().IKPosition;
-			if (type == Type.Ranged) playerCenter = player.GetComponent<PlayerHealth>().playerCenter;
+			/*if (IKPoint != null && player != null) playerIKPosition = player.gameObject.GetComponent<PlayerHealth>().IKPosition;
+			if (type == Type.Ranged) playerCenter = player.GetComponent<PlayerHealth>().playerCenter;*/
 
 			Vector3 distanceToPlayer = player.position - transform.position; //Defining a vector to store the distance between the AI and the player.
 			if (distanceToPlayer.magnitude <= chaseRange && provoked && distanceToPlayer.magnitude > attackRange && !isDead && Time.timeScale != 0 && GetComponent<FieldOfView>().canSee)
@@ -532,7 +532,7 @@ namespace Ultimate.AI
 
 		public void MeleeAttack()
 		{
-			player.GetComponent<PlayerHealth>().health -= damageToDeal; //Here the given damage is taken from the player's health when successfully attacking.
+			//player.GetComponent<PlayerHealth>().health -= damageToDeal; //Here the given damage is taken from the player's health when successfully attacking.
 
 			var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
 			audioSource.PlayOneShot(clip);
@@ -586,7 +586,7 @@ namespace Ultimate.AI
 				if (effectParticles != null) foreach (ParticleSystem effectParticle in effectParticles) effectParticle.Play(); //The particles are played.
 				effectsDealt++;
 
-				player.GetComponent<PlayerHealth>().health -= poisonDamage; //Then the damage of the poison is subtracted from the player's health.
+				//player.GetComponent<PlayerHealth>().health -= poisonDamage; //Then the damage of the poison is subtracted from the player's health.
 
 				infected = true;
 				yield return new WaitForSeconds(effectFrequency); //A timer is created to wait until the next effect is applied.
@@ -597,7 +597,7 @@ namespace Ultimate.AI
 				if (effectParticles != null) foreach (ParticleSystem effectParticle in effectParticles) effectParticle.Play(); //The particles are played.
 				effectsDealt++;
 
-				player.GetComponent<PlayerHealth>().health -= burnDamage; //Then the damage of the fire is subtracted from the player's health.
+				//player.GetComponent<PlayerHealth>().health -= burnDamage; //Then the damage of the fire is subtracted from the player's health.
 
 				infected = true;
 				yield return new WaitForSeconds(effectFrequency); //A timer is created to wait until the next effect is applied.
@@ -1169,7 +1169,7 @@ namespace Ultimate.AI
 		{
 			List<Transform> playerTransforms = new List<Transform>();
 
-			foreach (PlayerHealth pl in players) playerTransforms.Add(pl.transform);
+			foreach (PlayerController pl in players) playerTransforms.Add(pl.transform);
 
 			Vector3 position = transform.position; //Every player is added in a special list and then we order the list based on the distance between each player and the AI.
 			return playerTransforms.OrderBy(o => (o.transform.position - position).sqrMagnitude).FirstOrDefault();
@@ -1179,7 +1179,7 @@ namespace Ultimate.AI
 		{
 			List<Transform> playerTransforms = new List<Transform>();
 
-			foreach (PlayerHealth pl in players)
+			foreach (PlayerController pl in players)
 			{
 				Vector3 distance = pl.transform.position - transform.position; //The only difference is that we need to see if the player we heard is actually in range.
 				if (distance.magnitude < hearingRange) playerTransforms.Add(pl.transform);

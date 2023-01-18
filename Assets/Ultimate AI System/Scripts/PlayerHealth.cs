@@ -13,7 +13,7 @@ using Ultimate.AI;
 
 public class PlayerHealth : MonoBehaviour
 {
-	[Tooltip("The max value of the player's total hitpoints.")]
+	/*[Tooltip("The max value of the player's total hitpoints.")]
     public float health;
 	[Tooltip("This is the empty game object that will be used as a parent for the animation rigging target and will only apply when the AI can see the player.")]
 	public Transform IKPosition;
@@ -61,5 +61,5 @@ public class PlayerHealth : MonoBehaviour
 	{
 		foreach (UltimateAI ai in Object.FindObjectsOfType(typeof(UltimateAI))) if (ai.players.Contains(this)) ai.players.Remove(this);
 		Destroy(this.gameObject);
-	}
+	}*/
 }

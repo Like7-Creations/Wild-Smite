@@ -113,7 +113,7 @@ namespace Ultimate.AI.Utils
                 {
                     if (neverTouchedPlayer)
                     {
-                        collision.gameObject.GetComponent<PlayerHealth>().health -= ai.GetComponent<UltimateAI>().damageToDeal;
+                        //collision.gameObject.GetComponent<CombatManager>().health -= ai.GetComponent<UltimateAI>().damageToDeal;
                         ai.GetComponent<UltimateAI>().bulletHit = true;
                         ai.GetComponent<UltimateAI>().Affect();
                         neverTouchedPlayer = false;
@@ -122,7 +122,7 @@ namespace Ultimate.AI.Utils
             }
             else //However this will damage the player every time they collide with each other.
             {
-                if (col.GetComponent<PlayerHealth>()) col.GetComponent<PlayerHealth>().health -= ai.GetComponent<UltimateAI>().damageToDeal;
+               // if (col.GetComponent<PlayerHealth>()) col.GetComponent<PlayerHealth>().health -= ai.GetComponent<UltimateAI>().damageToDeal;
             }
 
             if (explodeOnTouch) Explode(); //If explosions are turned on an explosion will be triggered.
