@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class DisplayStats : MonoBehaviour
 {
     public CharacterStats stat;
-    PlayerController pC;
+    PlayerMovement pC;
 
     [SerializeField] bool beginDelay;
     float delay;
@@ -66,7 +66,7 @@ public class DisplayStats : MonoBehaviour
     public void Start()
     {
         #region Stats Equal Max-Values
-        pC = GetComponent<PlayerController>();
+        pC = GetComponent<PlayerMovement>();
 
 
         reachedMax = false;
@@ -177,7 +177,7 @@ public class DisplayStats : MonoBehaviour
             currentAttackMultiplier = currentChargeAttackCount / stat.maxPlayerChargeAttackTime * stat.maxChargeAttackMultiplier;
             meleeAtk = stat.PlayerMeleeAtk + (stat.PlayerMeleeAtk * (int)currentAttackMultiplier);
             rangedAtk = stat.PlayerRangedAtk + (stat.PlayerRangedAtk * (int)currentAttackMultiplier);
-            pC.CheckForEnemies();
+            //pC.CheckForEnemies();
 
             attackMultiplierUpRate = 2;
             currentChargeAttackCount = 0;

@@ -7,14 +7,17 @@ public class PlayerVFX : MonoBehaviour
 
     [Header("Dashing")]
     public TrailRenderer DashVFX;
-    bool DEnabled;
 
     [Header("Melee")]
     public TrailRenderer MeleeVFX;
-    bool MEnabled;
 
-    public void DashvFX(bool Switch)
+    public void Dash()
     {
+        DashVFX.emitting = !DashVFX.emitting;
+    }
 
+    public void Melee()
+    {
+        MeleeVFX.emitting = !MeleeVFX.emitting;
     }
 }

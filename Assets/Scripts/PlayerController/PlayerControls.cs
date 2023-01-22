@@ -340,7 +340,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""6eecc7d7-1b15-4475-ae94-e4b2c66efbe3"",
                     ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Tap"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Dash"",

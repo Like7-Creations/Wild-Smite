@@ -38,7 +38,7 @@ namespace Ultimate.AI
 
 		[Tooltip("Maximum movement speed when following a path.")]
 		[SerializeField]
-		private float moveSpeed;
+		public float moveSpeed; // Anmar , turned movespeed from private to public
 		[HideInInspector]
 		private float acceleration;
 		[Tooltip("Maximum distance at wich the AI is able to trace and chase the player.")]
@@ -66,7 +66,7 @@ namespace Ultimate.AI
 		[Tooltip("Maximum health of the AI.")]
 		[Range(0, 1000)]
 		[SerializeField]
-		public int health;
+		public float health; // Anmar, Changed health from int to float
 		[Tooltip("If this is toggled a green bounding box will be displayed in the editor window. It represents the render distance of your AI.")]
 		[SerializeField]
 		private bool showRenderDistance;
@@ -232,7 +232,7 @@ namespace Ultimate.AI
 		[DrawIf("canDisplayEffects", true, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
 #endif
 		[SerializeField]
-		private float attackRate;
+		public float attackRate; // Anmar , turned attackrate from private to public
 		[Tooltip("This is how many bullets each ammo clip has.")]
 #if (UNITY_EDITOR)
 		[DrawIf("type", Type.Ranged, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
@@ -244,7 +244,7 @@ namespace Ultimate.AI
 		[DrawIf("type", Type.Ranged, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
 #endif
 		[SerializeField]
-		private float reloadTime;
+		public float reloadTime; // Anmar , Turned reloadTime from private to public
 
 		[Space(15)]
 
@@ -317,7 +317,8 @@ namespace Ultimate.AI
 
 		[HideInInspector]
 		public int effectsDealt;
-		private int curAmmo, heardSounds, maxHealth;
+		private int curAmmo, heardSounds;
+		private float maxHealth; //Anmar, maxhealth was integer with the line above this...now its a float
 
 		private float defaultSpeed;
 		private double version;

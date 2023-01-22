@@ -161,13 +161,13 @@ public class PlayerActions : MonoBehaviour
                 enemiesInDot[i].TakeDamage(10/*what ever the player dmg is*/);
             }
         }
-        VFX.MeleeVFX.emitting = true;
+        VFX.Melee();
     }
 
     public void DisableCollider()
     {
         animator.applyRootMotion = true;
-        VFX.MeleeVFX.emitting = false;
+        VFX.Melee();
         playerController.enabled = true;
     }
 
@@ -187,7 +187,6 @@ public class PlayerActions : MonoBehaviour
 
     public void Dash()
     {
-        VFX.DashVFX.emitting = true;
         StartCoroutine(Dashing());
     }
 
@@ -197,10 +196,11 @@ public class PlayerActions : MonoBehaviour
 
         while (Time.time < startTime + DashTime)
         {
+            VFX.Dash();
             playerController.controller.Move(Dashdir * DashSpeed * Time.deltaTime);
             yield return null;
         }
-        VFX.DashVFX.emitting = false;
+        VFX.Dash();
         Debug.Log("Dashhinggg");
     }
 

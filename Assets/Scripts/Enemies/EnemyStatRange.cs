@@ -38,11 +38,30 @@ public class EnemyStatRange : ScriptableObject
         return percentage;
     }
 
-
-    public float[] GenerateStats()
+    public float AllocateStats(Vector2 Stat)
     {
-        float health = GeneratePosInRange();
-        float speed =
-        float dmg =
+        float percentage = GeneratePosInRange();
+        float result;
+        result = Stat.x + (Stat.y - Stat.x) * percentage;
+        result = Mathf.RoundToInt(result);
+
+        return result;
+    }
+
+    public void GenerateStats(Vector2 stat, float result)
+    {
+        result = AllocateStats(stat);
+    }
+
+    public void GenerateStats(float HP, float speed, float Matk, float Mdef, float Mcdn, float Ratk, float Rdef, float Rcdn)
+    {
+        HP = AllocateStats(Health);
+        speed = AllocateStats(SPD);
+        Matk = AllocateStats(MATK);
+        Mdef = AllocateStats(MDEF);
+        Mcdn = AllocateStats(MCDN);
+        Ratk = AllocateStats(RATK);
+        Rdef = AllocateStats(RDEF);
+        Rcdn = AllocateStats(RCDN);
     }
 }

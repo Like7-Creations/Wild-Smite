@@ -142,62 +142,7 @@ public class DummyEnemy : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector3 pos = transform.position;
-        pos.y = 1;
-        if (hitTest)
-        {
-            Gizmos.DrawSphere(pos, 1);
-        }
-    }
 
-    void ScaleStats()
-    {
-        if(enemyTypelol == enemyType.melee)
-        {
-            //health
-           /* meleestats.cur_Health.x = meleestats.cur_Health.x * meleestats.hpMultiplier;
-            meleestats.cur_Health.y = meleestats.cur_Health.y * meleestats.hpMultiplier;
-            meleestats.cur_Health.x = Mathf.RoundToInt(meleestats.cur_Health.x);
-            meleestats.cur_Health.y = Mathf.RoundToInt(meleestats.cur_Health.y);
-            //speed
-            meleestats.cur_moveSpeed.x = meleestats.cur_moveSpeed.x * meleestats.hpMultiplier;
-            meleestats.cur_moveSpeed.y = meleestats.cur_moveSpeed.y * meleestats.hpMultiplier;
-            meleestats.cur_moveSpeed.x = Mathf.RoundToInt(meleestats.cur_moveSpeed.x);
-            meleestats.cur_moveSpeed.y = Mathf.RoundToInt(meleestats.cur_moveSpeed.y);
-            //dmg
-            meleestats.cur_meleeDMG.x = meleestats.cur_meleeDMG.x * meleestats.dmgMultiplier; // round to nearest 5
-            meleestats.cur_meleeDMG.y = meleestats.cur_meleeDMG.y * meleestats.dmgMultiplier;// round to nearest 5
-            meleestats.cur_meleeDMG.x = Mathf.RoundToInt(meleestats.cur_meleeDMG.x);
-            meleestats.cur_meleeDMG.y = Mathf.RoundToInt(meleestats.cur_meleeDMG.y);
-            //resistance
-            meleestats.cur_meleeDEF.x = meleestats.cur_meleeDEF.x * meleestats.resMultiplier; // round to nearest 5
-            meleestats.cur_meleeDEF.y = meleestats.cur_meleeDEF.y * meleestats.resMultiplier;// round to nearest 5
-            meleestats.cur_meleeDEF.x = Mathf.RoundToInt(meleestats.cur_meleeDEF.x);
-            meleestats.cur_meleeDEF.y = Mathf.RoundToInt(meleestats.cur_meleeDEF.y);*/
-            //CurrentLevel = meleestats.Level;
-            //currentDamage = Random.Range(meleestats.cur_meleeDMG.x, meleestats.cur_meleeDMG.y);
-        }
-        /*if (enemyTypelol == enemyType.range)
-        {
-            //health
-            rangestats.min_Health = meleestats.min_Health * meleestats.hpMultiplier;
-            rangestats.min_Health = Mathf.RoundToInt(meleestats.min_Health);
-            //dmg
-            rangestats.min_rangeDMG = rangestats.min_rangeDMG * rangestats.dmgMultiplier; // round to nearest 5
-           // rangestats.max_rangeDMG = rangestats.min_rangeDMG * rangestats.dmgMultiplier;// round to nearest 5
-            //rangestats.min_rangeDMG = Mathf.RoundToInt(rangestats.min_rangeDMG);
-            rangestats.max_rangeDMG = Mathf.RoundToInt(rangestats.max_rangeDMG);
-            //resis
-            rangestats.min_rangeDEF = rangestats.min_rangeDEF * rangestats.resMultiplier; // round to nearest 5
-            rangestats.max_rangeDEF = rangestats.max_rangeDEF * rangestats.resMultiplier;// round to nearest 5
-            rangestats.min_rangeDEF = Mathf.RoundToInt(rangestats.min_rangeDEF);
-            rangestats.max_rangeDEF = Mathf.RoundToInt(rangestats.max_rangeDEF);
-            //currentDamage = Random.Range(rangestats.min_rangeDMG, rangestats.max_rangeDMG);
-        }*/
-    }
     IEnumerator DisplayHitPoint(float hitpoint, float hitPointDelay)
     {
         hitText.text = hitpoint.ToString();
