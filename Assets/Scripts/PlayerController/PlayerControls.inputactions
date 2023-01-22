@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Sprinting",
+                    "type": "Button",
+                    "id": "ebc7b23c-f77b-4102-ab53-d830b0a12141",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=2,pressPoint=2)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -274,17 +283,6 @@
                 },
                 {
                     "name": "",
-                    "id": "83faa7f8-2797-4193-bd2d-dfd4ad6386c0",
-                    "path": "<Mouse>/delta",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Rotation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "9464cd6b-60ae-4a6b-af64-cbf448596bac",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
@@ -319,7 +317,7 @@
                 {
                     "name": "",
                     "id": "6eecc7d7-1b15-4475-ae94-e4b2c66efbe3",
-                    "path": "<Keyboard>/r",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -346,6 +344,17 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "AreaOfEffect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "990df9e9-980a-489e-b54c-5217aaa1f67b",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Hold(duration=6,pressPoint=1)",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Sprinting",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -12,6 +12,7 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 using System.Linq;
 using Ultimate.AI.Utils;
+using static UnityEditor.PlayerSettings;
 
 namespace Ultimate.AI
 {
@@ -29,7 +30,7 @@ namespace Ultimate.AI
 		[Header("Needed Objects")]
 		[Space]
 		[Tooltip("Assign the player object.")]
-		public List<PlayerController> players;
+		public List<PlayerMovement> players;
 
 		[Space]
 		[Header("AI Parameters")]
@@ -37,7 +38,7 @@ namespace Ultimate.AI
 
 		[Tooltip("Maximum movement speed when following a path.")]
 		[SerializeField]
-		private float moveSpeed;
+		public float moveSpeed; // Anmar , turned movespeed from private to public
 		[HideInInspector]
 		private float acceleration;
 		[Tooltip("Maximum distance at wich the AI is able to trace and chase the player.")]
@@ -65,7 +66,7 @@ namespace Ultimate.AI
 		[Tooltip("Maximum health of the AI.")]
 		[Range(0, 1000)]
 		[SerializeField]
-		private int health;
+		public float health; // Anmar, Changed health from int to float
 		[Tooltip("If this is toggled a green bounding box will be displayed in the editor window. It represents the render distance of your AI.")]
 		[SerializeField]
 		private bool showRenderDistance;
@@ -231,7 +232,7 @@ namespace Ultimate.AI
 		[DrawIf("canDisplayEffects", true, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
 #endif
 		[SerializeField]
-		private float attackRate;
+		public float attackRate; // Anmar , turned attackrate from private to public
 		[Tooltip("This is how many bullets each ammo clip has.")]
 #if (UNITY_EDITOR)
 		[DrawIf("type", Type.Ranged, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
@@ -243,7 +244,7 @@ namespace Ultimate.AI
 		[DrawIf("type", Type.Ranged, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
 #endif
 		[SerializeField]
-		private float reloadTime;
+		public float reloadTime; // Anmar , Turned reloadTime from private to public
 
 		[Space(15)]
 
@@ -300,7 +301,7 @@ namespace Ultimate.AI
 		private ParticleSystem[] effectParticles;
 		[Tooltip("A list of particles to play when something happens. (VFX)")]
 		[SerializeField]
-		private ParticleSystem[] attackParticles, chaseParticles, wanderParticles, deathParticles;
+		private ParticleSystem[] attackParticles, chaseParticles, wanderParticles, deathParticles, hitParticles; //Anmar , Added hitparticles.
 		[Tooltip("A list of sounds to play when somehting happens. The AI will get a random sound of the whole list and then play it.")]
 		[SerializeField]
 		private AudioClip[] hitSounds, attackSounds, stepSounds, deathSounds;
@@ -316,7 +317,8 @@ namespace Ultimate.AI
 
 		[HideInInspector]
 		public int effectsDealt;
-		private int curAmmo, heardSounds, maxHealth;
+		private int curAmmo, heardSounds;
+		private float maxHealth; //Anmar, maxhealth was integer with the line above this...now its a float
 
 		private float defaultSpeed;
 		private double version;
@@ -327,6 +329,10 @@ namespace Ultimate.AI
 
 		public enum Type { Melee, Ranged, NPC };
 		public enum AttackEffect { None, Poison, Burn, Slow, Freeze, Stun, Health };
+
+		//Anmar Edits----
+		float Timer;
+		//------
 		#endregion
 		private void Start() //This function will trigger once the game is started.
 		{
@@ -349,6 +355,18 @@ namespace Ultimate.AI
 
 		private void Update() //This function is being triggerd once each frame.
 		{
+			//Anmar Edits;
+			provoked = true;
+			if (wanderPointSet)
+			{
+				Timer += Time.deltaTime;
+				if(Timer > 3)
+				{
+					GetWanderPoint();
+					Timer = 0;
+				}
+			}
+			//Anmar----------
 			if (reactToSounds && GetHeardPlayers().Count > 0) //If the AI is set to hear sounds we check whether there are players producing any sounds.
 			{
 				if (canCheckSound) StartCoroutine(WaitUntillSoundWasReloaded()); //This is a small timer that waits untill the player's sound is changed or played again.
@@ -472,14 +490,18 @@ namespace Ultimate.AI
 				{
 					attacking = true;
 					int randomNumber = Random.Range(0, attackAnimations); //We are getting a random number. And here we are creating a string using the number and the word attack.
-					anim.SetTrigger("Attack" + randomNumber.ToString());  //This way a trigger is being formed and sent to the animator.
+					//anim.SetTrigger("Attack" + randomNumber.ToString());  //This way a trigger is being formed and sent to the animator.
+					//Anmar
+					StartCoroutine(AttackPlayer());
+					// I added this cuz melee in this package uses animation stuff...
+					//----
 					return;
 				}
 			}
 			else if (type == Type.Ranged) //This checks if the AI is set to ranged.
 			{
 				timeToRotate = true; //A simple bool for rotating is set to true.
-				Vector3 closeShootRange = new Vector3(attackRange, attackRange) * 1 / 3; //A close range is defined and if the player is in that range the AI should stop moving.
+				Vector3 closeShootRange = new Vector3(attackRange, attackRange); //* 1 / 3 Anmar Commented This; //A close range is defined and if the player is in that range the AI should stop moving.
 				if (distanceToPlayer.magnitude <= closeShootRange.magnitude) agent.ResetPath(); if (distanceToPlayer.magnitude > closeShootRange.magnitude) agent.SetDestination(player.transform.position);
 				StartCoroutine(AttackPlayer()); //Right after the attack method is being executed.
 				attacking = true; //And so is that bool.
@@ -532,16 +554,16 @@ namespace Ultimate.AI
 
 		public void MeleeAttack()
 		{
-			//player.GetComponent<PlayerHealth>().health -= damageToDeal; //Here the given damage is taken from the player's health when successfully attacking.
+			player.GetComponent<PlayerActions>().health -= damageToDeal; //Here the given damage is taken from the player's health when successfully attacking.
 
-			var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
-			audioSource.PlayOneShot(clip);
+			//var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
+			//audioSource.PlayOneShot(clip);
 
 			agent.SetDestination(player.transform.position); //Here we set our player's position as a destination for the AI.
 
-			foreach (ParticleSystem particle in wanderParticles) if (particle.isPlaying) particle.Stop(); //Only needed particles are being played.
-			foreach (ParticleSystem particle in attackParticles) particle.Play();
-			foreach (ParticleSystem particle in chaseParticles) if (particle.isPlaying) particle.Stop();
+			//foreach (ParticleSystem particle in wanderParticles) if (particle.isPlaying) particle.Stop(); //Only needed particles are being played.
+			//foreach (ParticleSystem particle in attackParticles) particle.Play();
+			//foreach (ParticleSystem particle in chaseParticles) if (particle.isPlaying) particle.Stop();
 
 			wanderPointSet = false; //And the waner point is reset once again.
 			hearingPointSet = false;
@@ -558,8 +580,8 @@ namespace Ultimate.AI
 				else //If the AI has ammo:
 				{
 					curAmmo--; //The ammo is being lowered with 1 bullet for each shot.
-					var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
-					audioSource.PlayOneShot(clip);
+					//var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
+					//audioSource.PlayOneShot(clip);
 
 					Rigidbody rb = Instantiate(projectile, shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>(); //The rigidbody of the projectile is being accessed.
 					rb.GetComponent<Projectile>().ai = gameObject;
@@ -1091,16 +1113,20 @@ namespace Ultimate.AI
 			}
 		}
 
-		public void TakeDamage(int damageToTake, PlayerHealth attacker)
+		public void TakeDamage(int damageToTake /*, PlayerMovement attacker*/)
 		{
 			if (attackOnProvoke) provoked = true;
 
-			player = attacker.transform;
+			//player = attacker.transform;
 
-			var clip = hitSounds[Random.Range(0, hitSounds.Length)]; //A random sound is loaded and the played.
-			audioSource.PlayOneShot(clip);
-
-			health -= damageToTake; //The damage given is being taken from the AI's health.
+			/*var clip = hitSounds[Random.Range(0, hitSounds.Length)]; //A random sound is loaded and the played.
+			audioSource.PlayOneShot(clip);*/
+			//Anmar
+			var particle = hitParticles[Random.Range(0, hitParticles.Length)];
+			particle.Play();
+			//----
+            //Gizmos.DrawSphere(transform.position, 1);
+            health -= damageToTake; //The damage given is being taken from the AI's health.
 		}
 
 		public void Footstep()
@@ -1169,7 +1195,7 @@ namespace Ultimate.AI
 		{
 			List<Transform> playerTransforms = new List<Transform>();
 
-			foreach (PlayerController pl in players) playerTransforms.Add(pl.transform);
+			foreach (PlayerMovement pl in players) playerTransforms.Add(pl.transform);
 
 			Vector3 position = transform.position; //Every player is added in a special list and then we order the list based on the distance between each player and the AI.
 			return playerTransforms.OrderBy(o => (o.transform.position - position).sqrMagnitude).FirstOrDefault();
@@ -1179,7 +1205,7 @@ namespace Ultimate.AI
 		{
 			List<Transform> playerTransforms = new List<Transform>();
 
-			foreach (PlayerController pl in players)
+			foreach (PlayerMovement pl in players)
 			{
 				Vector3 distance = pl.transform.position - transform.position; //The only difference is that we need to see if the player we heard is actually in range.
 				if (distance.magnitude < hearingRange) playerTransforms.Add(pl.transform);

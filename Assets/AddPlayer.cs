@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class AddPlayer : MonoBehaviour
 {
-    List<PlayerController> pControllers = new List<PlayerController>();
+    List<PlayerMovement> pControllers = new List<PlayerMovement>();
     CinemachineTargetGroup targetGroup;
 
     GameObject playerObj;

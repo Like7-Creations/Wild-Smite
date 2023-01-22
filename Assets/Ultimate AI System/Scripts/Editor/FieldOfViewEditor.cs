@@ -78,7 +78,7 @@ public class FieldOfViewEditor : Editor
         foreach (Transform visibleTarget in fow.visibleTargets)
 		{
             Handles.color = Color.green;
-            Handles.DrawLine(fow.transform.position, visibleTarget.position);
+            //Handles.DrawLine(fow.transform.position, visibleTarget.position);
 		}
     }
 }
