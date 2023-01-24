@@ -12,7 +12,7 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 using System.Linq;
 using Ultimate.AI.Utils;
-using static UnityEditor.PlayerSettings;
+//using static UnityEditor.PlayerSettings;
 
 namespace Ultimate.AI
 {

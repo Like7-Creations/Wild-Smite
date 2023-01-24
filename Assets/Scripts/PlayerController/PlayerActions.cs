@@ -5,10 +5,6 @@ using UnityEngine.InputSystem;
 using System.Threading;
 using Ultimate.AI;
 using System.Linq;
-using UnityEditor;
-using UnityEditor.Experimental.TerrainAPI;
-using UnityEngine.InputSystem.XR;
-using UnityEditor.XR;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -228,18 +224,18 @@ public class PlayerActions : MonoBehaviour
             if (HitAreas[i].enemyFound)
             {
                 Color c = new Color(0f, 0, 1, 0.4f);
-                UnityEditor.Handles.color = c;
+                //UnityEditor.Handles.color = c;
             }
             else
             {
                 Color c = new Color(0.8f, 0, 0, 0.4f);
-                UnityEditor.Handles.color = c;
+                //UnityEditor.Handles.color = c;
             }
             Vector3 rotatedForward = Quaternion.Euler(0,
              -HitAreas[i].Direction * 0.5f,
              0) * transform.forward;
           
-            UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
+            //UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
         }
     }
     public void RangeAttack(/*Vector2 input*/)

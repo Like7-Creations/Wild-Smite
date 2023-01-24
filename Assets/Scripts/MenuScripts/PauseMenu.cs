@@ -8,10 +8,12 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     private bool isPaused;
 
-    public AudioSource pausesound;
-    public AudioSource selectsound;
-    public AudioSource quitsound;
-    public AudioSource resumesound;
+    public string MenuScene;
+
+    //public AudioSource pausesound;
+    //public AudioSource selectsound;
+    //public AudioSource quitsound;
+    //public AudioSource resumesound;
 
 
     void Start()
@@ -27,7 +29,7 @@ public class PauseMenu : MonoBehaviour
             if (isPaused)
             {
                 ResumeGame();
-                Debug.Log("Unpaused");
+                
             }
             else
             {
@@ -44,24 +46,25 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        pausesound.Play();
+        //pausesound.Play();
     }
 
     public void ResumeGame()
     {
-        pauseMenu.SetActive(false);
+        Debug.Log("Unpaused");
         Time.timeScale = 1f;
         isPaused = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        resumesound.Play();
+        //resumesound.Play();
+        pauseMenu.SetActive(false);
     }
 
     public void ToMenuButton()
     {
         {
-            quitsound.Play();
-            SceneManager.LoadScene("Main Menu");
+           // quitsound.Play();
+            SceneManager.LoadScene(MenuScene);
             Time.timeScale = 1f;
         }
     }

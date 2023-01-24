@@ -423,10 +423,10 @@ RectTransform:
   m_Father: {fileID: 1365662935}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 75, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 37.5, y: -25}
+  m_SizeDelta: {x: 75, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &104294821
 MonoBehaviour:
@@ -557,10 +557,10 @@ RectTransform:
   m_Father: {fileID: 1365662935}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 26.633335, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 88.316666, y: -25}
+  m_SizeDelta: {x: 26.633335, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &138408742
 MonoBehaviour:
@@ -2801,10 +2801,10 @@ RectTransform:
   m_Father: {fileID: 1365662935}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 75, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 139.13333, y: -25}
+  m_SizeDelta: {x: 75, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1698714078
 MonoBehaviour:
@@ -3455,27 +3455,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1826505092}
   m_CullTransparentMesh: 1
---- !u!1 &1875228168 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4417185193638417071, guid: f8195258eb0a39b489c710085ff776eb, type: 3}
-  m_PrefabInstance: {fileID: 1740523486}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1875228171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875228168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4700f9f03ad19f94baf0367cb7a9c988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Width: 7.5
-  m_Damping: 5
-  m_MinFOV: 1
-  m_MaxFOV: 60
 --- !u!1 &1933521015
 GameObject:
   m_ObjectHideFlags: 0
@@ -3865,9 +3844,12 @@ MonoBehaviour:
   currentXpText: {fileID: 104294821}
   requiredXpText: {fileID: 1698714078}
   levelText: {fileID: 252814978}
+  currentPlayerStatPointText: {fileID: 0}
   currentXp: 0
   requiredXp: 0
   level: 0
+  statPointPanel: {fileID: 0}
+  statHealth: 0
 --- !u!1001 &7185490656808678581
 PrefabInstance:
   m_ObjectHideFlags: 0
