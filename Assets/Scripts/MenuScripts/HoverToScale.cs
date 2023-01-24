@@ -10,14 +10,14 @@ public class HoverToScale : MonoBehaviour
     
     public void PointToEnter()
     {
-        transform.localScale = new Vector3(3.3f, 3.3f, 3.3f);
+        transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
         HoverSound.Play();
         DisplayPanelUI.SetActive(true);
     }
 
     public void PointerExit()
     {
-        transform.localScale = new Vector3(3f, 3f, 1f);
+        transform.localScale = new Vector3(1f, 1f, 1f);
         DisplayPanelUI.SetActive(false);
     }
 }

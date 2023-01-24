@@ -9,13 +9,22 @@ public class MainMenu : MonoBehaviour
 
     public AudioSource entersound;
     public AudioSource backsound;
-    public GameObject buttonsonclick;
+    public GameObject Button_LoadGame = GameObject.Find("Button_LoadGame");
+    public GameObject Button_NewGame = GameObject.Find("Button_NewGame");
+    public GameObject Button_Character = GameObject.Find("Button Character");
+    public GameObject Button_Settings = GameObject.Find("Button Settings");
+    public GameObject Button_CoopGame = GameObject.Find("Button_CoopGame");
+    public GameObject Button_Credits = GameObject.Find("Button_Credits");
+    public GameObject Button_QuitGame = GameObject.Find("Button_QuitGame");
 
     public float delayTime = 2f;
 
     public void PlayLoadGame()
     {
-        buttonsonclick.SetActive(false);
+        Vector3 pos = Button_LoadGame.transform.position;
+        pos.x -= 30f;
+        Button_LoadGame.transform.position = pos;
+
         entersound.Play();
         Invoke("DelayLoadGame", delayTime);
     }
@@ -29,7 +38,10 @@ public class MainMenu : MonoBehaviour
 
     public void PlayNewGame()
     {
-        buttonsonclick.SetActive(false);
+        Vector3 pos = Button_NewGame.transform.position;
+        pos.x -= 30f;
+        Button_NewGame.transform.position = pos;
+
         entersound.Play();
         Invoke("DelayNewGame", delayTime);
     }
@@ -42,55 +54,61 @@ public class MainMenu : MonoBehaviour
 
     public void PlayCharacter()
     {
-        buttonsonclick.SetActive(false);
+        Vector3 pos = Button_Character.transform.position;
+        pos.x -= 30f;
+        Button_Character.transform.position = pos;
+
         entersound.Play();
         Invoke("DelayCharacter", delayTime);
     }
 
                                     void DelayCharacter()
                                     {
-                                        SceneManager.LoadScene("Character Scene");
+                                        SceneManager.LoadScene("CharacterSelection");
                                         Time.timeScale = 1f;
                                     }
 
 
     public void PlayCoopGame()
     {
-        buttonsonclick.SetActive(false);
+        Vector3 pos = Button_CoopGame.transform.position;
+        pos.x -= 30f;
+        Button_CoopGame.transform.position = pos;
+
         entersound.Play();
         Invoke("DelayPlayCoopGame", delayTime);
     }
 
                                     void DelayPlayCoopGame()
                                     {
-                                        SceneManager.LoadScene("Character Scene");
+                                        SceneManager.LoadScene("CoopScene");
                                         Time.timeScale = 1f;
                                     }
 
     public void PlayCredits()
     {
-        buttonsonclick.SetActive(false);
+        Vector3 pos = Button_Credits.transform.position;
+        pos.x -= 30f;
+        Button_Credits.transform.position = pos;
+
         entersound.Play();
         Invoke("DelayPlayCredits", delayTime);
     }
 
                                     void DelayPlayCredits()
                                     {
-                                        SceneManager.LoadScene("Character Scene");
+                                        SceneManager.LoadScene("Credits");
                                         Time.timeScale = 1f;
                                     }
 
     public void QuitGame()
     {
+        Vector3 pos = Button_QuitGame.transform.position;
+        pos.x -= 30f;
+        Button_QuitGame.transform.position = pos;
+
         backsound.Play();
         Application.Quit();
         Invoke("DelayQuitGame", delayTime);
     }
-
-                                    void DelayQuitGame()
-                                    {
-                                        SceneManager.LoadScene("Character Scene");
-                                        Time.timeScale = 1f;
-                                    }
-
 }
