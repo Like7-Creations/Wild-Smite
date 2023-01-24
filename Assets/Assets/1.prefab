@@ -6902,6 +6902,9 @@ MonoBehaviour:
   gravity: -9.81
   playerPrefab: {fileID: 6928686926672203227}
   refer: {x: 0, y: 0, z: 0}
+  DashSpeed: 0
+  DashTime: 0
+  DashTrail: {fileID: 0}
   xp: {fileID: 0}
 --- !u!114 &7847185749964825167
 MonoBehaviour:
@@ -7040,6 +7043,46 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2e1fdea9-0c8f-4405-a88e-8321f8756f63
     m_ActionName: Player/AreaOfEffect[/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4337bc40-bfa5-49e2-bf0d-14fbf58fcebe
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 083ab847-bff9-4ecd-8e71-a80894c03400
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 78de4ac0-13e4-44f5-af74-38ffe40c1aad
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 371586d4-0fc2-4de4-bf71-52c9313445eb
+    m_ActionName: UI/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 40c1b0f3-fb2e-48eb-a830-d02d457b2047
+    m_ActionName: UI/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 79d76dc1-d1ea-4896-9cc4-6c77178b93f2
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e3e6aeaa-8d71-43e4-a073-06b6220e87d6
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6ecff435-80ae-455f-b5fd-5fcfb93ef198
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e5d63af4-8c85-4491-992f-2d56e38a504a
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 215945e9-949a-44bf-9d27-e8764874b863
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
@@ -7067,6 +7110,7 @@ MonoBehaviour:
   aoeAttack: {fileID: 0}
   currentHealth: 0
   currentStamina: 0
+  currentPlayerStatPoint: 0
   health: {fileID: 0}
   stamina: {fileID: 0}
   chargeAttack: {fileID: 0}
