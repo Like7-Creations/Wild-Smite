@@ -5,9 +5,16 @@ using UnityEngine.InputSystem;
 using System.Threading;
 using Ultimate.AI;
 using System.Linq;
+using UnityEditor;
+//using System.Diagnostics;
 
 public class PlayerActions : MonoBehaviour
 {
+    PlayerControls controls;
+    PlayerInput playerInput;
+    [SerializeField] bool isGamepad;
+    //[SerializeField] bool isGamepad;
+
     PlayerMovement playerController;
     PlayerVFX VFX;
     public float health;
@@ -18,7 +25,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField]bool isAttacking;
 
     //[SerializeField] UltimateAI ClosestEnemy;
-    
     [Space(5)]
     [Header("Range Settings")]
     public GameObject ProjectileOrigin;
@@ -30,17 +36,51 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] float FireRate;
     [SerializeField] float bulletSpeed;
     bool fired;
+    Vector2 aim;
+    float deadzone = 0.1f;
 
     [Space(5)]
     [Header("Dash & Sprint Settings")]
     public float DashSpeed;
     public float DashTime;
     public float SprintSpeed;
+    public float DashCDN;
     [HideInInspector] public Vector3 refer;
     [HideInInspector] public Vector3 Dashdir;
     float OriginalSpeed;
 
-    List<UltimateAI> enemiesInDot;
+    List<UltimateAI> enemiesInDot = new List<UltimateAI>();
+
+    void Awake()
+    {
+        controls = new PlayerControls();
+        playerInput = GetComponent<PlayerInput>();
+       
+        playerInput.onActionTriggered += Input_onActionTriggered;
+       // controls.Player.Dashing.performed += Dash;
+        //controls.Player.Range.performed += RangeAttack;
+    }
+
+    void Input_onActionTriggered(InputAction.CallbackContext context)
+    {
+        if(context.action.name == controls.Player.Dashing.name && context.performed)
+        {
+
+            StartCoroutine(Dashing());
+            Debug.Log("dashing called");
+        }
+    }
+    void OnEnable()
+    {
+        controls.Enable();
+        //controls.Player.Dashing.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Disable();
+        //controls.Player.Dashing.Disable();
+    }
 
     void Start()
     {
@@ -61,7 +101,7 @@ public class PlayerActions : MonoBehaviour
         #endregion
 
         #region Find Enemies With CheckSphere Then Check If Inside Dot Product
-        if(enemiesInDot!= null)enemiesInDot = enemiesInDot.Distinct().ToList(); //Keeping it From Duplicates.
+        if (enemiesInDot != null) { enemiesInDot = enemiesInDot.Distinct().ToList(); } //Keeping it From Duplicates.
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, 5);
         foreach (Collider c in hits)
@@ -80,8 +120,10 @@ public class PlayerActions : MonoBehaviour
                         if (Vector3.Dot(toEnemy.normalized, transform.forward) > Mathf.Cos(HitAreas[i].Angle * 0.5f * Mathf.Deg2Rad))
                         {
                             HitAreas[i].enemyFound = true;
+                            //Debug.Log(enemy);
+                            //Debug.Log(enemiesInDot);
                             enemiesInDot.Add(enemy);
-                            Debug.Log("In Dot Product");
+                            //Debug.Log("In Dot Product");
                         }
                         else HitAreas[i].enemyFound = false;
                     }
@@ -91,25 +133,15 @@ public class PlayerActions : MonoBehaviour
         }
         #endregion
 
-
         #region Range System
-        mousePos = Input.mousePosition;
-        mousePos.z = 100f;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        Debug.DrawRay(transform.position, mousePos - transform.position, Color.blue);
-        
-        if (Input.GetButton("Fire1") & !fired)
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float raylength;
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        if(groundPlane.Raycast(cameraRay,out raylength))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100) && hit.collider.tag != "Player")
-            {
-                Aim = hit.point;
-                Aim.y = 1;
-                // Debug.Log(hit.transform.name);
-                RangeAttack();
-            }
-            Debug.DrawRay(transform.position, hit.point - transform.position, Color.blue);
+            Vector3 pointToLook = cameraRay.GetPoint(raylength);
+            Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+            ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
         }
 
         if (fired)
@@ -120,6 +152,18 @@ public class PlayerActions : MonoBehaviour
                 timer = 0;
                 fired = false;
             }
+        }
+
+        Rotation();
+        aim = controls.Player.Rotation.ReadValue<Vector2>();
+        
+        if(aim.x <= -0.5f || aim.x >= 0.5f || aim.y <= -0.5f || aim.y >= 0.5f)
+        {
+            if(isGamepad) RangeAttack();
+        }
+        if (!isGamepad & Input.GetButton("Fire1"))
+        {
+            RangeAttack();
         }
         #endregion
     }
@@ -133,7 +177,6 @@ public class PlayerActions : MonoBehaviour
             Debug.Log(combo);
         }
     }
-
     public void startCombo()
     {
         isAttacking = false;
@@ -186,18 +229,23 @@ public class PlayerActions : MonoBehaviour
         StartCoroutine(Dashing());
     }
 
+    public void Test(InputAction.CallbackContext context)
+    {
+        Debug.Log("Disabled control scheme");
+    }
+
     public IEnumerator Dashing()
     {
+        Debug.Log("dashing!");
         float startTime = Time.time;
 
+        VFX.Dash();
         while (Time.time < startTime + DashTime)
         {
-            VFX.Dash();
             playerController.controller.Move(Dashdir * DashSpeed * Time.deltaTime);
             yield return null;
         }
         VFX.Dash();
-        Debug.Log("Dashhinggg");
     }
 
     public void Sprinting()
@@ -207,6 +255,35 @@ public class PlayerActions : MonoBehaviour
         {
             playerController.playerSpeed = OriginalSpeed;
         }
+    }
+
+    public void RangeAttack()
+    {
+        if (!fired)
+        {
+            Rigidbody bullets = Instantiate(bullet, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);
+            fired = true;
+        }
+    }
+
+    public void Rotation()
+    {
+        Debug.Log(aim);
+        if (Mathf.Abs(aim.x) > deadzone || Mathf.Abs(aim.y) > deadzone)
+        {
+            Vector3 playerDir = Vector3.right * aim.x + Vector3.forward * aim.y;
+            if (playerDir.sqrMagnitude > 0.0f)
+            {
+                Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
+                ProjectileOrigin.transform.rotation = Quaternion.RotateTowards(ProjectileOrigin.transform.rotation, newrotation, 1000f * Time.deltaTime);
+            }
+        }
+    }
+
+    public void OnDeviceChange(PlayerInput pi)
+    {
+        isGamepad = pi.currentControlScheme.Equals("Gamepad") ? true : false;
     }
 
     private void OnDrawGizmos()
@@ -224,32 +301,20 @@ public class PlayerActions : MonoBehaviour
             if (HitAreas[i].enemyFound)
             {
                 Color c = new Color(0f, 0, 1, 0.4f);
-                //UnityEditor.Handles.color = c;
+                UnityEditor.Handles.color = c;
             }
             else
             {
                 Color c = new Color(0.8f, 0, 0, 0.4f);
-                //UnityEditor.Handles.color = c;
+                UnityEditor.Handles.color = c;
             }
             Vector3 rotatedForward = Quaternion.Euler(0,
              -HitAreas[i].Direction * 0.5f,
              0) * transform.forward;
           
-            //UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
+            UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
         }
     }
-    public void RangeAttack(/*Vector2 input*/)
-    {
-        ProjectileOrigin.transform.LookAt(Aim);
-        Rigidbody bullets = Instantiate(bullet, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);
-        fired = true;
-    }
-
-    public void Rotation(InputAction.CallbackContext context)
-    {
-        rotation = context.ReadValue<Vector2>();
-    } // will probably remove
 }
 
 [System.Serializable]

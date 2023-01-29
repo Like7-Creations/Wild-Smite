@@ -33,7 +33,7 @@ public class EnemyStatRange : ScriptableObject
         float hello = diceMaxValue * numOfDice;
         float percentage = generationValue / hello;
 
-        Debug.Log(percentage);
+        //Debug.Log(percentage);
 
         return percentage;
     }
@@ -53,7 +53,7 @@ public class EnemyStatRange : ScriptableObject
         result = AllocateStats(stat);
     }
 
-    public void GenerateStats(float HP, float speed, float Matk, float Mdef, float Mcdn, float Ratk, float Rdef, float Rcdn)
+    /*public void GenerateStats(float HP, float speed, float Matk, float Mdef, float Mcdn, float Ratk, float Rdef, float Rcdn)
     {
         HP = AllocateStats(Health);
         speed = AllocateStats(SPD);
@@ -63,5 +63,5 @@ public class EnemyStatRange : ScriptableObject
         Ratk = AllocateStats(RATK);
         Rdef = AllocateStats(RDEF);
         Rcdn = AllocateStats(RCDN);
-    }
+    }*/
 }

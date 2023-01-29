@@ -8,24 +8,21 @@ public class EnemyStats : MonoBehaviour
 {
     public UltimateAI thisEnemy;
     public EnemyStatRange ESR;
-    //public Image HealthBar;
 
-    public float Health; //{get; private set;}
-    public float Speed; //{get; private set;}
-    public float MATK; //{get; private set;}
-    public float MDEF; //{get; private set;}
-    public float MCDN; //{get; private set;}
-    public float RATK; //{get; private set;}
-    public float RDEF; //{get; private set;}
-    public float RCDN; //{get; private set;}
+    public float Health {get; private set;}
+    public float Speed {get; private set;}
+    public float MATK {get; private set;}
+    public float MDEF {get; private set;}
+    public float MCDN {get; private set;}
+    public float RATK {get; private set;}
+    public float RDEF {get; private set;}
+    public float RCDN {get; private set;}
 
 
     void Start()
     {
         thisEnemy = GetComponent<UltimateAI>();
-        Vector2 hell = new Vector2(90, 100);
-        ESR.GenerateStats(Health,Speed,MATK, MDEF, MCDN, RATK, RDEF, RCDN);
-        Debug.Log(Health);
+        GenerateStatValues();
         AllocateStats();
     }
 
@@ -44,13 +41,27 @@ public class EnemyStats : MonoBehaviour
         if(thisEnemy.type == UltimateAI.Type.Melee)
         {
             thisEnemy.damageToDeal = MATK;
+            thisEnemy.Defence = MDEF;
             thisEnemy.attackRate = MCDN;
         }
         if (thisEnemy.type == UltimateAI.Type.Ranged)
         {
             thisEnemy.damageToDeal = RATK;
+            thisEnemy.Defence = RDEF;
             thisEnemy.reloadTime = RCDN;
         }
+    }
+
+    void GenerateStatValues()
+    {
+        Health = ESR.AllocateStats(ESR.Health);
+        Speed = ESR.AllocateStats(ESR.SPD);
+        MATK = ESR.AllocateStats(ESR.MATK);
+        MDEF = ESR.AllocateStats(ESR.MDEF);
+        MCDN = ESR.AllocateStats(ESR.MCDN);
+        RATK = ESR.AllocateStats(ESR.RATK);
+        RDEF = ESR.AllocateStats(ESR.RDEF);
+        RCDN = ESR.AllocateStats(ESR.RCDN);
     }
 
    /* public float AllocateStats(Vector2 valu)
