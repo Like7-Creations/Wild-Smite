@@ -13,7 +13,13 @@ public class PlayerConfigManager : MonoBehaviour
     [SerializeField]
     int MaxPlayers = 2;
 
+    [Header("LoadToSceneConfig")]
     public string SceneToLoad;
+    public bool loadScene;
+
+    [Header("TestConfig")]
+    bool spawnedPlayers;
+    public InitialiseLevel levelStart;
 
     public static PlayerConfigManager Instance { get; private set; }
 
@@ -28,6 +34,18 @@ public class PlayerConfigManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfig>();
+        }
+    }
+
+    private void Update()
+    {
+        if (!loadScene && !spawnedPlayers)
+        {
+            if (MaxPlayers == playerConfigs.Count)
+            {
+                levelStart.Initialise();
+                spawnedPlayers = true;
+            }
         }
     }
 
@@ -59,8 +77,11 @@ public class PlayerConfigManager : MonoBehaviour
 
             if (allReady)
             {
-                Debug.Log("All Players Ready");
-                SceneManager.LoadScene(SceneToLoad);
+                if (loadScene)
+                {
+                    Debug.Log("All Players Ready");
+                    SceneManager.LoadScene(SceneToLoad);
+                }
             }
         }
     }

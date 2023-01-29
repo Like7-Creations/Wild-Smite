@@ -10,15 +10,31 @@ public class InitialiseLevel : MonoBehaviour
     [SerializeField]
     GameObject playerPrefab;
 
+    [Header("Config")]
+    public bool initialiseOnStart;
+    bool initialised;
+
     // Start is called before the first frame update
     void Start()
     {
-        List<PlayerConfig> playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs();
+        initialised = false;
 
-        for (int i = 0; i < playerConfigs.Count; i++)
+        if (initialiseOnStart)
+            Initialise();
+    }
+
+    public void Initialise()
+    {
+        if (!initialised)
         {
-            GameObject player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
-            player.GetComponent<TestMovement>().InitialisePlayer(playerConfigs[i]);
+            List<PlayerConfig> playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs();
+
+            for (int i = 0; i < playerConfigs.Count; i++)
+            {
+                GameObject player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
+                player.GetComponent<TestMovement>().InitialisePlayer(playerConfigs[i]);
+            }
+            initialised = true;
         }
     }
 }
