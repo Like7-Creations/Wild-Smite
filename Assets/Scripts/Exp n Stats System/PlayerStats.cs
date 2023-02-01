@@ -2,12 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats
+public class PlayerStats : MonoBehaviour
 {
-    [Header("Stats")]
-    public int hp;
-    public int stamina;
-    public int m_ATK;
-    public int r_ATK;
-    public int exp;
+    PlayerStat_Data playerData;
+
+    //[Header("Stats")]
+
+
+    [field: SerializeField]
+    public int hp { get; private set; }
+    
+    [field: SerializeField]
+    public int stamina { get; private set; }
+    
+    [field: SerializeField]
+    public int m_ATK { get; private set; }
+    
+    [field: SerializeField]
+    public int r_ATK { get; private set; }
+    
+    [field: SerializeField]
+    public int exp { get; private set; }
+
+    void AddEXP(int addXP)
+    {
+        exp += addXP;
+    }
+
+    void Start()
+    {
+        playerData= GetComponent<PlayerStat_Data>();
+
+        hp = playerData.hp;
+        stamina = playerData.stamina;
+        m_ATK = playerData.m_ATK;
+        r_ATK = playerData.r_ATK;
+        exp = playerData.current_XP;
+    }
 }

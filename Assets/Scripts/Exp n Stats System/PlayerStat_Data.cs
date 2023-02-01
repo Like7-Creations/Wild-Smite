@@ -10,57 +10,92 @@ public class PlayerStat_Data : ScriptableObject
 
     [SerializeField] string playerName;
 
-    [Header("Stats")]
-    public int hp;
-    public int stamina;
-    public int m_ATK;
-    public int r_ATK;
-    public int current_XP;
-    public int lvl;
+    //[Header("Stats")]
+    [field: SerializeField]
+    public int hp { get; private set; }
+    
+    [field: SerializeField]
+    public int stamina { get; private set; }
+    
+    [field: SerializeField]
+    public int m_ATK { get; private set; }
+    
+    [field: SerializeField]
+    public int r_ATK { get; private set; }
+    
+    [field: SerializeField]
+    public int current_XP { get; private set; }
+    
+    [field: SerializeField]
+    public int lvl { get; private set; }
 
-    [Header("Recovery Rates")]
-    [SerializeField] float recovRate_HP;
-    [SerializeField] float recovRate_STAMINA;
+    //[Header("Recovery Rates")]
 
-    [Header("Consumption Rates")]
-    [SerializeField] float dash;             //Fixed amount
-    [SerializeField] float sprint;           //Amount per second
-    [SerializeField] float aoe_TAP;          //Fixed amount
-    [SerializeField] float aoe_HOLD;         //Amount per second
+    [field: SerializeField]
+    public float recovRate_HP { get; private set; }
+
+    [field: SerializeField]
+    public float recovRate_STAMINA { get; private set; }
+
+    //[Header("Consumption Rates")]
+
+
+    [field: SerializeField] 
+    public float dash { get; private set; }             //Fixed amount
+    
+    [field: SerializeField]
+    public float sprint { get; private set; }           //Amount per second
+    
+    [field: SerializeField]
+    public float aoe_TAP { get; private set; }          //Fixed amount
+    
+    [field: SerializeField]
+    public float aoe_HOLD { get; private set; }         //Amount per second
+
+    public PlayerStat_Data(string name, ExperienceData xpData, Leveling_Data lvlingData)
+    {
+        playerName = name;
+        expData = xpData;
+        lvlData = lvlingData;
+
+        hp = lvlData.base_HP;
+        stamina = lvlData.base_STAM;
+        m_ATK = lvlData.base_MATK;
+        r_ATK = lvlData.base_RATK;
+    }
 
     //Increase player level based on Leveling Data class.
     void LevelUp()
     {
-        hp = lvlData.newHP;
-        stamina = lvlData.newSTAM;
-        m_ATK = lvlData.newM_ATK;
-        r_ATK = lvlData.newR_ATK;
-
-        lvl++;
+        hp += lvlData.HP_Increment;
+        stamina += lvlData.STAM_Increment;
+        m_ATK += lvlData.M_ATK_Increment;
+        r_ATK += lvlData.R_ATK_Increment;
     }
 
     //Apply gained experience to the player's current level.
-    void XPGained()
+    void XPGained(int gainedXP)
     {
         //Check if the current XP has hit a certain milestone from Experience Data class.
-        if (expData.CheckLevel(current_XP) > lvl)
-            LevelUp();
+        int currentLvl = lvl;
+        int possibleLvl = expData.CheckLevel(gainedXP);
+
+        if(possibleLvl > currentLvl)
+        {
+            for (int i = 0; i > possibleLvl - currentLvl; i++)
+            {
+                LevelUp();
+            }
+
+            lvl = possibleLvl;
+        }
         //If true, run the LevelUp() function.
     }
 
     //Increase Stats based on the stat points allocated by the player
-    void AllocateStats()
+    void AllocateStatPoints(int[] pointAllocations)
     {
-
-    }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
+        //Repeat for all stats
+        hp += pointAllocations[0] * lvlData.hp_Conversion;
     }
 }
