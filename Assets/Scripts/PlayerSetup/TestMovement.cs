@@ -32,8 +32,8 @@ public class TestMovement : MonoBehaviour
         controls = new PlayerControls();
 
         isPaused = false;
-        PauseMenuObject = GameObject.FindGameObjectWithTag("PauseMenu");
-        pauseMenu = PauseMenuObject.GetComponent<PauseMenuController>();
+        //PauseMenuObject = GameObject.FindGameObjectWithTag("PauseMenu");
+        //pauseMenu = PauseMenuObject.GetComponent<PauseMenuController>();
     }
 
     private void Update()

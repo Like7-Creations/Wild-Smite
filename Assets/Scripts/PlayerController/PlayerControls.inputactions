@@ -16,7 +16,7 @@
                 },
                 {
                     "name": "Rotation",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "c893ad87-c6db-4a68-a654-5738bcca1552",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -63,6 +63,15 @@
                     "name": "PauseGame",
                     "type": "Button",
                     "id": "a4b37c49-723f-443f-9c57-cb025e023a48",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RangeAttack",
+                    "type": "Button",
+                    "id": "8e181b53-07dd-4be1-97b0-2f72150d87b3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -254,6 +263,17 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36072f1b-e05d-42b8-ac3f-79bab67c4ef3",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RangeAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

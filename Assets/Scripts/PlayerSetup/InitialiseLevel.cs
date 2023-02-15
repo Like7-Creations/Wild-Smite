@@ -32,7 +32,7 @@ public class InitialiseLevel : MonoBehaviour
             for (int i = 0; i < playerConfigs.Count; i++)
             {
                 GameObject player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
-                player.GetComponent<TestMovement>().InitialisePlayer(playerConfigs[i]);
+                player.GetComponent<PlayerControl>().InitialisePlayer(playerConfigs[i]);
             }
             initialised = true;
         }

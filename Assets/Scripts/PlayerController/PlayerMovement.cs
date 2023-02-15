@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -15,17 +17,23 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public CharacterController controller;
     [HideInInspector] public Vector3 refer;
     
-    Animator animator;
+    [HideInInspector] public Animator animator;
     PlayerActions PA;
+    PlayerControl Pc;
+    PlayerControls controls;
+
 
    /* public EnemyStatRange ESR;
     public EnemyStats ES;*/
     
     void Start()
     {
+        Pc = GetComponent<PlayerControl>();
+        controls = Pc.GetControls();
         PA = GetComponent<PlayerActions>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        //Pc.OnInputAction += Input_onActionTriggered;
     }
 
     // Update is called once per frame
@@ -34,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         /*float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");*/
 
-        Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y).normalized;
+        Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y).normalized; //should be movementinput.x,0,movementinput.y
         refer = direction;
         float targetangle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
@@ -47,10 +55,11 @@ public class PlayerMovement : MonoBehaviour
             PA.Dashdir = moveDir;
             controller.Move(moveDir.normalized * playerSpeed * Time.deltaTime);
 
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
-            }else animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
+            // this should be commented
+             if (Input.GetKey(KeyCode.LeftShift))
+             {
+                 animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
+             }else animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
             //InvokeRepeating("lostStamina", 1f, 1);
 
         }
@@ -60,5 +69,13 @@ public class PlayerMovement : MonoBehaviour
     public void onMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
+    }
+
+    void Input_onActionTriggered(CallbackContext obj)
+    {
+        if (obj.action.name == controls.Player.Movement.name)
+        {
+            onMove(obj);
+        }
     }
 }

@@ -6,12 +6,11 @@ using System.Threading;
 using Ultimate.AI;
 using System.Linq;
 using UnityEditor;
+using UnityEngine.Rendering;
 //using System.Diagnostics;
 
 public class PlayerActions : MonoBehaviour
 {
-    PlayerControls controls;
-    PlayerInput playerInput;
     [SerializeField] bool isGamepad;
     //[SerializeField] bool isGamepad;
 
@@ -23,63 +22,45 @@ public class PlayerActions : MonoBehaviour
     public int combo;
     Animator animator;
     [SerializeField]bool isAttacking;
+    [SerializeField] float meleeDash;
 
     //[SerializeField] UltimateAI ClosestEnemy;
     [Space(5)]
     [Header("Range Settings")]
     public GameObject ProjectileOrigin;
     public GameObject bullet;
-    Vector2 rotation; // For Controller
-    Vector3 mousePos;
-    Vector3 Aim;
     float timer;
     [SerializeField] float FireRate;
     [SerializeField] float bulletSpeed;
     bool fired;
-    Vector2 aim;
+    [HideInInspector] public Vector2 aim;
+    [HideInInspector] public bool shooting;
     float deadzone = 0.1f;
 
     [Space(5)]
     [Header("Dash & Sprint Settings")]
     public float DashSpeed;
     public float DashTime;
-    public float SprintSpeed;
     public float DashCDN;
+    public float SprintSpeed;
+    [HideInInspector] public bool isSprinting;
     [HideInInspector] public Vector3 refer;
     [HideInInspector] public Vector3 Dashdir;
     float OriginalSpeed;
 
     List<UltimateAI> enemiesInDot = new List<UltimateAI>();
+    PlayerControl Pc;
+    PlayerControls controls;
 
     void Awake()
     {
+        Pc = GetComponent<PlayerControl>();
         controls = new PlayerControls();
-        playerInput = GetComponent<PlayerInput>();
-       
-        playerInput.onActionTriggered += Input_onActionTriggered;
-       // controls.Player.Dashing.performed += Dash;
-        //controls.Player.Range.performed += RangeAttack;
     }
 
-    void Input_onActionTriggered(InputAction.CallbackContext context)
-    {
-        if(context.action.name == controls.Player.Dashing.name && context.performed)
-        {
-
-            StartCoroutine(Dashing());
-            Debug.Log("dashing called");
-        }
-    }
-    void OnEnable()
+    private void OnEnable()
     {
         controls.Enable();
-        //controls.Player.Dashing.Enable();
-    }
-
-    void OnDisable()
-    {
-        controls.Disable();
-        //controls.Player.Dashing.Disable();
     }
 
     void Start()
@@ -101,6 +82,7 @@ public class PlayerActions : MonoBehaviour
         #endregion
 
         #region Find Enemies With CheckSphere Then Check If Inside Dot Product
+        enemiesInDot.Clear();
         if (enemiesInDot != null) { enemiesInDot = enemiesInDot.Distinct().ToList(); } //Keeping it From Duplicates.
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, 5);
@@ -120,10 +102,7 @@ public class PlayerActions : MonoBehaviour
                         if (Vector3.Dot(toEnemy.normalized, transform.forward) > Mathf.Cos(HitAreas[i].Angle * 0.5f * Mathf.Deg2Rad))
                         {
                             HitAreas[i].enemyFound = true;
-                            //Debug.Log(enemy);
-                            //Debug.Log(enemiesInDot);
                             enemiesInDot.Add(enemy);
-                            //Debug.Log("In Dot Product");
                         }
                         else HitAreas[i].enemyFound = false;
                     }
@@ -154,16 +133,12 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        Rotation();
+        //Rotation();
         aim = controls.Player.Rotation.ReadValue<Vector2>();
-        
-        if(aim.x <= -0.5f || aim.x >= 0.5f || aim.y <= -0.5f || aim.y >= 0.5f)
-        {
-            if(isGamepad) RangeAttack();
-        }
-        if (!isGamepad & Input.GetButton("Fire1"))
+        if (shooting)
         {
             RangeAttack();
+            //Rotation();
         }
         #endregion
     }
@@ -176,6 +151,11 @@ public class PlayerActions : MonoBehaviour
             animator.SetTrigger("" + combo);
             Debug.Log(combo);
         }
+        if(enemiesInDot != null)
+        {
+            transform.LookAt(enemiesInDot[0].transform);
+        }
+        playerController.controller.Move(transform.forward * meleeDash);
     }
     public void startCombo()
     {
@@ -205,7 +185,7 @@ public class PlayerActions : MonoBehaviour
 
     public void DisableCollider()
     {
-        animator.applyRootMotion = true;
+        //animator.applyRootMotion = true;
         VFX.Melee();
         playerController.enabled = true;
     }
@@ -229,14 +209,8 @@ public class PlayerActions : MonoBehaviour
         StartCoroutine(Dashing());
     }
 
-    public void Test(InputAction.CallbackContext context)
-    {
-        Debug.Log("Disabled control scheme");
-    }
-
     public IEnumerator Dashing()
     {
-        Debug.Log("dashing!");
         float startTime = Time.time;
 
         VFX.Dash();
@@ -248,13 +222,14 @@ public class PlayerActions : MonoBehaviour
         VFX.Dash();
     }
 
-    public void Sprinting()
+    public void Sprint()
     {
         playerController.playerSpeed = SprintSpeed;
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            playerController.playerSpeed = OriginalSpeed;
-        }
+    }
+
+    public void UnSprint()
+    {
+        playerController.playerSpeed = OriginalSpeed;
     }
 
     public void RangeAttack()
@@ -269,7 +244,7 @@ public class PlayerActions : MonoBehaviour
 
     public void Rotation()
     {
-        Debug.Log(aim);
+        //Debug.Log(aim);
         if (Mathf.Abs(aim.x) > deadzone || Mathf.Abs(aim.y) > deadzone)
         {
             Vector3 playerDir = Vector3.right * aim.x + Vector3.forward * aim.y;
@@ -279,11 +254,6 @@ public class PlayerActions : MonoBehaviour
                 ProjectileOrigin.transform.rotation = Quaternion.RotateTowards(ProjectileOrigin.transform.rotation, newrotation, 1000f * Time.deltaTime);
             }
         }
-    }
-
-    public void OnDeviceChange(PlayerInput pi)
-    {
-        isGamepad = pi.currentControlScheme.Equals("Gamepad") ? true : false;
     }
 
     private void OnDrawGizmos()

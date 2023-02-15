@@ -242,13 +242,13 @@ namespace Ultimate.AI
 		public float Defence;
 
 #if (UNITY_EDITOR)
-        [DrawIf("type", Type.Ranged | Type.Both, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
+        [DrawIf("type", Type.Ranged | Type.Tank, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
 #endif
 		[SerializeField]
 		private int clipAmmo;
 		[Tooltip("This is how much time is needed to reload the ammo clip when the AI is out of ammo.")]
 #if (UNITY_EDITOR)
-		[DrawIf("type", Type.Ranged | Type.Both, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
+		[DrawIf("type", Type.Ranged | Type.Tank, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
 
 #endif
 		[SerializeField]
@@ -258,13 +258,13 @@ namespace Ultimate.AI
 
 		[Tooltip("This is the projectile that the AI will shoot if is set to ranged. Make sure it has rigidbody attached!")]
 #if (UNITY_EDITOR)
-		[DrawIf("type", Type.Ranged | Type.Both, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
+		[DrawIf("type", Type.Ranged | Type.Tank, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
 #endif
 		[SerializeField]
 		private GameObject projectile; //Make sure it has rigidbody attached!
 		[Tooltip("This is the place where the projectiles will come from.")]
 #if (UNITY_EDITOR)
-		[DrawIf("type", Type.Ranged | Type.Both, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
+		[DrawIf("type", Type.Ranged | Type.Tank, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
 #endif
 		[SerializeField]
 		private Transform shooter;
@@ -295,6 +295,9 @@ namespace Ultimate.AI
 #endif
 		[SerializeField]
 		private int attackAnimations;
+
+		[SerializeField] 
+		private int hittedAnimations;
 #if (UNITY_EDITOR)
 		[DrawIf("useRagdoll", false, DrawIfAttribute.ComparisonType.Equals)]
 #endif
@@ -315,7 +318,7 @@ namespace Ultimate.AI
 		private AudioClip[] hitSounds, attackSounds, stepSounds, deathSounds;
 
 		private AudioSource audioSource;
-		private Animator anim;
+		[HideInInspector]public Animator anim; // Anmar, Made it public and hidden in inspector
 		private NavMeshAgent agent;
 		private GameObject objToSpawn;
 		private Vector3 wanderPoint;
@@ -335,7 +338,7 @@ namespace Ultimate.AI
 		public bool effectsBigger, canDisplayEffects, timeToInfect, infected, bulletHit, inPlayer, firstPathGotten, idling, canDisplayCount, verSuitable, ragdollCreated;
 		private bool moving, timeToRotate, canFire = true, inAttackRange, provoked, hearing, canHearAgain = true, canCheckSound = true;
 
-		public enum Type { Melee, Ranged, NPC, Both };
+		public enum Type { Melee, Ranged, NPC, Tank };
 		public enum AttackEffect { None, Poison, Burn, Slow, Freeze, Stun, Health };
 
 		//Anmar Edits----
@@ -344,6 +347,7 @@ namespace Ultimate.AI
 		#endregion
 		private void Start() //This function will trigger once the game is started.
 		{
+			players[0] = FindObjectOfType<PlayerMovement>();
 			wanderPointSet = false; //We are making sure the AI will pick a wander point because if there is not one this is exactly what would happen.
 			if (IKPoint != null && playerIKPosition != null) //Then we are checking if we have an assigned IK animation rigging point (look like a ball :D).
 			{
@@ -405,17 +409,17 @@ namespace Ultimate.AI
 			if (distanceToPlayer.magnitude <= chaseRange && provoked && distanceToPlayer.magnitude > attackRange && !isDead && Time.timeScale != 0 && GetComponent<FieldOfView>().canSee)
 			{
 				if (type != Type.NPC) Chase(); //This checks whether it is time to chase...
-				else CheckAttack();
-			}
+				else { CheckAttack(); Debug.Log("Run 1"); }
+            }
 			else if (distanceToPlayer.magnitude < chaseRange && distanceToPlayer.magnitude <= attackRange && !isDead && Time.timeScale != 0 && GetComponent<FieldOfView>().canSee && provoked)
 			{
 				if (attackOnProvoke && type != Type.NPC) //This checkes if the AI set to attack only when provoked.
 				{
-					if (provoked) CheckAttack(); //If so and is provoked - it will execute an attack.
+					if (provoked) { CheckAttack();  Debug.Log("Run 2"); } //If so and is provoked - it will execute an attack.
 				}
-			    if (!attackOnProvoke && type != Type.NPC) CheckAttack(); //But if it is set to hostile and is not an NPC we need to get in the attack checker.
-				else if (type == Type.NPC) CheckAttack(); //And lastly if it is an NPC we still need to play the attack checker.
-			}
+			    if (!attackOnProvoke && type != Type.NPC) { CheckAttack(); Debug.Log("Run 3"); } //But if it is set to hostile and is not an NPC we need to get in the attack checker.
+                else if (type == Type.NPC) { CheckAttack(); Debug.Log("Run 4"); } //And lastly if it is an NPC we still need to play the attack checker.
+            }
 			else if (Time.timeScale != 0 && !attacking && !isDead) Wander(); //If it is neither attacking nor dead it will wander around.
 
 			if (health <= 0 && Time.timeScale != 0 && !isDead) Die(); //If our health gets low the AI will die.
@@ -510,11 +514,12 @@ namespace Ultimate.AI
 
 				if (!attacking) //If currently is NOT attacking then attack.
 				{
+					Debug.Log("Melee attack called");	
 					attacking = true;
 					int randomNumber = Random.Range(0, attackAnimations); //We are getting a random number. And here we are creating a string using the number and the word attack.
 					anim.SetTrigger("Attack" + randomNumber.ToString());  //This way a trigger is being formed and sent to the animator.
 					//Anmar
-					StartCoroutine(AttackPlayer());
+				    StartCoroutine(AttackPlayer());
 					// I added this cuz melee in this package uses animation stuff...
 					//----
 					return;
@@ -529,14 +534,33 @@ namespace Ultimate.AI
 				attacking = true; //And so is that bool.
 			}
 
-			if (type == Type.Both)
+			// Added a whole new Tank Type - Anmar
+			if (type == Type.Tank)
 			{
-				timeToRotate = true; //A simple bool for rotating is set to true.
-                Vector3 closeShootRange = new Vector3(attackRange, attackRange);
-                if (distanceToPlayer.magnitude <= closeShootRange.magnitude) agent.ResetPath();
-                StartCoroutine(AttackPlayer());
-				attacking = true;
-				Debug.Log("Both attack called");
+                timeToRotate = false; //A simple bool for rotating is set to false.
+                Vector3 closeMeleeRange = new Vector3(attackRange, attackRange) * 1 / 2;
+
+                if (distanceToPlayer.magnitude > closeMeleeRange.magnitude)
+                {
+                    agent.SetDestination(player.transform.position);
+                    // Anmar
+                    Vector3 look = player.transform.position;
+                    //look.y = 1;
+                    transform.LookAt(look);
+                    //-------
+                }
+                else agent.ResetPath(); timeToRotate = true;
+
+                if (!attacking) //If currently is NOT attacking then attack.
+                {
+                    attacking = true;
+                    //Anmar
+                    StartCoroutine(AttackPlayer());
+                    // I added this cuz melee in this package uses animation stuff...
+                    //----
+                    return;
+                }
+               // Debug.Log("Tank attack called");
             }
 
 			else if (type == Type.NPC) //This checks if the AI is set to npc.
@@ -574,7 +598,7 @@ namespace Ultimate.AI
 
 				if (type == Type.Melee) ///If the AI is set to melee the MeleeAttack function will be called.
 				{
-					MeleeAttack();
+					//MeleeAttack(); // We stopped calling it here... Instead im calling it as an animation event..cuz there is a bug - Anmar
 					effectsDealt = 0;
 					infected = false; //The effects are reset.
 					timeToInfect = true;
@@ -585,15 +609,11 @@ namespace Ultimate.AI
 					StartCoroutine(WaitUntilImpact()); //We are waiting for our bullet to hit a player.
 					StartCoroutine(RangedAttack());
 				}
-			    if (type == Type.Both)
+			    if (type == Type.Tank)
 				{
-                    MeleeAttack();
-                    effectsDealt = 0;
-                    infected = false; //The effects are reset.
-                    timeToInfect = true;
-                    effectsDealt = 0;
-                    //StartCoroutine(WaitUntilImpact()); //We are waiting for our bullet to hit a player.
-                    StartCoroutine(RangedAttack());
+					// This shouldnt commented...but only for now...for testing
+					//GetComponent<MultiAttacker>().AttackPlayer();
+					
                 }
 
 				attacking = true;
@@ -605,9 +625,10 @@ namespace Ultimate.AI
 		public void MeleeAttack()
 		{
 			player.GetComponent<PlayerActions>().health -= damageToDeal; //Here the given damage is taken from the player's health when successfully attacking.
+			// Call take damage in player here - Anmar
 
-			//var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
-			//audioSource.PlayOneShot(clip);
+			var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
+			audioSource.PlayOneShot(clip);
 
 			agent.SetDestination(player.transform.position);
 			// Anmar
@@ -619,7 +640,7 @@ namespace Ultimate.AI
 			//Here we set our player's position as a destination for the AI.
 
 			//foreach (ParticleSystem particle in wanderParticles) if (particle.isPlaying) particle.Stop(); //Only needed particles are being played.
-			//foreach (ParticleSystem particle in attackParticles) particle.Play();
+			foreach (ParticleSystem particle in attackParticles) particle.Play();
 			//foreach (ParticleSystem particle in chaseParticles) if (particle.isPlaying) particle.Stop();
 
 			wanderPointSet = false; //And the waner point is reset once again.
@@ -643,8 +664,9 @@ namespace Ultimate.AI
 					Rigidbody rb = Instantiate(projectile, shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>(); //The rigidbody of the projectile is being accessed.
 					//rb.GetComponent<Projectile>().ai = gameObject;
 					rb.AddForce(transform.forward * 10f, ForceMode.Impulse); //The projectiles get pushed so that they can move using physics force.
+                    Debug.Log("Range attack called");
 
-					foreach (ParticleSystem particle in wanderParticles) if (particle.isPlaying) particle.Stop(); //Only needed particles are being played.
+                    foreach (ParticleSystem particle in wanderParticles) if (particle.isPlaying) particle.Stop(); //Only needed particles are being played.
 					foreach (ParticleSystem particle in attackParticles) particle.Play();
 					foreach (ParticleSystem particle in chaseParticles) if (particle.isPlaying) particle.Stop();
 					canFire = false;
@@ -1185,7 +1207,9 @@ namespace Ultimate.AI
 
 		public void TakeDamage(float damageToTake /*, PlayerMovement attacker*/)
 		{
-			if (attackOnProvoke) provoked = true;
+           // anim.ResetTrigger("GotHit0"/* randomNumber.ToString()*/);
+
+            if (attackOnProvoke) provoked = true;
 
 			damageToTake *= 1 - Defence; //health must be int or float?
            //player = attacker.transform;
@@ -1194,11 +1218,15 @@ namespace Ultimate.AI
 			knockBack.y = 0;
 			transform.position = knockBack;
 
-            /*var clip = hitSounds[Random.Range(0, hitSounds.Length)]; //A random sound is loaded and the played.
-			audioSource.PlayOneShot(clip);*/
+            //var clip = hitSounds[Random.Range(0, hitSounds.Length)]; //A random sound is loaded and the played.
+			//audioSource.PlayOneShot(clip);
             //Anmar
             var particle = hitParticles[Random.Range(0, hitParticles.Length)];
             particle.Play();
+
+            int randomNumber = Random.Range(0, hittedAnimations);
+            anim.SetTrigger("GotHit0"/* randomNumber.ToString()*/);
+
             //----
             //Gizmos.DrawSphere(transform.position, 1);
             health -= damageToTake; //The damage given is being taken from the AI's health.

@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: b9c0cbc002bf7064d8f029a906e09625
+guid: 2fbe465019331274d8ff41a65521d1c3
 ModelImporter:
   serializedVersion: 20300
-  internalIDToNameTable:
-  - first:
-      74: -203655887218126122
-    second: Sword And Shield Slash
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -33,64 +30,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Sword And Shield Slash
-      takeName: mixamo.com
-      internalID: 0
-      firstFrame: 30
-      lastFrame: 90
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 0.037220843
-        functionName: EnableCollider
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.48387095
-        functionName: DisableCollider
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.65660846
-        functionName: startCombo
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.8858561
-        functionName: FinishAni
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -554,23 +494,23 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Y Bot@Idle(Clone)
+    - name: Enemy(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Alpha_Surface
-      parentName: Y Bot@Idle(Clone)
+      parentName: Enemy(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Alpha_Joints
-      parentName: Y Bot@Idle(Clone)
+      parentName: Enemy(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
-      parentName: Y Bot@Idle(Clone)
+      parentName: Enemy(Clone)
       position: {x: -0.0026168248, y: 0.98995954, z: -0.0012634253}
       rotation: {x: 6.081808e-11, y: 0.0000013853423, z: -0.000043905857, w: 1}
       scale: {x: 0.99999994, y: 1, z: 0.99999994}
@@ -906,7 +846,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e1e1820366f80884baafe10a26797091, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 32650b4dd96da354bb5c745f0cc57b75, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

@@ -5516,6 +5516,7 @@ MonoBehaviour:
   gravity: -9.81
   controller: {fileID: 0}
   refer: {x: 0, y: 0, z: 0}
+  animator: {fileID: 0}
 --- !u!114 &1927085984426783354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5528,6 +5529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGamepad: 0
   health: 500
   HitAreas:
   - Direction: 120
@@ -5544,9 +5546,13 @@ MonoBehaviour:
   bullet: {fileID: 1472468272477937308, guid: fdadadf755217ef44b76cce7eb349612, type: 3}
   FireRate: 0.3
   bulletSpeed: 10
+  aim: {x: 0, y: 0}
+  shooting: 0
   DashSpeed: 0
   DashTime: 0
+  DashCDN: 0
   SprintSpeed: 0
+  isSprinting: 0
   refer: {x: 0, y: 0, z: 0}
   Dashdir: {x: 0, y: 0, z: 0}
 --- !u!114 &1927085984426783355
@@ -5706,9 +5712,12 @@ MonoBehaviour:
   currentXpText: {fileID: 0}
   requiredXpText: {fileID: 0}
   levelText: {fileID: 0}
+  currentPlayerStatPointText: {fileID: 0}
   currentXp: 0
   requiredXp: 0
   level: 0
+  statPointPanel: {fileID: 0}
+  statHealth: 0
 --- !u!1 &1774770121549128441
 GameObject:
   m_ObjectHideFlags: 0
