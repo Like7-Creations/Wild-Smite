@@ -23,8 +23,12 @@ public class PlayerActions : MonoBehaviour
     Animator animator;
     [SerializeField]bool isAttacking;
     [SerializeField] float meleeDash;
+    [SerializeField] float meleeknockback;
+    [SerializeField] float flashDamageTime;
+    [SerializeField] GameObject flash;
+    [SerializeField] SkinnedMeshRenderer hit;
+    [SerializeField] Material red;
 
-    //[SerializeField] UltimateAI ClosestEnemy;
     [Space(5)]
     [Header("Range Settings")]
     public GameObject ProjectileOrigin;
@@ -143,6 +147,35 @@ public class PlayerActions : MonoBehaviour
         #endregion
     }
 
+    #region Player Take Damage
+
+    public void TakeDamagge(float damage)
+    {
+        animator.SetTrigger("Hit");
+        Color origin = hit.material.color;
+        flash.gameObject.SetActive(true);
+       /* hit.materials[0].color = Color.red;
+        for (int i = 0; i < hit.materials.Length; i++)
+        {
+        }*/
+        health -= damage;
+        //playerController.controller.Move(transform.forward * meleeknockback * Time.deltaTime);
+        Vector3 knockBack = transform.position - transform.forward * meleeknockback;
+        knockBack.y = 0;
+        transform.position = knockBack;
+        StartCoroutine(resetFlashDamage(origin));
+       // hit.materials[0].color = origin;
+    }
+
+    IEnumerator resetFlashDamage(Color origin)
+    {
+        yield return new WaitForSeconds(flashDamageTime);
+        flash.gameObject.SetActive(false);
+        // hit.materials[0].color = origin;
+    }
+
+    #endregion
+
     public void Attack(/*InputAction.CallbackContext context*/)
     {
         if (!isAttacking)
@@ -225,11 +258,13 @@ public class PlayerActions : MonoBehaviour
     public void Sprint()
     {
         playerController.playerSpeed = SprintSpeed;
+        isSprinting = true;
     }
 
     public void UnSprint()
     {
         playerController.playerSpeed = OriginalSpeed;
+        isSprinting = false;
     }
 
     public void RangeAttack()

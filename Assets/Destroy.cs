@@ -10,7 +10,7 @@ public class Destroy : MonoBehaviour
 
     void Start()
     {
-            player = FindObjectOfType<PlayerMovement>();
+        player = FindObjectOfType<PlayerMovement>();
     }
 
     void Update()

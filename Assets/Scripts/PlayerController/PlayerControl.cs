@@ -36,7 +36,7 @@ public class PlayerControl : MonoBehaviour
         if (context.action.name == controls.Player.Movement.name && context.performed)
         {
             //Debug.Log("Movement Called");
-            pMovement.animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
+            //pMovement.animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
             pMovement.onMove(context);
         }
 
@@ -79,13 +79,13 @@ public class PlayerControl : MonoBehaviour
         if (context.action.name == controls.Player.Sprinting.name && context.performed)
         {
             Debug.Log("sprinting Called");
-            pMovement.animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
+           // pMovement.animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
             pActions.Sprint();
         }
         if (context.action.name == controls.Player.Sprinting.name && context.canceled)
         {
             Debug.Log("unsprint Called");
-            pMovement.animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
+            //pMovement.animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
             pActions.UnSprint();
         }
     }

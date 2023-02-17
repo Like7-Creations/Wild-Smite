@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerVFX : MonoBehaviour
 {
-
     [Header("Dashing")]
     public TrailRenderer DashVFX;
 

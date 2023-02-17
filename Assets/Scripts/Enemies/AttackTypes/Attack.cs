@@ -13,4 +13,8 @@ public abstract class Attack : MonoBehaviour
        ultimateAI = GetComponent<UltimateAI>(); 
     }
     public abstract void AttackType();
+    public virtual void Update()
+    {
+        
+    }
 }

@@ -267,7 +267,7 @@ namespace Ultimate.AI
 		[DrawIf("type", Type.Ranged | Type.Tank, DrawIfAttribute.ComparisonType.Equals, DrawIfAttribute.DisablingType.DontDraw)]
 #endif
 		[SerializeField]
-		private Transform shooter;
+		public Transform shooter;
 
 		[Space]
 		[Header("Visible Adjustments")]
@@ -530,7 +530,7 @@ namespace Ultimate.AI
 				timeToRotate = true; //A simple bool for rotating is set to true.
 				Vector3 closeShootRange = new Vector3(attackRange, attackRange); //* 1 / 3 Anmar Commented This; //A close range is defined and if the player is in that range the AI should stop moving.
 				if (distanceToPlayer.magnitude <= closeShootRange.magnitude) agent.ResetPath(); if (distanceToPlayer.magnitude > closeShootRange.magnitude) agent.SetDestination(player.transform.position);
-				StartCoroutine(AttackPlayer()); //Right after the attack method is being executed.
+                StartCoroutine(AttackPlayer()); //Right after the attack method is being executed.
 				attacking = true; //And so is that bool.
 			}
 
@@ -624,7 +624,7 @@ namespace Ultimate.AI
 
 		public void MeleeAttack()
 		{
-			player.GetComponent<PlayerActions>().health -= damageToDeal; //Here the given damage is taken from the player's health when successfully attacking.
+			player.GetComponent<PlayerActions>().TakeDamagge(damageToDeal); //Here the given damage is taken from the player's health when successfully attacking.
 			// Call take damage in player here - Anmar
 
 			var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
@@ -658,13 +658,15 @@ namespace Ultimate.AI
 				else //If the AI has ammo:
 				{
 					curAmmo--; //The ammo is being lowered with 1 bullet for each shot.
-					//var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
-					//audioSource.PlayOneShot(clip);
+							   //var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
+							   //audioSource.PlayOneShot(clip);
 
-					Rigidbody rb = Instantiate(projectile, shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>(); //The rigidbody of the projectile is being accessed.
+					//Rigidbody rb = Instantiate(projectile, shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>(); //The rigidbody of the projectile is being accessed.
 					//rb.GetComponent<Projectile>().ai = gameObject;
-					rb.AddForce(transform.forward * 10f, ForceMode.Impulse); //The projectiles get pushed so that they can move using physics force.
-                    Debug.Log("Range attack called");
+					//rb.AddForce(transform.forward * 10f, ForceMode.Impulse); //The projectiles get pushed so that they can move using physics force.
+					MultiAttacker attack = GetComponent<MultiAttacker>();
+				    attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType();
+					Debug.Log("Range attack called");
 
                     foreach (ParticleSystem particle in wanderParticles) if (particle.isPlaying) particle.Stop(); //Only needed particles are being played.
 					foreach (ParticleSystem particle in attackParticles) particle.Play();

@@ -54,13 +54,13 @@ public class PlayerMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
             PA.Dashdir = moveDir;
             controller.Move(moveDir.normalized * playerSpeed * Time.deltaTime);
+           
+            if (PA.isSprinting)
+            {
+                animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
+                //InvokeRepeating("lostStamina", 1f, 1);
+            }else animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
 
-            // this should be commented
-             if (Input.GetKey(KeyCode.LeftShift))
-             {
-                 animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
-             }else animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
-            //InvokeRepeating("lostStamina", 1f, 1);
 
         }
         else animator.SetFloat("X", 0f, 0.05f, Time.deltaTime);

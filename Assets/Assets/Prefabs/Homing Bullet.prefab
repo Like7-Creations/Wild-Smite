@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: -5404723256184575563}
   - component: {fileID: 6465361151473752961}
   - component: {fileID: 403474400243815402}
+  - component: {fileID: 1666596545338744497}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Homing Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aaaed63fbcdc37479e4fbe966b48000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 5
+  timer: 10
   enemy: 0
 --- !u!96 &6465361151473752961
 TrailRenderer:
@@ -94,7 +95,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2b3613f1b9e6d3f408a7264e8e3f0d57, type: 2}
+  - {fileID: 2100000, guid: e93f9741f0b240e4b98afd02444e7ef4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -195,6 +196,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1666596545338744497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472468272477937308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7b277623c67be40a2e31cd23898ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
 --- !u!1 &5155329464898983004
 GameObject:
   m_ObjectHideFlags: 0
