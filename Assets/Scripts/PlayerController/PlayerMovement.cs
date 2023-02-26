@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     private Vector2 movementInput;
     float turnSmoothVelocity;
+    Vector3 velocity;
     [HideInInspector] public CharacterController controller;
     [HideInInspector] public Vector3 refer;
     
@@ -46,13 +47,17 @@ public class PlayerMovement : MonoBehaviour
         refer = direction;
         float targetangle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
-        controller.Move(new Vector3(0, -9.81f, 0));
+       // controller.Move(new Vector3(0, -9.81f, 0));
         if (direction != Vector3.zero)
         {
             transform.rotation = Quaternion.Euler(0, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
-            PA.Dashdir = moveDir;
+            PA.Dashdir = moveDir; // this is for dash to Make the player dash to their forward
+            
+            Vector3 backDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.back;
+            PA.knockBackDir = backDir; // This is  for the knockback when the player gets hit.
+            
             controller.Move(moveDir.normalized * playerSpeed * Time.deltaTime);
            
             if (PA.isSprinting)
@@ -64,6 +69,20 @@ public class PlayerMovement : MonoBehaviour
 
         }
         else animator.SetFloat("X", 0f, 0.05f, Time.deltaTime);
+
+        /*(if (Input.GetKeyDown(KeyCode.G))
+        {
+            Debug.Log("jumedddd");
+        }*/
+
+        velocity.y += gravity * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void knockUp()
+    {
+        velocity.y = Mathf.Sqrt(1 * -2f * gravity);
     }
 
     public void onMove(InputAction.CallbackContext context)

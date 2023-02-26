@@ -29,7 +29,8 @@ public class PlayerControl : MonoBehaviour
         if (context.action.name == controls.Player.Dash.name && context.performed)
         {
             Debug.Log("Dashing Called");
-            StartCoroutine(pActions.Dashing());
+            pActions.Dash();
+            //StartCoroutine(pActions.Dashing());
         }
 
         //Player Movement

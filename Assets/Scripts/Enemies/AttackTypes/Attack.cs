@@ -8,9 +8,11 @@ using UnityEngine;
 public abstract class Attack : MonoBehaviour
 {
     [HideInInspector] public UltimateAI ultimateAI;
+    [HideInInspector] public FieldOfView fov;
     public virtual void Start()
     {
-       ultimateAI = GetComponent<UltimateAI>(); 
+       ultimateAI = GetComponent<UltimateAI>();
+        fov = GetComponent<FieldOfView>();
     }
     public abstract void AttackType();
     public virtual void Update()

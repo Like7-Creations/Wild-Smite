@@ -21,6 +21,7 @@ public class PlayerActions : MonoBehaviour
     public HitArea[] HitAreas;
     public int combo;
     Animator animator;
+    bool invincible;
     [SerializeField]bool isAttacking;
     [SerializeField] float meleeDash;
     [SerializeField] float meleeknockback;
@@ -28,6 +29,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] GameObject flash;
     [SerializeField] SkinnedMeshRenderer hit;
     [SerializeField] Material red;
+    [HideInInspector] public Vector3 knockBackDir;
 
     [Space(5)]
     [Header("Range Settings")]
@@ -149,22 +151,27 @@ public class PlayerActions : MonoBehaviour
 
     #region Player Take Damage
 
-    public void TakeDamagge(float damage)
+    public void TakeDamage(float damage, Vector3 knockbackdir)
     {
-        animator.SetTrigger("Hit");
-        Color origin = hit.material.color;
-        flash.gameObject.SetActive(true);
-       /* hit.materials[0].color = Color.red;
-        for (int i = 0; i < hit.materials.Length; i++)
+        if (!invincible)
         {
-        }*/
-        health -= damage;
-        //playerController.controller.Move(transform.forward * meleeknockback * Time.deltaTime);
-        Vector3 knockBack = transform.position - transform.forward * meleeknockback;
-        knockBack.y = 0;
-        transform.position = knockBack;
-        StartCoroutine(resetFlashDamage(origin));
-       // hit.materials[0].color = origin;
+            animator.SetTrigger("Hit");
+            Color origin = hit.material.color;
+            flash.gameObject.SetActive(true);
+            /* hit.materials[0].color = Color.red;
+             for (int i = 0; i < hit.materials.Length; i++)
+             {
+             }*/
+            health -= damage;
+
+            StartCoroutine(Mover(10, 0.03f, knockbackdir));
+            //playerController.controller.Move(transform.forward * meleeknockback * Time.deltaTime);
+            //Vector3 knockBack = transform.position - transform.forward * knockbackStr;
+            //knockBack.y = 0;
+            //transform.position = knockBack;
+            StartCoroutine(resetFlashDamage(origin));
+            // hit.materials[0].color = origin;
+        }
     }
 
     IEnumerator resetFlashDamage(Color origin)
@@ -239,19 +246,23 @@ public class PlayerActions : MonoBehaviour
 
     public void Dash()
     {
-        StartCoroutine(Dashing());
+        StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));
     }
 
-    public IEnumerator Dashing()
+    public IEnumerator Mover(float speed, float time, Vector3 dir)
     {
         float startTime = Time.time;
+        
+        invincible = true;
 
         VFX.Dash();
-        while (Time.time < startTime + DashTime)
+
+        while (Time.time < startTime + time)
         {
-            playerController.controller.Move(Dashdir * DashSpeed * Time.deltaTime);
+            playerController.controller.Move(dir * speed * Time.deltaTime);
             yield return null;
         }
+        invincible = false;
         VFX.Dash();
     }
 
