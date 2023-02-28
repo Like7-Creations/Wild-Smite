@@ -44,7 +44,10 @@ public class PlayerStats : MonoBehaviour
     public float aoe_Tap { get; private set; }
 
     [field: SerializeField]
-    public float aoe_Hold { get; private set; }
+    public float aoe_Hold { get; private set; }         //Max Charge Amount
+
+    [field: SerializeField]
+    public float aoe_ChargeRate { get; private set; }   //Amount per second
 
 
     void AddEXP(int addXP)
@@ -77,6 +80,9 @@ public class PlayerStats : MonoBehaviour
         stamina += (int)(amount * Time.deltaTime);
     }
 
+    
+
+
     void Start()
     {
         playerData= GetComponent<PlayerStat_Data>();
@@ -94,5 +100,6 @@ public class PlayerStats : MonoBehaviour
         
         aoe_Tap = playerData.aoe_TAP;
         aoe_Hold = playerData.aoe_HOLD;
+        aoe_ChargeRate = playerData.aoe_ChargeRate;
     }
 }
