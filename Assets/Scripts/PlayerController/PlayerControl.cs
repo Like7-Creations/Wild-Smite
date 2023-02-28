@@ -28,7 +28,6 @@ public class PlayerControl : MonoBehaviour
         //Dashing
         if (context.action.name == controls.Player.Dash.name && context.performed)
         {
-            Debug.Log("Dashing Called");
             pActions.Dash();
             //StartCoroutine(pActions.Dashing());
         }
@@ -44,7 +43,6 @@ public class PlayerControl : MonoBehaviour
         //Melee Attack
         if (context.action.name == controls.Player.Attack.name && context.performed)
         {
-            Debug.Log("Attack Called");
             pActions.Attack();
         }
 
@@ -72,21 +70,16 @@ public class PlayerControl : MonoBehaviour
         // AOE
         if (context.action.name == controls.Player.AreaOfEffect.name && context.performed)
         {
-            Debug.Log("AOE Called");
             pActions.AOE();
         }
 
         // Sprinting
         if (context.action.name == controls.Player.Sprinting.name && context.performed)
         {
-            Debug.Log("sprinting Called");
-           // pMovement.animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
             pActions.Sprint();
         }
         if (context.action.name == controls.Player.Sprinting.name && context.canceled)
         {
-            Debug.Log("unsprint Called");
-            //pMovement.animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
             pActions.UnSprint();
         }
     }

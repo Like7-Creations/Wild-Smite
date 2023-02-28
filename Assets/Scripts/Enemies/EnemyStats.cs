@@ -7,7 +7,10 @@ using UnityEngine.UI;
 public class EnemyStats : MonoBehaviour
 {
     public UltimateAI thisEnemy;
+    float myMaxHealth;
     public EnemyStatRange ESR;
+    public Image HealthBar;
+    public Canvas canvas;
 
     public float Health {get; private set;}
     public float Speed {get; private set;}
@@ -22,6 +25,7 @@ public class EnemyStats : MonoBehaviour
     void Start()
     {
         thisEnemy = GetComponent<UltimateAI>();
+        myMaxHealth = thisEnemy.health;
         GenerateStatValues();
         AllocateStats();
     }
@@ -29,8 +33,9 @@ public class EnemyStats : MonoBehaviour
     void Update()
     {
         //Debug.Log(thisInt);
-        //float thisInt = thisEnemy.health / 200f;
-       // HealthBar.fillAmount = (float)thisInt;
+        float thisInt = thisEnemy.health / Health;
+        HealthBar.fillAmount = (float)thisInt;
+        canvas.transform.LookAt(Camera.main.transform);
        // AllocateStats();
     }
 

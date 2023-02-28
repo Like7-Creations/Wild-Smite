@@ -504,6 +504,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisEnemy: {fileID: 896890494}
   ESR: {fileID: 11400000, guid: aaa4f45b045c8884981352ec984dbdbd, type: 2}
+  HealthBar: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!114 &896890494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,6 +669,10 @@ MonoBehaviour:
   - {fileID: 896890503}
   - {fileID: 896890502}
   - {fileID: 896890501}
+  playerAmount: []
+  chosenPlayer: {fileID: 0}
+  playerOne: {fileID: 0}
+  playerTwo: {fileID: 0}
 --- !u!114 &896890501
 MonoBehaviour:
   m_ObjectHideFlags: 0

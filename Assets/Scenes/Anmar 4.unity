@@ -6473,6 +6473,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacksList: []
+  playerAmount: []
+  chosenPlayer: {fileID: 0}
+  playerOne: {fileID: 0}
+  playerTwo: {fileID: 0}
 --- !u!195 &823989462
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6634,6 +6638,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisEnemy: {fileID: 823989465}
   ESR: {fileID: 11400000, guid: aaa4f45b045c8884981352ec984dbdbd, type: 2}
+  HealthBar: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!82 &823989467
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6803,8 +6809,8 @@ MonoBehaviour:
   radius: 0
   radiusEnd: 10
   expandSpeed: 2
-  knockBackStr: 3
-  knockBacktime: 5
+  knockBackStr: 100
+  knockBacktime: 0.2
 --- !u!1 &827739516
 GameObject:
   m_ObjectHideFlags: 0
@@ -11905,7 +11911,7 @@ MonoBehaviour:
   playerSpawns:
   - {fileID: 1241975513}
   - {fileID: 544297156}
-  playerPrefab: {fileID: 1875388763240933588, guid: e24ced5e30bdf6f4eaf0da193d3b70c4, type: 3}
+  playerPrefab: {fileID: 1875388763240933588, guid: 377d51dc04797cd4ea44ae5146534d15, type: 3}
   initialiseOnStart: 0
 --- !u!1 &999664755
 GameObject:
@@ -58512,7 +58518,6 @@ MonoBehaviour:
   NoOfSpawns: 3
   prefabsToSpawn:
   - {fileID: 5577086592835663258, guid: f4a0523f0dc22ee49b95150a55d2916f, type: 3}
-  - {fileID: 7698132050552416451, guid: 175187faace7794438a24d647d51c881, type: 3}
   distFromTank: 5
 --- !u!114 &3046872908784377681
 MonoBehaviour:
@@ -68542,6 +68547,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacksList: []
+  playerAmount: []
+  chosenPlayer: {fileID: 0}
+  playerOne: {fileID: 0}
+  playerTwo: {fileID: 0}
 --- !u!195 &4656133312351699212
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -68710,6 +68719,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisEnemy: {fileID: 4656133312351699443}
   ESR: {fileID: 11400000, guid: aaa4f45b045c8884981352ec984dbdbd, type: 2}
+  HealthBar: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!114 &4656133312351699442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89119,6 +89130,10 @@ PrefabInstance:
     - target: {fileID: 896890494, guid: 175187faace7794438a24d647d51c881, type: 3}
       propertyPath: attackRange
       value: 37.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 896890496, guid: 175187faace7794438a24d647d51c881, type: 3}
+      propertyPath: viewRadius
+      value: 43.09
       objectReference: {fileID: 0}
     - target: {fileID: 7034221282678387321, guid: 175187faace7794438a24d647d51c881, type: 3}
       propertyPath: m_RootOrder

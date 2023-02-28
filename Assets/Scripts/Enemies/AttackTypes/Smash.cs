@@ -6,6 +6,7 @@ public class Smash : Attack
 {
     [SerializeField] float Radius;
     [SerializeField] Transform smashPos;
+
     Vector3 targetHit;
 
 
@@ -38,19 +39,20 @@ public class Smash : Attack
 
     public void Update()
     {
-        float dist = Vector3.Distance(transform.position, smashPos.position);
+        float dist = Vector3.Distance(transform.position, ultimateAI.players[0].transform.position);
 
-        /*if(dist > GetComponent<Swipe>().Hitarea.Radius)
+        if(dist <= GetComponent<Swipe>().Hitarea.Radius)
         {
-            smashPos.transform.position = Vector3.Lerp(smashPos.position, transform.position, test * Time.deltaTime);
-        }*/
-        /*Vector3 pos = smashPos.localPosition;
-        pos.x = Mathf.Clamp(smashPos.transform.position.x, 0f, 5f);
-        pos.z = Mathf.Clamp(smashPos.transform.position.z, 0f, 5f);
-        smashPos.transform.position.x = pos.x;
-        smashPos.transform.position.z = pos.z;
-        smashPos.transform.localPosition = Vector3.Lerp(smashPos.position, ultimateAI.players[0].transform.position, 5 * Time.deltaTime);*/
-       // targetHit = smashPos.position;
+             smashPos.transform.position = Vector3.Lerp(smashPos.position, ultimateAI.players[0].transform.position, 5f * Time.deltaTime);
+        }
+        else 
+        { 
+            smashPos.transform.position = Vector3.Lerp(smashPos.position, ultimateAI.players[0].transform.position, 5f * Time.deltaTime);
+            Vector3 pos = smashPos.localPosition;
+            pos.x = Mathf.Clamp(smashPos.localPosition.x, -4f, 5f);
+            pos.z = Mathf.Clamp(smashPos.localPosition.z, 0f, 5f);
+            smashPos.localPosition = pos;    
+        }
     }
 
     private void OnDrawGizmos()

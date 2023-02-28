@@ -667,18 +667,17 @@ namespace Ultimate.AI
 
             attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType();
 
-			//playerTakeDamage();
-			
-			//player.GetComponent<PlayerActions>().TakeDamagge(damageToDeal); //Here the given damage is taken from the player's health when successfully attacking.
+            //playerTakeDamage();
 
+            //player.GetComponent<PlayerActions>().TakeDamagge(damageToDeal); //Here the given damage is taken from the player's health when successfully attacking.
 
 
 
             // Call take damage in player here - Anmar
 
-            
-			
-			var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
+
+
+            var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
 			audioSource.PlayOneShot(clip);
 
 			agent.SetDestination(player.transform.position);
@@ -1251,7 +1250,7 @@ namespace Ultimate.AI
 				anim.SetTrigger("Death" + randomNumber.ToString()); //And here we are creating a string using the number and the word attack. This way a trigger is being formed and sent to the animator.
 				/*var clip = deathSounds[Random.Range(0, deathSounds.Length)]; //A random sound is loaded and the played.
 				audioSource.PlayOneShot(clip);*/
-				StartCoroutine(DeathWait(2f));
+				StartCoroutine(DeathWait(0f));
 			}
 			else
 			{
@@ -1267,16 +1266,16 @@ namespace Ultimate.AI
 
 		public void TakeDamage(float damageToTake /*, PlayerMovement attacker*/)
 		{
-           // anim.ResetTrigger("GotHit0"/* randomNumber.ToString()*/);
+            // anim.ResetTrigger("GotHit0"/* randomNumber.ToString()*/);
+            Vector3 knockBack = transform.position - transform.forward * 0.5f;
+            knockBack.y = 0;
+            transform.position = knockBack;
 
             if (attackOnProvoke) provoked = true;
 
 			damageToTake *= 1 - Defence; //health must be int or float?
            //player = attacker.transform;
 
-            Vector3 knockBack = transform.position - transform.forward * 0.05f;
-			knockBack.y = 0;
-			transform.position = knockBack;
 
             //var clip = hitSounds[Random.Range(0, hitSounds.Length)]; //A random sound is loaded and the played.
 			//audioSource.PlayOneShot(clip);

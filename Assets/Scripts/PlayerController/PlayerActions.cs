@@ -7,6 +7,7 @@ using Ultimate.AI;
 using System.Linq;
 using UnityEditor;
 using UnityEngine.Rendering;
+using UnityEngine.Scripting.APIUpdating;
 //using System.Diagnostics;
 
 public class PlayerActions : MonoBehaviour
@@ -80,7 +81,7 @@ public class PlayerActions : MonoBehaviour
     
     void Update()
     {
-        #region AOE Stuff
+        #region
         if (Input.GetKeyDown(KeyCode.Q))
         {
             AOE();
@@ -126,7 +127,7 @@ public class PlayerActions : MonoBehaviour
         {
             Vector3 pointToLook = cameraRay.GetPoint(raylength);
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
-            ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
+            //ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
         }
 
         if (fired)
@@ -147,6 +148,13 @@ public class PlayerActions : MonoBehaviour
             //Rotation();
         }
         #endregion
+
+        if (lastrands.Count == 2)
+        {
+            int previos = lastrands[1];
+            lastrands.Clear();
+            lastrands.Add(previos);
+        }
     }
 
     #region Player Take Damage
@@ -155,7 +163,10 @@ public class PlayerActions : MonoBehaviour
     {
         if (!invincible)
         {
-            animator.SetTrigger("Hit");
+            if (!isAttacking)
+            {
+                animator.SetTrigger("Hit");
+            }
             Color origin = hit.material.color;
             flash.gameObject.SetActive(true);
             /* hit.materials[0].color = Color.red;
@@ -164,7 +175,7 @@ public class PlayerActions : MonoBehaviour
              }*/
             health -= damage;
 
-            StartCoroutine(Mover(10, 0.03f, knockbackdir));
+            //StartCoroutine(Mover(10, 0.03f, knockbackdir));
             //playerController.controller.Move(transform.forward * meleeknockback * Time.deltaTime);
             //Vector3 knockBack = transform.position - transform.forward * knockbackStr;
             //knockBack.y = 0;
@@ -183,8 +194,32 @@ public class PlayerActions : MonoBehaviour
 
     #endregion
 
+
+    bool testCombat;
+    [SerializeField] List<int> lastrands= new List<int>();
     public void Attack(/*InputAction.CallbackContext context*/)
     {
+        // Build One
+        if (!testCombat)
+        {
+            if (enemiesInDot.Count > 0) { transform.LookAt(GetClosestEnemy(enemiesInDot).transform); };
+            StartCoroutine(Mover(2, 0.1f, Dashdir));
+            int randomNumber = Random.Range(0, 2);
+            int previous = randomNumber;
+            if (!lastrands.Contains(randomNumber))
+            {
+                animator.SetTrigger("Attack" + randomNumber.ToString());
+                lastrands.Add(randomNumber);
+                
+            }
+            else
+            {
+                Attack();
+            }
+        }
+
+        // Build two
+        /*
         if (!isAttacking)
         {
             isAttacking = true;
@@ -195,10 +230,41 @@ public class PlayerActions : MonoBehaviour
         {
             transform.LookAt(enemiesInDot[0].transform);
         }
-        playerController.controller.Move(transform.forward * meleeDash);
+        playerController.controller.Move(transform.forward * meleeDash);*/
     }
+
+    UltimateAI GetClosestEnemy(List<UltimateAI> enemies)
+    {
+        UltimateAI tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+        foreach (UltimateAI t in enemies)
+        {
+            float dist = Vector3.Distance(t.transform.position, currentPos);
+            if (dist < minDist)
+            {
+                tMin = t;
+                minDist = dist;
+            }
+        }
+        return tMin;
+    }
+
+    public void testTrue()
+    {
+        testCombat= true;
+    }
+    public void testfalse()
+    {
+        testCombat= false;
+        animator.ResetTrigger("Attack" + 0);
+        animator.ResetTrigger("Attack" + 1);
+        playerController.playerSpeed = OriginalSpeed;
+    }
+
     public void startCombo()
     {
+        playerController.playerSpeed = 0f;
         isAttacking = false;
         if(combo < 3)
         {
@@ -291,6 +357,7 @@ public class PlayerActions : MonoBehaviour
     public void Rotation()
     {
         //Debug.Log(aim);
+
         if (Mathf.Abs(aim.x) > deadzone || Mathf.Abs(aim.y) > deadzone)
         {
             Vector3 playerDir = Vector3.right * aim.x + Vector3.forward * aim.y;
