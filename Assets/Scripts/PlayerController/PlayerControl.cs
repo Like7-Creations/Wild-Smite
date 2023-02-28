@@ -18,8 +18,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     void Update()
-    {
-        // pActions.aim = controls.Player.Rotation.ReadValue<Vector2>();
+    { 
         pActions.Rotation();
     }
 
@@ -61,10 +60,12 @@ public class PlayerControl : MonoBehaviour
         if (context.action.name == controls.Player.RangeAttack.name && context.performed)
         {
             pActions.shooting = true;
+            pActions.mouseShooting= true;
         }
         if (context.action.name == controls.Player.RangeAttack.name && context.canceled)
         {
             pActions.shooting = false;
+            pActions.mouseShooting = false;
         }
         
         // AOE

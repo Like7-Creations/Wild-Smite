@@ -42,6 +42,7 @@ public class PlayerActions : MonoBehaviour
     bool fired;
     [HideInInspector] public Vector2 aim;
     [HideInInspector] public bool shooting;
+    [HideInInspector] public bool mouseShooting;
     float deadzone = 0.1f;
 
     [Space(5)]
@@ -127,7 +128,10 @@ public class PlayerActions : MonoBehaviour
         {
             Vector3 pointToLook = cameraRay.GetPoint(raylength);
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
-            //ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
+            if (mouseShooting)
+            {
+                ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
+            }
         }
 
         if (fired)
@@ -250,6 +254,7 @@ public class PlayerActions : MonoBehaviour
         return tMin;
     }
 
+    //new combat system Build one
     public void testTrue()
     {
         testCombat= true;
@@ -361,6 +366,7 @@ public class PlayerActions : MonoBehaviour
         if (Mathf.Abs(aim.x) > deadzone || Mathf.Abs(aim.y) > deadzone)
         {
             Vector3 playerDir = Vector3.right * aim.x + Vector3.forward * aim.y;
+
             if (playerDir.sqrMagnitude > 0.0f)
             {
                 Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
