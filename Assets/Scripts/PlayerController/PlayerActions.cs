@@ -17,7 +17,14 @@ public class PlayerActions : MonoBehaviour
 
     PlayerMovement playerController;
     PlayerVFX VFX;
+
+    [Header("Stats stuff")]
+    public PlayerStats pStats;
     public float health;
+
+
+
+    [Space(5)]
     [Header("Melee Settings")]
     public HitArea[] HitAreas;
     public int combo;
@@ -75,18 +82,20 @@ public class PlayerActions : MonoBehaviour
     {
         playerController = GetComponent<PlayerMovement>();
         VFX = GetComponent<PlayerVFX>();
+        pStats = GetComponent<PlayerStats>();
         animator = GetComponent<Animator>();
         OriginalSpeed = playerController.playerSpeed;
+
     }
 
     
     void Update()
     {
         #region
-        if (Input.GetKeyDown(KeyCode.Q))
+        /*if (Input.GetKeyDown(KeyCode.Q))
         {
             AOE();
-        }
+        }*/
         #endregion
 
         #region Find Enemies With CheckSphere Then Check If Inside Dot Product
@@ -153,6 +162,23 @@ public class PlayerActions : MonoBehaviour
         }
         #endregion
 
+        //Farhan's Code-----
+        //Check if sprinting, consume stamina by the specified amount.
+
+        if (isSprinting)
+        {
+            pStats.UseSprint((int)pStats.sprint);
+        }
+        else
+        {
+            pStats.RecoverStamina((int)pStats.recovRate_STAMINA);
+        }
+
+        //Implement HP Recov later.
+
+        //Farhan's Code-----
+
+
         if (lastrands.Count == 2)
         {
             int previos = lastrands[1];
@@ -177,7 +203,12 @@ public class PlayerActions : MonoBehaviour
              for (int i = 0; i < hit.materials.Length; i++)
              {
              }*/
-            health -= damage;       //replace health with HP Stat???
+
+            //Farhan's Code-----
+            pStats.LoseHealth((int)damage);      //Call Take Damage function, since the actual stat values have a private set.
+
+
+            //Farhan's Code-----
 
             //StartCoroutine(Mover(10, 0.03f, knockbackdir));
             //playerController.controller.Move(transform.forward * meleeknockback * Time.deltaTime);
@@ -288,7 +319,7 @@ public class PlayerActions : MonoBehaviour
         { 
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
-                enemiesInDot[i].TakeDamage(10/*what ever the player dmg is*/);
+                enemiesInDot[i].TakeDamage(pStats.m_ATK/*what ever the player dmg is*/);
             }
         }
         VFX.Melee();
@@ -301,16 +332,16 @@ public class PlayerActions : MonoBehaviour
         playerController.enabled = true;
     }
 
-    public void AOE()
+    public void AOE(float multiplier)
     {
         Collider[] hits;
-        hits = Physics.OverlapSphere(transform.position, 5);        //Use Range Stat to define AOE Radius.
+        hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * multiplier);        //Use Range Stat to define AOE Radius.
         foreach (Collider c in hits)
         {
             if (c.GetComponent<DummyEnemy>() != null)
             {
                 DummyEnemy enemy = c.GetComponent<DummyEnemy>();
-                enemy.health -= 100;        //Use Melee Stat here.
+                enemy.health -= pStats.m_ATK * multiplier;        //Use Melee Stat here.
             }
         }
     }
@@ -318,6 +349,11 @@ public class PlayerActions : MonoBehaviour
     public void Dash()
     {
         StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));        //Dashing stuff
+
+        if(pStats.stamina > pStats.dash)
+        {
+            pStats.UseDash((int)pStats.dash);
+        }
     }
 
     public IEnumerator Mover(float speed, float time, Vector3 dir)
@@ -354,7 +390,7 @@ public class PlayerActions : MonoBehaviour
         if (!fired)
         {
             Rigidbody bullets = Instantiate(bullet, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);          //Replace bulletSpeed with Range ATK???
+            bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);          
             fired = true;
         }
     }

@@ -71,7 +71,7 @@ public class PlayerControl : MonoBehaviour
         // AOE
         if (context.action.name == controls.Player.AreaOfEffect.name && context.performed)
         {
-            pActions.AOE();
+            pActions.AOE(pActions.pStats.aoe_Tap);
         }
 
         // Sprinting
