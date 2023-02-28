@@ -343,11 +343,17 @@ namespace Ultimate.AI
 
 		//Anmar Edits----
 		float Timer;
-		//------
-		#endregion
-		private void Start() //This function will trigger once the game is started.
+        //------
+        #endregion
+
+        private void Awake()
+        {
+			PlayerMovement[] ps = FindObjectsOfType<PlayerMovement>();
+			players.AddRange(ps);
+            //players = FindObjectsOfType<PlayerMovement>();
+        }
+        private void Start() //This function will trigger once the game is started.
 		{
-			players[0] = FindObjectOfType<PlayerMovement>();
 			wanderPointSet = false; //We are making sure the AI will pick a wander point because if there is not one this is exactly what would happen.
 			if (IKPoint != null && playerIKPosition != null) //Then we are checking if we have an assigned IK animation rigging point (look like a ball :D).
 			{
@@ -645,13 +651,14 @@ namespace Ultimate.AI
 			    if (type == Type.Tank)
 				{
 					// This shouldnt commented...but only for now...for testing
-					//GetComponent<MultiAttacker>().AttackPlayer();	
+					GetComponent<MultiAttacker>().AttackPlayer();	
                 }
                 if (type == Type.Boss)
                 {
                     // This shouldnt commented...but only for now...for testing
-                    //GetComponent<MultiAttacker>().AttackPlayer();	- Anmar
+                    GetComponent<MultiAttacker>().AttackPlayer();	//- Anmar
                 }
+				/////  -----
 
                 attacking = true;
 				// do something here for the red eyes thing? - Anmar

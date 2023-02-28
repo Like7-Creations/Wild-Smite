@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -71,7 +72,12 @@ public class PlayerControl : MonoBehaviour
         // AOE
         if (context.action.name == controls.Player.AreaOfEffect.name && context.performed)
         {
-            pActions.AOE(pActions.pStats.aoe_Tap);
+            pActions.charging = true;
+        }
+
+        if (context.action.name == controls.Player.AreaOfEffect.name && context.canceled)
+        {
+            pActions.AOE();
         }
 
         // Sprinting

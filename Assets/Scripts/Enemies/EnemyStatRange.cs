@@ -21,6 +21,21 @@ public class EnemyStatRange : ScriptableObject
     public int numOfDice;
     public int diceMaxValue;
 
+    //[Header("Difficulty")]
+    public enum Difficulty
+    {
+        Easy,
+        Medium,
+        Hard
+    }
+
+    [Range(2,10)]
+    float lowProbPower;
+
+    [Range(0.001f,0.999f)]
+    float highProbPower;
+
+
     public float GeneratePosInRange()
     {
         int generationValue = 0;
@@ -38,30 +53,34 @@ public class EnemyStatRange : ScriptableObject
         return percentage;
     }
 
-    public float AllocateStats(Vector2 Stat)
+    public float AllocateStats(Difficulty dif, Vector2 stat)
     {
-        float percentage = GeneratePosInRange();
+        float percentage = 0;
+        switch (dif)
+        {
+            case Difficulty.Easy:
+                percentage = GenerateStats(stat, lowProbPower);
+                break;
+
+            case Difficulty.Medium:
+                percentage = (Random.Range(1, 51) + Random.Range(1,51)) / 100;
+                break;
+
+            case Difficulty.Hard:
+                percentage = GenerateStats(stat, highProbPower);
+                break; 
+        }
         float result;
-        result = Stat.x + (Stat.y - Stat.x) * percentage;
+        result = stat.x + (stat.y - stat.x) * percentage;
         result = Mathf.RoundToInt(result);
 
         return result;
+       // return 0;
     }
 
-    public void GenerateStats(Vector2 stat, float result)
+    public float GenerateStats(Vector2 stat, float diffPower)
     {
-        result = AllocateStats(stat);
+        float result = Mathf.Floor(stat.x + (stat.y - stat.x) * Mathf.Pow(Random.value, diffPower));
+        return result;
     }
-
-    /*public void GenerateStats(float HP, float speed, float Matk, float Mdef, float Mcdn, float Ratk, float Rdef, float Rcdn)
-    {
-        HP = AllocateStats(Health);
-        speed = AllocateStats(SPD);
-        Matk = AllocateStats(MATK);
-        Mdef = AllocateStats(MDEF);
-        Mcdn = AllocateStats(MCDN);
-        Ratk = AllocateStats(RATK);
-        Rdef = AllocateStats(RDEF);
-        Rcdn = AllocateStats(RCDN);
-    }*/
 }
