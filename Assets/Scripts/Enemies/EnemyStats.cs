@@ -31,12 +31,10 @@ public class EnemyStats : MonoBehaviour
     }
 
     void Update()
-    {
-        //Debug.Log(thisInt);
+    { 
         float thisInt = thisEnemy.health / Health;
         HealthBar.fillAmount = (float)thisInt;
         canvas.transform.LookAt(Camera.main.transform);
-       // AllocateStats();
     }
 
     public void AllocateStats()
@@ -59,14 +57,14 @@ public class EnemyStats : MonoBehaviour
 
     void GenerateStatValues()
     {
-        Health = ESR.AllocateStats(ESR.Health);
+        /*Health = ESR.AllocateStats(ESR.Health);
         Speed = ESR.AllocateStats(ESR.SPD);
         MATK = ESR.AllocateStats(ESR.MATK);
         MDEF = ESR.AllocateStats(ESR.MDEF);
         MCDN = ESR.AllocateStats(ESR.MCDN);
         RATK = ESR.AllocateStats(ESR.RATK);
         RDEF = ESR.AllocateStats(ESR.RDEF);
-        RCDN = ESR.AllocateStats(ESR.RCDN);
+        RCDN = ESR.AllocateStats(ESR.RCDN);*/
     }
 
    /* public float AllocateStats(Vector2 valu)

@@ -56,6 +56,12 @@ public class PlayerActions : MonoBehaviour
     [HideInInspector] public Vector3 Dashdir;
     float OriginalSpeed;
 
+    [Header("AOE Settings")]
+    public bool charging;
+    public float startingRadius;
+    public float maxRadius;
+    public float chargingSpeed;
+
     List<UltimateAI> enemiesInDot = new List<UltimateAI>();
     PlayerControl Pc;
     PlayerControls controls;
@@ -82,10 +88,14 @@ public class PlayerActions : MonoBehaviour
     
     void Update()
     {
-        #region
-        if (Input.GetKeyDown(KeyCode.Q))
+        #region Area Of Effect
+        if (charging)
         {
-            AOE();
+            startingRadius += Time.deltaTime * chargingSpeed;
+            if(startingRadius >= maxRadius)
+            {
+                startingRadius = maxRadius;
+            }
         }
         #endregion
 
@@ -313,6 +323,8 @@ public class PlayerActions : MonoBehaviour
                 enemy.health -= 100;
             }
         }
+        startingRadius = 0;
+        charging = false;
     }
 
     public void Dash()
