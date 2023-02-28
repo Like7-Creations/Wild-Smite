@@ -7,11 +7,13 @@ public class Dynamic_SplitScreen : MonoBehaviour
 {
     //Two Cameras that are initialized aand setup in the Start function
     public GameObject p1_Cam;
-    public CinemachineVirtualCamera p1_Vcam;
-    
     public GameObject p2_Cam;
-    public CinemachineVirtualCamera p2_Vcam;
 
+    public GameObject camTracker_P1;
+    public GameObject camTracker_P2;
+
+    public Vector3 camTrack1;
+    public Vector3 camTrack2;
 
 
     //Two quads used to draw the 2nd screen and are setup in the start function.
@@ -48,9 +50,10 @@ public class Dynamic_SplitScreen : MonoBehaviour
         c2.depth = c1.depth - 1;
         //Set Cam2 to ignore the TransparentFX layer, so that the splitter is only rendered forCam1
         c2.cullingMask = ~(1 << LayerMask.NameToLayer("TransparentFX"));
-        c2.cullingMask = ~(1 << LayerMask.NameToLayer("Player1 Cam"));
+        //c2.cullingMask = ~(2 << LayerMask.NameToLayer("Player1 Cam"));
 
         p2_Cam.SetActive(false);
+        camTracker_P2.SetActive(false);
 
         //Begin initializing the Splitter game Obj [camChild]. 
         splitterObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -121,30 +124,45 @@ public class Dynamic_SplitScreen : MonoBehaviour
             p1_Offset.z = Mathf.Clamp(p1_Offset.z, -splitDistance / 2, splitDistance / 2);
 
             midpoint = player1.position + p1_Offset;
+            //Debug.Log(p1_Offset);
 
 
 
-            Vector3 p2_Offset = midpoint - player1.position;
+            Vector3 p2_Offset = midpoint - player2.position;
 
             p2_Offset.x = Mathf.Clamp(p2_Offset.x, -splitDistance / 2, splitDistance / 2);
             p2_Offset.y = Mathf.Clamp(p2_Offset.y, -splitDistance / 2, splitDistance / 2);
             p2_Offset.z = Mathf.Clamp(p2_Offset.z, -splitDistance / 2, splitDistance / 2);
 
-            Vector3 midpoint2 = player2.position + p2_Offset;
+            Vector3 midpoint2 = player2.position - p2_Offset;
+            //Debug.Log(p2_Offset);
+
+            //Update CamTracker Offsets to ensure the players remain visible.
+            camTrack1 = p1_Offset + Vector3.one;
+            camTrack2 = p2_Offset + Vector3.one;
 
 
             if (!splitterObj.activeSelf)
             {
                 splitterObj.SetActive(true);
                 p2_Cam.SetActive(true);
+                camTracker_P2.SetActive(true);
 
                 p2_Cam.transform.position = p1_Cam.transform.position;
                 p2_Cam.transform.rotation = p1_Cam.transform.rotation;
             }
             else
             {
-                Quaternion p2_CamRot = Quaternion.LookRotation(midpoint2 - p2_Cam.transform.position);
-                p2_Cam.transform.rotation = Quaternion.Lerp(p2_Cam.transform.rotation, p2_CamRot, Time.deltaTime * 5);
+                //Failed Attempts-----
+
+                /*Calculate the split offset, by adding the midpoint2 with the vCam's body offset
+                Vector3 p2_vOffset = p2_Vcam.GetComponentInChildren<CinemachineTransposer>().m_FollowOffset;
+
+                p2_Vcam.GetComponentInParent<CamTrackerMove>().splitOffset = 
+                    new Vector3(p2_Offset.x, 0, p2_Offset.z) + new Vector3(p2_vOffset.x, 0, p2_vOffset.z);*/
+
+                /*Quaternion p2_CamRot = Quaternion.LookRotation(midpoint2 - p2_Cam.transform.position);
+                p2_Cam.transform.rotation = Quaternion.Lerp(p2_Cam.transform.rotation, p2_CamRot, Time.deltaTime * 5);*/
 
                 /*//-----
                 CinemachineTransposer cam1_Transposer = p1_Vcam.GetComponentInChildren<CinemachineTransposer>();
@@ -161,25 +179,44 @@ public class Dynamic_SplitScreen : MonoBehaviour
 
                 cam2_Transposer.m_FollowOffset = Vector3.Lerp(p2_Cam.transform.position, p2_CamRot, Time.deltaTime * 5);
                 //-----*/
+                //Failed Attempts-----
             }
+
+
         }
         else
         {
+            //Reset CamTracker Offsets to default
+            camTrack1 = Vector3.zero;
+            camTrack2 = Vector3.zero;
+
             if (splitterObj.activeSelf)
             {
                 splitterObj.SetActive(false);
                 p2_Cam.SetActive(false);
+                camTracker_P2.SetActive(false);
             }
         }
 
-        Quaternion p1_CamRot = Quaternion.LookRotation(midpoint - p1_Cam.transform.position);
-        p1_Cam.transform.rotation = Quaternion.Lerp(p1_Cam.transform.rotation, p1_CamRot, Time.deltaTime * 5);
+        //Figure out how to track player movement when the screen is split.
+        //Need to somehow input some data into the CamTracker so that it will change its position to ensure the player is in view.
 
+
+        //Failed Attempts-----
+        /*Vector3 p1_vOffset = p1_Vcam.GetComponentInChildren<CinemachineTransposer>().m_FollowOffset;
+
+        p1_Vcam.GetComponentInParent<CamTrackerMove>().splitOffset =
+            new Vector3(p1_Offset.x, 0, p1_Offset.z) + new Vector3(p1_vOffset.x, 0, p1_vOffset.z);
+        Debug.Log(midpoint);*/
+
+        /*Quaternion p1_CamRot = Quaternion.LookRotation(midpoint - p1_Cam.transform.position);
+        p1_Cam.transform.rotation = Quaternion.Lerp(p1_Cam.transform.rotation, p1_CamRot, Time.deltaTime * 5);*/
 
         /*CinemachineTransposer cam1_Transposer = p1_Vcam.GetComponentInChildren<CinemachineTransposer>();
 
         Vector3 p1_CamRot = midpoint - p1_Cam.transform.position;
 
         cam1_Transposer.m_FollowOffset = Vector3.Lerp(p1_Cam.transform.position, p1_CamRot, Time.deltaTime * 5);*/
+        //Failed Attempts-----
     }
 }
