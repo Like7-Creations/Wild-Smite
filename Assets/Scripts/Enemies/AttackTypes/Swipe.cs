@@ -8,6 +8,8 @@ public class Swipe : Attack
 {
     List<PlayerActions> playersInArea;
     public HitArea Hitarea;
+    public float knockBackStr;
+    public float knockBacktime;
 
     public override void Start()
     {
@@ -50,7 +52,9 @@ public class Swipe : Attack
             for (int i = 0; i < playersInArea.Count; i++)
             {
                 Debug.Log($"{playersInArea[i]} Got Hit");
-                playersInArea[i].health -= 10;
+                playersInArea[i].TakeDamage(ultimateAI.damageToDeal, transform.forward);
+                StartCoroutine(playersInArea[i].Mover(knockBackStr, knockBacktime, transform.forward));
+                //playersInArea[i].health -= 10;
             }
         }
         

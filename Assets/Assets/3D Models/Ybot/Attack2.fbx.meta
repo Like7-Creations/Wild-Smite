@@ -46,11 +46,11 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -58,6 +58,13 @@ ModelImporter:
       events:
       - time: 0
         functionName: EnableCollider
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.009868422
+        functionName: testTrue
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
         floatParameter: 0
@@ -77,7 +84,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
+      - time: 0.92763156
+        functionName: testfalse
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9736842
         functionName: FinishAni
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}

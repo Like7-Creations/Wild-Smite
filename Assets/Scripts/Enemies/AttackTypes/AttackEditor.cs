@@ -11,6 +11,7 @@ public class AttackEditor : Editor
         DrawDefaultInspector();
 
         Attack swipe = (Attack)target;
+        
         if(GUILayout.Button("Activate Attack"))
         {
             swipe.AttackType();

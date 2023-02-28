@@ -338,7 +338,7 @@ namespace Ultimate.AI
 		public bool effectsBigger, canDisplayEffects, timeToInfect, infected, bulletHit, inPlayer, firstPathGotten, idling, canDisplayCount, verSuitable, ragdollCreated;
 		private bool moving, timeToRotate, canFire = true, inAttackRange, provoked, hearing, canHearAgain = true, canCheckSound = true;
 
-		public enum Type { Melee, Ranged, NPC, Tank };
+		public enum Type { Melee, Ranged, NPC, Tank, Boss };
 		public enum AttackEffect { None, Poison, Burn, Slow, Freeze, Stun, Health };
 
 		//Anmar Edits----
@@ -516,8 +516,10 @@ namespace Ultimate.AI
 				{
 					Debug.Log("Melee attack called");	
 					attacking = true;
-					int randomNumber = Random.Range(0, attackAnimations); //We are getting a random number. And here we are creating a string using the number and the word attack.
-					anim.SetTrigger("Attack" + randomNumber.ToString());  //This way a trigger is being formed and sent to the animator.
+					
+					// Anmar -- Removed animation trigger since were usng our own in the attack types classes
+					//int randomNumber = Random.Range(0, attackAnimations); //We are getting a random number. And here we are creating a string using the number and the word attack.
+					//anim.SetTrigger("Attack" + randomNumber.ToString());  //This way a trigger is being formed and sent to the animator.
 					//Anmar
 				    StartCoroutine(AttackPlayer());
 					// I added this cuz melee in this package uses animation stuff...
@@ -563,7 +565,36 @@ namespace Ultimate.AI
                // Debug.Log("Tank attack called");
             }
 
-			else if (type == Type.NPC) //This checks if the AI is set to npc.
+			// Added a whole new boss type - Anmar
+            if (type == Type.Boss)
+            {
+                timeToRotate = false; //A simple bool for rotating is set to false.
+                Vector3 closeMeleeRange = new Vector3(attackRange, attackRange) * 1 / 2;
+
+                if (distanceToPlayer.magnitude > closeMeleeRange.magnitude)
+                {
+                    agent.SetDestination(player.transform.position);
+                    // Anmar
+                    Vector3 look = player.transform.position;
+                    //look.y = 1;
+                    transform.LookAt(look);
+                    //-------
+                }
+                else agent.ResetPath(); timeToRotate = true;
+
+                if (!attacking) //If currently is NOT attacking then attack.
+                {
+                    attacking = true;
+                    //Anmar
+                    StartCoroutine(AttackPlayer());
+                    // I added this cuz melee in this package uses animation stuff...
+                    //----
+                    return;
+                }
+                // Debug.Log("Tank attack called");
+            }
+
+            else if (type == Type.NPC) //This checks if the AI is set to npc.
 			{
 				timeToRotate = true; //A simple bool for rotating is set to true.
 				Vector3 closeNpcRange = new Vector3(chaseRange, chaseRange); //A close range is defined and if the player is inside that range the AI will should stop moving.
@@ -598,7 +629,7 @@ namespace Ultimate.AI
 
 				if (type == Type.Melee) ///If the AI is set to melee the MeleeAttack function will be called.
 				{
-					//MeleeAttack(); // We stopped calling it here... Instead im calling it as an animation event..cuz there is a bug - Anmar
+					MeleeAttack(); // We stopped calling it here... Instead im calling it as an animation event..cuz there is a bug - Anmar
 					effectsDealt = 0;
 					infected = false; //The effects are reset.
 					timeToInfect = true;
@@ -609,14 +640,21 @@ namespace Ultimate.AI
 					StartCoroutine(WaitUntilImpact()); //We are waiting for our bullet to hit a player.
 					StartCoroutine(RangedAttack());
 				}
+
+				// Anmar 
 			    if (type == Type.Tank)
 				{
 					// This shouldnt commented...but only for now...for testing
-					//GetComponent<MultiAttacker>().AttackPlayer();
-					
+					//GetComponent<MultiAttacker>().AttackPlayer();	
+                }
+                if (type == Type.Boss)
+                {
+                    // This shouldnt commented...but only for now...for testing
+                    //GetComponent<MultiAttacker>().AttackPlayer();	- Anmar
                 }
 
-				attacking = true;
+                attacking = true;
+				// do something here for the red eyes thing? - Anmar
 				yield return new WaitForSeconds(attackRate); //A timer is created with the attackRate time.
 				attacking = false;
 			}
@@ -624,10 +662,22 @@ namespace Ultimate.AI
 
 		public void MeleeAttack()
 		{
-			player.GetComponent<PlayerActions>().TakeDamagge(damageToDeal); //Here the given damage is taken from the player's health when successfully attacking.
-			// Call take damage in player here - Anmar
 
-			var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
+            MultiAttacker attack = GetComponent<MultiAttacker>();
+
+            attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType();
+
+            //playerTakeDamage();
+
+            //player.GetComponent<PlayerActions>().TakeDamagge(damageToDeal); //Here the given damage is taken from the player's health when successfully attacking.
+
+
+
+            // Call take damage in player here - Anmar
+
+
+
+            var clip = attackSounds[Random.Range(0, attackSounds.Length)]; //A random sound is loaded and the played.
 			audioSource.PlayOneShot(clip);
 
 			agent.SetDestination(player.transform.position);
@@ -665,7 +715,7 @@ namespace Ultimate.AI
 					//rb.GetComponent<Projectile>().ai = gameObject;
 					//rb.AddForce(transform.forward * 10f, ForceMode.Impulse); //The projectiles get pushed so that they can move using physics force.
 					MultiAttacker attack = GetComponent<MultiAttacker>();
-				    attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType();
+				    //attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType();
 					Debug.Log("Range attack called");
 
                     foreach (ParticleSystem particle in wanderParticles) if (particle.isPlaying) particle.Stop(); //Only needed particles are being played.
@@ -680,6 +730,13 @@ namespace Ultimate.AI
 			wanderPointSet = false; //Oh forgot what that does... I guess I have used it too less times :P
 			hearingPointSet = false;
 		}
+
+		// Anmar -- added this function so it can be called in some attack types.
+		public void playerTakeDamage()
+		{
+			// check if player is in range;
+            player.GetComponent<PlayerActions>().TakeDamage(damageToDeal, transform.forward);
+        }
 
 		public IEnumerator Affect() //This is the function that is responsible for applying effects.
 		{
@@ -1193,7 +1250,7 @@ namespace Ultimate.AI
 				anim.SetTrigger("Death" + randomNumber.ToString()); //And here we are creating a string using the number and the word attack. This way a trigger is being formed and sent to the animator.
 				/*var clip = deathSounds[Random.Range(0, deathSounds.Length)]; //A random sound is loaded and the played.
 				audioSource.PlayOneShot(clip);*/
-				StartCoroutine(DeathWait(2f));
+				StartCoroutine(DeathWait(0f));
 			}
 			else
 			{
@@ -1209,16 +1266,16 @@ namespace Ultimate.AI
 
 		public void TakeDamage(float damageToTake /*, PlayerMovement attacker*/)
 		{
-           // anim.ResetTrigger("GotHit0"/* randomNumber.ToString()*/);
+            // anim.ResetTrigger("GotHit0"/* randomNumber.ToString()*/);
+            Vector3 knockBack = transform.position - transform.forward * 0.5f;
+            knockBack.y = 0;
+            transform.position = knockBack;
 
             if (attackOnProvoke) provoked = true;
 
 			damageToTake *= 1 - Defence; //health must be int or float?
            //player = attacker.transform;
 
-            Vector3 knockBack = transform.position - transform.forward * 0.05f;
-			knockBack.y = 0;
-			transform.position = knockBack;
 
             //var clip = hitSounds[Random.Range(0, hitSounds.Length)]; //A random sound is loaded and the played.
 			//audioSource.PlayOneShot(clip);

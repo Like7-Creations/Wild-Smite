@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aaaed63fbcdc37479e4fbe966b48000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 10
+  timer: 7
   enemy: 0
 --- !u!96 &6465361151473752961
 TrailRenderer:
@@ -208,7 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7b277623c67be40a2e31cd23898ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  Mass: 10
+  MaxVelocity: 10
+  MaxForce: 2
+  target: {fileID: 0}
 --- !u!1 &5155329464898983004
 GameObject:
   m_ObjectHideFlags: 0
