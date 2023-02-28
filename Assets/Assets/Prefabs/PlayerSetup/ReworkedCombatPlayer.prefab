@@ -6394,7 +6394,7 @@ GameObject:
   - component: {fileID: 1246767606284448357}
   - component: {fileID: -4835312869280015784}
   m_Layer: 0
-  m_Name: ReworkCombatTest
+  m_Name: ReworkedCombatPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6475,6 +6475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 4
   gravity: -9.81
+  turnSmoothVelocity: 0
   controller: {fileID: 0}
   refer: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
@@ -6520,6 +6521,7 @@ MonoBehaviour:
   bulletSpeed: 10
   aim: {x: 0, y: 0}
   shooting: 0
+  mouseShooting: 0
   DashSpeed: 100
   DashTime: 0.07
   DashCDN: 0
@@ -14377,7 +14379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8352937371628426900
 Transform:
   m_ObjectHideFlags: 0
