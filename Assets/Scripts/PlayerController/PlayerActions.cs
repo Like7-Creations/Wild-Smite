@@ -173,7 +173,7 @@ public class PlayerActions : MonoBehaviour
              for (int i = 0; i < hit.materials.Length; i++)
              {
              }*/
-            health -= damage;
+            health -= damage;       //replace health with HP Stat???
 
             //StartCoroutine(Mover(10, 0.03f, knockbackdir));
             //playerController.controller.Move(transform.forward * meleeknockback * Time.deltaTime);
@@ -299,20 +299,20 @@ public class PlayerActions : MonoBehaviour
     public void AOE()
     {
         Collider[] hits;
-        hits = Physics.OverlapSphere(transform.position, 5);
+        hits = Physics.OverlapSphere(transform.position, 5);        //Use Range Stat to define AOE Radius.
         foreach (Collider c in hits)
         {
             if (c.GetComponent<DummyEnemy>() != null)
             {
                 DummyEnemy enemy = c.GetComponent<DummyEnemy>();
-                enemy.health -= 100;
+                enemy.health -= 100;        //Use Melee Stat here.
             }
         }
     }
 
     public void Dash()
     {
-        StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));
+        StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));        //Dashing stuff
     }
 
     public IEnumerator Mover(float speed, float time, Vector3 dir)
@@ -334,13 +334,13 @@ public class PlayerActions : MonoBehaviour
 
     public void Sprint()
     {
-        playerController.playerSpeed = SprintSpeed;
+        playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
         isSprinting = true;
     }
 
     public void UnSprint()
     {
-        playerController.playerSpeed = OriginalSpeed;
+        playerController.playerSpeed = OriginalSpeed;   //Ensure that stamina is not being depleted anymore.
         isSprinting = false;
     }
 
@@ -349,7 +349,7 @@ public class PlayerActions : MonoBehaviour
         if (!fired)
         {
             Rigidbody bullets = Instantiate(bullet, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);
+            bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);          //Replace bulletSpeed with Range ATK???
             fired = true;
         }
     }
