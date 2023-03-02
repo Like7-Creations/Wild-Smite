@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine.Rendering;
 using UnityEngine.Scripting.APIUpdating;
+using UnityEditor.UIElements;
 //using System.Diagnostics;
 
 public class PlayerActions : MonoBehaviour
@@ -17,13 +18,20 @@ public class PlayerActions : MonoBehaviour
 
     PlayerMovement playerController;
     PlayerVFX VFX;
+
+    [Header("Stats stuff")]
+    public PlayerStats pStats;
     public float health;
+
+
+
+    [Space(5)]
     [Header("Melee Settings")]
     public HitArea[] HitAreas;
     public int combo;
     Animator animator;
     bool invincible;
-    [SerializeField]bool isAttacking;
+    [SerializeField] bool isAttacking;
     [SerializeField] float meleeDash;
     [SerializeField] float meleeknockback;
     [SerializeField] float flashDamageTime;
@@ -81,21 +89,48 @@ public class PlayerActions : MonoBehaviour
     {
         playerController = GetComponent<PlayerMovement>();
         VFX = GetComponent<PlayerVFX>();
+        pStats = GetComponent<PlayerStats>();
         animator = GetComponent<Animator>();
         OriginalSpeed = playerController.playerSpeed;
+
     }
 
-    
+
     void Update()
     {
         #region Area Of Effect
+        float currentCharge = 0;
+
+        float chargedSTAM = 0;
+        float chargedMELEE = 0;
+        float chargedRANGE = 0;
+
         if (charging)
         {
-            startingRadius += Time.deltaTime * chargingSpeed;
+            if (currentCharge <= pStats.aoe_Hold)
+            {
+                chargedSTAM = pStats.aoe_Tap * currentCharge;
+                chargedMELEE = pStats.m_ATK * currentCharge;
+                chargedRANGE = pStats.r_ATK * currentCharge;
+
+                currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
+
+                if (currentCharge > pStats.aoe_Hold)
+                    currentCharge = pStats.aoe_Hold;
+            }
+
+            //Charge radius, damamge, stamina
+
+            /*startingRadius += Time.deltaTime * chargingSpeed;
             if(startingRadius >= maxRadius)
             {
                 startingRadius = maxRadius;
-            }
+            }*/
+        }
+        else if (!charging && currentCharge > 1)
+        {
+            ChargedAOE(chargedSTAM, chargedMELEE, chargedRANGE);
+            currentCharge = 0;
         }
         #endregion
 
@@ -134,7 +169,7 @@ public class PlayerActions : MonoBehaviour
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         float raylength;
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        if(groundPlane.Raycast(cameraRay,out raylength))
+        if (groundPlane.Raycast(cameraRay, out raylength))
         {
             Vector3 pointToLook = cameraRay.GetPoint(raylength);
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
@@ -163,6 +198,23 @@ public class PlayerActions : MonoBehaviour
         }
         #endregion
 
+        //Farhan's Code-----
+        //Check if sprinting, consume stamina by the specified amount.
+
+        if (isSprinting)
+        {
+            pStats.UseSprint((int)pStats.sprint);
+        }
+        else
+        {
+            pStats.RecoverStamina((int)pStats.recovRate_STAMINA);
+        }
+
+        //Implement HP Recov later.
+
+        //Farhan's Code-----
+
+
         if (lastrands.Count == 2)
         {
             int previos = lastrands[1];
@@ -187,7 +239,12 @@ public class PlayerActions : MonoBehaviour
              for (int i = 0; i < hit.materials.Length; i++)
              {
              }*/
-            health -= damage;
+
+            //Farhan's Code-----
+            pStats.LoseHealth((int)damage);      //Call Take Damage function, since the actual stat values have a private set.
+
+
+            //Farhan's Code-----
 
             //StartCoroutine(Mover(10, 0.03f, knockbackdir));
             //playerController.controller.Move(transform.forward * meleeknockback * Time.deltaTime);
@@ -210,7 +267,7 @@ public class PlayerActions : MonoBehaviour
 
 
     bool testCombat;
-    [SerializeField] List<int> lastrands= new List<int>();
+    [SerializeField] List<int> lastrands = new List<int>();
     public void Attack(/*InputAction.CallbackContext context*/)
     {
         // Build One
@@ -224,7 +281,7 @@ public class PlayerActions : MonoBehaviour
             {
                 animator.SetTrigger("Attack" + randomNumber.ToString());
                 lastrands.Add(randomNumber);
-                
+
             }
             else
             {
@@ -267,11 +324,11 @@ public class PlayerActions : MonoBehaviour
     //new combat system Build one
     public void testTrue()
     {
-        testCombat= true;
+        testCombat = true;
     }
     public void testfalse()
     {
-        testCombat= false;
+        testCombat = false;
         animator.ResetTrigger("Attack" + 0);
         animator.ResetTrigger("Attack" + 1);
         playerController.playerSpeed = OriginalSpeed;
@@ -281,7 +338,7 @@ public class PlayerActions : MonoBehaviour
     {
         playerController.playerSpeed = 0f;
         isAttacking = false;
-        if(combo < 3)
+        if (combo < 3)
         {
             combo++;
         }
@@ -294,11 +351,11 @@ public class PlayerActions : MonoBehaviour
 
     public void EnableCollider()
     {
-        if(enemiesInDot != null) 
-        { 
+        if (enemiesInDot != null)
+        {
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
-                enemiesInDot[i].TakeDamage(10/*what ever the player dmg is*/);
+                enemiesInDot[i].TakeDamage(pStats.m_ATK/*what ever the player dmg is*/);
             }
         }
         VFX.Melee();
@@ -311,31 +368,55 @@ public class PlayerActions : MonoBehaviour
         playerController.enabled = true;
     }
 
-    public void AOE()
+    public void AOE(float multiplier)
     {
         Collider[] hits;
-        hits = Physics.OverlapSphere(transform.position, 5);
+        hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * multiplier);        //Use Range Stat to define AOE Radius.
         foreach (Collider c in hits)
         {
             if (c.GetComponent<DummyEnemy>() != null)
             {
                 DummyEnemy enemy = c.GetComponent<DummyEnemy>();
-                enemy.health -= 100;
+                enemy.health -= pStats.m_ATK * multiplier;        //Use Melee Stat here.
             }
         }
+
+        pStats.UseSprint((int)multiplier);
+
         startingRadius = 0;
         charging = false;
     }
 
+    public void ChargedAOE(float stamina, float melee, float radius)
+    {
+        Collider[] hits;
+        hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * radius);        //Use Range Stat to define AOE Radius.
+        foreach (Collider c in hits)
+        {
+            if (c.GetComponent<DummyEnemy>() != null)
+            {
+                DummyEnemy enemy = c.GetComponent<DummyEnemy>();
+                enemy.health -= pStats.m_ATK * melee;        //Use Melee Stat here.
+            }
+        }
+
+        pStats.UseSprint((int)stamina);
+    }
+
     public void Dash()
     {
-        StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));
+        StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));        //Dashing stuff
+
+        if (pStats.stamina > pStats.dash)
+        {
+            pStats.UseDash((int)pStats.dash);
+        }
     }
 
     public IEnumerator Mover(float speed, float time, Vector3 dir)
     {
         float startTime = Time.time;
-        
+
         invincible = true;
 
         VFX.Dash();
@@ -351,13 +432,13 @@ public class PlayerActions : MonoBehaviour
 
     public void Sprint()
     {
-        playerController.playerSpeed = SprintSpeed;
+        playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
         isSprinting = true;
     }
 
     public void UnSprint()
     {
-        playerController.playerSpeed = OriginalSpeed;
+        playerController.playerSpeed = OriginalSpeed;   //Ensure that stamina is not being depleted anymore.
         isSprinting = false;
     }
 
@@ -412,7 +493,7 @@ public class PlayerActions : MonoBehaviour
             Vector3 rotatedForward = Quaternion.Euler(0,
              -HitAreas[i].Direction * 0.5f,
              0) * transform.forward;
-          
+
             UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
         }
     }

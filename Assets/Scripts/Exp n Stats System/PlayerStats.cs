@@ -24,10 +24,64 @@ public class PlayerStats : MonoBehaviour
     [field: SerializeField]
     public int exp { get; private set; }
 
+
+
+    [field: SerializeField]
+    public float recovRate_HP { get; private set; }
+
+    [field: SerializeField]
+    public float recovRate_STAMINA { get; private set; }
+
+
+
+    [field: SerializeField]
+    public float dash { get; private set; }
+
+    [field: SerializeField]
+    public float sprint { get; private set; }
+
+    [field: SerializeField]
+    public float aoe_Tap { get; private set; }
+
+    [field: SerializeField]
+    public float aoe_Hold { get; private set; }         //Max Charge Amount
+
+    [field: SerializeField]
+    public float aoe_ChargeRate { get; private set; }   //Amount per second
+
+
     void AddEXP(int addXP)
     {
         exp += addXP;
     }
+
+    public void LoseHealth(int dmg)
+    {
+        hp -= dmg;
+    }
+
+    public void RecoverHP(int amount)
+    {
+        hp += amount;
+    }
+
+    public void UseDash(int amount)
+    {
+        stamina -= amount;
+    }
+
+    public void UseSprint(int amount)
+    {
+        stamina -= (int)(amount * Time.deltaTime);
+    }
+
+    public void RecoverStamina(int amount)
+    {
+        stamina += (int)(amount * Time.deltaTime);
+    }
+
+    
+
 
     void Start()
     {
@@ -35,8 +89,17 @@ public class PlayerStats : MonoBehaviour
 
         hp = playerData.hp;
         stamina = playerData.stamina;
+        
         m_ATK = playerData.m_ATK;
         r_ATK = playerData.r_ATK;
+        
         exp = playerData.current_XP;
+
+        dash = playerData.dash;
+        sprint = playerData.sprint;
+        
+        aoe_Tap = playerData.aoe_TAP;
+        aoe_Hold = playerData.aoe_HOLD;
+        aoe_ChargeRate = playerData.aoe_ChargeRate;
     }
 }
