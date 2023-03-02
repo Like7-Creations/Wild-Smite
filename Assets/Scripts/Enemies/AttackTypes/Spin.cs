@@ -9,7 +9,6 @@ public class Spin : Attack
 
     public override void AttackType()
     {
-        Debug.Log("Spin attack");
         ultimateAI.attackRange = 2;
         fov.viewAngle = 360;
         // set animation

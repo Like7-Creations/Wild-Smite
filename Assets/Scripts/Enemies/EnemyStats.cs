@@ -32,14 +32,14 @@ public class EnemyStats : MonoBehaviour
 
     void Update()
     { 
-        float thisInt = thisEnemy.health / Health;
+        float thisInt = thisEnemy.health / myMaxHealth;
         HealthBar.fillAmount = (float)thisInt;
         canvas.transform.LookAt(Camera.main.transform);
     }
 
     public void AllocateStats()
     {
-        thisEnemy.health = Health;
+       /* thisEnemy.health = Health;
         thisEnemy.moveSpeed = Speed;
         if(thisEnemy.type == UltimateAI.Type.Melee)
         {
@@ -52,7 +52,7 @@ public class EnemyStats : MonoBehaviour
             thisEnemy.damageToDeal = RATK;
             thisEnemy.Defence = RDEF;
             thisEnemy.reloadTime = RCDN;
-        }
+        }*/
     }
 
     void GenerateStatValues()
