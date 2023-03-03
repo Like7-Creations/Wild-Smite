@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    PlayerStat_Data playerData;
+    public PlayerStat_Data playerData;
 
     //[Header("Stats")]
 
@@ -13,7 +13,7 @@ public class PlayerStats : MonoBehaviour
     public int hp { get; private set; }
     
     [field: SerializeField]
-    public int stamina { get; private set; }
+    public float stamina { get; private set; }
     
     [field: SerializeField]
     public int m_ATK { get; private set; }
@@ -70,22 +70,27 @@ public class PlayerStats : MonoBehaviour
         stamina -= amount;
     }
 
-    public void UseSprint(int amount)
-    {
-        stamina -= (int)(amount * Time.deltaTime);
+    public void UseSprint(float amount)
+    { 
+        stamina -= amount * Time.deltaTime;
+        //stamina = Mathf.RoundToInt(stamina);
     }
 
-    public void RecoverStamina(int amount)
+    public void RecoverStamina(float amount)
     {
-        stamina += (int)(amount * Time.deltaTime);
+        Debug.Log("recover stamina called");
+        stamina += amount * Time.deltaTime;
+        if(stamina >= playerData.stamina) 
+        {
+            stamina = playerData.stamina;
+        }
+        //stamina = Mathf.RoundToInt(stamina);
     }
-
-    
 
 
     void Start()
     {
-        playerData= GetComponent<PlayerStat_Data>();
+        //playerData= GetComponent<PlayerStat_Data>();
 
         hp = playerData.hp;
         stamina = playerData.stamina;

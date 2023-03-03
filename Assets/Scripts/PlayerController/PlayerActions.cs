@@ -70,7 +70,7 @@ public class PlayerActions : MonoBehaviour
     public float maxRadius;
     public float chargingSpeed;
 
-    List<UltimateAI> enemiesInDot = new List<UltimateAI>();
+    public List<UltimateAI> enemiesInDot = new List<UltimateAI>();
     PlayerControl Pc;
     PlayerControls controls;
 
@@ -92,7 +92,6 @@ public class PlayerActions : MonoBehaviour
         pStats = GetComponent<PlayerStats>();
         animator = GetComponent<Animator>();
         OriginalSpeed = playerController.playerSpeed;
-
     }
 
 
@@ -135,8 +134,8 @@ public class PlayerActions : MonoBehaviour
         #endregion
 
         #region Find Enemies With CheckSphere Then Check If Inside Dot Product
-        enemiesInDot.Clear();
-        if (enemiesInDot != null) { enemiesInDot = enemiesInDot.Distinct().ToList(); } //Keeping it From Duplicates.
+        //if (enemiesInDot != null) { enemiesInDot = enemiesInDot.Distinct().ToList(); } //Keeping it From Duplicates.
+        //enemiesInDot.Clear();
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, 5);
         foreach (Collider c in hits)
@@ -155,7 +154,10 @@ public class PlayerActions : MonoBehaviour
                         if (Vector3.Dot(toEnemy.normalized, transform.forward) > Mathf.Cos(HitAreas[i].Angle * 0.5f * Mathf.Deg2Rad))
                         {
                             HitAreas[i].enemyFound = true;
-                            enemiesInDot.Add(enemy);
+                            if (!enemiesInDot.Contains(enemy)) 
+                            {
+                                enemiesInDot.Add(enemy);
+                            }
                         }
                         else HitAreas[i].enemyFound = false;
                     }
@@ -203,11 +205,12 @@ public class PlayerActions : MonoBehaviour
 
         if (isSprinting)
         {
-            pStats.UseSprint((int)pStats.sprint);
+            pStats.UseSprint(pStats.sprint);
         }
         else
         {
-            pStats.RecoverStamina((int)pStats.recovRate_STAMINA);
+            //Debug.Log("recover stamina called");
+            pStats.RecoverStamina(pStats.recovRate_STAMINA);
         }
 
         //Implement HP Recov later.
@@ -355,6 +358,7 @@ public class PlayerActions : MonoBehaviour
         {
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
+                Debug.Log("enable collider called");
                 enemiesInDot[i].TakeDamage(pStats.m_ATK/*what ever the player dmg is*/);
             }
         }

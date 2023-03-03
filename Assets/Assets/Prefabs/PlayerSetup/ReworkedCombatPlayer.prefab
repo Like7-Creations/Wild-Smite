@@ -6393,6 +6393,7 @@ GameObject:
   - component: {fileID: 1843909066416524261}
   - component: {fileID: 1246767606284448357}
   - component: {fileID: -4835312869280015784}
+  - component: {fileID: 3348128903505167248}
   m_Layer: 0
   m_Name: ReworkedCombatPlayer
   m_TagString: Player
@@ -6496,6 +6497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGamepad: 0
+  pStats: {fileID: 0}
   health: 500
   HitAreas:
   - Direction: 180
@@ -6533,6 +6535,7 @@ MonoBehaviour:
   startingRadius: 0
   maxRadius: 50
   chargingSpeed: 2
+  enemiesInDot: []
   lastrands: 
 --- !u!65 &1843909066416524260
 BoxCollider:
@@ -6595,6 +6598,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58a258b474f8bb4180e4f2de777f070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3348128903505167248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875388763240933588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a9e566cb034b549b635a28a830e27c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: c2f62b71ae0e63f4aa79f19289e0563c, type: 2}
+  <hp>k__BackingField: 500
+  <stamina>k__BackingField: 1000
+  <m_ATK>k__BackingField: 100
+  <r_ATK>k__BackingField: 100
+  <exp>k__BackingField: 0
+  <recovRate_HP>k__BackingField: 100
+  <recovRate_STAMINA>k__BackingField: 5
+  <dash>k__BackingField: 10
+  <sprint>k__BackingField: 10
+  <aoe_Tap>k__BackingField: 900
+  <aoe_Hold>k__BackingField: 900
+  <aoe_ChargeRate>k__BackingField: 900
 --- !u!1 &2228756020645726694
 GameObject:
   m_ObjectHideFlags: 0

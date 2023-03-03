@@ -1280,7 +1280,7 @@ namespace Ultimate.AI
 
             if (attackOnProvoke) provoked = true;
 
-			damageToTake *= 1 - Defence; //health must be int or float?
+			//damageToTake *= (1 - Defence); //health must be int or float?
 			//health -= damageToTake;
            //player = attacker.transform;
 
@@ -1296,7 +1296,7 @@ namespace Ultimate.AI
 
             //----
             //Gizmos.DrawSphere(transform.position, 1);
-            health += damageToTake; //The damage given is being taken from the AI's health.
+            health -= damageToTake; //The damage given is being taken from the AI's health.
 		}
 
 		public void Footstep()
