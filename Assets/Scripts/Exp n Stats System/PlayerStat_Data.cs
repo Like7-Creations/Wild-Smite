@@ -100,5 +100,9 @@ public class PlayerStat_Data : ScriptableObject
     {
         //Repeat for all stats
         hp += pointAllocations[0] * lvlData.hp_Conversion;
+        stamina += pointAllocations[0] * lvlData.hp_Conversion;
+
+        m_ATK += pointAllocations[0] * lvlData.hp_Conversion;
+        r_ATK += pointAllocations[0] * lvlData.hp_Conversion;
     }
 }
