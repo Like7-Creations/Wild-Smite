@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ultimate.AI;
 using UnityEngine;
 
 public class Destroy : MonoBehaviour
 {
     [SerializeField] float timer;
     PlayerMovement player;
+    PlayerActions actions;
     [SerializeField] bool enemy;
 
     void Start()
     {
         player = FindObjectOfType<PlayerMovement>();
+        actions = player.GetComponent<PlayerActions>();
     }
 
     void Update()
@@ -27,5 +30,9 @@ public class Destroy : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Destroy(gameObject);
+
+        UltimateAI victim = collision.gameObject.GetComponent<UltimateAI>();
+
+        victim.TakeDamage(actions.pStats.r_ATK);    //Deal damage to the enemy
     }
 }

@@ -31,17 +31,15 @@ public class EnemyStats : MonoBehaviour
     }
 
     void Update()
-    {
-        //Debug.Log(thisInt);
-        float thisInt = thisEnemy.health / Health;
+    { 
+        float thisInt = thisEnemy.health / myMaxHealth;
         HealthBar.fillAmount = (float)thisInt;
         canvas.transform.LookAt(Camera.main.transform);
-       // AllocateStats();
     }
 
     public void AllocateStats()
     {
-        thisEnemy.health = Health;
+       /* thisEnemy.health = Health;
         thisEnemy.moveSpeed = Speed;
         if(thisEnemy.type == UltimateAI.Type.Melee)
         {
@@ -54,19 +52,19 @@ public class EnemyStats : MonoBehaviour
             thisEnemy.damageToDeal = RATK;
             thisEnemy.Defence = RDEF;
             thisEnemy.reloadTime = RCDN;
-        }
+        }*/
     }
 
     void GenerateStatValues()
     {
-        Health = ESR.AllocateStats(ESR.Health);
+        /*Health = ESR.AllocateStats(ESR.Health);
         Speed = ESR.AllocateStats(ESR.SPD);
         MATK = ESR.AllocateStats(ESR.MATK);
         MDEF = ESR.AllocateStats(ESR.MDEF);
         MCDN = ESR.AllocateStats(ESR.MCDN);
         RATK = ESR.AllocateStats(ESR.RATK);
         RDEF = ESR.AllocateStats(ESR.RDEF);
-        RCDN = ESR.AllocateStats(ESR.RCDN);
+        RCDN = ESR.AllocateStats(ESR.RCDN);*/
     }
 
    /* public float AllocateStats(Vector2 valu)

@@ -23,7 +23,7 @@ public class MultiAttacker : MonoBehaviour
 
     public void Start()
     {
-        if (playerAmount.Length == 2)
+        /*if (playerAmount.Length == 2)
         {
             playerOne = playerAmount[0];
             playerTwo = playerAmount[1];
@@ -31,12 +31,12 @@ public class MultiAttacker : MonoBehaviour
         else
         {
             chosenPlayer= playerAmount[0];
-        }
+        }*/
     }
 
     public void Update()
     {
-        if(playerAmount.Length == 2)
+        /*if(playerAmount.Length == 2)
         {
             float playerOneDist = Vector3.Distance(transform.position, playerOne.transform.position);
             float playerTwoDist = Vector3.Distance(transform.position, playerTwo.transform.position);   
@@ -48,6 +48,6 @@ public class MultiAttacker : MonoBehaviour
             {
                 chosenPlayer = playerTwo;
             }
-        }
+        }*/
     }
 }

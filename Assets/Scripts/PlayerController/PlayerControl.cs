@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,8 +19,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     void Update()
-    {
-        // pActions.aim = controls.Player.Rotation.ReadValue<Vector2>();
+    { 
         pActions.Rotation();
     }
 
@@ -46,31 +46,49 @@ public class PlayerControl : MonoBehaviour
             pActions.Attack();
         }
 
-        // GamePad RangeAttack
-        if (context.action.name == controls.Player.Rotation.name && context.performed)
-        {
-            pActions.shooting = true;
-        }
+        // GamePad Rotation
+        /* if (context.action.name == controls.Player.Rotation.name && context.performed)
+         {
+             //pActions.shooting = true;
+         }
 
-        if (context.action.name == controls.Player.Rotation.name && context.canceled)
-        {
-            pActions.shooting = false;
-        }
+         if (context.action.name == controls.Player.Rotation.name && context.canceled)
+         {
+             //pActions.shooting = false;
+         }*/
+
+         //GamePad Range Attack
+         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
+         {
+             pActions.shooting = true;
+         }
+
+         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.canceled)
+         {
+             pActions.shooting = false;
+         }
 
         //Keyboard and Mouse Range Attack
         if (context.action.name == controls.Player.RangeAttack.name && context.performed)
         {
             pActions.shooting = true;
+            pActions.mouseShooting= true;
         }
         if (context.action.name == controls.Player.RangeAttack.name && context.canceled)
         {
             pActions.shooting = false;
+            pActions.mouseShooting = false;
         }
         
         // AOE
         if (context.action.name == controls.Player.AreaOfEffect.name && context.performed)
         {
-            pActions.AOE();
+            pActions.charging = true;
+        }
+
+        if (context.action.name == controls.Player.AreaOfEffect.name && context.canceled)
+        {
+            pActions.AOE(pActions.pStats.aoe_Tap);
         }
 
         // Sprinting

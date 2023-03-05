@@ -50,7 +50,10 @@ public class PlayerStat_Data : ScriptableObject
     public float aoe_TAP { get; private set; }          //Fixed amount
     
     [field: SerializeField]
-    public float aoe_HOLD { get; private set; }         //Amount per second
+    public float aoe_HOLD { get; private set; }         //Max Charge Amount
+
+    [field: SerializeField]
+    public float aoe_ChargeRate { get; private set; }   //Amount per second
 
     public PlayerStat_Data(string name, ExperienceData xpData, Leveling_Data lvlingData)
     {
