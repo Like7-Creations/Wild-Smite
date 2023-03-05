@@ -9,6 +9,8 @@ using UnityEditor;
 using UnityEngine.Rendering;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEditor.UIElements;
+using UnityEngine.Events;
+using System;
 //using System.Diagnostics;
 
 public class PlayerActions : MonoBehaviour
@@ -73,6 +75,29 @@ public class PlayerActions : MonoBehaviour
     public List<UltimateAI> enemiesInDot = new List<UltimateAI>();
     PlayerControl Pc;
     PlayerControls controls;
+
+    [Space(5)]
+    [Header("VFX Events")]
+
+    public UnityEvent trigger_walkVFX;
+    public UnityEvent trigger_dashVFX;
+    public UnityEvent trigger_sprintVFX;
+
+    public UnityEvent trigger_attackVFX;
+    public UnityEvent trigger_dmgVFX;
+
+    public UnityEvent trigger_aoeVFX;
+    public UnityEvent trigger_aoeChargeVFX;
+
+    /*public static PlayerActions current_pActions;
+
+    public event Action trigger_walkVFX;
+    public event Action trigger_dashVFX;
+    public event Action trigger_sprintVFX;
+    public event Action trigger_attackVFX;
+    public event Action trigger_aoeVFX;
+    public event Action trigger_aoeChargeVFX;
+    public event Action trigger_dmgVFX;*/
 
     void Awake()
     {
@@ -237,6 +262,7 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    //Event Required
     IEnumerator BeginChargingAOE()
     {
         Debug.Log("Begin Powering Up AOE");
@@ -267,6 +293,7 @@ public class PlayerActions : MonoBehaviour
             //Farhan's Code-----
             pStats.LoseHealth((int)damage);      //Call Take Damage function, since the actual stat values have a private set.
 
+            trigger_dmgVFX.Invoke();
 
             //Farhan's Code-----
 
@@ -280,6 +307,7 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    //Event Required
     IEnumerator resetFlashDamage(Color origin)
     {
         yield return new WaitForSeconds(flashDamageTime);
@@ -292,6 +320,8 @@ public class PlayerActions : MonoBehaviour
 
     bool testCombat;
     [SerializeField] List<int> lastrands = new List<int>();
+
+    //Event Required
     public void Attack(/*InputAction.CallbackContext context*/)
     {
         // Build One
@@ -299,11 +329,14 @@ public class PlayerActions : MonoBehaviour
         {
             if (enemiesInDot.Count > 0) { transform.LookAt(GetClosestEnemy(enemiesInDot).transform); };
             StartCoroutine(Mover(2, 0.1f, Dashdir));
-            int randomNumber = Random.Range(0, 2);
+            int randomNumber = UnityEngine.Random.Range(0, 2);
             int previous = randomNumber;
             if (!lastrands.Contains(randomNumber))
             {
                 animator.SetTrigger("Attack" + randomNumber.ToString());
+
+                trigger_attackVFX.Invoke();
+
                 lastrands.Add(randomNumber);
 
             }
@@ -373,6 +406,7 @@ public class PlayerActions : MonoBehaviour
         combo = 0;
     }
 
+    //Event Required
     public void EnableCollider()
     {
         if (enemiesInDot != null)
@@ -383,16 +417,18 @@ public class PlayerActions : MonoBehaviour
                 enemiesInDot[i].TakeDamage(pStats.m_ATK/*what ever the player dmg is*/);
             }
         }
-        VFX.Melee();
+        //VFX.Melee();
     }
 
+    //Event Required
     public void DisableCollider()
     {
         //animator.applyRootMotion = true;
-        VFX.Melee();
+        //VFX.Melee();
         playerController.enabled = true;
     }
 
+    //Event Required
     public void AOE(float multiplier)
     {
         Collider[] hits;
@@ -408,11 +444,14 @@ public class PlayerActions : MonoBehaviour
 
         UnityEngine.Debug.Log("AOE attack");
 
+        trigger_aoeVFX.Invoke();
+
         pStats.UseSprint((int)multiplier);
 
         charging = false;
     }
 
+    //Event Required
     public void ChargedAOE(float stamina, float melee, float radius)
     {
         Collider[] hits;
@@ -426,15 +465,11 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
+        trigger_aoeChargeVFX.Invoke();
+
         pStats.UseSprint((int)stamina);
 
-
         charging = false;
-    }
-
-    IEnumerator ChargedResetDelay()
-    {
-        yield return new WaitForSeconds(0.5f);
     }
 
     public void Dash()
@@ -447,13 +482,16 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    //Event Required
     public IEnumerator Mover(float speed, float time, Vector3 dir)
     {
         float startTime = Time.time;
 
         invincible = true;
 
-        VFX.Dash();
+        //VFX.Dash();
+
+        trigger_dashVFX.Invoke();
 
         while (Time.time < startTime + time)
         {
@@ -461,19 +499,27 @@ public class PlayerActions : MonoBehaviour
             yield return null;
         }
         invincible = false;
-        VFX.Dash();
+
+        //VFX.Dash();
+        trigger_dashVFX.Invoke();
     }
 
+    //Event Required
     public void Sprint()
     {
         playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
         isSprinting = true;
+
+        trigger_sprintVFX.Invoke();
     }
 
+    //Event Required
     public void UnSprint()
     {
         playerController.playerSpeed = OriginalSpeed;   //Ensure that stamina is not being depleted anymore.
         isSprinting = false;
+
+        trigger_sprintVFX.Invoke();
     }
 
     public void RangeAttack()

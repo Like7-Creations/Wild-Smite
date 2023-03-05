@@ -12704,7 +12704,7 @@ MonoBehaviour:
   - {fileID: 1862622705}
   - {fileID: 1848740300}
   playerPrefab: {fileID: 1875388763240933588, guid: 377d51dc04797cd4ea44ae5146534d15, type: 3}
-  initialiseOnStart: 0
+  initialiseOnStart: 1
 --- !u!4 &1287299411
 Transform:
   m_ObjectHideFlags: 0
@@ -22329,7 +22329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
-  m_MaxPlayerCount: 2
+  m_MaxPlayerCount: 1
   m_AllowJoining: 1
   m_JoinBehavior: 1
   m_PlayerJoinedEvent:
@@ -23005,6 +23005,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerConfigManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8458360607324529392, guid: eb27bceac05dd3347813db146fcfa867, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458360607324529394, guid: eb27bceac05dd3347813db146fcfa867, type: 3}
+      propertyPath: levelData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9247ffdc5277d3d458a7bc36474e0373, type: 2}
     - target: {fileID: 8458360607324529394, guid: eb27bceac05dd3347813db146fcfa867, type: 3}
       propertyPath: MaxPlayers
       value: 1
@@ -23017,6 +23025,10 @@ PrefabInstance:
       propertyPath: SceneToLoad
       value: Farhan v3
       objectReference: {fileID: 0}
+    - target: {fileID: 8458360607324529394, guid: eb27bceac05dd3347813db146fcfa867, type: 3}
+      propertyPath: experienceData
+      value: 
+      objectReference: {fileID: 11400000, guid: c5c25bea0a34e9547a4a9acd7b96daaf, type: 2}
     - target: {fileID: 8458360607324529395, guid: eb27bceac05dd3347813db146fcfa867, type: 3}
       propertyPath: m_PlayerPrefab
       value: 
