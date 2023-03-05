@@ -73,6 +73,16 @@ public class PlayerStat_Data : ScriptableObject
         stamina = lvlData.base_STAM;
         m_ATK = lvlData.base_MATK;
         r_ATK = lvlData.base_RATK;
+
+        recovRate_HP = 5;
+        recovRate_STAMINA = 5;
+
+        sprint = 1;
+        dash = 10;
+
+        aoe_ChargeRate = 1;
+        aoe_TAP = 10; 
+        aoe_HOLD = 1;
     }
 
     //Increase player level based on Leveling Data class.

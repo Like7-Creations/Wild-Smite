@@ -139,6 +139,7 @@ public class PlayerActions : MonoBehaviour
 
             if (currentCharge <= pStats.aoe_Hold)
             {
+                //Charge radius, damamge, stamina
                 chargedSTAM = pStats.aoe_Tap * currentCharge;
                 chargedMELEE = pStats.m_ATK * currentCharge;
                 chargedRANGE = pStats.r_ATK * currentCharge;
@@ -147,13 +148,6 @@ public class PlayerActions : MonoBehaviour
             {
                 currentCharge = pStats.aoe_Hold;
             }
-            //Charge radius, damamge, stamina
-
-            /*startingRadius += Time.deltaTime * chargingSpeed;
-            if(startingRadius >= maxRadius)
-            {
-                startingRadius = maxRadius;
-            }*/
         }
         else if (!charging && currentCharge > 1)
         {
@@ -509,6 +503,8 @@ public class PlayerActions : MonoBehaviour
     {
         playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
         isSprinting = true;
+
+
 
         trigger_sprintVFX.Invoke();
     }
