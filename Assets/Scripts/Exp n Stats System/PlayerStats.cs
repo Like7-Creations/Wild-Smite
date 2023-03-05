@@ -68,6 +68,21 @@ public class PlayerStats : MonoBehaviour
         if (!hasEntry)
             defeatedEnemies.Add(new EnemyDefeats(type, count));
     }
+    public void SetEnemyCount(EnemyDefeats.EnemyType type)
+    {
+        bool hasEntry = false;
+        for (int i = 0; i < defeatedEnemies.Count; i++)
+        {
+            if (defeatedEnemies[i].enemyType == type)
+            {
+                hasEntry = true;
+                defeatedEnemies [i].count++;
+            }            
+        }
+
+        if (!hasEntry)
+            defeatedEnemies.Add(new EnemyDefeats(type, 1));
+    }
 
     public void SetData(PlayerStat_Data data)
     {
