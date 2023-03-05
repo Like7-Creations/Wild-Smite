@@ -94,11 +94,11 @@ public class PlayerActions : MonoBehaviour
         OriginalSpeed = playerController.playerSpeed;
     }
 
+    public float currentCharge = 0;
 
     void Update()
     {
         #region Area Of Effect
-        float currentCharge = 0;
 
         float chargedSTAM = 0;
         float chargedMELEE = 0;
@@ -106,18 +106,22 @@ public class PlayerActions : MonoBehaviour
 
         if (charging)
         {
+            StartCoroutine(BeginChargingAOE());
+
+            //currentCharge = currentCharge++ * Time.deltaTime;
+
+            Debug.Log((int)currentCharge);
+
             if (currentCharge <= pStats.aoe_Hold)
             {
                 chargedSTAM = pStats.aoe_Tap * currentCharge;
                 chargedMELEE = pStats.m_ATK * currentCharge;
                 chargedRANGE = pStats.r_ATK * currentCharge;
-
-                currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
-
-                if (currentCharge > pStats.aoe_Hold)
-                    currentCharge = pStats.aoe_Hold;
             }
-
+            else if (currentCharge >= pStats.aoe_Hold)
+            {
+                currentCharge = pStats.aoe_Hold;
+            }
             //Charge radius, damamge, stamina
 
             /*startingRadius += Time.deltaTime * chargingSpeed;
@@ -128,7 +132,12 @@ public class PlayerActions : MonoBehaviour
         }
         else if (!charging && currentCharge > 1)
         {
+            //currentCharge = pStats.aoe_Hold;
+
             ChargedAOE(chargedSTAM, chargedMELEE, chargedRANGE);
+
+            Debug.Log("AOE charged release");
+
             currentCharge = 0;
         }
         #endregion
@@ -154,7 +163,7 @@ public class PlayerActions : MonoBehaviour
                         if (Vector3.Dot(toEnemy.normalized, transform.forward) > Mathf.Cos(HitAreas[i].Angle * 0.5f * Mathf.Deg2Rad))
                         {
                             HitAreas[i].enemyFound = true;
-                            if (!enemiesInDot.Contains(enemy)) 
+                            if (!enemiesInDot.Contains(enemy))
                             {
                                 enemiesInDot.Add(enemy);
                             }
@@ -207,10 +216,12 @@ public class PlayerActions : MonoBehaviour
         {
             pStats.UseSprint(pStats.sprint);
         }
-        else
+        else if (!isSprinting)
         {
             //Debug.Log("recover stamina called");
-            pStats.RecoverStamina(pStats.recovRate_STAMINA);
+            if (pStats.stamina < pStats.playerData.stamina)
+                pStats.RecoverStamina(pStats.recovRate_STAMINA);
+
         }
 
         //Implement HP Recov later.
@@ -225,6 +236,16 @@ public class PlayerActions : MonoBehaviour
             lastrands.Add(previos);
         }
     }
+
+    IEnumerator BeginChargingAOE()
+    {
+        Debug.Log("Begin Powering Up AOE");
+
+        currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
+
+        yield return null;
+    }
+
 
     #region Player Take Damage
 
@@ -385,9 +406,10 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
+        UnityEngine.Debug.Log("AOE attack");
+
         pStats.UseSprint((int)multiplier);
 
-        startingRadius = 0;
         charging = false;
     }
 
@@ -397,14 +419,22 @@ public class PlayerActions : MonoBehaviour
         hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * radius);        //Use Range Stat to define AOE Radius.
         foreach (Collider c in hits)
         {
-            if (c.GetComponent<DummyEnemy>() != null)
+            if (c.GetComponent<UltimateAI>() != null)
             {
-                DummyEnemy enemy = c.GetComponent<DummyEnemy>();
+                UltimateAI enemy = c.GetComponent<UltimateAI>();
                 enemy.health -= pStats.m_ATK * melee;        //Use Melee Stat here.
             }
         }
 
         pStats.UseSprint((int)stamina);
+
+
+        charging = false;
+    }
+
+    IEnumerator ChargedResetDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void Dash()

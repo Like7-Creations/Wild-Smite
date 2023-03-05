@@ -87,6 +87,15 @@ public class PlayerStats : MonoBehaviour
         //stamina = Mathf.RoundToInt(stamina);
     }
 
+    public void NullifyAOE_Tap()
+    {
+        aoe_Tap = 0;
+    }
+
+    public void ResetAOE_TapVal()
+    {
+        aoe_Tap = playerData.aoe_TAP;
+    }
 
     void Start()
     {

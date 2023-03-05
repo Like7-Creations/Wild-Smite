@@ -69,7 +69,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""2e1fdea9-0c8f-4405-a88e-8321f8756f63"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=2,pressPoint=2)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -215,7 +215,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""5b8925ff-2c4b-4504-ac2b-5307fe8b2515"",
                     ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""AreaOfEffect"",
@@ -226,7 +226,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""d47f309e-5915-4d43-b1a5-a261e9945daa"",
                     ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""AreaOfEffect"",
