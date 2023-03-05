@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LevelSelection : MonoBehaviour
 {
+    public PlayerStat_Data player;
+
     public int minLevels, maxLevels;
     public GameObject optionPrefab;
 
@@ -34,7 +36,7 @@ public class LevelSelection : MonoBehaviour
 
     public void GenerateLevelOptions()
     {
-        int amount = Random.Range(minLevels, maxLevels);
+        int amount = Random.Range(minLevels, player.lvl);
 
         for (int i = 0; i < amount; i++)
         {

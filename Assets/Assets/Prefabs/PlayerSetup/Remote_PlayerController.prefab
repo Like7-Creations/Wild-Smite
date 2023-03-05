@@ -6387,12 +6387,12 @@ GameObject:
   - component: {fileID: 1246767606284448366}
   - component: {fileID: 5164859512937621524}
   - component: {fileID: 1641511439424653149}
+  - component: {fileID: -4835312869280015784}
   - component: {fileID: 1641511439424653148}
   - component: {fileID: 1641511439424653120}
   - component: {fileID: 1843909066416524260}
   - component: {fileID: 1843909066416524261}
   - component: {fileID: 1246767606284448357}
-  - component: {fileID: -4835312869280015784}
   m_Layer: 0
   m_Name: Remote_PlayerController
   m_TagString: Player
@@ -6461,6 +6461,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.1, z: 0}
+--- !u!114 &-4835312869280015784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875388763240933588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58a258b474f8bb4180e4f2de777f070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1641511439424653148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6475,9 +6487,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 4
   gravity: -9.81
+  turnSmoothVelocity: 0
   controller: {fileID: 0}
   refer: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
+  cam: {fileID: 0}
+  xOffset: 0
+  yOffset: 0
+  zOffset: 0
 --- !u!114 &1641511439424653120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6509,6 +6526,7 @@ MonoBehaviour:
   flash: {fileID: 7258510010803686492}
   hit: {fileID: 5046565136228991398}
   red: {fileID: 2100000, guid: 1949a6cedf6f1834fafbe36d6b6637b8, type: 2}
+  knockBackDir: {x: 0, y: 0, z: 0}
   ProjectileOrigin: {fileID: 8580516011781725477}
   bullet: {fileID: 1472468272477937308, guid: fdadadf755217ef44b76cce7eb349612, type: 3}
   FireRate: 0.3
@@ -6522,6 +6540,7 @@ MonoBehaviour:
   isSprinting: 0
   refer: {x: 0, y: 0, z: 0}
   Dashdir: {x: 0, y: 0, z: 0}
+  lastrands: 
 --- !u!65 &1843909066416524260
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6571,18 +6590,6 @@ MonoBehaviour:
   level: 0
   statPointPanel: {fileID: 0}
   statHealth: 0
---- !u!114 &-4835312869280015784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875388763240933588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c58a258b474f8bb4180e4f2de777f070, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2228756020645726694
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,11 +11,14 @@ public class PlayerControl : MonoBehaviour
     PlayerActions pActions;
     PlayerMovement pMovement;
 
+    public Renderer[] matMeshes;
 
-    private void Start()
+    private void Awake()
     {
         pMovement = GetComponent<PlayerMovement>();
         pActions = GetComponent<PlayerActions>();
+
+        
     }
 
     void Update()
@@ -106,9 +109,13 @@ public class PlayerControl : MonoBehaviour
     {
         playerConfig = pc;
         controls = new PlayerControls();
+        GetComponent<PlayerStats>().SetData(pc.playerStats);
         pActions = GetComponent<PlayerActions>();
         playerConfig.Input.onActionTriggered += OnInputAction;
         //playerMesh.material = pc.PlayerMat;
+        if (matMeshes.Length > 0)
+            for (int i = 0; i < matMeshes.Length; i++)
+                matMeshes[i].material = playerConfig.PlayerMat;
     }
 
     public PlayerConfig GetConfig()

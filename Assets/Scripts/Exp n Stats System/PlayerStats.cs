@@ -7,8 +7,6 @@ public class PlayerStats : MonoBehaviour
     public PlayerStat_Data playerData;
 
     //[Header("Stats")]
-
-
     [field: SerializeField]
     public int hp { get; private set; }
     
@@ -22,9 +20,8 @@ public class PlayerStats : MonoBehaviour
     public int r_ATK { get; private set; }
     
     [field: SerializeField]
-    public int exp { get; private set; }
-
-
+    public int exp { get; private set; }	
+	public List<EnemyDefeats> defeatedEnemies;
 
     [field: SerializeField]
     public float recovRate_HP { get; private set; }
@@ -55,6 +52,27 @@ public class PlayerStats : MonoBehaviour
         exp += addXP;
     }
 
+	//For Testing
+    public void SetEnemyCount(EnemyDefeats.EnemyType type, int count)
+    {
+        bool hasEntry = false;
+        for (int i = 0; i < defeatedEnemies.Count; i++)
+        {
+            if (defeatedEnemies[i].enemyType == type)
+            {
+                hasEntry = true;
+                defeatedEnemies [i].count = count;
+            }            
+        }
+
+        if (!hasEntry)
+            defeatedEnemies.Add(new EnemyDefeats(type, count));
+    }
+
+    public void SetData(PlayerStat_Data data)
+    {
+        playerData = data;
+	}
     public void LoseHealth(int dmg)
     {
         hp -= dmg;
@@ -115,5 +133,26 @@ public class PlayerStats : MonoBehaviour
         aoe_Tap = playerData.aoe_TAP;
         aoe_Hold = playerData.aoe_HOLD;
         aoe_ChargeRate = playerData.aoe_ChargeRate;
+    }
+}
+
+[System.Serializable]
+public class EnemyDefeats
+{
+    public enum EnemyType
+    {
+        Melee,
+        Ranged,
+        Tank
+    }
+
+    public EnemyType enemyType;
+    public string name { set { name = enemyType.ToString(); } }
+    public int count;
+
+    public EnemyDefeats(EnemyType type, int count)
+    {
+        this.enemyType = type;
+        this.count = count;
     }
 }
