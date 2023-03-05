@@ -98,6 +98,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GamePadRangeAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""66853051-936b-4960-90be-82980bec8294"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -298,6 +307,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""RangeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63720114-5c97-4585-95bc-8dd7af10c8f1"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GamePadRangeAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -456,6 +476,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Sprinting = m_Player.FindAction("Sprinting", throwIfNotFound: true);
         m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
         m_Player_RangeAttack = m_Player.FindAction("RangeAttack", throwIfNotFound: true);
+        m_Player_GamePadRangeAttack = m_Player.FindAction("GamePadRangeAttack", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Movement = m_UI.FindAction("Movement", throwIfNotFound: true);
@@ -527,6 +548,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprinting;
     private readonly InputAction m_Player_PauseGame;
     private readonly InputAction m_Player_RangeAttack;
+    private readonly InputAction m_Player_GamePadRangeAttack;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -539,6 +561,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Sprinting => m_Wrapper.m_Player_Sprinting;
         public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
         public InputAction @RangeAttack => m_Wrapper.m_Player_RangeAttack;
+        public InputAction @GamePadRangeAttack => m_Wrapper.m_Player_GamePadRangeAttack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -572,6 +595,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RangeAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRangeAttack;
                 @RangeAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRangeAttack;
                 @RangeAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRangeAttack;
+                @GamePadRangeAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGamePadRangeAttack;
+                @GamePadRangeAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGamePadRangeAttack;
+                @GamePadRangeAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGamePadRangeAttack;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -600,6 +626,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RangeAttack.started += instance.OnRangeAttack;
                 @RangeAttack.performed += instance.OnRangeAttack;
                 @RangeAttack.canceled += instance.OnRangeAttack;
+                @GamePadRangeAttack.started += instance.OnGamePadRangeAttack;
+                @GamePadRangeAttack.performed += instance.OnGamePadRangeAttack;
+                @GamePadRangeAttack.canceled += instance.OnGamePadRangeAttack;
             }
         }
     }
@@ -673,6 +702,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSprinting(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
         void OnRangeAttack(InputAction.CallbackContext context);
+        void OnGamePadRangeAttack(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
