@@ -6632,6 +6632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGamepad: 0
+  pStats: {fileID: 0}
   health: 500
   HitAreas:
   - Direction: 120
@@ -6657,6 +6658,7 @@ MonoBehaviour:
   bulletSpeed: 10
   aim: {x: 0, y: 0}
   shooting: 0
+  mouseShooting: 0
   DashSpeed: 100
   DashTime: 0.07
   DashCDN: 0
@@ -6664,6 +6666,11 @@ MonoBehaviour:
   isSprinting: 0
   refer: {x: 0, y: 0, z: 0}
   Dashdir: {x: 0, y: 0, z: 0}
+  charging: 0
+  startingRadius: 0
+  maxRadius: 0
+  chargingSpeed: 0
+  enemiesInDot: []
   lastrands: 
 --- !u!65 &1843909066416524260
 BoxCollider:
@@ -6746,7 +6753,16 @@ MonoBehaviour:
   <m_ATK>k__BackingField: 0
   <r_ATK>k__BackingField: 0
   <exp>k__BackingField: 0
-  defeatedEnemies: []
+  defeatedEnemies:
+  - enemyType: 0
+    count: 0
+  <recovRate_HP>k__BackingField: 0
+  <recovRate_STAMINA>k__BackingField: 0
+  <dash>k__BackingField: 0
+  <sprint>k__BackingField: 0
+  <aoe_Tap>k__BackingField: 0
+  <aoe_Hold>k__BackingField: 0
+  <aoe_ChargeRate>k__BackingField: 0
 --- !u!1 &2228756020645726694
 GameObject:
   m_ObjectHideFlags: 0
