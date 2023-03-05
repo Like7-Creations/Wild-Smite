@@ -46,16 +46,27 @@ public class PlayerControl : MonoBehaviour
             pActions.Attack();
         }
 
-        // GamePad RangeAttack
-        if (context.action.name == controls.Player.Rotation.name && context.performed)
-        {
-            pActions.shooting = true;
-        }
+        // GamePad Rotation
+        /* if (context.action.name == controls.Player.Rotation.name && context.performed)
+         {
+             //pActions.shooting = true;
+         }
 
-        if (context.action.name == controls.Player.Rotation.name && context.canceled)
-        {
-            pActions.shooting = false;
-        }
+         if (context.action.name == controls.Player.Rotation.name && context.canceled)
+         {
+             //pActions.shooting = false;
+         }*/
+
+         //GamePad Range Attack
+         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
+         {
+             pActions.shooting = true;
+         }
+
+         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.canceled)
+         {
+             pActions.shooting = false;
+         }
 
         //Keyboard and Mouse Range Attack
         if (context.action.name == controls.Player.RangeAttack.name && context.performed)
