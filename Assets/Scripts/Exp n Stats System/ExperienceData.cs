@@ -12,7 +12,7 @@ public class ExperienceData : ScriptableObject
         for (int i = milestones.Length-1; i >= 0; i--)
         {
             if (xp_Val >= milestones[i])
-                return i;
+                return i+1;
         }
 
         return 0;

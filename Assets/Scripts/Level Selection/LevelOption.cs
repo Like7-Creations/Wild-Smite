@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelOption : MonoBehaviour
 {
+
+    public string level;
 
     public int playerLevel = 10;
     public bool OptionCreated;
@@ -52,5 +55,10 @@ public class LevelOption : MonoBehaviour
         }
 
         expanded.SetActive(false);
+    }
+
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(level);
     }
 }

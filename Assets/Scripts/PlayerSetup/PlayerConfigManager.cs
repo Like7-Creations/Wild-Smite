@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 public class PlayerConfigManager : MonoBehaviour
 {
 
+    [Header("Player Settings")]
+    public Leveling_Data levelData;
+    public ExperienceData experienceData;
+
     List<PlayerConfig> playerConfigs;
 
     [SerializeField]
@@ -59,9 +63,14 @@ public class PlayerConfigManager : MonoBehaviour
         playerConfigs[index].PlayerMat = color;
     }
 
-    public void ReadyPlayer(int index)
+    public void SetPlayerCharacter(int index, GameObject character)
     {
-        playerConfigs[index].IsReady = true;
+        playerConfigs[index].Character = character;
+    }
+
+    public void ReadyPlayer(int index, bool ready)
+    {
+        playerConfigs[index].IsReady = ready;
 
         if (playerConfigs.Count == MaxPlayers)
         {
@@ -93,21 +102,28 @@ public class PlayerConfigManager : MonoBehaviour
         if (!playerConfigs.Any(p => p.PlayerIndex == pInput.playerIndex))
         {
             pInput.transform.SetParent(transform);
-            playerConfigs.Add(new PlayerConfig(pInput));
+            playerConfigs.Add(new PlayerConfig(pInput, experienceData, levelData));
         }
     }
 }
 
+[System.Serializable]
 public class PlayerConfig
 {
+    public string Name;
+    public PlayerStat_Data playerStats;
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
     public Material PlayerMat { get; set; }
+    public GameObject Character { get; set; }
 
-    public PlayerConfig(PlayerInput pInput)
+    public PlayerConfig(PlayerInput pInput, ExperienceData xpData, Leveling_Data lvlData)
     {
         PlayerIndex = pInput.playerIndex;
+        playerStats = ScriptableObject.CreateInstance<PlayerStat_Data>();
+        playerStats.init($"Player {PlayerIndex + 1}", xpData, lvlData, this);
+        Name = $"Player {PlayerIndex + 1}";
         Input = pInput;
     }
 }
