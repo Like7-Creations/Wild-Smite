@@ -8,8 +8,8 @@ using TMPro;
 
 public class LevelOption : MonoBehaviour
 {
-
-    public string level;
+    public LevelSettings Settings;
+    public string levelToLoad;
 
     public int playerLevel = 10;
     public bool OptionCreated;
@@ -17,10 +17,8 @@ public class LevelOption : MonoBehaviour
     public GameObject DifBase, DifFilled;
     public Transform DifHolder;
 
-    enum difficulty { easy, medium, hard };
-
     int levelField;
-    difficulty difficultyField;
+    LevelSettings.Difficulty difficultyField;
 
     public TMP_Text Info_UI;
     public GameObject expanded;
@@ -29,13 +27,21 @@ public class LevelOption : MonoBehaviour
 
     private void Awake()
     {
+        List< PlayerConfig> players = PlayerConfigManager.Instance.GetPlayerConfigs();
+        int maxLvl = 0;
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].playerStats.lvl > maxLvl)
+                maxLvl = players[i].playerStats.lvl;
+        }
+
         if (Info_UI == null)
             Info_UI = GetComponentInChildren<TMP_Text>();
 
         if (!OptionCreated)
         {
-            levelField = Random.Range(1, playerLevel);
-            difficultyField = (difficulty)Random.Range(0, 3);
+            levelField = Random.Range(0, maxLvl);
+            difficultyField = (LevelSettings.Difficulty)Random.Range(0, 3);
 
             if (Info_UI != null)
             {
@@ -59,6 +65,7 @@ public class LevelOption : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(level);
+        Settings.SetSelectedLevel(levelField, difficultyField);
+        SceneManager.LoadScene(levelToLoad);
     }
 }

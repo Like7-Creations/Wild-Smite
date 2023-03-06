@@ -9581,6 +9581,9 @@ MonoBehaviour:
   AllocatePanel: {fileID: 436967790}
   StatPanel: {fileID: 2048374824}
   statBarPrefab: {fileID: 4887158882196589998, guid: ba9e1343b011c64459278098998cb544, type: 3}
+  player1_Toggle: {fileID: 0}
+  player2_Toggle: {fileID: 0}
+  playerCharacter: {fileID: 0}
   CurrentHP_Text: {fileID: 2080339603}
   NewHP_Text: {fileID: 1606482936}
   HP_Bars: {fileID: 627952263}
@@ -11454,6 +11457,8 @@ MonoBehaviour:
   - {fileID: 215826431}
   playerPrefab: {fileID: 1875388763240933588, guid: e24ced5e30bdf6f4eaf0da193d3b70c4, type: 3}
   initialiseOnStart: 0
+  spawnLevel: 0
+  levelSettings: {fileID: 0}
 --- !u!4 &648915272
 Transform:
   m_ObjectHideFlags: 0
@@ -29065,16 +29070,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: a3a9fad5c6bd3e04b9d8876fd55ab40f, type: 2}
-  playerControl: {fileID: 0}
-  playerConfig:
-    Name: 
-    playerStats: {fileID: 0}
   <hp>k__BackingField: 0
   <stamina>k__BackingField: 0
   <m_ATK>k__BackingField: 0
   <r_ATK>k__BackingField: 0
   <exp>k__BackingField: 0
   defeatedEnemies: []
+  <recovRate_HP>k__BackingField: 0
+  <recovRate_STAMINA>k__BackingField: 0
+  <dash>k__BackingField: 0
+  <sprint>k__BackingField: 0
+  <aoe_Tap>k__BackingField: 0
+  <aoe_Hold>k__BackingField: 0
+  <aoe_ChargeRate>k__BackingField: 0
 --- !u!1 &1995033412
 GameObject:
   m_ObjectHideFlags: 0

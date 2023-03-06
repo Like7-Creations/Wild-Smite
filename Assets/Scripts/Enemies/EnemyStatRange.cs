@@ -30,7 +30,7 @@ public class EnemyStatRange : ScriptableObject
         Hard
     }
 
-    public Difficulty difficulty;
+    public LevelSettings.Difficulty difficulty;
 
     [Range(2,10)]
     public float lowProbPower;
@@ -56,25 +56,25 @@ public class EnemyStatRange : ScriptableObject
         return percentage;
     }
 
-    public float AllocateStats(Vector2 stat)
+    public float AllocateStats(Vector2 stat, LevelSettings.Difficulty diff)
     {
         float percentage = 0;
-        switch (difficulty)
+        switch (diff)
         {
-            case Difficulty.Easy:
+            case LevelSettings.Difficulty.Easy:
                 percentage = GenerateStats(stat, lowProbPower);
                 break;
 
-            case Difficulty.Medium:
-                percentage = (Random.Range(1, 51) + Random.Range(1,51)) / 100;
+            case LevelSettings.Difficulty.Medium:
+                percentage = (Random.Range(1, 51) + Random.Range(1,51));
                 break;
 
-            case Difficulty.Hard:
+            case LevelSettings.Difficulty.Hard:
                 percentage = GenerateStats(stat, highProbPower);
                 break; 
         }
         float result;
-        result = stat.x + (stat.y - stat.x) * percentage;
+        result = stat.x + (stat.y - stat.x) * (percentage / 100);
         result = Mathf.RoundToInt(result);
 
         return result;

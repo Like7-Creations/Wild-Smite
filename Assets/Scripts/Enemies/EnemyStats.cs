@@ -58,16 +58,16 @@ public class EnemyStats : MonoBehaviour
 
     }
 
-    public void GenerateStatValues()
+    public void GenerateStatValues(LevelSettings.Difficulty difficulty)
     { 
-        Health = ESR.AllocateStats(ESR.Health);
-        Speed = ESR.AllocateStats(ESR.SPD);
-        MATK = ESR.AllocateStats(ESR.MATK);
-        MDEF = ESR.AllocateStats(ESR.MDEF);
-        MCDN = ESR.AllocateStats(ESR.MCDN);
-        RATK = ESR.AllocateStats(ESR.RATK);
-        RDEF = ESR.AllocateStats(ESR.RDEF);
-        RCDN = ESR.AllocateStats(ESR.RCDN);
+        Health = ESR.AllocateStats(ESR.Health, difficulty);
+        Speed = ESR.AllocateStats(ESR.SPD, difficulty);
+        MATK = ESR.AllocateStats(ESR.MATK, difficulty);
+        MDEF = ESR.AllocateStats(ESR.MDEF, difficulty);
+        MCDN = ESR.AllocateStats(ESR.MCDN, difficulty);
+        RATK = ESR.AllocateStats(ESR.RATK, difficulty);
+        RDEF = ESR.AllocateStats(ESR.RDEF, difficulty);
+        RCDN = ESR.AllocateStats(ESR.RCDN, difficulty);
         AllocateStats();
     }
 

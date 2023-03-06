@@ -6,52 +6,86 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public Transform[] spawnPoints;
-
+    public List<Transform> spawnPoints;
     public float radius;
+    public Vector2Int SpawnCountRange;
 
     public EnemyInfo[] possibleEnemies;
 
-    public int spawnCount;
+    public LevelSettings levelSettings;
+    LevelData currentLevel;
+    LevelSettings.Difficulty currentDifficulty;
 
     float timer;
-
     bool test;
 
-    void Start()
+    void Awake()
     {
-        test = true;
+        //test = true;
+        currentLevel = levelSettings.GetSelectedLevel();
+        currentDifficulty = levelSettings.GetDifficulty();
+
+        for (int i = 0; i < possibleEnemies.Length; i++)
+        {
+            for (int j = 0; j < currentLevel.enemyData.Length; j++)
+            {
+                if (possibleEnemies[i].type == currentLevel.enemyData[j].Type)
+                    possibleEnemies[i].statRange = currentLevel.enemyData[j].StatRange;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer > 4 & test)
-        {
-            SpawnEnemies();
+    {        
+        if (timer > .5f && !test)
+        {            
+            SpawnPositions[] rooms = FindObjectsOfType<SpawnPositions>();
+            for (int i = 0; i < rooms.Length; i++)
+            {
+                //SpawnPositions room = child.GetComponent<SpawnPositions>();
+                spawnPoints.AddRange(rooms[i].points);
+            }
             timer = 0;
+            test = true;
+
+            SpawnEnemies();
         }
-        
+        else
+            timer += Time.deltaTime;
     }
+
     void SpawnEnemies()
     {
-        for (int i = 0; i < spawnCount; i++)
+        //Debug.Log ("Spawning Enemies at " + spawnPoints.Count + "Points");
+        for (int i = 0; i < spawnPoints.Count; i++)
         {
-            float angleIteration = 360 / spawnCount;
+            int amount = Random.Range(SpawnCountRange.x, SpawnCountRange.y);
+            //Debug.Log("Spawning " + amount + "enemies");
 
-            float currentRotation = angleIteration * i;
+            for (int j = 0; j < amount; j++)
+            {
+                float angleIteration = 360 / amount;
 
-            EnemyInfo enemy = possibleEnemies[Random.Range(0, possibleEnemies.Length)];
-            GameObject enemyObject = Instantiate(enemy.enemyPrefab, transform.position, transform.rotation);
+                float currentRotation = angleIteration * i;
 
-            enemyObject.transform.Rotate(new Vector3(0, currentRotation, 0));
-            enemyObject.transform.Translate(new Vector3(radius, 5, 0));
+                EnemyInfo enemy = possibleEnemies[Random.Range(0, possibleEnemies.Length)];
+                GameObject enemyObject = Instantiate(enemy.enemyPrefab, spawnPoints[i].position, spawnPoints[i].rotation);
 
-            enemyObject.GetComponent<EnemyStats>().ESR = enemy.stateRange;
-            enemyObject.GetComponent<EnemyStats>().GenerateStatValues();
+                enemyObject.transform.Rotate(new Vector3(0, currentRotation, 0));
+                enemyObject.transform.Translate(new Vector3(radius, 5, 0));
+
+                enemyObject.GetComponent<EnemyStats>().ESR = enemy.statRange;
+                enemyObject.GetComponent<EnemyStats>().GenerateStatValues(currentDifficulty);
+            }
         }
-        test = false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        for (int i = 0; i < spawnPoints.Count; i++)
+            Gizmos.DrawWireSphere(spawnPoints[i].transform.position, radius);
     }
 }
 
@@ -67,5 +101,5 @@ public class EnemyInfo
 
     public Type type;
     public GameObject enemyPrefab;
-    public EnemyStatRange stateRange;
+    public EnemyStatRange statRange;
 }
