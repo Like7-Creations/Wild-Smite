@@ -65,7 +65,7 @@ public class CamTrackerMove : MonoBehaviour
         {
             PlayerStats stats = target.GetComponent<PlayerStats>();
 
-
+            trackerAcceleration = 
         }*/
 
         transform.position = Vector3.Lerp(transform.position, 

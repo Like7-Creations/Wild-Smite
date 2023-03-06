@@ -213,7 +213,9 @@ MonoBehaviour:
   splitOffset: {x: 0, y: 0, z: 0}
   splitScreen: 0
   targetOffset: {x: 0, y: 0, z: 1}
-  trackerSpeed: 0.9
+  maxDistFromTarget: 0
+  baseTrackerSpeed: 0
+  trackerAcceleration: 0
 --- !u!114 &39833803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12705,6 +12707,9 @@ MonoBehaviour:
   - {fileID: 1848740300}
   playerPrefab: {fileID: 1875388763240933588, guid: 377d51dc04797cd4ea44ae5146534d15, type: 3}
   initialiseOnStart: 1
+  spawnLevel: 0
+  levelSettings: {fileID: 0}
+  levelEndObject: {fileID: 0}
 --- !u!4 &1287299411
 Transform:
   m_ObjectHideFlags: 0
@@ -12982,7 +12987,9 @@ MonoBehaviour:
   splitOffset: {x: 0, y: 0, z: 0}
   splitScreen: 0
   targetOffset: {x: 0, y: 0, z: 1}
-  trackerSpeed: 0.9
+  maxDistFromTarget: 0
+  baseTrackerSpeed: 0
+  trackerAcceleration: 0
 --- !u!1818360608 &1367179935
 PositionConstraint:
   m_ObjectHideFlags: 0
@@ -14448,6 +14455,7 @@ MonoBehaviour:
   splitterWidth: 0.02
   splitterColor: {r: 0, g: 0, b: 0, a: 1}
   unlitMat: {fileID: 2100000, guid: 3742e10b67e988c498539170cf32bd2b, type: 2}
+  splitMat: {fileID: 2100000, guid: f84595a00f60d244c95827f243bfeec5, type: 2}
 --- !u!1 &1516913140
 GameObject:
   m_ObjectHideFlags: 0

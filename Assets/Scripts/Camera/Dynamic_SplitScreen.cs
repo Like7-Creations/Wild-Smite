@@ -40,6 +40,7 @@ public class Dynamic_SplitScreen : MonoBehaviour
 
     //Material Assigned to camChild's Render
     public Material unlitMat;
+    public Material splitMat;
 
     void Start()
     {
@@ -83,7 +84,7 @@ public class Dynamic_SplitScreen : MonoBehaviour
         splitterObj.GetComponent<Renderer>().sortingOrder = 2;
         splitterObj.layer = 1;      //LayerMask.NameToLayer("TransparentFx");
 
-        Material tempSplitScreen = new Material(Shader.Find("Mask/SplitScreen"));
+        Material tempSplitScreen = splitMat;
 
         splitObj.GetComponent<Renderer>().material = tempSplitScreen;
         splitObj.layer = 1;         //LayerMask.NameToLayer("TransparentFx")
