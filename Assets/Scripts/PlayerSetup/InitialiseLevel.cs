@@ -48,14 +48,6 @@ public class InitialiseLevel : MonoBehaviour
                 player.GetComponent<PlayerControl>().InitialisePlayer(playerConfigs[i]);
                 player.GetComponent<PlayerStats>().SetData(playerConfigs[i].playerStats);
 
-                if(i == 0)
-                {
-                    player.tag = "Player1";
-                }
-                else if (i == 1)
-                {
-                    player.tag = "Player2";
-                }
 
             }
             initialised = true;

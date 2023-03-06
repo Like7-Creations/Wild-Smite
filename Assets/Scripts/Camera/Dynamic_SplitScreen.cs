@@ -45,6 +45,9 @@ public class Dynamic_SplitScreen : MonoBehaviour
         Camera c1 = p1_Cam.GetComponent<Camera>();
         Camera c2 = p2_Cam.GetComponent<Camera>();
 
+        //Logic for Coop or solo
+        PlayerConfigManager.Instance.GetPlayerConfigs().Count;
+
         //Set Cam2 to be rendered first in the render order.
         c2.depth = c1.depth - 1;
         //Set Cam2 to ignore the TransparentFX layer, so that the splitter is only rendered forCam1
@@ -92,8 +95,8 @@ public class Dynamic_SplitScreen : MonoBehaviour
             camTracker_P1.GetComponent<CamTrackerMove>().target = player;
             player1 = player.transform;
         }
-        else if (playerIndex == 1)
-        {
+        else if (playerIndex == 1)        {
+
             camTracker_P2.GetComponent<CamTrackerMove>().target = player;
             player2 = player.transform;
         }

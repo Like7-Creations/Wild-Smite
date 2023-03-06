@@ -53,6 +53,26 @@ public class PlayerConfigManager : MonoBehaviour
         }
     }
 
+    public void ResetManager(GameObject SelectionPanel)
+    {
+        for (int i = 0; i < SelectionPanel.transform.childCount; i++)
+        {
+            Destroy(SelectionPanel.transform.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < playerConfigs.Count; i++)
+        {
+            Destroy(playerConfigs[i].Input.gameObject);
+        }
+
+        playerConfigs.Clear();
+    }
+
+    public void SetMaxPlayers(int num)
+    {
+        MaxPlayers = num;
+    }
+
     public List<PlayerConfig> GetPlayerConfigs()
     {
         return playerConfigs;
