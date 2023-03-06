@@ -239,10 +239,18 @@ public class PlayerActions : MonoBehaviour
         {
             //Debug.Log("recover stamina called");
             if (pStats.stamina < pStats.playerData.stamina)
-                pStats.RecoverStamina(pStats.recovRate_STAMINA);
+            {
+                if (!pStats.begin_STAMRecov)
+                {
+                    StartCoroutine(pStats.STAM_RecovDelay());
+                }
+            }
 
         }
 
+        if (pStats.stam_recov)
+            pStats.RecoverStamina(pStats.recovRate_STAMINA);
+        
         //Implement HP Recov later.
 
         //Farhan's Code-----
