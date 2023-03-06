@@ -19,7 +19,7 @@ public class Swipe : Attack
 
     public override void AttackType()
     {
-        Debug.Log("Swipe Attack");
+        //Debug.Log("Swipe Attack");
         ultimateAI.anim.SetTrigger("Swipe");
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, Hitarea.Radius);
@@ -51,7 +51,7 @@ public class Swipe : Attack
             playersInArea = playersInArea.Distinct().ToList();
             for (int i = 0; i < playersInArea.Count; i++)
             {
-                Debug.Log($"{playersInArea[i]} Got Hit");
+               // Debug.Log($"{playersInArea[i]} Got Hit");
                 playersInArea[i].TakeDamage(ultimateAI.damageToDeal, transform.forward);
                 StartCoroutine(playersInArea[i].Mover(knockBackStr, knockBacktime, transform.forward));
                 //playersInArea[i].health -= 10;

@@ -53,12 +53,12 @@ public class PlayerStats : MonoBehaviour
     }
 
 	//For Testing
-    public void SetEnemyCount(EnemyDefeats.EnemyType type, int count)
+    /* void SetEnemyCount(EnemyInfo.Type type, int count)
     {
         bool hasEntry = false;
         for (int i = 0; i < defeatedEnemies.Count; i++)
         {
-            if (defeatedEnemies[i].enemyType == type)
+            if (defeatedEnemies[i].Type == type)
             {
                 hasEntry = true;
                 defeatedEnemies [i].count = count;
@@ -67,8 +67,8 @@ public class PlayerStats : MonoBehaviour
 
         if (!hasEntry)
             defeatedEnemies.Add(new EnemyDefeats(type, count));
-    }
-    public void SetEnemyCount(EnemyDefeats.EnemyType type)
+    }*/
+    public void SetEnemyCount(EnemyInfo.Type type)
     {
         bool hasEntry = false;
         for (int i = 0; i < defeatedEnemies.Count; i++)
@@ -144,19 +144,12 @@ public class PlayerStats : MonoBehaviour
 
 [System.Serializable]
 public class EnemyDefeats
-{
-    public enum EnemyType
-    {
-        Melee,
-        Ranged,
-        Tank
-    }
-
-    public EnemyType enemyType;
+{ 
+    public EnemyInfo.Type enemyType;
     public string name { set { name = enemyType.ToString(); } }
     public int count;
 
-    public EnemyDefeats(EnemyType type, int count)
+    public EnemyDefeats(EnemyInfo.Type type, int count)
     {
         this.enemyType = type;
         this.count = count;

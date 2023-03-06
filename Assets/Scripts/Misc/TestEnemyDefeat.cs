@@ -5,7 +5,7 @@ using UnityEngine;
 public class TestEnemyDefeat : MonoBehaviour
 {
 
-    public EnemyDefeats.EnemyType type;
+    public EnemyInfo.Type type;
     int count;
 
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class TestEnemyDefeat : MonoBehaviour
         if (other.tag == "Player")
         {
             count++;
-            other.GetComponent<PlayerStats>().SetEnemyCount(type, count);
+            other.GetComponent<PlayerStats>().SetEnemyCount(type);
             Debug.Log($"Player Defeated {type.ToString()} Enemy");
         }
     }

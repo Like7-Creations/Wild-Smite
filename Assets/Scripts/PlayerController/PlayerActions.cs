@@ -136,6 +136,16 @@ public class PlayerActions : MonoBehaviour
         #region Find Enemies With CheckSphere Then Check If Inside Dot Product
         //if (enemiesInDot != null) { enemiesInDot = enemiesInDot.Distinct().ToList(); } //Keeping it From Duplicates.
         //enemiesInDot.Clear();
+        if(enemiesInDot.Count > 0)
+        {
+            for (int i = 0; i < enemiesInDot.Count; i++)
+            {
+                if (enemiesInDot[i] == null)
+                {
+                    enemiesInDot.RemoveAt(i);
+                }
+            }
+        }
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, 5);
         foreach (Collider c in hits)
@@ -200,18 +210,21 @@ public class PlayerActions : MonoBehaviour
         }
         #endregion
 
-        //Farhan's Code-----
+        //Farhan's  UwU Code-----
         //Check if sprinting, consume stamina by the specified amount.
 
         if (isSprinting)
         {
             pStats.UseSprint(pStats.sprint);
         }
-        else
+        else if (!isSprinting)
         {
-            //Debug.Log("recover stamina called");
-            pStats.RecoverStamina(pStats.recovRate_STAMINA);
+            //Debug.Log("recover stamina called"); uwu
+            if (pStats.stamina < pStats.playerData.stamina)
+                pStats.RecoverStamina(pStats.recovRate_STAMINA);
+
         }
+
 
         //Implement HP Recov later.
 
@@ -292,19 +305,6 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        // Build two
-        /*
-        if (!isAttacking)
-        {
-            isAttacking = true;
-            animator.SetTrigger("" + combo);
-            Debug.Log(combo);
-        }
-        if(enemiesInDot != null)
-        {
-            transform.LookAt(enemiesInDot[0].transform);
-        }
-        playerController.controller.Move(transform.forward * meleeDash);*/
     }
 
     UltimateAI GetClosestEnemy(List<UltimateAI> enemies)
@@ -359,7 +359,7 @@ public class PlayerActions : MonoBehaviour
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
                 Debug.Log("enable collider called");
-                enemiesInDot[i].TakeDamage(pStats.m_ATK/*what ever the player dmg is*/);
+                enemiesInDot[i].TakeDamage(pStats.m_ATK, gameObject.GetComponent<PlayerStats>());
             }
         }
         VFX.Melee();
@@ -452,6 +452,8 @@ public class PlayerActions : MonoBehaviour
         {
             Rigidbody bullets = Instantiate(bullet, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);
+            bullets.GetComponent<Destroy>().damage = pStats.r_ATK;
+            bullets.GetComponent<Destroy>().playershot = true;
             fired = true;
         }
     }

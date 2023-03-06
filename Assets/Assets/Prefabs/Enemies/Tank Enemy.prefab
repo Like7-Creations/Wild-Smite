@@ -35564,8 +35564,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5493125859887787577}
-  m_LocalRotation: {x: -0, y: 0.04112132, z: -0, w: 0.99915415}
-  m_LocalPosition: {x: -5.51, y: 0.9142313, z: 12.06}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4846640901498211693}
@@ -35579,7 +35579,7 @@ Transform:
   - {fileID: 7632754007592098269}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 4.713, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1265648546604003065
 Animator:
   serializedVersion: 3
@@ -35739,14 +35739,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players: []
   moveSpeed: 10.6
-  chaseRange: 41.77
+  chaseRange: 10
   idlingDuration: 2.2
-  attackRange: 38.9
+  attackRange: 5.8
   wanderRange: 3.22
   hearingRange: 0
   lookSpeed: 10
   renderDistance: {x: 17.29, y: 20, z: 20}
-  health: 503
+  health: 1
   showRenderDistance: 0
   chasing: 0
   attacking: 0
@@ -35839,7 +35839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341fa5375f86fb14496ed05cf9c9aada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 41.77
+  viewRadius: 10
   viewAngle: 360
   targetMask:
     serializedVersion: 2
@@ -35883,7 +35883,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9379f928252822f428535177bea60b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacksList: []
+  attacksList:
+  - {fileID: 5493125859887787557}
+  - {fileID: 5493125859887787558}
+  - {fileID: 5493125859887787559}
+  - {fileID: 5493125859887787576}
   playerAmount: []
   chosenPlayer: {fileID: 0}
   playerOne: {fileID: 0}

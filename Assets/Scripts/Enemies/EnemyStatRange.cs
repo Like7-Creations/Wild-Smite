@@ -21,6 +21,7 @@ public class EnemyStatRange : ScriptableObject
     public int numOfDice;
     public int diceMaxValue;
 
+    public EnemyInfo.Type enemyType;
     //[Header("Difficulty")]
     public enum Difficulty
     {
@@ -29,11 +30,13 @@ public class EnemyStatRange : ScriptableObject
         Hard
     }
 
+    public Difficulty difficulty;
+
     [Range(2,10)]
-    float lowProbPower;
+    public float lowProbPower;
 
     [Range(0.001f,0.999f)]
-    float highProbPower;
+    public float highProbPower;
 
 
     public float GeneratePosInRange()
@@ -53,10 +56,10 @@ public class EnemyStatRange : ScriptableObject
         return percentage;
     }
 
-    public float AllocateStats(Difficulty dif, Vector2 stat)
+    public float AllocateStats(Vector2 stat)
     {
         float percentage = 0;
-        switch (dif)
+        switch (difficulty)
         {
             case Difficulty.Easy:
                 percentage = GenerateStats(stat, lowProbPower);
