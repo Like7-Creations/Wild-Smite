@@ -16,7 +16,7 @@ public class CamTrackerMove : MonoBehaviour
 
     //[SerializeField] float maxDistFromTarget;
 
-    [SerializeField] float baseTrackerSpeed;
+    [SerializeField] float baseTrackerSpeed = 1f;
     [SerializeField] float trackerAcceleration;
 
 
