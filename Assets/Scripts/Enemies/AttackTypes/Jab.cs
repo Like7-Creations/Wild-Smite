@@ -6,7 +6,7 @@ public class Jab : Attack
 {
     public override void AttackType()
     {
-        Debug.Log("Jab attack");
+        //Debug.Log("Jab attack");
         ultimateAI.attackRange = 3;
         fov.viewAngle = 65;
         // set animation

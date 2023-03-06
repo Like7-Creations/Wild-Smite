@@ -12,7 +12,7 @@ public class Homing : Attack
     [SerializeField] bool aiming;
     public override void AttackType()
     {
-        Debug.Log("Homing Attack Happened");
+        //Debug.Log("Homing Attack Happened");
         StartCoroutine(thisAttack());
     }
 
@@ -26,7 +26,8 @@ public class Homing : Attack
         aiming = true;
         yield return new WaitForSeconds(AimTime);
         Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        aiming= false;
+        rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
+        aiming = false;
         yield return new WaitForSeconds(5);
     }
 }

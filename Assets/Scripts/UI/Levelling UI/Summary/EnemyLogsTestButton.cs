@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyLogsTestButton : MonoBehaviour
 {
 
-    public EnemyDefeats.EnemyType type;
+    public EnemyInfo.Type type;
     public int count;
 
     public PlayerStats player;
@@ -17,6 +17,6 @@ public class EnemyLogsTestButton : MonoBehaviour
 
     public void ApplyValues()
     {
-        player.SetEnemyCount(type, count);
+        player.SetEnemyCount(type);
     }
 }

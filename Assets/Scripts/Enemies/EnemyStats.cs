@@ -26,8 +26,6 @@ public class EnemyStats : MonoBehaviour
     {
         thisEnemy = GetComponent<UltimateAI>();
         myMaxHealth = thisEnemy.health;
-        GenerateStatValues();
-        AllocateStats();
     }
 
     void Update()
@@ -39,7 +37,7 @@ public class EnemyStats : MonoBehaviour
 
     public void AllocateStats()
     {
-       /* thisEnemy.health = Health;
+        thisEnemy.health = Health;
         thisEnemy.moveSpeed = Speed;
         if(thisEnemy.type == UltimateAI.Type.Melee)
         {
@@ -52,19 +50,25 @@ public class EnemyStats : MonoBehaviour
             thisEnemy.damageToDeal = RATK;
             thisEnemy.Defence = RDEF;
             thisEnemy.reloadTime = RCDN;
-        }*/
+        }
+        if (thisEnemy.type == UltimateAI.Type.Tank)
+        {
+            
+        }
+
     }
 
-    void GenerateStatValues()
-    {
-        /*Health = ESR.AllocateStats(ESR.Health);
+    public void GenerateStatValues()
+    { 
+        Health = ESR.AllocateStats(ESR.Health);
         Speed = ESR.AllocateStats(ESR.SPD);
         MATK = ESR.AllocateStats(ESR.MATK);
         MDEF = ESR.AllocateStats(ESR.MDEF);
         MCDN = ESR.AllocateStats(ESR.MCDN);
         RATK = ESR.AllocateStats(ESR.RATK);
         RDEF = ESR.AllocateStats(ESR.RDEF);
-        RCDN = ESR.AllocateStats(ESR.RCDN);*/
+        RCDN = ESR.AllocateStats(ESR.RCDN);
+        AllocateStats();
     }
 
    /* public float AllocateStats(Vector2 valu)

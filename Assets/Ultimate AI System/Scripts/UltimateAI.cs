@@ -343,6 +343,8 @@ namespace Ultimate.AI
 
 		//Anmar Edits----
 		float Timer;
+		PlayerStats hitPlayer;
+
         //------
         #endregion
 
@@ -415,16 +417,16 @@ namespace Ultimate.AI
 			if (distanceToPlayer.magnitude <= chaseRange && provoked && distanceToPlayer.magnitude > attackRange && !isDead && Time.timeScale != 0 && GetComponent<FieldOfView>().canSee)
 			{
 				if (type != Type.NPC) Chase(); //This checks whether it is time to chase...
-				else { CheckAttack(); Debug.Log("Run 1"); }
+				else { CheckAttack(); }// Debug.Log("Run 1"); }
             }
 			else if (distanceToPlayer.magnitude < chaseRange && distanceToPlayer.magnitude <= attackRange && !isDead && Time.timeScale != 0 && GetComponent<FieldOfView>().canSee && provoked)
 			{
 				if (attackOnProvoke && type != Type.NPC) //This checkes if the AI set to attack only when provoked.
 				{
-					if (provoked) { CheckAttack();  Debug.Log("Run 2"); } //If so and is provoked - it will execute an attack.
+					if (provoked) { CheckAttack(); }  //Debug.Log("Run 2"); } //If so and is provoked - it will execute an attack.
 				}
-			    if (!attackOnProvoke && type != Type.NPC) { CheckAttack(); Debug.Log("Run 3"); } //But if it is set to hostile and is not an NPC we need to get in the attack checker.
-                else if (type == Type.NPC) { CheckAttack(); Debug.Log("Run 4"); } //And lastly if it is an NPC we still need to play the attack checker.
+				if (!attackOnProvoke && type != Type.NPC) { CheckAttack(); }//Debug.Log("Run 3"); } //But if it is set to hostile and is not an NPC we need to get in the attack checker.
+				else if (type == Type.NPC) { CheckAttack(); }//Debug.Log("Run 4"); } //And lastly if it is an NPC we still need to play the attack checker.
             }
 			else if (Time.timeScale != 0 && !attacking && !isDead) Wander(); //If it is neither attacking nor dead it will wander around.
 
@@ -520,7 +522,7 @@ namespace Ultimate.AI
 
 				if (!attacking) //If currently is NOT attacking then attack.
 				{
-					Debug.Log("Melee attack called");	
+					//Debug.Log("Melee attack called");	
 					attacking = true;
 					
 					// Anmar -- Removed animation trigger since were usng our own in the attack types classes
@@ -722,8 +724,8 @@ namespace Ultimate.AI
 					//rb.GetComponent<Projectile>().ai = gameObject;
 					//rb.AddForce(transform.forward * 10f, ForceMode.Impulse); //The projectiles get pushed so that they can move using physics force.
 					MultiAttacker attack = GetComponent<MultiAttacker>();
-				    //attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType();
-					Debug.Log("Range attack called");
+				    attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType();
+					//Debug.Log("Range attack called");
 
                     foreach (ParticleSystem particle in wanderParticles) if (particle.isPlaying) particle.Stop(); //Only needed particles are being played.
 					foreach (ParticleSystem particle in attackParticles) particle.Play();
@@ -1236,6 +1238,9 @@ namespace Ultimate.AI
 
 		public void Die()
 		{
+			hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType);
+
+			hitPlayer.GetComponent<PlayerActions>().enemiesInDot.Remove(this);
 			isDead = true;
 
 			moveSpeed = 0; //And both the rotation and moving speed are set to 0.
@@ -1271,9 +1276,10 @@ namespace Ultimate.AI
 			}
 		}
 
-		public void TakeDamage(float damageToTake /*, PlayerMovement attacker*/)
+		public void TakeDamage(float damageToTake , PlayerStats attacker)
 		{
-            // anim.ResetTrigger("GotHit0"/* randomNumber.ToString()*/);
+			// anim.ResetTrigger("GotHit0"/* randomNumber.ToString()*/);
+			hitPlayer = attacker;
             Vector3 knockBack = transform.position - transform.forward * 0.5f;
             knockBack.y = 0;
             transform.position = knockBack;
