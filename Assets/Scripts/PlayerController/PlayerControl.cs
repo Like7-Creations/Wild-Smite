@@ -18,7 +18,6 @@ public class PlayerControl : MonoBehaviour
         pMovement = GetComponent<PlayerMovement>();
         pActions = GetComponent<PlayerActions>();
 
-        
     }
 
     void Update()
@@ -116,6 +115,8 @@ public class PlayerControl : MonoBehaviour
         if (matMeshes.Length > 0)
             for (int i = 0; i < matMeshes.Length; i++)
                 matMeshes[i].material = playerConfig.PlayerMat;
+
+        FindObjectOfType<Dynamic_SplitScreen>().AddPlayer(this.gameObject, playerConfig.PlayerIndex);
     }
 
     public PlayerConfig GetConfig()
