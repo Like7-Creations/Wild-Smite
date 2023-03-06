@@ -42,6 +42,8 @@ public class Dynamic_SplitScreen : MonoBehaviour
     public Material unlitMat;
     public Material splitMat;
 
+    public Shader SplitScreen;
+
     void Start()
     {
         Camera c1 = p1_Cam.GetComponent<Camera>();
@@ -85,6 +87,8 @@ public class Dynamic_SplitScreen : MonoBehaviour
         splitterObj.layer = 1;      //LayerMask.NameToLayer("TransparentFx");
 
         Material tempSplitScreen = splitMat;
+
+        splitObj.GetComponent<Renderer>().material.shader = SplitScreen;
 
         splitObj.GetComponent<Renderer>().material = tempSplitScreen;
         splitObj.layer = 1;         //LayerMask.NameToLayer("TransparentFx")
