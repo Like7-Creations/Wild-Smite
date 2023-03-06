@@ -10,13 +10,12 @@ public class Summon : Attack
 
     public override void AttackType()
     {
-        Debug.Log("Summon");
+        //Debug.Log("Summon");
         for (int i = 0; i < NoOfSpawns; i++)
         {
             float angleIteration = 360 / NoOfSpawns;
 
             float currentRotation = angleIteration * i;
-
 
             GameObject elem = Instantiate(prefabsToSpawn[Random.Range(0, prefabsToSpawn.Length)], transform.position, transform.rotation);
 

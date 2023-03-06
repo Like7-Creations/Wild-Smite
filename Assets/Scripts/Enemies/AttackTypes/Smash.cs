@@ -19,7 +19,7 @@ public class Smash : Attack
 
     public override void AttackType()
     {
-        Debug.Log("Smash Attack");
+       // Debug.Log("Smash Attack");
         ultimateAI.anim.SetTrigger("Smash");
         targetHit = smashPos.position;
         Collider[] hits;

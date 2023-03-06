@@ -26,8 +26,6 @@ public class EnemyStats : MonoBehaviour
     {
         thisEnemy = GetComponent<UltimateAI>();
         myMaxHealth = thisEnemy.health;
-        GenerateStatValues();
-        AllocateStats();
     }
 
     void Update()
@@ -39,7 +37,7 @@ public class EnemyStats : MonoBehaviour
 
     public void AllocateStats()
     {
-       /* thisEnemy.health = Health;
+        thisEnemy.health = Health;
         thisEnemy.moveSpeed = Speed;
         if(thisEnemy.type == UltimateAI.Type.Melee)
         {
@@ -52,19 +50,25 @@ public class EnemyStats : MonoBehaviour
             thisEnemy.damageToDeal = RATK;
             thisEnemy.Defence = RDEF;
             thisEnemy.reloadTime = RCDN;
-        }*/
+        }
+        if (thisEnemy.type == UltimateAI.Type.Tank)
+        {
+            
+        }
+
     }
 
-    void GenerateStatValues()
-    {
-        /*Health = ESR.AllocateStats(ESR.Health);
-        Speed = ESR.AllocateStats(ESR.SPD);
-        MATK = ESR.AllocateStats(ESR.MATK);
-        MDEF = ESR.AllocateStats(ESR.MDEF);
-        MCDN = ESR.AllocateStats(ESR.MCDN);
-        RATK = ESR.AllocateStats(ESR.RATK);
-        RDEF = ESR.AllocateStats(ESR.RDEF);
-        RCDN = ESR.AllocateStats(ESR.RCDN);*/
+    public void GenerateStatValues(LevelSettings.Difficulty difficulty)
+    { 
+        Health = ESR.AllocateStats(ESR.Health, difficulty);
+        Speed = ESR.AllocateStats(ESR.SPD, difficulty);
+        MATK = ESR.AllocateStats(ESR.MATK, difficulty);
+        MDEF = ESR.AllocateStats(ESR.MDEF, difficulty);
+        MCDN = ESR.AllocateStats(ESR.MCDN, difficulty);
+        RATK = ESR.AllocateStats(ESR.RATK, difficulty);
+        RDEF = ESR.AllocateStats(ESR.RDEF, difficulty);
+        RCDN = ESR.AllocateStats(ESR.RCDN, difficulty);
+        AllocateStats();
     }
 
    /* public float AllocateStats(Vector2 valu)

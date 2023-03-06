@@ -77,11 +77,11 @@ public class LevelCompletion : MonoBehaviour
             {
                 int sumXP = 0;
 
-                if (p.defeatedEnemies[i].enemyType == EnemyDefeats.EnemyType.Melee)
+                if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Melee)
                     sumXP = p.defeatedEnemies[i].count * mXP;
-                else if (p.defeatedEnemies[i].enemyType == EnemyDefeats.EnemyType.Ranged)
+                else if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Ranged)
                     sumXP = p.defeatedEnemies[i].count * rXP;
-                else if (p.defeatedEnemies[i].enemyType == EnemyDefeats.EnemyType.Tank)
+                else if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Tank)
                     sumXP = p.defeatedEnemies[i].count * tXP;
 
                 xp += sumXP;
@@ -121,11 +121,11 @@ public class LevelCompletion : MonoBehaviour
             {
                 int sumXP = 0;
 
-                if (p1.defeatedEnemies[i].enemyType == EnemyDefeats.EnemyType.Melee)
+                if (p1.defeatedEnemies[i].enemyType == EnemyInfo.Type.Melee)
                     sumXP = p1.defeatedEnemies[i].count * mXP;
-                else if (p1.defeatedEnemies[i].enemyType == EnemyDefeats.EnemyType.Ranged)
+                else if (p1.defeatedEnemies[i].enemyType == EnemyInfo.Type.Ranged)
                     sumXP = p1.defeatedEnemies[i].count * rXP;
-                else if (p1.defeatedEnemies[i].enemyType == EnemyDefeats.EnemyType.Tank)
+                else if (p1.defeatedEnemies[i].enemyType == EnemyInfo.Type.Tank)
                     sumXP = p1.defeatedEnemies[i].count * tXP;
 
                 xp_1 += sumXP;
@@ -138,11 +138,11 @@ public class LevelCompletion : MonoBehaviour
             {
                 int sumXP = 0;
 
-                if (p2.defeatedEnemies[i].enemyType == EnemyDefeats.EnemyType.Melee)
+                if (p2.defeatedEnemies[i].enemyType == EnemyInfo.Type.Melee)
                     sumXP = p2.defeatedEnemies[i].count * mXP;
-                else if (p2.defeatedEnemies[i].enemyType == EnemyDefeats.EnemyType.Ranged)
+                else if (p2.defeatedEnemies[i].enemyType == EnemyInfo.Type.Ranged)
                     sumXP = p2.defeatedEnemies[i].count * rXP;
-                else if (p2.defeatedEnemies[i].enemyType == EnemyDefeats.EnemyType.Tank)
+                else if (p2.defeatedEnemies[i].enemyType == EnemyInfo.Type.Tank)
                     sumXP = p2.defeatedEnemies[i].count * tXP;
 
                 xp_2 += sumXP;

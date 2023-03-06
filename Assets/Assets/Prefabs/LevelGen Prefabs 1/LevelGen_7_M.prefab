@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &409882931324380248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 409882931324380230}
+  - component: {fileID: 409882931324380249}
+  m_Layer: 0
+  m_Name: LevelGen_7_M
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &409882931324380230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409882931324380248}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &409882931324380249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409882931324380248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6626a6e366a9c48a48525cde4050d0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Seed: 0
+  SectionContainer: {fileID: 0}
+  MaxLevelSize: 8
+  MaxAllowedOrder: 4
+  Sections:
+  - {fileID: 2616845317744784812, guid: 4bf5857f490132e4bab2f861112316bb, type: 3}
+  - {fileID: 2353418394730971761, guid: 4bdb515977131274eb3ad613d559741a, type: 3}
+  - {fileID: 8144228862662897575, guid: 94eb1723746b2534f9c626097e5bb15a, type: 3}
+  - {fileID: 2441034141426471599, guid: 238e93cbf9d047349994554dc913220b, type: 3}
+  - {fileID: 2250680632096175135, guid: b94741870901c7c48bf8c89de6f8decd, type: 3}
+  - {fileID: 8239310130909259591, guid: 7a37d17c5eb95414dad7f65acecfbe44, type: 3}
+  - {fileID: 1101207238761824234, guid: 09e8245953ddde14f86fd92ad591cda1, type: 3}
+  DeadEnds:
+  - {fileID: 2747254908216096421, guid: 43b9c202640146f4e984470e042e23c5, type: 3}
+  InitialSectionTags:
+  - Corner
+  SpecialRules: []

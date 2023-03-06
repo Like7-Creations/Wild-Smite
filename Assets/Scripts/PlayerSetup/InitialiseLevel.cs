@@ -12,12 +12,25 @@ public class InitialiseLevel : MonoBehaviour
 
     [Header("Config")]
     public bool initialiseOnStart;
+    public bool spawnLevel;
     bool initialised;
+    bool levelSpawned;
+
+    [Header("Difficulty Settings")]
+    public LevelSettings levelSettings;
+    LevelSettings.Difficulty levelDifficulty;
+
+    [Header("Level")]
+    public GameObject levelEndObject;
+    GameObject levelRoot;
 
     // Start is called before the first frame update
     void Start()
     {
         initialised = false;
+
+        if (levelSettings != null)
+            levelDifficulty = levelSettings.GetDifficulty();
 
         if (initialiseOnStart)
             Initialise();
@@ -37,5 +50,33 @@ public class InitialiseLevel : MonoBehaviour
             }
             initialised = true;
         }
+
+        if (spawnLevel && !levelSpawned)
+        {
+            LevelData levelData = levelSettings.GetSelectedLevel();
+
+            switch (levelDifficulty)
+            {
+                case LevelSettings.Difficulty.Easy:
+                    levelRoot = Instantiate(levelData.EasyLevelGen, transform);
+                    break;
+                case LevelSettings.Difficulty.Medium:
+                    levelRoot = Instantiate(levelData.MediumLevelGen, transform);
+                    break;
+                case LevelSettings.Difficulty.Hard:
+                    levelRoot = Instantiate(levelData.HardLevelGen, transform);
+                    break;
+            }
+            levelSpawned = true;
+            StartCoroutine(createEndPoint());
+        }
+    }
+
+    IEnumerator createEndPoint()
+    {
+        yield return new WaitForSeconds(.2f);
+        LevelGenerator.Scripts.Section[] rooms = levelRoot.GetComponentsInChildren<LevelGenerator.Scripts.Section>();
+        int room = Random.Range(1, rooms.Length);
+        Instantiate(levelEndObject, levelRoot.transform.GetChild(room).transform.position, Quaternion.identity);
     }
 }
