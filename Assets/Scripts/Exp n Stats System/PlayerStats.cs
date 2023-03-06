@@ -6,7 +6,10 @@ public class PlayerStats : MonoBehaviour
 {
     public PlayerStat_Data playerData;
 
-    //[Header("Stats")]
+    #region Player_Stat Variables
+    [field: Space(10)]
+    [field: Header("Stats")]
+
     [field: SerializeField]
     public int hp { get; private set; }
 
@@ -18,19 +21,27 @@ public class PlayerStats : MonoBehaviour
 
     [field: SerializeField]
     public int r_ATK { get; private set; }
+    #endregion
 
+    #region XP & Leveling Variables
+    [field: Space(10)]
+    [field: Header("Leveling Stuff")]
     [field: SerializeField]
     public int exp { get; private set; }
-    public List<EnemyDefeats> defeatedEnemies;
 
+    public List<EnemyDefeats> defeatedEnemies;
+    #endregion
+
+    #region Health Variables & Settings
+    [field: Space(10)]
+    [field: Header("Health Consumption & Recovery Settings")]
     [field: SerializeField]
     public float recovRate_HP { get; private set; }
+    #endregion
 
-    [field: SerializeField]
-    public float recovRate_STAMINA { get; private set; }
-
-
-
+    #region Stamina Variables & Settings
+    [field: Space(10)]
+    [field: Header("Sprint & Dash Settings")]
     [field: SerializeField]
     public float dash { get; private set; }
 
@@ -38,10 +49,24 @@ public class PlayerStats : MonoBehaviour
     public float sprint { get; private set; }
 
 
+    [field: Space(10)]
+    [field: Header("Stamina Consumption & Recovery Settings")]
+    [field: SerializeField]
+    public float recovRate_STAMINA { get; private set; }
+
+    [field: SerializeField]
+    public float stamRecov_Delay { get; private set; }
+
+    [field: SerializeField]
     public bool begin_STAMRecov { get; private set; }
+
+    [field: SerializeField]
     public bool stam_recov { get; private set; }
+    #endregion
 
-
+    #region Area Of Effect Variables & Settings
+    [field: Space(10)]
+    [field: Header("Area Of Effect Settings")]
     [field: SerializeField]
     public float aoe_Tap { get; private set; }
 
@@ -50,7 +75,7 @@ public class PlayerStats : MonoBehaviour
 
     [field: SerializeField]
     public float aoe_ChargeRate { get; private set; }   //Amount per second
-
+    #endregion
 
     void AddEXP(int addXP)
     {
@@ -93,6 +118,8 @@ public class PlayerStats : MonoBehaviour
     {
         playerData = data;
     }
+
+    #region Player Health Functions
     public void LoseHealth(int dmg)
     {
         hp -= dmg;
@@ -102,7 +129,9 @@ public class PlayerStats : MonoBehaviour
     {
         hp += amount;
     }
+    #endregion
 
+    #region Player Stamina Functions
     public void UseDash(int amount)
     {
         stamina -= amount;
@@ -137,11 +166,13 @@ public class PlayerStats : MonoBehaviour
         begin_STAMRecov = true;
 
         Debug.Log("Beginning Stam_Recov delay");
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(stamRecov_Delay);
 
         stam_recov = true;
     }
+    #endregion
 
+    #region AOE Functions
     public void NullifyAOE_Tap()
     {
         aoe_Tap = 0;
@@ -151,6 +182,7 @@ public class PlayerStats : MonoBehaviour
     {
         aoe_Tap = playerData.aoe_TAP;
     }
+    #endregion
 
     void Start()
     {
