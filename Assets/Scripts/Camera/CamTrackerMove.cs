@@ -13,13 +13,16 @@ public class CamTrackerMove : MonoBehaviour
     public bool splitScreen;
 
     [SerializeField] Vector3 targetOffset;
-    [SerializeField] float trackerSpeed;
+
+    //[SerializeField] float maxDistFromTarget;
+
+    [SerializeField] float baseTrackerSpeed;
+    [SerializeField] float trackerAcceleration;
 
 
 
     bool isP1;
     bool isP2;
-
 
     void Start()
     {
@@ -58,9 +61,16 @@ public class CamTrackerMove : MonoBehaviour
             splitOffset = Vector3.zero;
         }
 
+        /*if(Vector3.Distance(transform.position, target.transform.position) > maxDistFromTarget)
+        {
+            PlayerStats stats = target.GetComponent<PlayerStats>();
+
+
+        }*/
+
         transform.position = Vector3.Lerp(transform.position, 
-                                        target.transform.position - (-splitOffset + targetOffset), 
-                                        trackerSpeed * Time.deltaTime);
+                                        target.transform.position - (-splitOffset + targetOffset),
+                                        baseTrackerSpeed * Time.deltaTime);
     }
 
     void OnDrawGizmos()
