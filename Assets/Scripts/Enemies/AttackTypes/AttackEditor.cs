@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Attack), true)]
-public class AttackEditor : Editor
+//[CustomEditor(typeof(Attack), true)]
+/*public class AttackEditor : Editor
 {
-    public override void OnInspectorGUI()
+    /*public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
@@ -16,5 +16,5 @@ public class AttackEditor : Editor
         {
             swipe.AttackType();
         }
-    }
-}
+    }*
+}*/

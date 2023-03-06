@@ -163,7 +163,7 @@ public class PlayerActions : MonoBehaviour
 
         #region Find Enemies With CheckSphere Then Check If Inside Dot Product
         //if (enemiesInDot != null) { enemiesInDot = enemiesInDot.Distinct().ToList(); } //Keeping it From Duplicates.
-        //enemiesInDot.Clear();
+        enemiesInDot.Clear();
         if(enemiesInDot.Count > 0)
         {
             for (int i = 0; i < enemiesInDot.Count; i++)
@@ -340,7 +340,7 @@ public class PlayerActions : MonoBehaviour
         if (!testCombat)
         {
             if (enemiesInDot.Count > 0) { transform.LookAt(GetClosestEnemy(enemiesInDot).transform); };
-            StartCoroutine(Mover(2, 0.1f, Dashdir));
+            //StartCoroutine(Mover(2, 0.1f, Dashdir));
             int randomNumber = UnityEngine.Random.Range(0, 2);
             int previous = randomNumber;
             if (!lastrands.Contains(randomNumber))
@@ -441,7 +441,7 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        UnityEngine.Debug.Log("AOE attack");
+        //UnityEngine.Debug.Log("AOE attack");
 
         trigger_aoeVFX.Invoke();
 
@@ -566,18 +566,18 @@ public class PlayerActions : MonoBehaviour
             if (HitAreas[i].enemyFound)
             {
                 Color c = new Color(0f, 0, 1, 0.4f);
-                UnityEditor.Handles.color = c;
+                //UnityEditor.Handles.color = c;
             }
             else
             {
                 Color c = new Color(0.8f, 0, 0, 0.4f);
-                UnityEditor.Handles.color = c;
+                //UnityEditor.Handles.color = c;
             }
             Vector3 rotatedForward = Quaternion.Euler(0,
              -HitAreas[i].Direction * 0.5f,
              0) * transform.forward;
 
-            UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
+           // UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
         }
     }
 }

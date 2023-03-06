@@ -46,7 +46,7 @@ public class Dynamic_SplitScreen : MonoBehaviour
         Camera c2 = p2_Cam.GetComponent<Camera>();
 
         //Logic for Coop or solo
-        PlayerConfigManager.Instance.GetPlayerConfigs().Count;
+        //PlayerConfigManager.Instance.GetPlayerConfigs().Count;
 
         //Set Cam2 to be rendered first in the render order.
         c2.depth = c1.depth - 1;

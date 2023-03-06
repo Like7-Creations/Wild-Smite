@@ -6376,17 +6376,20 @@ GameObject:
   - component: {fileID: 823989462}
   - component: {fileID: 823989461}
   - component: {fileID: 823989460}
-  - component: {fileID: 823989459}
   - component: {fileID: 823989458}
   - component: {fileID: 823989457}
   - component: {fileID: 823989471}
+  - component: {fileID: 823989459}
+  - component: {fileID: 823989474}
+  - component: {fileID: 823989473}
+  - component: {fileID: 823989472}
   m_Layer: 0
   m_Name: Boss Enemy
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &823989457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6436,13 +6439,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 823989456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96f408f7625e45043a5160e66ca0589c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ec3888da564b274da895098153c70ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ultimateAI: {fileID: 0}
   fov: {fileID: 0}
-  interval: 0.3
   Bullet: {fileID: 1472468272477937308, guid: fdadadf755217ef44b76cce7eb349612, type: 3}
+  speed: 2
+  fireRate: 0.01
 --- !u!114 &823989460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6787,6 +6791,8 @@ Transform:
   - {fileID: 1059569826}
   - {fileID: 319107730}
   - {fileID: 1677322136}
+  - {fileID: 1911044396}
+  - {fileID: 1346781150}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6810,6 +6816,55 @@ MonoBehaviour:
   expandSpeed: 2
   knockBackStr: 100
   knockBacktime: 0.2
+--- !u!114 &823989472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823989456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942987a4688722c498b544e35ec60e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ultimateAI: {fileID: 0}
+  fov: {fileID: 0}
+  startPoint: {fileID: 1911044396}
+  EndPoint: {fileID: 1346781150}
+  Rocket: {fileID: 3197673370794724772, guid: 3e316e5411f75834b8d197b3f160e0cb, type: 3}
+  amountOfProjectiles: 4
+  fireRate: 0.1
+  rocketSpeed: 600
+--- !u!135 &823989473
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823989456}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &823989474
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823989456}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &846505128
 GameObject:
   m_ObjectHideFlags: 0
@@ -22178,6 +22233,36 @@ Transform:
   m_Father: {fileID: 1089110890}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1346781149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1346781150}
+  m_Layer: 0
+  m_Name: ProjectileBombEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1346781150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346781149}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 8.46, z: 14.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 823989470}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1391609803
 GameObject:
   m_ObjectHideFlags: 0
@@ -32877,6 +32962,36 @@ Transform:
   - {fileID: 1128851559}
   m_Father: {fileID: 417485713}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1911044395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1911044396}
+  m_Layer: 0
+  m_Name: ProjectileBombStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1911044396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911044395}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 8.46, z: 2.97}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 823989470}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1941475802
 GameObject:

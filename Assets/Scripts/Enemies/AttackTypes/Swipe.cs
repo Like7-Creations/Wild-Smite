@@ -66,18 +66,18 @@ public class Swipe : Attack
         if (Hitarea.enemyFound)
         {
             Color c = new Color(0f, 0, 1, 0.4f);
-            UnityEditor.Handles.color = c;
+            //UnityEditor.Handles.color = c;
         }
         else
         {
             Color c = new Color(0.8f, 0, 0, 0.4f);
-            UnityEditor.Handles.color = c;
+           // UnityEditor.Handles.color = c;
         }
         Vector3 rotatedForward = Quaternion.Euler(0,
          -Hitarea.Direction * 0.5f,
          0) * transform.forward;
 
-        UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, Hitarea.Angle, Hitarea.Radius);
+       // UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, Hitarea.Angle, Hitarea.Radius);
         
     }
 }

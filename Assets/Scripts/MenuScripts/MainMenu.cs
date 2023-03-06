@@ -15,18 +15,18 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        playerConfigManager = PlayerConfigManager.Instance;
+       // playerConfigManager = PlayerConfigManager.Instance;
     }
 
     public void LoadCharacterSelection(int playerCount)
     {
-        playerConfigManager.SetMaxPlayers(playerCount);
+        PlayerConfigManager.Instance.SetMaxPlayers(playerCount);
         SelectionPanel.SetActive(true);
     }
 
     public void ResetManager(GameObject panel)
     {
-        playerConfigManager.ResetManager(panel);
+        PlayerConfigManager.Instance.ResetManager(panel);
         SelectionPanel.SetActive(false);
     }
 

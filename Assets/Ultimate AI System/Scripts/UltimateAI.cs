@@ -658,7 +658,7 @@ namespace Ultimate.AI
                 if (type == Type.Boss)
                 {
                     // This shouldnt commented...but only for now...for testing
-                    GetComponent<MultiAttacker>().AttackPlayer();	//- Anmar
+                    //GetComponent<MultiAttacker>().AttackPlayer();	//- Anmar
                 }
 				/////  -----
 
