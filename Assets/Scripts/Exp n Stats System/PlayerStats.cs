@@ -202,6 +202,8 @@ public class PlayerStats : MonoBehaviour
         aoe_Tap = playerData.aoe_TAP;
         aoe_Hold = playerData.aoe_HOLD;
         aoe_ChargeRate = playerData.aoe_ChargeRate;
+
+        FindObjectOfType<InGameUI>().AssignPlayer(playerData.playerIndex, GetComponent<PlayerStats>());
     }
 }
 

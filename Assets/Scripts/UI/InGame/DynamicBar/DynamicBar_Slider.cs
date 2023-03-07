@@ -18,7 +18,6 @@ public class DynamicBar_Slider : MonoBehaviour
     float desiredWidth;
 
     [Header("Bar Values")]
-    [Range(0, 500)]
     public float maxValue;
     public float reduceSpeed = 2;
     public float reduceDelay = 0;
@@ -33,60 +32,41 @@ public class DynamicBar_Slider : MonoBehaviour
     public Slider endBar;
     public Slider[] midBarSliders;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        midRT = midBars.GetComponent<RectTransform>();
-        currentWidth = midRT.rect.width;
-
-        int barCount = Mathf.CeilToInt(maxValue / barMaxValue);
-        midBarCount = barCount - 2;
-
-        sliderInterval = maxValue / barCount;
-        startBar.minValue = 0;
-        startBar.maxValue = sliderInterval;
-
-        endBar.minValue = maxValue - sliderInterval;
-        endBar.maxValue = maxValue;
-
-        currentValue = maxValue;
-        desiredValue = maxValue;
-        prevValue = desiredValue;
-
-        SetMidBars();
-        UpdateSliderValues();
-    }
+    bool obtainedValue;
 
     // Update is called once per frame
     void Update()
     {
-        SetMidBars();
-
-        if (desiredValue != prevValue && !runDelay)
+        if (obtainedValue)
         {
-            Debug.Log($"{gameObject.name} Value Has Changed");
-            runDelay = true;
-        }
+            //SetMidBars();
 
-        if (runDelay && reduceDelay > 0 && runDelay)
-        {
-            Debug.Log($"{gameObject.name} running Delay for {reduceDelay} seconds");
-            delayTimer += Time.deltaTime;
-            if (delayTimer >= reduceDelay)
+            if (desiredValue != prevValue && !runDelay)
             {
-                Debug.Log($"{gameObject.name} Delay Finished, Updating Values");
-                ValuesUpdateLogic();
-                prevValue = desiredValue;
-                delayTimer = 0;
-                runDelay = false;
+                Debug.Log($"{gameObject.name} Value Has Changed");
+                runDelay = true;
             }
-        }
-        else
-        {
-            //Debug.Log($"{gameObject.name} No Delay, Updating Values");
-            ValuesUpdateLogic();
-            if (prevValue != desiredValue)
-                prevValue = desiredValue;
+
+            if (runDelay && reduceDelay > 0)
+            {
+                Debug.Log($"{gameObject.name} running Delay for {reduceDelay} seconds");
+                delayTimer += Time.deltaTime;
+                if (delayTimer >= reduceDelay)
+                {
+                    Debug.Log($"{gameObject.name} Delay Finished, Updating Values");
+                    ValuesUpdateLogic();
+                    prevValue = desiredValue;
+                    delayTimer = 0;
+                    runDelay = false;
+                }
+            }
+            else
+            {
+                //Debug.Log($"{gameObject.name} No Delay, Updating Values");
+                ValuesUpdateLogic();
+                if (prevValue != desiredValue)
+                    prevValue = desiredValue;
+            }
         }
     }
 
@@ -99,10 +79,11 @@ public class DynamicBar_Slider : MonoBehaviour
         }
         else if (currentValue < desiredValue)
         {
-            currentValue = desiredValue;
+            currentValue = Mathf.MoveTowards(currentValue, desiredValue, reduceSpeed * Time.deltaTime);
+            UpdateSliderValues();
         }
 
-        UpdateSliderValues();
+        //UpdateSliderValues();
     }
 
     void SetMidBars()
@@ -178,9 +159,38 @@ public class DynamicBar_Slider : MonoBehaviour
         }
     }
 
-    public void TestReduceValue(float amount)
+    public void SetSliderValues(float fullValue)
     {
-        desiredValue -= amount;
+        midRT = midBars.GetComponent<RectTransform>();
+        currentWidth = midRT.rect.width;
+
+        int barCount = Mathf.CeilToInt(fullValue / barMaxValue);
+        if ((barCount - 2) <= 0)
+            midBarCount = 0;
+        else
+            midBarCount = barCount - 2;
+
+
+        sliderInterval = fullValue / barCount;
+        startBar.minValue = 0;
+        startBar.maxValue = sliderInterval;
+
+        endBar.minValue = fullValue - sliderInterval;
+        endBar.maxValue = fullValue;
+
+        currentValue = fullValue;
+        desiredValue = fullValue;
+        prevValue = desiredValue;
+
+        obtainedValue = true;
+
+        SetMidBars();
+        UpdateSliderValues();
+    }
+
+    public void ChangeValue(float amount)
+    {
+        desiredValue = amount;
     }
 
     public void FullValue()

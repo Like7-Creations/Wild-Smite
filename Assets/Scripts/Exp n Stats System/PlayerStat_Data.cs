@@ -10,7 +10,7 @@ public class PlayerStat_Data : ScriptableObject
 
     public PlayerConfig config;
     public string playerName;
-    public string playerIndex;
+    public int playerIndex;
     public string selectedCharacter;
 
 
@@ -62,9 +62,10 @@ public class PlayerStat_Data : ScriptableObject
     [field: SerializeField]
     public float aoe_ChargeRate { get; private set; }   //Amount per second
 
-    public void init(string name, ExperienceData xpData, Leveling_Data lvlingData, PlayerConfig c)
+    public void init(string name, int index, ExperienceData xpData, Leveling_Data lvlingData, PlayerConfig c)
     {
         playerName = name;
+        playerIndex = index;
         expData = xpData;
         lvlData = lvlingData;
         config = c;

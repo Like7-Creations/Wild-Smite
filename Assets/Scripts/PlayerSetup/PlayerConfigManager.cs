@@ -142,7 +142,7 @@ public class PlayerConfig
     {
         PlayerIndex = pInput.playerIndex;
         playerStats = ScriptableObject.CreateInstance<PlayerStat_Data>();
-        playerStats.init($"Player {PlayerIndex + 1}", xpData, lvlData, this);
+        playerStats.init($"Player {PlayerIndex + 1}", PlayerIndex, xpData, lvlData, this);
         Name = $"Player {PlayerIndex + 1}";
         Input = pInput;
     }
