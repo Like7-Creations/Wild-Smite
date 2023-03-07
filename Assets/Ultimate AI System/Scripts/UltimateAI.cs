@@ -524,16 +524,17 @@ namespace Ultimate.AI
 				if (!attacking) //If currently is NOT attacking then attack.
 				{
 					//Debug.Log("Melee attack called");	
-					attacking = true;
+					//attacking = true;
 					
 					// Anmar -- Removed animation trigger since were usng our own in the attack types classes
 					//int randomNumber = Random.Range(0, attackAnimations); //We are getting a random number. And here we are creating a string using the number and the word attack.
 					//anim.SetTrigger("Attack" + randomNumber.ToString());  //This way a trigger is being formed and sent to the animator.
 					//Anmar
 				    StartCoroutine(AttackPlayer());
-					// I added this cuz melee in this package uses animation stuff...
-					//----
-					return;
+                    attacking = true;
+                    // I added this cuz melee in this package uses animation stuff...
+                    //----
+                    return;
 				}
 			}
 		    if (type == Type.Ranged) //This checks if the AI is set to ranged.
@@ -639,6 +640,7 @@ namespace Ultimate.AI
 				if (type == Type.Melee) ///If the AI is set to melee the MeleeAttack function will be called.
 				{
 					MeleeAttack(); // We stopped calling it here... Instead im calling it as an animation event..cuz there is a bug - Anmar
+					Debug.Log("Melee");
 					effectsDealt = 0;
 					infected = false; //The effects are reset.
 					timeToInfect = true;

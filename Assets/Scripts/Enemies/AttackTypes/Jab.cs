@@ -11,7 +11,14 @@ public class Jab : Attack
         fov.viewAngle = 65;
         ultimateAI.anim.SetTrigger("Jab");
         vfx.GetComponent<Melee_VFXHandler>().jabVFX();
-        ultimateAI.playerTakeDamage();
+        for (int e = 0; e < ultimateAI.players.Count; e++)
+        {
+            float dist = Vector3.Distance(ultimateAI.players[e].transform.position, transform.position);
+            if (dist < ultimateAI.attackRange)
+            {
+                ultimateAI.playerTakeDamage();
+            }
+        }
         vfx.GetComponent<Melee_VFXHandler>().jabVFX(); 
     }
 }

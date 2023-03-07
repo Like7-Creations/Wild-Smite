@@ -150,7 +150,7 @@ public class PlayerStats : MonoBehaviour
 
     public void RecoverStamina(float amount)
     {
-        Debug.Log("recover stamina called");
+        //Debug.Log("recover stamina called");
         stamina += playerData.recovRate_STAMINA * Time.deltaTime;
         if (stamina >= playerData.stamina)
         {

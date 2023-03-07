@@ -34,7 +34,7 @@ public class Destroy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collision detecteddddddddddd");
+        //Debug.Log("collision detecteddddddddddd");
         destroyedVFX.transform.parent = null;
         if (playershot & other.gameObject.GetComponent<UltimateAI>() != null)
         {
