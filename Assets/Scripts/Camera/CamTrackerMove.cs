@@ -32,6 +32,23 @@ public class CamTrackerMove : MonoBehaviour
     Vector3 velocity;
     #endregion
 
+    void IdentifyTargetPos()
+    {
+        //Check if there are any enemies within range
+
+        //if True
+        //Grab a list of enemies from the PlayerActions script that are within range of the player.
+        //Select the two closest enemies from the player and add them to a new list.
+
+        //Idenitfy the midpoint between the two enemies and the targetPlayer.
+
+        //Return the resulting Vector3 after subtracting the difference between the splitOffset and targetOffset from it.
+
+        //else
+        //Return the Vector3 after subtracting the difference between the splitOffset and targetOffset from the targetPlayer's Pos.
+
+    }
+
     Vector3 Arrival()
     {
         Vector3 desiredVel = targetPos - transform.position;

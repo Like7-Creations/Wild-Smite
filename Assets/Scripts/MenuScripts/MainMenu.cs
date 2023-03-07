@@ -30,6 +30,11 @@ public class MainMenu : MonoBehaviour
         SelectionPanel.SetActive(false);
     }
 
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
     public void QuitGame()
     {
         //Vector3 pos = Button_QuitGame.transform.position;

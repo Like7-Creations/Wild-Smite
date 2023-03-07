@@ -89,15 +89,6 @@ public class PlayerActions : MonoBehaviour
     public UnityEvent trigger_aoeVFX;
     public UnityEvent trigger_aoeChargeVFX;
 
-    /*public static PlayerActions current_pActions;
-
-    public event Action trigger_walkVFX;
-    public event Action trigger_dashVFX;
-    public event Action trigger_sprintVFX;
-    public event Action trigger_attackVFX;
-    public event Action trigger_aoeVFX;
-    public event Action trigger_aoeChargeVFX;
-    public event Action trigger_dmgVFX;*/
 
     void Awake()
     {
