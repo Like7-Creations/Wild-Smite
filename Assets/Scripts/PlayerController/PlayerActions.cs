@@ -115,41 +115,8 @@ public class PlayerActions : MonoBehaviour
     void Update()
     {
         #region Area Of Effect
+        ChargeAOE();
 
-        float chargedSTAM = 0;
-        float chargedMELEE = 0;
-        float chargedRANGE = 0;
-
-        if (charging)
-        {
-            StartCoroutine(BeginChargingAOE());
-
-            //currentCharge = currentCharge++ * Time.deltaTime;
-
-            Debug.Log((int)currentCharge);
-
-            if (currentCharge <= pStats.aoe_Hold)
-            {
-                //Charge radius, damamge, stamina
-                chargedSTAM = pStats.aoe_Tap * currentCharge;
-                chargedMELEE = pStats.m_ATK * currentCharge;
-                chargedRANGE = pStats.r_ATK * currentCharge;
-            }
-            else if (currentCharge >= pStats.aoe_Hold)
-            {
-                currentCharge = pStats.aoe_Hold;
-            }
-        }
-        else if (!charging && currentCharge > 1)
-        {
-            //currentCharge = pStats.aoe_Hold;
-
-            ChargedAOE(chargedSTAM, chargedMELEE, chargedRANGE);
-
-            Debug.Log("AOE charged release");
-
-            currentCharge = 0;
-        }
         #endregion
 
         #region Find Enemies With CheckSphere Then Check If Inside Dot Product
@@ -251,7 +218,7 @@ public class PlayerActions : MonoBehaviour
 
         if (pStats.stam_recov)
             pStats.RecoverStamina(pStats.recovRate_STAMINA);
-        
+
         //Implement HP Recov later.
 
         //Farhan's Code-----
@@ -265,15 +232,7 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    //Event Required
-    IEnumerator BeginChargingAOE()
-    {
-        Debug.Log("Begin Powering Up AOE");
 
-        currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
-
-        yield return null;
-    }
 
 
     #region Player Take Damage
@@ -334,11 +293,13 @@ public class PlayerActions : MonoBehaviour
             //StartCoroutine(Mover(2, 0.1f, Dashdir));
             int randomNumber = UnityEngine.Random.Range(0, 2);
             int previous = randomNumber;
+
+            trigger_attackVFX.Invoke();
+
             if (!lastrands.Contains(randomNumber))
             {
                 animator.SetTrigger("Attack" + randomNumber.ToString());
 
-                trigger_attackVFX.Invoke();
 
                 lastrands.Add(randomNumber);
 
@@ -419,6 +380,55 @@ public class PlayerActions : MonoBehaviour
     }
 
     //Event Required
+    IEnumerator BeginChargingAOE()
+    {
+        Debug.Log("Begin Powering Up AOE");
+
+        trigger_aoeChargeVFX.Invoke();      //Enables Charging VFX
+
+        currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
+
+        yield return null;
+    }
+
+    public void ChargeAOE()
+    {
+        float chargedSTAM = 0;
+        float chargedMELEE = 0;
+        float chargedRANGE = 0;
+
+        if (charging)
+        {
+            StartCoroutine(BeginChargingAOE());
+
+            Debug.Log((int)currentCharge);
+
+            if (currentCharge <= pStats.aoe_Hold)
+            {
+                //Charge radius, damamge, stamina
+                chargedSTAM = pStats.aoe_Tap * currentCharge;
+                chargedMELEE = pStats.m_ATK * currentCharge;
+                chargedRANGE = pStats.r_ATK * currentCharge;
+            }
+            else if (currentCharge >= pStats.aoe_Hold)
+            {
+                currentCharge = pStats.aoe_Hold;
+            }
+        }
+        else if (!charging && currentCharge > 0.11f)
+        {
+            trigger_aoeChargeVFX.Invoke();      //Disables the charging VFX
+
+            ReleaseAOE(chargedSTAM, chargedMELEE, chargedRANGE);
+
+            Debug.Log("AOE charged release");
+
+            currentCharge = 0;
+        }
+    }
+
+
+    //Event Required
     public void AOE(float multiplier)
     {
         Collider[] hits;
@@ -434,7 +444,7 @@ public class PlayerActions : MonoBehaviour
 
         //UnityEngine.Debug.Log("AOE attack");
 
-        trigger_aoeVFX.Invoke();
+        //trigger_aoeVFX.Invoke();        //Trigger AOE VFX
 
         pStats.UseSprint((int)multiplier);
 
@@ -442,7 +452,7 @@ public class PlayerActions : MonoBehaviour
     }
 
     //Event Required
-    public void ChargedAOE(float stamina, float melee, float radius)
+    public void ReleaseAOE(float stamina, float melee, float radius)
     {
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * radius);        //Use Range Stat to define AOE Radius.
@@ -455,7 +465,7 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        trigger_aoeChargeVFX.Invoke();
+        trigger_aoeVFX.Invoke();        //Trigger AOE VFX
 
         pStats.UseSprint((int)stamina);
 

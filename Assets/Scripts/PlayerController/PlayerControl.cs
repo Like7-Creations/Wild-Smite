@@ -59,8 +59,8 @@ public class PlayerControl : MonoBehaviour
              //pActions.shooting = false;
          }*/
 
-         //GamePad Range Attack
-         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
+        //GamePad Range Attack
+        if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
          {
              pActions.shooting = true;
          }
