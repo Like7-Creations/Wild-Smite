@@ -90,7 +90,7 @@ public class Dynamic_SplitScreen : MonoBehaviour
 
         splitObj.GetComponent<Renderer>().material.shader = SplitScreen;
 
-        splitObj.GetComponent<Renderer>().material = tempSplitScreen;
+        //splitObj.GetComponent<Renderer>().material = tempSplitScreen;
         splitObj.layer = 1;         //LayerMask.NameToLayer("TransparentFx")
     }
 
@@ -98,20 +98,20 @@ public class Dynamic_SplitScreen : MonoBehaviour
     {
         if (playerCount == 1)
         {
-            camTracker_P1.GetComponent<CamTrackerMove>().target = player;
+            camTracker_P1.GetComponent<CamTrackerMove>().playerTarget = player;
             player1 = player.transform;
         }
         else if (playerCount == 2)
         {
             if (playerIndex == 0)
             {
-                camTracker_P1.GetComponent<CamTrackerMove>().target = player;
+                camTracker_P1.GetComponent<CamTrackerMove>().playerTarget = player;
                 player1 = player.transform;
             }
             else if (playerIndex == 1)
             {
 
-                camTracker_P2.GetComponent<CamTrackerMove>().target = player;
+                camTracker_P2.GetComponent<CamTrackerMove>().playerTarget = player;
                 player2 = player.transform;
             }
         }
