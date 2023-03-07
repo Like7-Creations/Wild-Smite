@@ -21,7 +21,7 @@ public class Player_VFXHandler : MonoBehaviour
 
     public void TriggerWalkingVFX()
     {
-        if(playerFootsteps_VFX.isStopped)
+        if(!playerFootsteps_VFX.isPlaying)
         {
             playerFootsteps_VFX.Play();
         }
@@ -33,7 +33,7 @@ public class Player_VFXHandler : MonoBehaviour
 
     public void TriggerDashVFX()
     {
-        if (playerDash1_VFX.isStopped)
+        if (!playerDash1_VFX.isPlaying)
         {
             playerDash1_VFX.Play();
         }
@@ -47,7 +47,7 @@ public class Player_VFXHandler : MonoBehaviour
     {
         //ParticleSystem currentDash_VFX;
 
-        if (playerSprint1_VFX.isStopped)
+        if (!playerSprint1_VFX.isPlaying)
         {
             playerSprint1_VFX.Play();
         }
@@ -59,7 +59,7 @@ public class Player_VFXHandler : MonoBehaviour
 
     public void TriggerAttackVFX()
     {
-        if (playerAttack_VFX.isStopped)
+        if (!playerAttack_VFX.isPlaying)
         {
             playerAttack_VFX.Play();
         }
@@ -71,7 +71,7 @@ public class Player_VFXHandler : MonoBehaviour
 
     public void TriggerAOEVFX()
     {
-        if (playerAOE_VFX.isStopped)
+        if (!playerAOE_VFX.isPlaying)
         {
             playerAOE_VFX.Play();
         }
@@ -83,7 +83,7 @@ public class Player_VFXHandler : MonoBehaviour
 
     public void TriggerAOEChargingVFX()
     {
-        if (playerAOECharging_VFX.isStopped)
+        if (!playerAOECharging_VFX.isPlaying)
         {
             playerAOECharging_VFX.Play();
         }
@@ -95,7 +95,7 @@ public class Player_VFXHandler : MonoBehaviour
 
     public void TriggerDamageVFX()
     {
-        if (playerDmg_VFX.isStopped)
+        if (!playerDmg_VFX.isPlaying)
         {
             playerDmg_VFX.Play();
         }
