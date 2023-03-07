@@ -72,7 +72,13 @@ public class PlayerMovement : MonoBehaviour
             PA.knockBackDir = backDir; // This is  for the knockback when the player gets hit.
             
             controller.Move(moveDir.normalized * playerSpeed * Time.deltaTime);
-           
+
+
+            //VFX Walk
+            PA.trigger_walkVFX.Invoke();
+            //VFX Walk
+
+
             if (PA.isSprinting)
             {
                 animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
