@@ -343,6 +343,7 @@ namespace Ultimate.AI
 
 		//Anmar Edits----
 		float Timer;
+		float battleTimer;
 		PlayerStats hitPlayer;
 		Enemy_VFXHandler vfx;
         //------
@@ -426,8 +427,8 @@ namespace Ultimate.AI
 				{
 					if (provoked) { CheckAttack(); }  //Debug.Log("Run 2"); } //If so and is provoked - it will execute an attack.
 				}
-				if (!attackOnProvoke && type != Type.NPC) { CheckAttack(); }//Debug.Log("Run 3"); } //But if it is set to hostile and is not an NPC we need to get in the attack checker.
-				else if (type == Type.NPC) { CheckAttack(); }//Debug.Log("Run 4"); } //And lastly if it is an NPC we still need to play the attack checker.
+				//if (!attackOnProvoke && type != Type.NPC) { CheckAttack(); }//Debug.Log("Run 3"); } //But if it is set to hostile and is not an NPC we need to get in the attack checker.
+				//else if (type == Type.NPC) { CheckAttack(); }//Debug.Log("Run 4"); } //And lastly if it is an NPC we still need to play the attack checker.
             }
 			else if (Time.timeScale != 0 && !attacking && !isDead) Wander(); //If it is neither attacking nor dead it will wander around.
 
@@ -1304,6 +1305,8 @@ namespace Ultimate.AI
 
             int randomNumber = Random.Range(0, hittedAnimations);
             anim.SetTrigger("GotHit0"/* randomNumber.ToString()*/);
+
+			attacking = true;
 
             //----
             //Gizmos.DrawSphere(transform.position, 1);
