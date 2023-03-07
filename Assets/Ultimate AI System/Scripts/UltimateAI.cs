@@ -344,7 +344,7 @@ namespace Ultimate.AI
 		//Anmar Edits----
 		float Timer;
 		PlayerStats hitPlayer;
-
+		Enemy_VFXHandler vfx;
         //------
         #endregion
 
@@ -352,6 +352,7 @@ namespace Ultimate.AI
         {
 			PlayerMovement[] ps = FindObjectsOfType<PlayerMovement>();
 			players.AddRange(ps);
+			vfx = GetComponent<Enemy_VFXHandler>();
             //players = FindObjectsOfType<PlayerMovement>();
         }
         private void Start() //This function will trigger once the game is started.
@@ -1239,7 +1240,6 @@ namespace Ultimate.AI
 		public void Die()
 		{
 			hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType);
-
 			hitPlayer.GetComponent<PlayerActions>().enemiesInDot.Remove(this);
 			isDead = true;
 
@@ -1262,7 +1262,9 @@ namespace Ultimate.AI
 				anim.SetTrigger("Death" + randomNumber.ToString()); //And here we are creating a string using the number and the word attack. This way a trigger is being formed and sent to the animator.
 				/*var clip = deathSounds[Random.Range(0, deathSounds.Length)]; //A random sound is loaded and the played.
 				audioSource.PlayOneShot(clip);*/
-				StartCoroutine(DeathWait(0f));
+				vfx.enemyDeathVFX.transform.parent = null;
+                vfx.enemyDeathVFX.Play();
+                StartCoroutine(DeathWait(0f));
 			}
 			else
 			{
@@ -1288,14 +1290,15 @@ namespace Ultimate.AI
 
 			//damageToTake *= (1 - Defence); //health must be int or float?
 			//health -= damageToTake;
-           //player = attacker.transform;
+			//player = attacker.transform;
 
+			vfx.enemyHitVFX.Play();
 
             //var clip = hitSounds[Random.Range(0, hitSounds.Length)]; //A random sound is loaded and the played.
 			//audioSource.PlayOneShot(clip);
             //Anmar
-            var particle = hitParticles[Random.Range(0, hitParticles.Length)];
-            particle.Play();
+           /* var particle = hitParticles[Random.Range(0, hitParticles.Length)];
+            particle.Play();*/
 
             int randomNumber = Random.Range(0, hittedAnimations);
             anim.SetTrigger("GotHit0"/* randomNumber.ToString()*/);

@@ -10,8 +10,9 @@ public class TriShot : Attack
     [SerializeField] float offsetAngle;
     public override void AttackType()
     {
-       // Debug.Log("Trishot");
+        // Debug.Log("Trishot");
         // set animatioon trigger here
+        ultimateAI.anim.SetTrigger("Trishot");
         for (int i = 0; i < 3; i++)
         {
             Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();

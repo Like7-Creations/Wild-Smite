@@ -9,7 +9,9 @@ public class Jab : Attack
         //Debug.Log("Jab attack");
         ultimateAI.attackRange = 3;
         fov.viewAngle = 65;
-        // set animation
+        ultimateAI.anim.SetTrigger("Jab");
+        vfx.GetComponent<Melee_VFXHandler>().jabVFX();
         ultimateAI.playerTakeDamage();
+        vfx.GetComponent<Melee_VFXHandler>().jabVFX(); 
     }
 }

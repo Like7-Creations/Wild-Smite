@@ -51,9 +51,11 @@ public class Swipe : Attack
             playersInArea = playersInArea.Distinct().ToList();
             for (int i = 0; i < playersInArea.Count; i++)
             {
-               // Debug.Log($"{playersInArea[i]} Got Hit");
+                // Debug.Log($"{playersInArea[i]} Got Hit");
+                vfx.GetComponent<Tank_VFXHandler>().SwipeVFX();
                 playersInArea[i].TakeDamage(ultimateAI.damageToDeal, transform.forward);
                 StartCoroutine(playersInArea[i].Mover(knockBackStr, knockBacktime, transform.forward));
+                vfx.GetComponent<Tank_VFXHandler>().SwipeVFX();
                 //playersInArea[i].health -= 10;
             }
         }

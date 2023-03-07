@@ -13,6 +13,7 @@ public class Homing : Attack
     public override void AttackType()
     {
         //Debug.Log("Homing Attack Happened");
+        ultimateAI.anim.SetTrigger("Homing");
         StartCoroutine(thisAttack());
     }
 

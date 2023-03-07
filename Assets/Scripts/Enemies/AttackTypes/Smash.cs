@@ -30,10 +30,14 @@ public class Smash : Attack
             {
                 PlayerActions player = c.GetComponent<PlayerActions>();
                 //player.health -= 10;
-                  player.TakeDamage(10, transform.forward);
+                GetComponent<Animator>().SetTrigger("Smash");
+                vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
+                player.TakeDamage(10, transform.forward);
                 //player.GetComponent<PlayerMovement>().knockUp();
             }
         }
+        vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
+
         //yield return new WaitForSeconds(ultimateAI.attackRate);
     }
 
@@ -51,7 +55,8 @@ public class Smash : Attack
             Vector3 pos = smashPos.localPosition;
             pos.x = Mathf.Clamp(smashPos.localPosition.x, -4f, 5f);
             pos.z = Mathf.Clamp(smashPos.localPosition.z, 0f, 5f);
-            smashPos.localPosition = pos;    
+            smashPos.localPosition = pos;
+            vfx.GetComponent<Tank_VFXHandler>().smash_VFX.transform.position = smashPos.localPosition;
         }
     }
 

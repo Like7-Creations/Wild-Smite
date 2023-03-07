@@ -11,6 +11,8 @@ public class Summon : Attack
     public override void AttackType()
     {
         //Debug.Log("Summon");
+        ultimateAI.anim.SetTrigger("Summon");
+        vfx.GetComponent<Tank_VFXHandler>().SummonVFX();
         for (int i = 0; i < NoOfSpawns; i++)
         {
             float angleIteration = 360 / NoOfSpawns;
@@ -22,5 +24,6 @@ public class Summon : Attack
             elem.transform.Rotate(new Vector3(0, currentRotation, 0));
             elem.transform.Translate(new Vector3(distFromTank, 5, 0));
         }
+        vfx.GetComponent<Tank_VFXHandler>().SummonVFX();
     }
 }

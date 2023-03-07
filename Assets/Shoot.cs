@@ -14,14 +14,28 @@ public class Shoot : Attack
 
     IEnumerator shoot()
     {
+
         Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+        for (int i = 0; i < 3; i++)
+        {
+            vfx.GetComponent<Tank_VFXHandler>().ShootVFX();
+            rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+            ultimateAI.anim.SetTrigger("Shoot");
+            vfx.GetComponent<Tank_VFXHandler>().ShootVFX();
+            yield return new WaitForSeconds(interval);
+        }
+
+        /*Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+        ultimateAI.anim.SetTrigger("Shoot");
         yield return new WaitForSeconds(interval);
         rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+        ultimateAI.anim.SetTrigger("Shoot");
         yield return new WaitForSeconds(interval);
         rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+        ultimateAI.anim.SetTrigger("Shoot");*/
 
     }
 }

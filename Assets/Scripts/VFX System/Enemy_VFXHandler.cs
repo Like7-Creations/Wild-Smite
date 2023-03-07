@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Enemy_VFXHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool isEnabled;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] public ParticleSystem attackIndicationVFX;
+                      
+    [SerializeField] public ParticleSystem enemyHitVFX;
+                   
+    [SerializeField] public ParticleSystem enemyDeathVFX;
 }
