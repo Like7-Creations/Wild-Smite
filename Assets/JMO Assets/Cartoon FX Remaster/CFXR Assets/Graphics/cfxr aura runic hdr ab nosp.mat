@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ccb58def4933d4e46b7a1fc023bf6259, type: 3}
+        m_Texture: {fileID: 2800000, guid: 03a188aeeaecbb9478d9ae70eae185f6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
@@ -59,6 +59,7 @@ Material:
     - _DirectLightingRamp: 1
     - _DissolveSmooth: 0.1
     - _Distort: 0.1
+    - _DoubleDissolve: 0
     - _DstBlend: 10
     - _EdgeFadePow: 1
     - _FadeAlongU: 0
@@ -79,6 +80,7 @@ Material:
     - _UseAlphaClip: 0
     - _UseBackLighting: 0
     - _UseDissolve: 0
+    - _UseDissolveOffsetUV: 0
     - _UseEF: 0
     - _UseEmission: 0
     - _UseFB: 0
@@ -93,7 +95,9 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 4.237095, g: 4.237095, b: 4.237095, a: 1}
+    - _DissolveScroll: {r: 0, g: 0, b: 0, a: 0}
     - _DistortScrolling: {r: 0, g: 0, b: 1, a: 1}
     - _OverlayTex_Scroll: {r: 0.1, g: 0.1, b: 1, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticlesFadeDistance: {r: 0, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
