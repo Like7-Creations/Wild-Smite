@@ -12,7 +12,8 @@ public class Player_VFXHandler : MonoBehaviour
 
     [SerializeField] ParticleSystem playerSprint1_VFX;
 
-    [SerializeField] ParticleSystem playerAttack_VFX;
+    [SerializeField] ParticleSystem playerAttack_VFX_left;
+    [SerializeField] ParticleSystem playerAttack_VFX_right;
 
     [SerializeField] ParticleSystem playerAOE_VFX;
     [SerializeField] ParticleSystem playerAOECharging_VFX;
@@ -66,15 +67,27 @@ public class Player_VFXHandler : MonoBehaviour
     }
 
     //Needs to be triggered
-    public void TriggerAttackVFX()
+    public void TriggerAttackVFX_Left()
     {
-        if (!playerAttack_VFX.isPlaying)
+        if (!playerAttack_VFX_left.isPlaying)
         {
-            playerAttack_VFX.Play();
+            playerAttack_VFX_left.Play();
         }
-        else if (playerAttack_VFX.isPlaying)
+        else if (playerAttack_VFX_left.isPlaying)
         {
-            playerAttack_VFX.Stop();
+            playerAttack_VFX_left.Stop();
+        }
+    }
+
+    public void TriggerAttackVFX_Right()
+    {
+        if (!playerAttack_VFX_right.isPlaying)
+        {
+            playerAttack_VFX_right.Play();
+        }
+        else if (playerAttack_VFX_right.isPlaying)
+        {
+            playerAttack_VFX_right.Stop();
         }
     }
 
@@ -141,7 +154,8 @@ public class Player_VFXHandler : MonoBehaviour
         playerDash1_VFX.Stop();
         playerSprint1_VFX.Stop();
 
-        playerAttack_VFX.Stop();
+        playerAttack_VFX_right.Stop();
+        playerAttack_VFX_left.Stop();
 
         playerAOE_VFX.Stop();
         playerAOECharging_VFX.Stop();

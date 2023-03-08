@@ -83,7 +83,8 @@ public class PlayerActions : MonoBehaviour
     public UnityEvent trigger_dashVFX;
     public UnityEvent trigger_sprintVFX;
 
-    public UnityEvent trigger_attackVFX;
+    public UnityEvent trigger_attackVFX_left;
+    public UnityEvent trigger_attackVFX_right;
     public UnityEvent trigger_dmgVFX;
 
     public UnityEvent trigger_aoeVFX;
@@ -294,7 +295,6 @@ public class PlayerActions : MonoBehaviour
             int randomNumber = UnityEngine.Random.Range(0, 2);
             int previous = randomNumber;
 
-            trigger_attackVFX.Invoke();
 
             if (!lastrands.Contains(randomNumber))
             {
@@ -374,9 +374,20 @@ public class PlayerActions : MonoBehaviour
     //Event Required
     public void DisableCollider()
     {
+       //trigger_attackVFX.Invoke();
         //animator.applyRootMotion = true;
         //VFX.Melee();
         playerController.enabled = true;
+    }
+
+    public void SwipeLeft()
+    {
+        trigger_attackVFX_left.Invoke();
+    }
+
+    public void SwipeRight()
+    {
+        trigger_attackVFX_right.Invoke();
     }
 
     //Event Required
