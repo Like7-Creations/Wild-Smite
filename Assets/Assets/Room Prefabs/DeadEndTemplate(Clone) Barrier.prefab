@@ -281,8 +281,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3492070735630044158}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3.5, y: -12, z: 0.5}
-  m_LocalScale: {x: 1, y: 3, z: 3.5}
+  m_LocalPosition: {x: -3.5, y: -12, z: -0.5}
+  m_LocalScale: {x: 1, y: 3, z: 3}
   m_Children:
   - {fileID: 4771491648279156560}
   - {fileID: 6600881216511340226}
@@ -521,9 +521,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6819169070395973834}
   - component: {fileID: 2747254908216096421}
+  - component: {fileID: 374979990867480887}
   m_Layer: 0
   m_Name: DeadEndTemplate(Clone) Barrier
-  m_TagString: Untagged
+  m_TagString: DeadEndBarrier
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -556,3 +557,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bounds: {fileID: 8788072177750610014}
+--- !u!114 &374979990867480887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975745336006821260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1429cd6c6b40554e811adf5fc0e643a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

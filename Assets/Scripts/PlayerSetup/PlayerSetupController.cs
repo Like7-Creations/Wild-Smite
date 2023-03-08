@@ -25,7 +25,7 @@ public class PlayerSetupController : MonoBehaviour
     //[SerializeField]
     //GameObject menuPanel;
 
-    float ignoreInputTime = 1.5f;
+    float ignoreInputTime = .5f;
     bool inputEnabled;
 
     [SerializeField]

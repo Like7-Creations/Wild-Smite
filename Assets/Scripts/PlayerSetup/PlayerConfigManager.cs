@@ -16,6 +16,7 @@ public class PlayerConfigManager : MonoBehaviour
 
     [SerializeField]
     int MaxPlayers = 2;
+    bool canJoin;
 
     [Header("LoadToSceneConfig")]
     public string SceneToLoad;
@@ -38,6 +39,7 @@ public class PlayerConfigManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfig>();
+            canJoin = false;
         }
     }
 
@@ -71,6 +73,15 @@ public class PlayerConfigManager : MonoBehaviour
     public void SetMaxPlayers(int num)
     {
         MaxPlayers = num;
+        //GetComponent<PlayerInputManager>().maxPlayerCount = num;
+    }
+
+    public void SetJoinState(bool state)
+    {
+        if (state)
+            GetComponent<PlayerInputManager>().EnableJoining();
+        else
+            GetComponent<PlayerInputManager>().DisableJoining();
     }
 
     public List<PlayerConfig> GetPlayerConfigs()
@@ -117,13 +128,19 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput pInput)
     {
-        Debug.Log("Player joined" + pInput.playerIndex);
-
-        if (!playerConfigs.Any(p => p.PlayerIndex == pInput.playerIndex))
+        if (playerConfigs.Count < MaxPlayers)
         {
-            pInput.transform.SetParent(transform);
-            playerConfigs.Add(new PlayerConfig(pInput, experienceData, levelData));
+            Debug.Log("Player joined" + pInput.playerIndex);
+            if (!playerConfigs.Any(p => p.PlayerIndex == pInput.playerIndex))
+            {
+                pInput.transform.SetParent(transform);
+                PlayerConfig p = new PlayerConfig(pInput, experienceData, levelData);
+                playerConfigs.Add(p);
+            }
         }
+
+        if (playerConfigs.Count == MaxPlayers)
+            GetComponent<PlayerInputManager>().DisableJoining();
     }
 }
 

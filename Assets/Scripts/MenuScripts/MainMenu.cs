@@ -30,6 +30,11 @@ public class MainMenu : MonoBehaviour
         SelectionPanel.SetActive(false);
     }
 
+    public void SetPlayerJoins(bool state)
+    {
+        PlayerConfigManager.Instance.SetJoinState(state);
+    }
+
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

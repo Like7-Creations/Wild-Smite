@@ -21,6 +21,9 @@ public class InitialiseLevel : MonoBehaviour
     LevelSettings.Difficulty levelDifficulty;
 
     [Header("Level")]
+    public bool RunBarrierAdjustment;
+    public float BarrierDistance;
+    List<Barrier> testList;
     public GameObject levelEndObject;
     GameObject levelRoot;
 
@@ -77,8 +80,62 @@ public class InitialiseLevel : MonoBehaviour
     IEnumerator createEndPoint()
     {
         yield return new WaitForSeconds(.2f);
+
         LevelGenerator.Scripts.Section[] rooms = levelRoot.GetComponentsInChildren<LevelGenerator.Scripts.Section>();
-        int room = Random.Range(1, rooms.Length);
-        Instantiate(levelEndObject, levelRoot.transform.GetChild(room).transform.position, Quaternion.identity);
+        int room = Random.Range(rooms.Length / 2, rooms.Length);
+        Instantiate(levelEndObject, levelRoot.transform.GetChild(room).transform);
+
+        yield return new WaitForSeconds(1);
+        if (RunBarrierAdjustment)
+        {
+            testList = new List<Barrier>();
+            Barrier[] barriers = FindObjectsOfType<Barrier>();
+            for (int i = 0; i < barriers.Length; i++)
+            {
+                barriers[i].name = "Barrier_" + i;
+            }
+
+            for (int i = 0; i < barriers.Length - 1; i++)
+            {
+                for (int j = 1; j < barriers.Length; j++)
+                {
+                    if (i == j)
+                    {
+                        Debug.Log($"i = {i} & j = {j} Moving on with Loop");
+                        continue;
+                    }
+
+                    if (Vector3.Distance(barriers[i].transform.position, barriers[j].transform.position) < BarrierDistance)
+                    {
+                        Debug.Log($"Position of {barriers[i].name} is: {barriers[i].transform.position} & Position of {barriers[j].name} is: {barriers[j].transform.position}");
+                        Debug.Log($"Distance between {barriers[i].name} and {barriers[j].name} is {Vector3.Distance(barriers[i].transform.position, barriers[j].transform.position)}");
+                        if (testList.Count > 0)
+                        {
+                            if (testList.Contains(barriers[i]) == false)
+                            {
+                                testList.Add(barriers[i]);
+                                barriers[i].transform.position += new Vector3(0, 20, 0);
+                            }
+                            if (testList.Contains(barriers[j]) == false)
+                            {
+                                testList.Add(barriers[j]);
+                                barriers[j].transform.position += new Vector3(0, 20, 0);
+                            }
+                        }
+                        else
+                        {
+                            testList.Add(barriers[i]);
+                            barriers[i].transform.position += new Vector3(0, 20, 0);
+                            testList.Add(barriers[j]);
+                            barriers[j].transform.position += new Vector3(0, 20, 0);
+                        }
+                    }
+                }
+            }
+
+            for (int i = testList.Count - 1; i > 0; i--)
+                Destroy(testList[i].gameObject);
+            testList.Clear();
+        }
     }
 }
