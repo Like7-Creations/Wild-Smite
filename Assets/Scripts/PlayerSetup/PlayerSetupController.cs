@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerSetupController : MonoBehaviour
 {
@@ -29,7 +30,9 @@ public class PlayerSetupController : MonoBehaviour
     bool inputEnabled;
 
     [SerializeField]
-    Button readyButton;
+    Toggle readyButton;
+    Toggle charAButton;
+    Button backButton;
 
     // Update is called once per frame
     void Update()
@@ -74,7 +77,32 @@ public class PlayerSetupController : MonoBehaviour
         if (!inputEnabled)
             return;
 
+        if (readyButton.isOn != ready)
+        {
+            readyButton.isOn = ready;
+        }
         PlayerConfigManager.Instance.ReadyPlayer(PlayerIndex, ready);
         //readyButton.gameObject.SetActive(false);
     }
+
+    //public void CancelPressed()
+    //{
+    //    if (playerConfig.IsReady)
+    //    {
+    //        ReadyPlayer(false);
+    //        readyButton.onValueChanged.Invoke(true);
+    //    }
+    //    else
+    //    {
+    //        selectionControl.ReturnToMainMenu();
+    //    }
+    //}
+
+    //public void OnInputAction(InputAction.CallbackContext context)
+    //{
+    //    if (context.action.name == controls.UI.Return.name && context.performed)
+    //    {
+    //        CancelPressed();
+    //    }
+    //}
 }
