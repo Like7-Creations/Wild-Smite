@@ -135,7 +135,7 @@ public class InitialiseLevel : MonoBehaviour
 
             for (int i = testList.Count - 1; i > 0; i--)
                 Destroy(testList[i].gameObject);
-            testList.Clear();
+            //testList.Clear();
         }
     }
 }

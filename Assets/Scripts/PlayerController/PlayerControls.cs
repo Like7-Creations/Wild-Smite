@@ -190,7 +190,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3648ab39-e399-4d36-9681-e1410f0c8b70"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -212,7 +212,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6eecc7d7-1b15-4475-ae94-e4b2c66efbe3"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -256,7 +256,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""fca27286-b0eb-4969-aed2-92e27681310e"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -300,10 +300,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""36072f1b-e05d-42b8-ac3f-79bab67c4ef3"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""RangeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -314,7 +314,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""GamePadRangeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
