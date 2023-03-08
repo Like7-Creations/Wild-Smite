@@ -60,13 +60,13 @@ public class InGameUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //Player 1 Check Values
         if (p1_HP != player1.hp)
         {
             p1_HP = player1.hp;
             UpdateBars(player1_HealthBars, p1_HP);
 
-            p1_dead = true;
         }
         if (p1_STAM != player1.stamina)
         {
@@ -81,14 +81,21 @@ public class InGameUI : MonoBehaviour
             {
                 p2_HP = player2.hp;
                 UpdateBars(player2_HealthBars, p2_HP);
-
-                p2_dead = true;
             }
             if (p2_STAM != player2.stamina && !solo)
             {
                 p2_STAM = player2.stamina;
                 UpdateBars(player2_StaminaBars, p2_STAM);
             }
+        }
+
+        if (p1_HP <= 0)
+        {
+            p1_dead = true;
+        }
+        if (p2_HP <= 0 && !solo)
+        {
+            p2_dead = true;
         }
 
         if (solo)
@@ -101,6 +108,8 @@ public class InGameUI : MonoBehaviour
 
         else if (!solo)
         {
+
+
             if (p2_dead & p1_dead)
             {
                 gameOverUI.SetActive(true);
