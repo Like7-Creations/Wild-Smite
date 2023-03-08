@@ -26,7 +26,7 @@ public class Homing : Attack
     {
         aiming = true;
         yield return new WaitForSeconds(AimTime);
-        Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+        GameObject rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<GameObject>();
         rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
         aiming = false;
         yield return new WaitForSeconds(5);
