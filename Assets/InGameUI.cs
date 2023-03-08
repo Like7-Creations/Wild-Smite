@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class InGameUI : MonoBehaviour
 {
@@ -10,13 +12,20 @@ public class InGameUI : MonoBehaviour
     public DynamicBar_Slider[] player1_StaminaBars;
     float p1_HP, p1_STAM;
     public bool p1_dead;
-    
+
+    public Camera P1_Cam;
+    public CamTrackerMove p1_Tracker;
+    Dynamic_SplitScreen splitScreen;
+
     [Header("Player 2")]
     public GameObject P2_Panel;
     public DynamicBar_Slider[] player2_HealthBars;
     public DynamicBar_Slider[] player2_StaminaBars;
     float p2_HP, p2_STAM;
     public bool p2_dead;
+
+    public Camera P2_Cam;
+    public CamTrackerMove p2_Tracker;
 
     PlayerStats player1;
     PlayerStats player2;
@@ -35,7 +44,18 @@ public class InGameUI : MonoBehaviour
         }
         else
             solo = false;
+
+        splitScreen = FindObjectOfType<Dynamic_SplitScreen>();
+
+        P1_Cam = splitScreen.p1_Cam.GetComponent<Camera>();
+        p1_Tracker = splitScreen.camTracker_P1.GetComponent<CamTrackerMove>();
+
+        P2_Cam = splitScreen.p2_Cam.GetComponent<Camera>();
+        p2_Tracker = splitScreen.camTracker_P2.GetComponent<CamTrackerMove>();
     }
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -46,14 +66,14 @@ public class InGameUI : MonoBehaviour
             p1_HP = player1.hp;
             UpdateBars(player1_HealthBars, p1_HP);
 
-            p1_dead= true;
+            p1_dead = true;
         }
         if (p1_STAM != player1.stamina)
         {
             p1_STAM = player1.stamina;
             UpdateBars(player1_StaminaBars, p1_STAM);
         }
-        
+
         //Player 2 Check Values
         if (!solo)
         {
@@ -73,7 +93,7 @@ public class InGameUI : MonoBehaviour
 
         if (solo)
         {
-            if(p1_dead) 
+            if (p1_dead)
             {
                 gameOverUI.SetActive(true);
             }
@@ -81,9 +101,43 @@ public class InGameUI : MonoBehaviour
 
         else if (!solo)
         {
-            if (p2_dead & p1_dead) 
+            if (p2_dead & p1_dead)
             {
                 gameOverUI.SetActive(true);
+            }
+            else if (p2_dead & !p1_dead)
+            {
+                //-Reset the Split-Offset for the P1_CamTracker
+                p1_Tracker.splitOffset = Vector3.zero;
+
+                //-Disable Dynamic Splitscreen component
+                splitScreen.enabled = false;
+
+                //- Disable the Splitter Child obj
+                P1_Cam.transform.Find("Splitter").gameObject.SetActive(false);
+
+                //- Disable the P2_CamTracker
+                p2_Tracker.gameObject.SetActive(false);
+
+                //- Disable the P2_Cam
+                P2_Cam.gameObject.SetActive(false);
+            }
+            else if (!p2_dead & p1_dead)
+            {
+                //-Reset the Split-Offset for the P2_CamTracker
+                p2_Tracker.splitOffset = Vector3.zero;
+
+                //-Disable DynamicSplitscreen component
+                splitScreen.enabled = false;
+
+                //- Disable the Camera component on P1_Cam
+                P1_Cam.enabled = false;
+
+                //- Disable the Splitter Child obj
+                P1_Cam.transform.Find("Splitter").gameObject.SetActive(false);
+
+                //- Disable the P1_CamTracker
+                p1_Tracker.gameObject.SetActive(false);
             }
         }
     }
