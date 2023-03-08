@@ -32,7 +32,7 @@ public class CamTrackerMove : MonoBehaviour
     Vector3 velocity;
     #endregion
 
-    void IdentifyTargetPos()
+    Vector3 IdentifyTargetPos()
     {
         //Check if there are any enemies within range
 
@@ -47,6 +47,7 @@ public class CamTrackerMove : MonoBehaviour
         //else
         //Return the Vector3 after subtracting the difference between the splitOffset and targetOffset from the targetPlayer's Pos.
 
+        return playerTarget.transform.position - (-splitOffset + targetOffset);
     }
 
     Vector3 Arrival()
@@ -115,7 +116,7 @@ public class CamTrackerMove : MonoBehaviour
             splitOffset = Vector3.zero;
         }
 
-        targetPos = playerTarget.transform.position - (-splitOffset + targetOffset);
+        targetPos = IdentifyTargetPos();
 
         transform.position += Arrival();
 
