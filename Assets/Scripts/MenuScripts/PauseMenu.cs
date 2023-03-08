@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenu;
+    public PauseMenuController PauseControl;
     private bool isPaused;
 
     public string MenuScene;
@@ -15,58 +15,20 @@ public class PauseMenu : MonoBehaviour
     //public AudioSource quitsound;
     //public AudioSource resumesound;
 
-
-    void Start()
+    private void Awake()
     {
-        pauseMenu.SetActive(false);
-        isPaused = false;
+        PauseControl = transform.parent.GetComponent<PauseMenuController>();
     }
 
-    void Update()
+    public void Resume()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isPaused)
-            {
-                ResumeGame();
-                
-            }
-            else
-            {
-                PauseGame();
-            }
-        }
-    }
-
-
-    public void PauseGame()
-    {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
-        isPaused = true;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        //pausesound.Play();
-    }
-
-    public void ResumeGame()
-    {
-        Debug.Log("Unpaused");
-        Time.timeScale = 1f;
-        isPaused = false;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        //resumesound.Play();
-        pauseMenu.SetActive(false);
+        PauseControl.ResumeGame();
     }
 
     public void ToMenuButton()
     {
-        {
-           // quitsound.Play();
-            SceneManager.LoadScene(MenuScene);
-            Time.timeScale = 1f;
-        }
+        SceneManager.LoadScene(MenuScene);
+        Time.timeScale = 1f;
     }
 
     /*public void ToRestartButton()

@@ -60,6 +60,17 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
+    public void ResumeGame()
+    {        
+        input.uiInputModule = null;
+        input = null;
+
+        Time.timeScale = 1;
+        Destroy(pauseMenu);
+        IsPaused = false;
+        currentPlayerIndex = -1;
+    }
+
     void SetPlayerText(TMP_Text text, int index)
     {
         text.text = "Player " + (index + 1);
