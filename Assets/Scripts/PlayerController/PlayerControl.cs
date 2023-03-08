@@ -61,14 +61,14 @@ public class PlayerControl : MonoBehaviour
 
         //GamePad Range Attack
         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
-         {
-             pActions.shooting = true;
-         }
+        {
+            pActions.shooting = true;
+        }
 
-         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.canceled)
-         {
-             pActions.shooting = false;
-         }
+        if (context.action.name == controls.Player.GamePadRangeAttack.name && context.canceled)
+        {
+            pActions.shooting = false;
+        }
 
         //Keyboard and Mouse Range Attack
         if (context.action.name == controls.Player.RangeAttack.name && context.performed)
@@ -101,6 +101,14 @@ public class PlayerControl : MonoBehaviour
         if (context.action.name == controls.Player.Sprinting.name && context.canceled)
         {
             pActions.UnSprint();
+        }
+
+        // Pause Game
+        if (context.action.name == controls.Player.PauseGame.name && context.performed)
+        {
+            PauseMenuController pause = FindObjectOfType<PauseMenuController>();
+            if (pause != null)
+                pause.PauseGame(playerConfig);
         }
     }
 
