@@ -9,15 +9,19 @@ public class InGameUI : MonoBehaviour
     public DynamicBar_Slider[] player1_HealthBars;
     public DynamicBar_Slider[] player1_StaminaBars;
     float p1_HP, p1_STAM;
+    public bool p1_dead;
     
     [Header("Player 2")]
     public GameObject P2_Panel;
     public DynamicBar_Slider[] player2_HealthBars;
     public DynamicBar_Slider[] player2_StaminaBars;
     float p2_HP, p2_STAM;
+    public bool p2_dead;
 
     PlayerStats player1;
     PlayerStats player2;
+
+    public GameObject gameOverUI;
 
     bool solo;
 
@@ -41,6 +45,8 @@ public class InGameUI : MonoBehaviour
         {
             p1_HP = player1.hp;
             UpdateBars(player1_HealthBars, p1_HP);
+
+            p1_dead= true;
         }
         if (p1_STAM != player1.stamina)
         {
@@ -55,11 +61,29 @@ public class InGameUI : MonoBehaviour
             {
                 p2_HP = player2.hp;
                 UpdateBars(player2_HealthBars, p2_HP);
+
+                p2_dead = true;
             }
             if (p2_STAM != player2.stamina && !solo)
             {
                 p2_STAM = player2.stamina;
                 UpdateBars(player2_StaminaBars, p2_STAM);
+            }
+        }
+
+        if (solo)
+        {
+            if(p1_dead) 
+            {
+                gameOverUI.SetActive(true);
+            }
+        }
+
+        else if (!solo)
+        {
+            if (p2_dead & p1_dead) 
+            {
+                gameOverUI.SetActive(true);
             }
         }
     }
