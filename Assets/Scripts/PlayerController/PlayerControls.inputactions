@@ -338,6 +338,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LeftClick",
+                    "type": "Button",
+                    "id": "6eaa9e29-f8b6-4f95-b826-9b435ecaf96d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseWarp",
+                    "type": "Value",
+                    "id": "72416ae3-a2c8-42c0-9bbc-c57285bc5bbd",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -431,17 +449,6 @@
                 },
                 {
                     "name": "",
-                    "id": "b6a532fb-df51-4e1c-993f-de4fce8bfb39",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "fea45c43-3557-4e2b-9f35-2c55266489a1",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -481,6 +488,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa99d6cf-3d74-4069-bf73-44311cfb30eb",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard;Controller",
+                    "action": "LeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cce64550-644e-405b-a6e6-18e08a690e84",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "MouseWarp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

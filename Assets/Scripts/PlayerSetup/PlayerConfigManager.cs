@@ -24,7 +24,13 @@ public class PlayerConfigManager : MonoBehaviour
 
     [Header("TestConfig")]
     bool spawnedPlayers;
+    public bool joinonStart;
     public InitialiseLevel levelStart;
+
+    [Header("CharacterDefaults")]
+    public GameObject defaultCharacter;
+    public Material defaultMaterial;
+
 
     public static PlayerConfigManager Instance { get; private set; }
 
@@ -39,7 +45,8 @@ public class PlayerConfigManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfig>();
-            canJoin = false;
+            if (!joinonStart)
+                canJoin = false;
         }
     }
 
@@ -68,6 +75,7 @@ public class PlayerConfigManager : MonoBehaviour
         }
 
         playerConfigs.Clear();
+        GetComponent<PlayerInputManager>().DisableJoining();
     }
 
     public void SetMaxPlayers(int num)
@@ -120,6 +128,7 @@ public class PlayerConfigManager : MonoBehaviour
                 if (loadScene)
                 {
                     Debug.Log("All Players Ready");
+
                     SceneManager.LoadScene(SceneToLoad);
                 }
             }
@@ -135,12 +144,14 @@ public class PlayerConfigManager : MonoBehaviour
             {
                 pInput.transform.SetParent(transform);
                 PlayerConfig p = new PlayerConfig(pInput, experienceData, levelData);
+                p.Character = defaultCharacter;
+                p.PlayerMat = defaultMaterial;
                 playerConfigs.Add(p);
             }
-        }
 
-        if (playerConfigs.Count == MaxPlayers)
-            GetComponent<PlayerInputManager>().DisableJoining();
+            if (playerConfigs.Count == MaxPlayers)
+                GetComponent<PlayerInputManager>().DisableJoining();
+        }
     }
 }
 

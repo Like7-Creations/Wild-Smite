@@ -360,6 +360,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""6eaa9e29-f8b6-4f95-b826-9b435ecaf96d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseWarp"",
+                    ""type"": ""Value"",
+                    ""id"": ""72416ae3-a2c8-42c0-9bbc-c57285bc5bbd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -453,17 +471,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b6a532fb-df51-4e1c-993f-de4fce8bfb39"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Submit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""fea45c43-3557-4e2b-9f35-2c55266489a1"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -503,6 +510,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""Pointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa99d6cf-3d74-4069-bf73-44311cfb30eb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard;Controller"",
+                    ""action"": ""LeftClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cce64550-644e-405b-a6e6-18e08a690e84"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""MouseWarp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -556,6 +585,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_Return = m_UI.FindAction("Return", throwIfNotFound: true);
         m_UI_Pointer = m_UI.FindAction("Pointer", throwIfNotFound: true);
+        m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
+        m_UI_MouseWarp = m_UI.FindAction("MouseWarp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -716,6 +747,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Submit;
     private readonly InputAction m_UI_Return;
     private readonly InputAction m_UI_Pointer;
+    private readonly InputAction m_UI_LeftClick;
+    private readonly InputAction m_UI_MouseWarp;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
@@ -724,6 +757,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
         public InputAction @Return => m_Wrapper.m_UI_Return;
         public InputAction @Pointer => m_Wrapper.m_UI_Pointer;
+        public InputAction @LeftClick => m_Wrapper.m_UI_LeftClick;
+        public InputAction @MouseWarp => m_Wrapper.m_UI_MouseWarp;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -745,6 +780,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Pointer.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPointer;
                 @Pointer.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPointer;
                 @Pointer.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPointer;
+                @LeftClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
+                @LeftClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
+                @LeftClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
+                @MouseWarp.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMouseWarp;
+                @MouseWarp.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMouseWarp;
+                @MouseWarp.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMouseWarp;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -761,6 +802,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Pointer.started += instance.OnPointer;
                 @Pointer.performed += instance.OnPointer;
                 @Pointer.canceled += instance.OnPointer;
+                @LeftClick.started += instance.OnLeftClick;
+                @LeftClick.performed += instance.OnLeftClick;
+                @LeftClick.canceled += instance.OnLeftClick;
+                @MouseWarp.started += instance.OnMouseWarp;
+                @MouseWarp.performed += instance.OnMouseWarp;
+                @MouseWarp.canceled += instance.OnMouseWarp;
             }
         }
     }
@@ -801,5 +848,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSubmit(InputAction.CallbackContext context);
         void OnReturn(InputAction.CallbackContext context);
         void OnPointer(InputAction.CallbackContext context);
+        void OnLeftClick(InputAction.CallbackContext context);
+        void OnMouseWarp(InputAction.CallbackContext context);
     }
 }
