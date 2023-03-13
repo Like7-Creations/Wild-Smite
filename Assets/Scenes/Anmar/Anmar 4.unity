@@ -6409,6 +6409,7 @@ GameObject:
   - component: {fileID: 823989474}
   - component: {fileID: 823989473}
   - component: {fileID: 823989472}
+  - component: {fileID: 823989475}
   m_Layer: 0
   m_Name: Boss Enemy
   m_TagString: Untagged
@@ -6506,7 +6507,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9379f928252822f428535177bea60b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacksList: []
+  attacksList:
+  - {fileID: 823989460}
+  - {fileID: 823989458}
+  - {fileID: 823989457}
+  - {fileID: 823989471}
+  - {fileID: 823989459}
+  - {fileID: 823989472}
+  - {fileID: 823989475}
   playerAmount: []
   chosenPlayer: {fileID: 0}
   playerOne: {fileID: 0}
@@ -6897,6 +6905,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &823989475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823989456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef2fb818871bff49a163b458449a925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ultimateAI: {fileID: 0}
+  fov: {fileID: 0}
+  vfx: {fileID: 0}
+  shootingDuration: 0
+  delayBetweenBullets: 0
+  durationTimer: 0
+  delayTimer: 0
+  Bullet: {fileID: 0}
 --- !u!1 &846505128
 GameObject:
   m_ObjectHideFlags: 0
@@ -11967,10 +11995,12 @@ MonoBehaviour:
   playerSpawns:
   - {fileID: 1241975513}
   - {fileID: 544297156}
-  playerPrefab: {fileID: 1875388763240933588, guid: 377d51dc04797cd4ea44ae5146534d15, type: 3}
+  playerPrefab: {fileID: 1875388763240933588, guid: 0f2ffbca409093e4d88bf41ea6523a92, type: 3}
   initialiseOnStart: 0
   spawnLevel: 0
   levelSettings: {fileID: 0}
+  RunBarrierAdjustment: 0
+  BarrierDistance: 0
   levelEndObject: {fileID: 0}
 --- !u!1 &999664755
 GameObject:

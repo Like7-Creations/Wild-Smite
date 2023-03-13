@@ -12,6 +12,14 @@ public class TriShot : Attack
     {
         // Debug.Log("Trishot");
         // set animatioon trigger here
+        StartCoroutine(triShot());
+
+    }
+
+    IEnumerator triShot()
+    {
+        vfx.attackIndicationVFX.Play();
+        yield return new WaitForSeconds(0.5f);
         ultimateAI.anim.SetTrigger("Trishot");
         for (int i = 0; i < 3; i++)
         {

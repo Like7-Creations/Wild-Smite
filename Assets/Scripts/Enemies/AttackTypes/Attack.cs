@@ -9,7 +9,8 @@ public abstract class Attack : MonoBehaviour
     [HideInInspector] public UltimateAI ultimateAI;
     [HideInInspector] public FieldOfView fov;
     [HideInInspector] public Enemy_VFXHandler vfx;
-    //public PlayerMovement chosenPlayer;
+    [HideInInspector] public Enemy_SFXHandler sfx;
+
     public virtual void Start()
     {
         ultimateAI = GetComponent<UltimateAI>();

@@ -22,6 +22,12 @@ public class PlayerMovement : MonoBehaviour
     PlayerControl Pc;
     PlayerControls controls;
 
+    Vector3 camForward;
+    Vector3 move;
+    Vector3 moveInput;
+    float turnAmount;
+    float forwardAmount;
+
     // Just testing stuff 
     public Camera cam;
     public float xOffset;
@@ -62,7 +68,10 @@ public class PlayerMovement : MonoBehaviour
        // controller.Move(new Vector3(0, -9.81f, 0));
         if (direction != Vector3.zero)
         {
-            transform.rotation = Quaternion.Euler(0, angle, 0f);
+            if (!PA.shooting) 
+            {
+                transform.rotation = Quaternion.Euler(0, angle, 0f);
+            }
 
             Vector3 moveDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
             PA.Dashdir = moveDir; // this is for dash to Make the player dash to their forward
@@ -88,16 +97,53 @@ public class PlayerMovement : MonoBehaviour
         }
         else animator.SetFloat("X", 0f, 0.05f, Time.deltaTime);
 
-        /*(if (Input.GetKeyDown(KeyCode.G))
+      /*  if(cam != null) 
+        { 
+            camForward = Vector3.Scale(cam.transform.up, new Vector3(1, 0, 1)).normalized;
+            move = movementInput.y * camForward + movementInput.x * cam.transform.right;
+        }
+        if(move.magnitude > 1)
         {
-            Debug.Log("jumedddd");
+            move.Normalize();
         }*/
+
+        //Move(move);
+
+        if(PA.shooting) 
+        {
+            //transform.LookAt(PA.playerLookDir);
+            animator.SetFloat("X", movementInput.x);
+            animator.SetFloat("Y", movementInput.y);
+        }
 
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
         animCheck();
     }
+   /* void Move(Vector3 move)
+    {
+        if(move.magnitude> 1)
+        {
+            move.Normalize();
+        }
+        moveInput = move;
+        ConvertAnimator();
+        UpdateAnimator();
+    }*/
+    /*void ConvertAnimator()
+    {
+        Vector3 localMove = transform.InverseTransformDirection(moveInput);
+        turnAmount = localMove.x;
+
+        forwardAmount = localMove.z;
+    }
+
+    void UpdateAnimator()
+    {
+        animator.SetFloat("Y", forwardAmount, 0.1f, Time.deltaTime);
+        animator.SetFloat("X", turnAmount, 0.1f, Time.deltaTime);
+    }*/
 
     public void animCheck()
     {

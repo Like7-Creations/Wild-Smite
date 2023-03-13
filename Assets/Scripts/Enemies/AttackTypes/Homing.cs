@@ -25,6 +25,7 @@ public class Homing : Attack
     IEnumerator thisAttack()    
     {
         aiming = true;
+        vfx.attackIndicationVFX.Play();
         yield return new WaitForSeconds(AimTime);
         GameObject rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<GameObject>();
         rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
