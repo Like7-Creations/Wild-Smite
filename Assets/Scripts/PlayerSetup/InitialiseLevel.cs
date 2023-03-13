@@ -24,8 +24,9 @@ public class InitialiseLevel : MonoBehaviour
     public bool RunBarrierAdjustment;
     public float BarrierDistance;
     List<Barrier> testList;
+    public bool spawnEndPoint;
     public GameObject levelEndObject;
-    GameObject levelRoot;
+    GameObject levelRoot;    
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class InitialiseLevel : MonoBehaviour
     {
         if (!initialised)
         {
+            PlayerConfigManager.Instance.SetJoinState(false);
             List<PlayerConfig> playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs();
 
             for (int i = 0; i < playerConfigs.Count; i++)
@@ -73,7 +75,9 @@ public class InitialiseLevel : MonoBehaviour
                     break;
             }
             levelSpawned = true;
-            StartCoroutine(createEndPoint());
+
+            if (spawnEndPoint)
+                StartCoroutine(createEndPoint());
         }
     }
 
@@ -114,20 +118,20 @@ public class InitialiseLevel : MonoBehaviour
                             if (testList.Contains(barriers[i]) == false)
                             {
                                 testList.Add(barriers[i]);
-                                barriers[i].transform.position += new Vector3(0, 20, 0);
+                                //barriers[i].transform.position += new Vector3(0, 20, 0);
                             }
                             if (testList.Contains(barriers[j]) == false)
                             {
                                 testList.Add(barriers[j]);
-                                barriers[j].transform.position += new Vector3(0, 20, 0);
+                                //barriers[j].transform.position += new Vector3(0, 20, 0);
                             }
                         }
                         else
                         {
                             testList.Add(barriers[i]);
-                            barriers[i].transform.position += new Vector3(0, 20, 0);
+                            //barriers[i].transform.position += new Vector3(0, 20, 0);
                             testList.Add(barriers[j]);
-                            barriers[j].transform.position += new Vector3(0, 20, 0);
+                            //barriers[j].transform.position += new Vector3(0, 20, 0);
                         }
                     }
                 }
@@ -135,7 +139,7 @@ public class InitialiseLevel : MonoBehaviour
 
             for (int i = testList.Count - 1; i > 0; i--)
                 Destroy(testList[i].gameObject);
-            testList.Clear();
+            //testList.Clear();
         }
     }
 }

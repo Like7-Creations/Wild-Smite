@@ -11,23 +11,34 @@ public class MainMenu : MonoBehaviour
 
     [Header("PlayerSelection")]
     public PlayerConfigManager playerConfigManager;
+    public GameObject SelectionCanvas;
     public GameObject SelectionPanel;
+    public GameObject MenuPanel;
 
     private void Awake()
     {
-       // playerConfigManager = PlayerConfigManager.Instance;
+        // playerConfigManager = PlayerConfigManager.Instance;
+        ResetManager(SelectionPanel);
     }
 
     public void LoadCharacterSelection(int playerCount)
     {
         PlayerConfigManager.Instance.SetMaxPlayers(playerCount);
-        SelectionPanel.SetActive(true);
+        SelectionCanvas.SetActive(true);
     }
 
     public void ResetManager(GameObject panel)
     {
         PlayerConfigManager.Instance.ResetManager(panel);
-        SelectionPanel.SetActive(false);
+        SelectionCanvas.SetActive(false);
+    }
+
+    public void ToggleMenuState()
+    {
+        if (MenuPanel.active)
+            MenuPanel.SetActive(false);
+        else
+            MenuPanel.SetActive(true);
     }
 
     public void SetPlayerJoins(bool state)

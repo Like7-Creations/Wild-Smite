@@ -130,7 +130,8 @@ public class PlayerControl : MonoBehaviour
             for (int i = 0; i < matMeshes.Length; i++)
                 matMeshes[i].material = playerConfig.PlayerMat;
 
-        FindObjectOfType<Dynamic_SplitScreen>().AddPlayer(this.gameObject, playerConfig.PlayerIndex);        
+        if (FindObjectOfType<Dynamic_SplitScreen>() != null)
+            FindObjectOfType<Dynamic_SplitScreen>().AddPlayer(this.gameObject, playerConfig.PlayerIndex);
     }
 
     public PlayerConfig GetConfig()

@@ -82,7 +82,7 @@ public class PlayerStats : MonoBehaviour
         exp += addXP;
     }
 
-	//For Testing
+    //For Testing
     /* void SetEnemyCount(EnemyInfo.Type type, int count)
     {
         bool hasEntry = false;
@@ -203,13 +203,14 @@ public class PlayerStats : MonoBehaviour
         aoe_Hold = playerData.aoe_HOLD;
         aoe_ChargeRate = playerData.aoe_ChargeRate;
 
-        FindObjectOfType<InGameUI>().AssignPlayer(playerData.playerIndex, GetComponent<PlayerStats>());
+        if (FindObjectOfType<InGameUI>() != null)
+            FindObjectOfType<InGameUI>().AssignPlayer(playerData.playerIndex, GetComponent<PlayerStats>());
     }
 }
 
 [System.Serializable]
 public class EnemyDefeats
-{ 
+{
     public EnemyInfo.Type enemyType;
     public string name { set { name = enemyType.ToString(); } }
     public int count;
