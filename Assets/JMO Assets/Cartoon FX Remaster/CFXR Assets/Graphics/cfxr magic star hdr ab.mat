@@ -9,7 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: cfxr magic star hdr ab
   m_Shader: {fileID: 4800000, guid: e198026df304af84a85675be636192ea, type: 3}
-  m_ShaderKeywords: _CFXR_DITHERED_SHADOWS_ON _CFXR_HDR_BOOST _CFXR_SINGLE_CHANNEL
+  m_ShaderKeywords: _CFXR_DISSOLVE _CFXR_DISSOLVE_ALONG_UV_X _CFXR_DITHERED_SHADOWS_ON
+    _CFXR_HDR_BOOST _CFXR_SINGLE_CHANNEL _CFXR_UV_DISTORTION _CFXR_UV_DISTORTION_ADD
     _FADING_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -26,8 +27,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DissolveTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 0, y: 0}
+        m_Offset: {x: 7, y: 6}
     - _DistortTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,16 +63,16 @@ Material:
     - _Cutoff: 0.1
     - _DirLightScreenAtten: 1
     - _DirectLightingRamp: 1
-    - _DissolveSmooth: 0.1
-    - _Distort: 0.1
-    - _DoubleDissolve: 0
+    - _DissolveSmooth: 0.0001
+    - _Distort: 0.528
+    - _DoubleDissolve: 1
     - _DstBlend: 10
     - _EdgeFadePow: 1
-    - _FadeAlongU: 0
+    - _FadeAlongU: 1
     - _HdrBoost: 1
     - _HdrMultiply: 10
     - _IndirectLightingMix: 0.5
-    - _InvertDissolveTex: 0
+    - _InvertDissolveTex: 1
     - _LightingWorldPosStrength: 0.2
     - _OVERLAYBLEND: 0
     - _OVERLAYTEX: 0
@@ -81,11 +82,11 @@ Material:
     - _SoftParticlesFadeDistanceFar: 2
     - _SoftParticlesFadeDistanceNear: 0
     - _SrcBlend: 5
-    - _UVDistortionAdd: 0
+    - _UVDistortionAdd: 1
     - _UseAlphaClip: 0
     - _UseBackLighting: 0
-    - _UseDissolve: 0
-    - _UseDissolveOffsetUV: 0
+    - _UseDissolve: 1
+    - _UseDissolveOffsetUV: 1
     - _UseEF: 0
     - _UseEmission: 0
     - _UseFB: 0
@@ -97,11 +98,11 @@ Material:
     - _UseSP: 1
     - _UseSecondColor: 0
     - _UseUV2Distortion: 0
-    - _UseUVDistortion: 0
+    - _UseUVDistortion: 1
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 3.8792846, g: 3.8792846, b: 3.8792846, a: 0}
-    - _DissolveScroll: {r: 0, g: 0, b: 0, a: 0}
+    - _DissolveScroll: {r: 4, g: 4, b: 4, a: 4}
     - _DistortScrolling: {r: 0, g: 0, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _OverlayTex_Scroll: {r: 0.1, g: 0.1, b: 1, a: 1}
