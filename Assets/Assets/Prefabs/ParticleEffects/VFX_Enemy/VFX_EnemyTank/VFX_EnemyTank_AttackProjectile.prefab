@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1727315057190060264}
   - component: {fileID: 1727315057190060265}
   - component: {fileID: 1727315057190060266}
+  - component: {fileID: -7398864788103763501}
   m_Layer: 0
   m_Name: VFX_EnemyTank_AttackProjectile
   m_TagString: Untagged
@@ -205,6 +206,23 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &-7398864788103763501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727315057190060267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aaaed63fbcdc37479e4fbe966b48000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 5
+  enemy: 0
+  damage: 0
+  destroyedVFX: {fileID: 6192458423162008656, guid: b069af217d43ce7439f7867acc4a38d1, type: 3}
+  playershot: 0
 --- !u!1 &1727315058356099776
 GameObject:
   m_ObjectHideFlags: 0

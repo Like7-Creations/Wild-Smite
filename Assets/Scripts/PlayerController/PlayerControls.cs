@@ -69,7 +69,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""2e1fdea9-0c8f-4405-a88e-8321f8756f63"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=2,pressPoint=2)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -94,6 +94,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""RangeAttack"",
                     ""type"": ""Button"",
                     ""id"": ""8e181b53-07dd-4be1-97b0-2f72150d87b3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GamePadRangeAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""66853051-936b-4960-90be-82980bec8294"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -181,7 +190,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3648ab39-e399-4d36-9681-e1410f0c8b70"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -203,7 +212,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6eecc7d7-1b15-4475-ae94-e4b2c66efbe3"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -215,7 +224,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""5b8925ff-2c4b-4504-ac2b-5307fe8b2515"",
                     ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""AreaOfEffect"",
@@ -226,7 +235,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""d47f309e-5915-4d43-b1a5-a261e9945daa"",
                     ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""AreaOfEffect"",
@@ -247,7 +256,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""fca27286-b0eb-4969-aed2-92e27681310e"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -291,11 +300,22 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""36072f1b-e05d-42b8-ac3f-79bab67c4ef3"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""RangeAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63720114-5c97-4585-95bc-8dd7af10c8f1"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""GamePadRangeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -322,6 +342,42 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""66ce0fa6-50cb-428a-816d-8fff68de30e4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pointer"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""3e8cc6a8-cb42-4a43-84bd-df12c2a0f967"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""6eaa9e29-f8b6-4f95-b826-9b435ecaf96d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseWarp"",
+                    ""type"": ""Value"",
+                    ""id"": ""72416ae3-a2c8-42c0-9bbc-c57285bc5bbd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -412,6 +468,72 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fea45c43-3557-4e2b-9f35-2c55266489a1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0422781-749c-4af9-a76f-a7bf77a15136"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4444a8b-ef57-40fb-8ee7-2930ded4aeb8"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c3d1851-eaa0-4254-beac-4c45a5b89bbf"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Pointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa99d6cf-3d74-4069-bf73-44311cfb30eb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard;Controller"",
+                    ""action"": ""LeftClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cce64550-644e-405b-a6e6-18e08a690e84"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""MouseWarp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -456,10 +578,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Sprinting = m_Player.FindAction("Sprinting", throwIfNotFound: true);
         m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
         m_Player_RangeAttack = m_Player.FindAction("RangeAttack", throwIfNotFound: true);
+        m_Player_GamePadRangeAttack = m_Player.FindAction("GamePadRangeAttack", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Movement = m_UI.FindAction("Movement", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
+        m_UI_Return = m_UI.FindAction("Return", throwIfNotFound: true);
+        m_UI_Pointer = m_UI.FindAction("Pointer", throwIfNotFound: true);
+        m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
+        m_UI_MouseWarp = m_UI.FindAction("MouseWarp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -527,6 +654,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprinting;
     private readonly InputAction m_Player_PauseGame;
     private readonly InputAction m_Player_RangeAttack;
+    private readonly InputAction m_Player_GamePadRangeAttack;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -539,6 +667,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Sprinting => m_Wrapper.m_Player_Sprinting;
         public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
         public InputAction @RangeAttack => m_Wrapper.m_Player_RangeAttack;
+        public InputAction @GamePadRangeAttack => m_Wrapper.m_Player_GamePadRangeAttack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -572,6 +701,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RangeAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRangeAttack;
                 @RangeAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRangeAttack;
                 @RangeAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRangeAttack;
+                @GamePadRangeAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGamePadRangeAttack;
+                @GamePadRangeAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGamePadRangeAttack;
+                @GamePadRangeAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGamePadRangeAttack;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -600,6 +732,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RangeAttack.started += instance.OnRangeAttack;
                 @RangeAttack.performed += instance.OnRangeAttack;
                 @RangeAttack.canceled += instance.OnRangeAttack;
+                @GamePadRangeAttack.started += instance.OnGamePadRangeAttack;
+                @GamePadRangeAttack.performed += instance.OnGamePadRangeAttack;
+                @GamePadRangeAttack.canceled += instance.OnGamePadRangeAttack;
             }
         }
     }
@@ -610,12 +745,20 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private IUIActions m_UIActionsCallbackInterface;
     private readonly InputAction m_UI_Movement;
     private readonly InputAction m_UI_Submit;
+    private readonly InputAction m_UI_Return;
+    private readonly InputAction m_UI_Pointer;
+    private readonly InputAction m_UI_LeftClick;
+    private readonly InputAction m_UI_MouseWarp;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
         public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_UI_Movement;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
+        public InputAction @Return => m_Wrapper.m_UI_Return;
+        public InputAction @Pointer => m_Wrapper.m_UI_Pointer;
+        public InputAction @LeftClick => m_Wrapper.m_UI_LeftClick;
+        public InputAction @MouseWarp => m_Wrapper.m_UI_MouseWarp;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -631,6 +774,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Submit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
                 @Submit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
                 @Submit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
+                @Return.started -= m_Wrapper.m_UIActionsCallbackInterface.OnReturn;
+                @Return.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnReturn;
+                @Return.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnReturn;
+                @Pointer.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPointer;
+                @Pointer.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPointer;
+                @Pointer.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPointer;
+                @LeftClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
+                @LeftClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
+                @LeftClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
+                @MouseWarp.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMouseWarp;
+                @MouseWarp.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMouseWarp;
+                @MouseWarp.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMouseWarp;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -641,6 +796,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Submit.started += instance.OnSubmit;
                 @Submit.performed += instance.OnSubmit;
                 @Submit.canceled += instance.OnSubmit;
+                @Return.started += instance.OnReturn;
+                @Return.performed += instance.OnReturn;
+                @Return.canceled += instance.OnReturn;
+                @Pointer.started += instance.OnPointer;
+                @Pointer.performed += instance.OnPointer;
+                @Pointer.canceled += instance.OnPointer;
+                @LeftClick.started += instance.OnLeftClick;
+                @LeftClick.performed += instance.OnLeftClick;
+                @LeftClick.canceled += instance.OnLeftClick;
+                @MouseWarp.started += instance.OnMouseWarp;
+                @MouseWarp.performed += instance.OnMouseWarp;
+                @MouseWarp.canceled += instance.OnMouseWarp;
             }
         }
     }
@@ -673,10 +840,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSprinting(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
         void OnRangeAttack(InputAction.CallbackContext context);
+        void OnGamePadRangeAttack(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
+        void OnReturn(InputAction.CallbackContext context);
+        void OnPointer(InputAction.CallbackContext context);
+        void OnLeftClick(InputAction.CallbackContext context);
+        void OnMouseWarp(InputAction.CallbackContext context);
     }
 }

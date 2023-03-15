@@ -8,10 +8,15 @@ using UnityEngine.SceneManagement;
 public class PlayerConfigManager : MonoBehaviour
 {
 
+    [Header("Player Settings")]
+    public Leveling_Data levelData;
+    public ExperienceData experienceData;
+
     List<PlayerConfig> playerConfigs;
 
     [SerializeField]
     int MaxPlayers = 2;
+    bool canJoin;
 
     [Header("LoadToSceneConfig")]
     public string SceneToLoad;
@@ -19,7 +24,13 @@ public class PlayerConfigManager : MonoBehaviour
 
     [Header("TestConfig")]
     bool spawnedPlayers;
+    public bool joinonStart;
     public InitialiseLevel levelStart;
+
+    [Header("CharacterDefaults")]
+    public GameObject defaultCharacter;
+    public Material defaultMaterial;
+
 
     public static PlayerConfigManager Instance { get; private set; }
 
@@ -34,6 +45,8 @@ public class PlayerConfigManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfig>();
+            if (!joinonStart)
+                canJoin = false;
         }
     }
 
@@ -49,6 +62,36 @@ public class PlayerConfigManager : MonoBehaviour
         }
     }
 
+    public void ResetManager(GameObject SelectionPanel)
+    {
+        for (int i = 0; i < SelectionPanel.transform.childCount; i++)
+        {
+            Destroy(SelectionPanel.transform.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < playerConfigs.Count; i++)
+        {
+            Destroy(playerConfigs[i].Input.gameObject);
+        }
+
+        playerConfigs.Clear();
+        GetComponent<PlayerInputManager>().DisableJoining();
+    }
+
+    public void SetMaxPlayers(int num)
+    {
+        MaxPlayers = num;
+        //GetComponent<PlayerInputManager>().maxPlayerCount = num;
+    }
+
+    public void SetJoinState(bool state)
+    {
+        if (state)
+            GetComponent<PlayerInputManager>().EnableJoining();
+        else
+            GetComponent<PlayerInputManager>().DisableJoining();
+    }
+
     public List<PlayerConfig> GetPlayerConfigs()
     {
         return playerConfigs;
@@ -59,9 +102,14 @@ public class PlayerConfigManager : MonoBehaviour
         playerConfigs[index].PlayerMat = color;
     }
 
-    public void ReadyPlayer(int index)
+    public void SetPlayerCharacter(int index, GameObject character)
     {
-        playerConfigs[index].IsReady = true;
+        playerConfigs[index].Character = character;
+    }
+
+    public void ReadyPlayer(int index, bool ready)
+    {
+        playerConfigs[index].IsReady = ready;
 
         if (playerConfigs.Count == MaxPlayers)
         {
@@ -80,6 +128,7 @@ public class PlayerConfigManager : MonoBehaviour
                 if (loadScene)
                 {
                     Debug.Log("All Players Ready");
+
                     SceneManager.LoadScene(SceneToLoad);
                 }
             }
@@ -88,26 +137,41 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput pInput)
     {
-        Debug.Log("Player joined" + pInput.playerIndex);
-
-        if (!playerConfigs.Any(p => p.PlayerIndex == pInput.playerIndex))
+        if (playerConfigs.Count < MaxPlayers)
         {
-            pInput.transform.SetParent(transform);
-            playerConfigs.Add(new PlayerConfig(pInput));
+            Debug.Log("Player joined" + pInput.playerIndex);
+            if (!playerConfigs.Any(p => p.PlayerIndex == pInput.playerIndex))
+            {
+                pInput.transform.SetParent(transform);
+                PlayerConfig p = new PlayerConfig(pInput, experienceData, levelData);
+                p.Character = defaultCharacter;
+                p.PlayerMat = defaultMaterial;
+                playerConfigs.Add(p);
+            }
+
+            if (playerConfigs.Count == MaxPlayers)
+                GetComponent<PlayerInputManager>().DisableJoining();
         }
     }
 }
 
+[System.Serializable]
 public class PlayerConfig
 {
+    public string Name;
+    public PlayerStat_Data playerStats;
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
     public Material PlayerMat { get; set; }
+    public GameObject Character { get; set; }
 
-    public PlayerConfig(PlayerInput pInput)
+    public PlayerConfig(PlayerInput pInput, ExperienceData xpData, Leveling_Data lvlData)
     {
         PlayerIndex = pInput.playerIndex;
+        playerStats = ScriptableObject.CreateInstance<PlayerStat_Data>();
+        playerStats.init($"Player {PlayerIndex + 1}", PlayerIndex, xpData, lvlData, this);
+        Name = $"Player {PlayerIndex + 1}";
         Input = pInput;
     }
 }

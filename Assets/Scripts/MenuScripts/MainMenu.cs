@@ -7,100 +7,48 @@ using TMPro;
 public class MainMenu : MonoBehaviour
 {
 
-    //public AudioSource entersound;
-    //public AudioSource backsound;
-    //public GameObject Button_LoadGame = GameObject.Find("Button_LoadGame");
-    //public GameObject Button_NewGame = GameObject.Find("Button_NewGame");
-    //public GameObject Button_Character = GameObject.Find("Button Character");
-    //public GameObject Button_Settings = GameObject.Find("Button Settings");
-    //public GameObject Button_CoopGame = GameObject.Find("Button_CoopGame");
-    //public GameObject Button_Credits = GameObject.Find("Button_Credits");
-    //public GameObject Button_QuitGame = GameObject.Find("Button_QuitGame");
-
     public float delayTime = 2f;
-    public string sceneToLoad;
 
-    public void PlayLoadGame()
+    [Header("PlayerSelection")]
+    public PlayerConfigManager playerConfigManager;
+    public GameObject SelectionCanvas;
+    public GameObject SelectionPanel;
+    public GameObject MenuPanel;
+
+    private void Awake()
     {
-        //Vector3 pos = Button_LoadGame.transform.position;
-        //pos.x -= 30f;
-        //Button_LoadGame.transform.position = pos;
-
-        //entersound.Play();
-        Invoke("DelayLoadGame", delayTime);
+        // playerConfigManager = PlayerConfigManager.Instance;
+        ResetManager(SelectionPanel);
     }
 
-    void DelayLoadGame()
+    public void LoadCharacterSelection(int playerCount)
     {
-        SceneManager.LoadScene("Sami");
-        Time.timeScale = 1f;
+        PlayerConfigManager.Instance.SetMaxPlayers(playerCount);
+        SelectionCanvas.SetActive(true);
     }
 
-
-    public void PlayNewGame()
+    public void ResetManager(GameObject panel)
     {
-        //Vector3 pos = Button_NewGame.transform.position;
-        //pos.x -= 30f;
-        //Button_NewGame.transform.position = pos;
-
-        //entersound.Play();
-        //Invoke("DelayNewGame", delayTime);
-        SceneManager.LoadScene(sceneToLoad);
+        PlayerConfigManager.Instance.ResetManager(panel);
+        SelectionCanvas.SetActive(false);
     }
 
-    void DelayNewGame()
+    public void ToggleMenuState()
     {
-        SceneManager.LoadScene(sceneToLoad);
-        Time.timeScale = 1f;
+        if (MenuPanel.active)
+            MenuPanel.SetActive(false);
+        else
+            MenuPanel.SetActive(true);
     }
 
-    public void PlayCharacter()
+    public void SetPlayerJoins(bool state)
     {
-        //Vector3 pos = Button_Character.transform.position;
-        //pos.x -= 30f;
-        //Button_Character.transform.position = pos;
-
-        //entersound.Play();
-        Invoke("DelayCharacter", delayTime);
+        PlayerConfigManager.Instance.SetJoinState(state);
     }
 
-    void DelayCharacter()
+    public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene("CharacterSelection");
-        Time.timeScale = 1f;
-    }
-
-
-    public void PlayCoopGame()
-    {
-        //Vector3 pos = Button_CoopGame.transform.position;
-        //pos.x -= 30f;
-        //Button_CoopGame.transform.position = pos;
-
-        //entersound.Play();
-        Invoke("DelayPlayCoopGame", delayTime);
-    }
-
-    void DelayPlayCoopGame()
-    {
-        SceneManager.LoadScene("CoopScene");
-        Time.timeScale = 1f;
-    }
-
-    public void PlayCredits()
-    {
-        //Vector3 pos = Button_Credits.transform.position;
-        //pos.x -= 30f;
-        //Button_Credits.transform.position = pos;
-
-        //entersound.Play();
-        Invoke("DelayPlayCredits", delayTime);
-    }
-
-    void DelayPlayCredits()
-    {
-        SceneManager.LoadScene("Credits");
-        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
     }
 
     public void QuitGame()

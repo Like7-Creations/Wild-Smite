@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6600881216511340226
 Transform:
   m_ObjectHideFlags: 0
@@ -193,7 +193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4771491648279156560
 Transform:
   m_ObjectHideFlags: 0
@@ -280,15 +280,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3492070735630044158}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3.5, y: -12, z: 0.5}
-  m_LocalScale: {x: 1, y: 3, z: 3.5}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3.5, y: -12, z: -0.5}
+  m_LocalScale: {x: 1, y: 3, z: 3}
   m_Children:
   - {fileID: 4771491648279156560}
   - {fileID: 6600881216511340226}
   - {fileID: 5109199130668300196}
-  m_Father: {fileID: 8741193138267683658}
-  m_RootOrder: 1
+  m_Father: {fileID: 6819169070395973834}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &4986156474731791545
 GameObject:
@@ -319,9 +319,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6691064392816777016}
-  - {fileID: 4268712580038807876}
   m_Father: {fileID: 6819169070395973834}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8788072177750610014
 MonoBehaviour:
@@ -365,7 +364,7 @@ Transform:
   m_GameObject: {fileID: 5109199130668300197}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.001151566, y: 4.1484, z: -1.195178}
-  m_LocalScale: {x: 0.3703086, y: 7.00764, z: 7.359247}
+  m_LocalScale: {x: 0.3703086, y: 7.00764, z: 8.5}
   m_Children: []
   m_Father: {fileID: 4268712580038807876}
   m_RootOrder: 2
@@ -439,7 +438,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5109199130668300197}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -521,9 +520,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6819169070395973834}
   - component: {fileID: 2747254908216096421}
+  - component: {fileID: 374979990867480887}
   m_Layer: 0
   m_Name: DeadEndTemplate(Clone) Barrier
-  m_TagString: Untagged
+  m_TagString: DeadEndBarrier
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -539,6 +539,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4268712580038807876}
   - {fileID: 8741193138267683658}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -556,3 +557,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bounds: {fileID: 8788072177750610014}
+--- !u!114 &374979990867480887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975745336006821260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1429cd6c6b40554e811adf5fc0e643a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

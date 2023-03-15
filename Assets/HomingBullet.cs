@@ -6,25 +6,36 @@ using UnityEngine.UIElements;
 
 public class HomingBullet : MonoBehaviour
 {
-    PlayerMovement player;
-    public float speed;
-    bool chase;
-    float dist;
-    void Start()
+    public float Mass = 15;
+    public float MaxVelocity = 3;
+    public float MaxForce = 15;
+
+    private Vector3 velocity;
+    public PlayerMovement target;
+
+    private void Start()
     {
-        chase = true;
-        player = FindObjectOfType<PlayerMovement>();
+        target = FindObjectOfType<PlayerMovement>();
+        velocity = Vector3.zero;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        dist = Vector3.Distance(transform.position, player.transform.position);
-        if(dist > 2 & chase) 
-        { 
-            Vector3 playerPos = player.transform.position;
-            playerPos.y = 1;
-            transform.position = Vector3.Lerp(transform.position, playerPos, speed * Time.deltaTime);
-        }else chase= false;
+        Vector3 thisTarget = target.transform.position;
+        thisTarget.y = 1;
+        var desiredVelocity = thisTarget - transform.position;
+        desiredVelocity = desiredVelocity.normalized * MaxVelocity;
+
+        var steering = desiredVelocity - velocity;
+        steering = Vector3.ClampMagnitude(steering, MaxForce);
+        steering /= Mass;
+
+        velocity = Vector3.ClampMagnitude(velocity + steering, MaxVelocity);
+        transform.position += velocity * Time.deltaTime;
+        transform.forward = velocity.normalized;
+
+        Debug.DrawRay(transform.position, velocity.normalized * 2, Color.green);
+        Debug.DrawRay(transform.position, desiredVelocity.normalized * 2, Color.magenta);
+
     }
 }

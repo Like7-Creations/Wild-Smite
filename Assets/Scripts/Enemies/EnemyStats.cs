@@ -7,7 +7,10 @@ using UnityEngine.UI;
 public class EnemyStats : MonoBehaviour
 {
     public UltimateAI thisEnemy;
+    float myMaxHealth;
     public EnemyStatRange ESR;
+    public Image HealthBar;
+    public Canvas canvas;
 
     public float Health {get; private set;}
     public float Speed {get; private set;}
@@ -22,16 +25,14 @@ public class EnemyStats : MonoBehaviour
     void Start()
     {
         thisEnemy = GetComponent<UltimateAI>();
-        GenerateStatValues();
-        AllocateStats();
+        myMaxHealth = thisEnemy.health;
     }
 
     void Update()
-    {
-        //Debug.Log(thisInt);
-        //float thisInt = thisEnemy.health / 200f;
-       // HealthBar.fillAmount = (float)thisInt;
-       // AllocateStats();
+    { 
+        float thisInt = thisEnemy.health / myMaxHealth;
+        HealthBar.fillAmount = (float)thisInt;
+        canvas.transform.LookAt(Camera.main.transform);
     }
 
     public void AllocateStats()
@@ -50,18 +51,24 @@ public class EnemyStats : MonoBehaviour
             thisEnemy.Defence = RDEF;
             thisEnemy.reloadTime = RCDN;
         }
+        if (thisEnemy.type == UltimateAI.Type.Tank)
+        {
+            
+        }
+
     }
 
-    void GenerateStatValues()
-    {
-        Health = ESR.AllocateStats(ESR.Health);
-        Speed = ESR.AllocateStats(ESR.SPD);
-        MATK = ESR.AllocateStats(ESR.MATK);
-        MDEF = ESR.AllocateStats(ESR.MDEF);
-        MCDN = ESR.AllocateStats(ESR.MCDN);
-        RATK = ESR.AllocateStats(ESR.RATK);
-        RDEF = ESR.AllocateStats(ESR.RDEF);
-        RCDN = ESR.AllocateStats(ESR.RCDN);
+    public void GenerateStatValues(LevelSettings.Difficulty difficulty)
+    { 
+        Health = ESR.AllocateStats(ESR.Health, difficulty);
+        Speed = ESR.AllocateStats(ESR.SPD, difficulty);
+        MATK = ESR.AllocateStats(ESR.MATK, difficulty);
+        MDEF = ESR.AllocateStats(ESR.MDEF, difficulty);
+        MCDN = ESR.AllocateStats(ESR.MCDN, difficulty);
+        RATK = ESR.AllocateStats(ESR.RATK, difficulty);
+        RDEF = ESR.AllocateStats(ESR.RDEF, difficulty);
+        RCDN = ESR.AllocateStats(ESR.RCDN, difficulty);
+        AllocateStats();
     }
 
    /* public float AllocateStats(Vector2 valu)

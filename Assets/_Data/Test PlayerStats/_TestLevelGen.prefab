@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4572552298763588315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4572552298763588317}
+  - component: {fileID: 4572552298763588314}
+  m_Layer: 0
+  m_Name: _TestLevelGen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4572552298763588317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572552298763588315}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4572552298763588314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572552298763588315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6626a6e366a9c48a48525cde4050d0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Seed: 0
+  SectionContainer: {fileID: 0}
+  MaxLevelSize: 6
+  MaxAllowedOrder: 15
+  Sections:
+  - {fileID: 2616845317744784812, guid: d1b88c12250f05340a08edd6d55a222c, type: 3}
+  - {fileID: 2353418394730971761, guid: 640b595b8c96fdc4eb20962892b028bc, type: 3}
+  - {fileID: 8144228862662897575, guid: 687135e9d8e135e4eb02b44fab4ef47e, type: 3}
+  - {fileID: 2441034141426471599, guid: c125c73be2ad6d846931f51fcc794ca7, type: 3}
+  - {fileID: 2250680632096175135, guid: 090b12977c2d2024da47448ee2996be6, type: 3}
+  - {fileID: 8239310130909259591, guid: 0b4c83b34f6c6844c8029f59697d325d, type: 3}
+  - {fileID: 1101207238761824234, guid: 5ef3d0934407e5041bc8531cb9a4de27, type: 3}
+  - {fileID: 840107702613530660, guid: 7abc3a167a0a5db44855276824dd9a17, type: 3}
+  DeadEnds:
+  - {fileID: 2747254908216096421, guid: 43b9c202640146f4e984470e042e23c5, type: 3}
+  InitialSectionTags:
+  - Start
+  SpecialRules:
+  - Tag: Start
+    MinAmount: 1
+    MaxAmount: 1

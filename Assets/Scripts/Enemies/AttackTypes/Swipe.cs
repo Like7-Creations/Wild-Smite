@@ -8,6 +8,8 @@ public class Swipe : Attack
 {
     List<PlayerActions> playersInArea;
     public HitArea Hitarea;
+    public float knockBackStr;
+    public float knockBacktime;
 
     public override void Start()
     {
@@ -17,7 +19,7 @@ public class Swipe : Attack
 
     public override void AttackType()
     {
-        Debug.Log("Swipe Attack");
+        //Debug.Log("Swipe Attack");
         ultimateAI.anim.SetTrigger("Swipe");
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, Hitarea.Radius);
@@ -49,8 +51,12 @@ public class Swipe : Attack
             playersInArea = playersInArea.Distinct().ToList();
             for (int i = 0; i < playersInArea.Count; i++)
             {
-                Debug.Log($"{playersInArea[i]} Got Hit");
-                playersInArea[i].health -= 10;
+                // Debug.Log($"{playersInArea[i]} Got Hit");
+                vfx.GetComponent<Tank_VFXHandler>().SwipeVFX();
+                playersInArea[i].TakeDamage(ultimateAI.damageToDeal, transform.forward);
+                StartCoroutine(playersInArea[i].Mover(knockBackStr, knockBacktime, transform.forward));
+                vfx.GetComponent<Tank_VFXHandler>().SwipeVFX();
+                //playersInArea[i].health -= 10;
             }
         }
         
@@ -62,18 +68,18 @@ public class Swipe : Attack
         if (Hitarea.enemyFound)
         {
             Color c = new Color(0f, 0, 1, 0.4f);
-            UnityEditor.Handles.color = c;
+            //UnityEditor.Handles.color = c;
         }
         else
         {
             Color c = new Color(0.8f, 0, 0, 0.4f);
-            UnityEditor.Handles.color = c;
+           // UnityEditor.Handles.color = c;
         }
         Vector3 rotatedForward = Quaternion.Euler(0,
          -Hitarea.Direction * 0.5f,
          0) * transform.forward;
 
-        UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, Hitarea.Angle, Hitarea.Radius);
+       // UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, Hitarea.Angle, Hitarea.Radius);
         
     }
 }

@@ -12,7 +12,8 @@ public class Homing : Attack
     [SerializeField] bool aiming;
     public override void AttackType()
     {
-        Debug.Log("Homing Attack Happened");
+        //Debug.Log("Homing Attack Happened");
+        ultimateAI.anim.SetTrigger("Homing");
         StartCoroutine(thisAttack());
     }
 
@@ -25,11 +26,9 @@ public class Homing : Attack
     {
         aiming = true;
         yield return new WaitForSeconds(AimTime);
-        Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 5f, ForceMode.Impulse);
-        //rb.GetComponent<HomingBullet>().speed = speed;
-        aiming= false;
-        //rb.GetComponent<Transform>().position = Vector3.MoveTowards(ultimateAI.shooter.transform.position, ultimateAI.player.position, speed * Time.deltaTime);
+        GameObject rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<GameObject>();
+        rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
+        aiming = false;
         yield return new WaitForSeconds(5);
     }
 }

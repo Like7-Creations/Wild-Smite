@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,16 +11,17 @@ public class PlayerControl : MonoBehaviour
     PlayerActions pActions;
     PlayerMovement pMovement;
 
+    public Renderer[] matMeshes;
 
-    private void Start()
+    private void Awake()
     {
         pMovement = GetComponent<PlayerMovement>();
         pActions = GetComponent<PlayerActions>();
+
     }
 
     void Update()
     {
-        // pActions.aim = controls.Player.Rotation.ReadValue<Vector2>();
         pActions.Rotation();
     }
 
@@ -28,8 +30,8 @@ public class PlayerControl : MonoBehaviour
         //Dashing
         if (context.action.name == controls.Player.Dash.name && context.performed)
         {
-            Debug.Log("Dashing Called");
-            StartCoroutine(pActions.Dashing());
+            pActions.Dash();
+            //StartCoroutine(pActions.Dashing());
         }
 
         //Player Movement
@@ -43,17 +45,27 @@ public class PlayerControl : MonoBehaviour
         //Melee Attack
         if (context.action.name == controls.Player.Attack.name && context.performed)
         {
-            Debug.Log("Attack Called");
             pActions.Attack();
         }
 
-        // GamePad RangeAttack
-        if (context.action.name == controls.Player.Rotation.name && context.performed)
+        // GamePad Rotation
+        /* if (context.action.name == controls.Player.Rotation.name && context.performed)
+         {
+             //pActions.shooting = true;
+         }
+
+         if (context.action.name == controls.Player.Rotation.name && context.canceled)
+         {
+             //pActions.shooting = false;
+         }*/
+
+        //GamePad Range Attack
+        if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
         {
             pActions.shooting = true;
         }
 
-        if (context.action.name == controls.Player.Rotation.name && context.canceled)
+        if (context.action.name == controls.Player.GamePadRangeAttack.name && context.canceled)
         {
             pActions.shooting = false;
         }
@@ -62,31 +74,41 @@ public class PlayerControl : MonoBehaviour
         if (context.action.name == controls.Player.RangeAttack.name && context.performed)
         {
             pActions.shooting = true;
+            pActions.mouseShooting = true;
         }
         if (context.action.name == controls.Player.RangeAttack.name && context.canceled)
         {
             pActions.shooting = false;
+            pActions.mouseShooting = false;
         }
-        
+
         // AOE
         if (context.action.name == controls.Player.AreaOfEffect.name && context.performed)
         {
-            Debug.Log("AOE Called");
-            pActions.AOE();
+            pActions.charging = true;
+        }
+
+        if (context.action.name == controls.Player.AreaOfEffect.name && context.canceled)
+        {
+            pActions.AOE(pActions.pStats.aoe_Tap);
         }
 
         // Sprinting
         if (context.action.name == controls.Player.Sprinting.name && context.performed)
         {
-            Debug.Log("sprinting Called");
-           // pMovement.animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
             pActions.Sprint();
         }
         if (context.action.name == controls.Player.Sprinting.name && context.canceled)
         {
-            Debug.Log("unsprint Called");
-            //pMovement.animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
             pActions.UnSprint();
+        }
+
+        // Pause Game
+        if (context.action.name == controls.Player.PauseGame.name && context.performed)
+        {
+            PauseMenuController pause = FindObjectOfType<PauseMenuController>();
+            if (pause != null)
+                pause.PauseGame(playerConfig);
         }
     }
 
@@ -94,9 +116,16 @@ public class PlayerControl : MonoBehaviour
     {
         playerConfig = pc;
         controls = new PlayerControls();
+        GetComponent<PlayerStats>().SetData(pc.playerStats);
         pActions = GetComponent<PlayerActions>();
         playerConfig.Input.onActionTriggered += OnInputAction;
         //playerMesh.material = pc.PlayerMat;
+        if (matMeshes.Length > 0)
+            for (int i = 0; i < matMeshes.Length; i++)
+                matMeshes[i].material = playerConfig.PlayerMat;
+
+        if (FindObjectOfType<Dynamic_SplitScreen>() != null)
+            FindObjectOfType<Dynamic_SplitScreen>().AddPlayer(this.gameObject, playerConfig.PlayerIndex);
     }
 
     public PlayerConfig GetConfig()
@@ -104,7 +133,7 @@ public class PlayerControl : MonoBehaviour
         return playerConfig;
     }
 
-    public PlayerControls GetControls() 
+    public PlayerControls GetControls()
     {
         return controls;
     }

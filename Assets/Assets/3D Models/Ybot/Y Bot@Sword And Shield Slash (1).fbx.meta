@@ -41,7 +41,7 @@ ModelImporter:
       name: Sword And Shield Second
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 35
+      firstFrame: 23
       lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
@@ -52,16 +52,23 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0
+        functionName: testTrue
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.042183623
         functionName: EnableCollider
         data: 
@@ -83,8 +90,15 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9727047
+      - time: 0.9036258
         functionName: FinishAni
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.97039473
+        functionName: testfalse
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: b141f0356c07151428e776fc1d0832bf, type: 3}
         floatParameter: 0
