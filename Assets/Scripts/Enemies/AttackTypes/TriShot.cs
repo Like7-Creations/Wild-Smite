@@ -8,18 +8,19 @@ public class TriShot : Attack
     [SerializeField] GameObject Bullet;
     [SerializeField] float interval;
     [SerializeField] float offsetAngle;
-    public override void AttackType()
+    public override IEnumerator AttackType()
     {
-        // Debug.Log("Trishot");
-        // set animatioon trigger here
-        StartCoroutine(triShot());
-
-    }
-
-    IEnumerator triShot()
-    {
-        vfx.attackIndicationVFX.Play();
-        yield return new WaitForSeconds(0.5f);
+        if (vfx.isEnabled)
+        {
+            vfx.attackIndicationVFX.Play();
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Range_SFXHandler>();
+            var clip = obj.triShotSFX[Random.Range(0, obj.triShotSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
         ultimateAI.anim.SetTrigger("Trishot");
         for (int i = 0; i < 3; i++)
         {
@@ -36,5 +37,6 @@ public class TriShot : Attack
                 rb.AddForce(ultimateAI.shooter.transform.right * -offsetAngle, ForceMode.Impulse);
             }
         }
+
     }
 }

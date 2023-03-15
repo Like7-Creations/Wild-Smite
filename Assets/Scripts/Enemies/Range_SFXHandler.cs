@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Range_SFXHandler : MonoBehaviour
+public class Range_SFXHandler : Enemy_SFXHandler
 {
-    [SerializeField] AudioClip singleShotSFX;
+    [SerializeField] public AudioClip[] singleShotSFX;
+                            
+    [SerializeField] public AudioClip[] triShotSFX;
 
-    [SerializeField] AudioClip triShotSFX;
-
-    [SerializeField] AudioClip homingSFX;
+    [SerializeField] public AudioClip[] homingSFX;
 }

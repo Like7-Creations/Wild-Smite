@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Melee_SFXHandler : MonoBehaviour
+public class Melee_SFXHandler : Enemy_SFXHandler
 {
-    [SerializeField] AudioClip swingSFX;
-    
-    [SerializeField] AudioClip spinSFX;
-    
-    [SerializeField] AudioClip jabSFX;
+    [SerializeField] public AudioClip[] swingSFX;
+                     
+    [SerializeField] public AudioClip[] spinSFX;
+                     
+    [SerializeField] public AudioClip[] jabSFX;
 }

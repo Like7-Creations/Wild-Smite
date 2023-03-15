@@ -17,9 +17,22 @@ public class Swipe : Attack
         playersInArea = new List<PlayerActions>();
     }
 
-    public override void AttackType()
+    public override IEnumerator AttackType()
     {
         //Debug.Log("Swipe Attack");
+        if (vfx.isEnabled)
+        {
+            //vfx
+            vfx.attackIndicationVFX.Play();
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+        if (sfx.isEnabled)
+        {
+            // sfx 
+            var obj = GetComponent<Tank_SFXHandler>();
+            var clip = obj.swipeSFX[Random.Range(0, obj.swipeSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
         ultimateAI.anim.SetTrigger("Swipe");
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, Hitarea.Radius);
@@ -52,10 +65,16 @@ public class Swipe : Attack
             for (int i = 0; i < playersInArea.Count; i++)
             {
                 // Debug.Log($"{playersInArea[i]} Got Hit");
-                vfx.GetComponent<Tank_VFXHandler>().SwipeVFX();
+                if (vfx.isEnabled)
+                {
+                    vfx.GetComponent<Tank_VFXHandler>().SwipeVFX();//vfx
+                }
                 playersInArea[i].TakeDamage(ultimateAI.damageToDeal, transform.forward);
                 StartCoroutine(playersInArea[i].Mover(knockBackStr, knockBacktime, transform.forward));
-                vfx.GetComponent<Tank_VFXHandler>().SwipeVFX();
+                if (vfx.isEnabled)
+                {
+                    vfx.GetComponent<Tank_VFXHandler>().SwipeVFX();//vfx
+                }
                 //playersInArea[i].health -= 10;
             }
         }

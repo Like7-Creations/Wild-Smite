@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Enemy_SFXHandler : MonoBehaviour
 {
-    [SerializeField] AudioClip playerDetectedSFX;
+    public bool isEnabled;
 
-    [SerializeField] AudioClip enemyAttackIndicatorSFX;
+    [SerializeField] public AudioClip[] playerDetectedSFX;
 
-    [SerializeField] AudioClip enemyHitSFX;
-
-    [SerializeField] AudioClip enemyDestroyedSFX;
+    [SerializeField] public AudioClip[] enemyAttackIndicatorSFX;
+                      
+    [SerializeField] public AudioClip[] enemyHitSFX;
+                      
+    [SerializeField] public AudioClip[] enemyDestroyedSFX;
 
     //AudioClip enemyFootSteps;
 }

@@ -13,9 +13,14 @@ public class Gatling : Attack
 
     public GameObject Bullet;
 
-    public override void AttackType()
+    public override IEnumerator AttackType()
     {
-        StartCoroutine(gatling());
+        if (vfx.isEnabled)
+        {
+            vfx.attackIndicationVFX.Play();
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+        abilityActivated = true;
     }
 
     public override void Update()
@@ -31,6 +36,12 @@ public class Gatling : Attack
                     Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
                     rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
                     rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
+                    if (sfx.isEnabled)
+                    {
+                        var obj = GetComponent<Boss_SFXHandler>();
+                        var clip = obj.gatlingSFX[Random.Range(0, obj.gatlingSFX.Length)];
+                        audioSource.PlayOneShot(clip);
+                    }
                     delayTimer = 0;
                 }
             }
@@ -40,12 +51,5 @@ public class Gatling : Attack
                 durationTimer = 0;
             }
         }
-    }
-
-    IEnumerator gatling()
-    {
-        vfx.attackIndicationVFX.Play();
-        yield return new WaitForSeconds(0.5f);
-        abilityActivated = true;
     }
 }

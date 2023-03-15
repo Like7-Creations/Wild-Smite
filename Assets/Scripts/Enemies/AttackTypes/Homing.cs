@@ -6,30 +6,26 @@ using UnityEngine;
 public class Homing : Attack
 {
     [SerializeField] GameObject Bullet;
-    [SerializeField] float AimTime;
     [SerializeField] float speed;
     [SerializeField] LineRenderer lr;
-    [SerializeField] bool aiming;
-    public override void AttackType()
+    public override IEnumerator AttackType()
     {
         //Debug.Log("Homing Attack Happened");
+        if (vfx.isEnabled)
+        {
+            vfx.attackIndicationVFX.Play();
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Range_SFXHandler>();
+            var clip = obj.homingSFX[Random.Range(0, obj.homingSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
         ultimateAI.anim.SetTrigger("Homing");
-        StartCoroutine(thisAttack());
-    }
-
-    public override void Update()
-    {
-        
-    }
-
-    IEnumerator thisAttack()    
-    {
-        aiming = true;
-        vfx.attackIndicationVFX.Play();
-        yield return new WaitForSeconds(AimTime);
         GameObject rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<GameObject>();
         rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
-        aiming = false;
         yield return new WaitForSeconds(5);
     }
 }

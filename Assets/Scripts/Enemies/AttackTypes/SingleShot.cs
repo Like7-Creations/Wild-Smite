@@ -6,19 +6,20 @@ public class SingleShot : Attack
 {
     [SerializeField] GameObject Bullet;
     [SerializeField] ParticleSystem attackIndication;
-    public override void AttackType()
-    {
-        //Debug.Log("SingleShot");
-        StartCoroutine(singleShot());
-    }
 
-    IEnumerator singleShot()
+    public override IEnumerator AttackType()
     {
-        if(vfx.enabled)
+        if (vfx.isEnabled)
         {
             vfx.attackIndicationVFX.Play();
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Range_SFXHandler>();
+            var clip = obj.singleShotSFX[Random.Range(0, obj.singleShotSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
         ultimateAI.anim.SetTrigger("SingleShot");
         Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 10f, ForceMode.Impulse);

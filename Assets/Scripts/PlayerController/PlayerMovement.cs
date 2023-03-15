@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     [HideInInspector] public CharacterController controller;
     [HideInInspector] public Vector3 refer;
-    
+    public Vector3 dot;
+
     [HideInInspector] public Animator animator;
     PlayerActions PA;
     PlayerControl Pc;
@@ -65,55 +66,68 @@ public class PlayerMovement : MonoBehaviour
         refer = direction;
         float targetangle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
-       // controller.Move(new Vector3(0, -9.81f, 0));
+        // controller.Move(new Vector3(0, -9.81f, 0));
         if (direction != Vector3.zero)
         {
-            if (!PA.shooting) 
+            if (!PA.shooting)
             {
                 transform.rotation = Quaternion.Euler(0, angle, 0f);
             }
 
             Vector3 moveDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
             PA.Dashdir = moveDir; // this is for dash to Make the player dash to their forward
-            
+
             Vector3 backDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.back;
             PA.knockBackDir = backDir; // This is  for the knockback when the player gets hit.
-            
-            controller.Move(moveDir.normalized * playerSpeed * Time.deltaTime);
 
+            controller.Move(moveDir.normalized * playerSpeed * Time.deltaTime);
+            animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
 
             //VFX Walk
             PA.trigger_walkVFX.Invoke();
             //VFX Walk
 
+            Vector3 lookDirection = transform.forward;
+            dot = controller.velocity;
+
+            
+
 
             if (PA.isSprinting)
             {
-                animator.SetFloat("X", 1f, 0.05f, Time.deltaTime);
+                animator.SetBool("Sprinting", PA.isSprinting);
                 //InvokeRepeating("lostStamina", 1f, 1);
-            }else animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
+            }
+            else animator.SetBool("Sprinting", PA.isSprinting);
 
 
         }
-        else animator.SetFloat("X", 0f, 0.05f, Time.deltaTime);
-
-      /*  if(cam != null) 
-        { 
-            camForward = Vector3.Scale(cam.transform.up, new Vector3(1, 0, 1)).normalized;
-            move = movementInput.y * camForward + movementInput.x * cam.transform.right;
-        }
-        if(move.magnitude > 1)
+        else
         {
-            move.Normalize();
-        }*/
+            animator.SetFloat("X", 0f, 0.05f, Time.deltaTime);
+            animator.SetBool("Sprinting", false);
+        }
+
+        /*  if(cam != null) 
+          { 
+              camForward = Vector3.Scale(cam.transform.up, new Vector3(1, 0, 1)).normalized;
+              move = movementInput.y * camForward + movementInput.x * cam.transform.right;
+          }
+          if(move.magnitude > 1)
+          {
+              move.Normalize();
+          }*/
 
         //Move(move);
 
-        if(PA.shooting) 
+        float forwardDirection = Vector3.Dot(transform.forward, new Vector3(direction.x, 0, direction.z));
+        float rightDirection = Vector3.Dot(transform.right, new Vector3(direction.x, 0f, direction.z));
+        if (PA.shooting)
         {
             //transform.LookAt(PA.playerLookDir);
-            animator.SetFloat("X", movementInput.x);
-            animator.SetFloat("Y", movementInput.y);
+
+            animator.SetFloat("X", rightDirection);
+            animator.SetFloat("Y", forwardDirection);
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -166,5 +180,11 @@ public class PlayerMovement : MonoBehaviour
         {
             onMove(obj);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position , transform.position + dot.normalized);
     }
 }

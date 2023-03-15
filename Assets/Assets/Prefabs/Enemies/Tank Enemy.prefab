@@ -35551,6 +35551,7 @@ GameObject:
   - component: {fileID: 5493125859887787559}
   - component: {fileID: 5493125859887787576}
   - component: {fileID: 8545064123555083391}
+  - component: {fileID: 1598651050213541792}
   m_Layer: 0
   m_Name: Tank Enemy
   m_TagString: Untagged
@@ -35915,6 +35916,9 @@ MonoBehaviour:
   ultimateAI: {fileID: 0}
   fov: {fileID: 0}
   vfx: {fileID: 0}
+  sfx: {fileID: 0}
+  audioSource: {fileID: 0}
+  timeToAttackAfterIndicator: 0
   Radius: 5
   smashPos: {fileID: 7382290505005235210}
   test: 5
@@ -35933,6 +35937,9 @@ MonoBehaviour:
   ultimateAI: {fileID: 0}
   fov: {fileID: 0}
   vfx: {fileID: 0}
+  sfx: {fileID: 0}
+  audioSource: {fileID: 0}
+  timeToAttackAfterIndicator: 0
   interval: 0.3
   Bullet: {fileID: 1727315057190060267, guid: f827344868c7a2441b0721019d1d3a54, type: 3}
 --- !u!114 &5493125859887787559
@@ -35950,6 +35957,9 @@ MonoBehaviour:
   ultimateAI: {fileID: 0}
   fov: {fileID: 0}
   vfx: {fileID: 0}
+  sfx: {fileID: 0}
+  audioSource: {fileID: 0}
+  timeToAttackAfterIndicator: 0
   NoOfSpawns: 3
   prefabsToSpawn:
   - {fileID: 5577086592835663258, guid: f4a0523f0dc22ee49b95150a55d2916f, type: 3}
@@ -35969,6 +35979,9 @@ MonoBehaviour:
   ultimateAI: {fileID: 0}
   fov: {fileID: 0}
   vfx: {fileID: 0}
+  sfx: {fileID: 0}
+  audioSource: {fileID: 0}
+  timeToAttackAfterIndicator: 0
   Hitarea:
     Direction: 180
     Angle: 180
@@ -35996,6 +36009,27 @@ MonoBehaviour:
   swipe_VFX: {fileID: 2274745003927214361}
   shoot_VFX: {fileID: 5044907679916003706}
   smash_VFX: {fileID: 6589526254329492965}
+--- !u!114 &1598651050213541792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5493125859887787577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3e59e1a6d89994283341e69fc28ada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnabled: 0
+  playerDetectedSFX: []
+  enemyAttackIndicatorSFX: []
+  enemyHitSFX: []
+  enemyDestroyedSFX: []
+  smashSFX: []
+  shootSFX: []
+  summonSFX: []
+  swipeSFX: []
 --- !u!1 &5496423314102126952
 GameObject:
   m_ObjectHideFlags: 0
@@ -47602,13 +47636,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac92dc47edab613468d13e19946e42dd, type: 3}
---- !u!198 &8625708307554821218 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1989864879466291115, guid: ac92dc47edab613468d13e19946e42dd, type: 3}
-  m_PrefabInstance: {fileID: 7793980058349992905}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8625708307554821216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1989864879466291113, guid: ac92dc47edab613468d13e19946e42dd, type: 3}
+  m_PrefabInstance: {fileID: 7793980058349992905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8625708307554821218 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1989864879466291115, guid: ac92dc47edab613468d13e19946e42dd, type: 3}
   m_PrefabInstance: {fileID: 7793980058349992905}
   m_PrefabAsset: {fileID: 0}
