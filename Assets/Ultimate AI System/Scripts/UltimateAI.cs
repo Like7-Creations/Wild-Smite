@@ -344,6 +344,7 @@ namespace Ultimate.AI
 		//Anmar Edits----
 		float Timer;
 		float battleTimer;
+		bool isOrbiting;
 		PlayerStats hitPlayer;
 		Enemy_VFXHandler vfx;
         //------
