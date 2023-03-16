@@ -17,9 +17,20 @@ public class Smash : Attack
         base.Start();
     }
 
-    public override void AttackType()
+    public override IEnumerator AttackType()
     {
-       // Debug.Log("Smash Attack");
+        // Debug.Log("Smash Attack");
+        if (vfx.isEnabled)
+        {
+            vfx.attackIndicationVFX.Play();
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Tank_SFXHandler>();
+            var clip = obj.smashSFX[Random.Range(0, obj.smashSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
         ultimateAI.anim.SetTrigger("Smash");
         targetHit = smashPos.position;
         Collider[] hits;
@@ -31,14 +42,19 @@ public class Smash : Attack
                 PlayerActions player = c.GetComponent<PlayerActions>();
                 //player.health -= 10;
                 GetComponent<Animator>().SetTrigger("Smash");
-                vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
+                if (vfx.isEnabled)
+                {
+                    vfx.GetComponent<Tank_VFXHandler>().SmashVFX();//vfx
+                }
                 player.TakeDamage(10, transform.forward);
                 //player.GetComponent<PlayerMovement>().knockUp();
             }
         }
-        vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
+        if (vfx.isEnabled)
+        {
+            vfx.GetComponent<Tank_VFXHandler>().SmashVFX();//vfx
+        }
 
-        //yield return new WaitForSeconds(ultimateAI.attackRate);
     }
 
     public void Update()

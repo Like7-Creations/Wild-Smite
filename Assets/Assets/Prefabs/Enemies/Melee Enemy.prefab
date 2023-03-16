@@ -21081,6 +21081,7 @@ GameObject:
   - component: {fileID: 5577086592835663252}
   - component: {fileID: 5577086592835663259}
   - component: {fileID: 9087787648231889672}
+  - component: {fileID: 8597790562206054284}
   m_Layer: 0
   m_Name: Melee Enemy
   m_TagString: Untagged
@@ -21273,8 +21274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players: []
-  moveSpeed: 10.6
-  chaseRange: 4.75
+  moveSpeed: 12
+  chaseRange: 12.7
   idlingDuration: 2.2
   attackRange: 1
   wanderRange: 3.82
@@ -21375,7 +21376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341fa5375f86fb14496ed05cf9c9aada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 4.75
+  viewRadius: 12.7
   viewAngle: 360
   targetMask:
     serializedVersion: 2
@@ -21394,16 +21395,16 @@ NavMeshAgent:
   m_GameObject: {fileID: 5577086592835663258}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 10.6
-  m_Acceleration: 13.25
-  avoidancePriority: 50
+  m_Radius: 2
+  m_Speed: 12
+  m_Acceleration: 15
+  avoidancePriority: 0
   m_AngularSpeed: 10
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.5
+  m_Height: 1.88
   m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -21442,6 +21443,9 @@ MonoBehaviour:
   ultimateAI: {fileID: 0}
   fov: {fileID: 0}
   vfx: {fileID: 0}
+  sfx: {fileID: 0}
+  audioSource: {fileID: 0}
+  timeToAttackAfterIndicator: 0
 --- !u!114 &5577086592835663252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21457,6 +21461,9 @@ MonoBehaviour:
   ultimateAI: {fileID: 0}
   fov: {fileID: 0}
   vfx: {fileID: 0}
+  sfx: {fileID: 0}
+  audioSource: {fileID: 0}
+  timeToAttackAfterIndicator: 0
 --- !u!114 &5577086592835663259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21472,6 +21479,9 @@ MonoBehaviour:
   ultimateAI: {fileID: 0}
   fov: {fileID: 0}
   vfx: {fileID: 0}
+  sfx: {fileID: 0}
+  audioSource: {fileID: 0}
+  timeToAttackAfterIndicator: 0
   noOfAttacks: 3
   TimeBetweenAttacks: 0.1
 --- !u!114 &9087787648231889672
@@ -21493,6 +21503,26 @@ MonoBehaviour:
   jab_VFX: {fileID: 2445944492551082545}
   swing_VFX: {fileID: 2922454688162297188}
   spin_VFX: {fileID: 4676321263982231429}
+--- !u!114 &8597790562206054284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5577086592835663258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba25d018ae678947907a22ee52b3a03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnabled: 0
+  playerDetectedSFX: []
+  enemyAttackIndicatorSFX: []
+  enemyHitSFX: []
+  enemyDestroyedSFX: []
+  swingSFX: []
+  spinSFX: []
+  jabSFX: []
 --- !u!1 &5665990092895934145
 GameObject:
   m_ObjectHideFlags: 0
@@ -27594,14 +27624,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 298e35e1ee3473c4e912a640721ca78f, type: 3}
---- !u!4 &2366932363131387972 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3202232202191565092, guid: 298e35e1ee3473c4e912a640721ca78f, type: 3}
-  m_PrefabInstance: {fileID: 912424541695996256}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &6588273900103790346 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6325258938514841194, guid: 298e35e1ee3473c4e912a640721ca78f, type: 3}
+  m_PrefabInstance: {fileID: 912424541695996256}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2366932363131387972 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3202232202191565092, guid: 298e35e1ee3473c4e912a640721ca78f, type: 3}
   m_PrefabInstance: {fileID: 912424541695996256}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2152191822405958510
@@ -27819,14 +27849,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ca8b1962663b68478ae2db9a2061a5a, type: 3}
---- !u!4 &2673793066422480953 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1126636038848830346, guid: 9ca8b1962663b68478ae2db9a2061a5a, type: 3}
-  m_PrefabInstance: {fileID: 3078673388714027955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &2902129284227013700 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 216113509537380343, guid: 9ca8b1962663b68478ae2db9a2061a5a, type: 3}
+  m_PrefabInstance: {fileID: 3078673388714027955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2673793066422480953 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1126636038848830346, guid: 9ca8b1962663b68478ae2db9a2061a5a, type: 3}
   m_PrefabInstance: {fileID: 3078673388714027955}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5673960157786787731
@@ -28009,13 +28039,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3961c334f9aa6b84a8cce767a2927064, type: 3}
---- !u!198 &4638261291299300590 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4177001466918734277, guid: 3961c334f9aa6b84a8cce767a2927064, type: 3}
-  m_PrefabInstance: {fileID: 8766778555996368171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2795254349404456111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6873451396137658756, guid: 3961c334f9aa6b84a8cce767a2927064, type: 3}
+  m_PrefabInstance: {fileID: 8766778555996368171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4638261291299300590 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4177001466918734277, guid: 3961c334f9aa6b84a8cce767a2927064, type: 3}
   m_PrefabInstance: {fileID: 8766778555996368171}
   m_PrefabAsset: {fileID: 0}

@@ -51,6 +51,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] float bulletSpeed;
     bool fired;
     [HideInInspector] public Vector2 aim;
+    [HideInInspector] public Vector2 playerLookDir;
     [HideInInspector] public bool shooting;
     [HideInInspector] public bool mouseShooting;
     float deadzone = 0.1f;
@@ -171,9 +172,12 @@ public class PlayerActions : MonoBehaviour
         if (groundPlane.Raycast(cameraRay, out raylength))
         {
             Vector3 pointToLook = cameraRay.GetPoint(raylength);
+            playerLookDir = pointToLook;
+            playerLookDir.y = 1;
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
             if (mouseShooting)
             {
+                transform.LookAt(pointToLook);
                 ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
             }
         }
@@ -539,6 +543,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (!fired)
         {
+            animator.SetLayerWeight(animator.GetLayerIndex("Shooting Layer"), 1);
             Rigidbody bullets = Instantiate(bullet, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);
             bullets.GetComponent<Destroy>().damage = pStats.r_ATK;

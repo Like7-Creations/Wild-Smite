@@ -14,13 +14,13 @@ public class ProjectileBombing : Attack
     [SerializeField] float rocketSpeed;
 
 
-    public override void AttackType()
+    public override IEnumerator AttackType()
     {
-        StartCoroutine(ProjectileBomb());
-    }
-
-    IEnumerator ProjectileBomb()
-    {
+        if (vfx.isEnabled)
+        {
+            vfx.attackIndicationVFX.Play();
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
         float gap = Vector3.Distance(startPoint.position, EndPoint.position) / amountOfProjectiles;
         Vector3 direction = (EndPoint.position - startPoint.position).normalized * gap;
         Vector3 bombPosition = startPoint.position;
@@ -31,6 +31,12 @@ public class ProjectileBombing : Attack
             rocket.GetComponent<Rigidbody>().AddForce(Vector3.down * rocketSpeed, ForceMode.Impulse);
 
             bombPosition += direction;
+            if (sfx.isEnabled)
+            {
+                var obj = GetComponent<Boss_SFXHandler>();
+                var clip = obj.projectileBombingSFX[Random.Range(0, obj.projectileBombingSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
             yield return new WaitForSeconds(fireRate);
         }
     }
