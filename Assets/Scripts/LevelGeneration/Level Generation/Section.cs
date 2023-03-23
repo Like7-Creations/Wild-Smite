@@ -31,6 +31,9 @@ namespace LevelGenerator.Scripts
             LevelGenerator.RegisterNewSection(this);
             order = sourceOrder + 1;
 
+            name = name.Replace("(Clone)", "");
+            name += " " + transform.GetSiblingIndex().ToString();
+
             GenerateAnnexes();
         }
 

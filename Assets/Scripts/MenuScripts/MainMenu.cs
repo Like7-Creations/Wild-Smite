@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
 
     public float delayTime = 2f;
+
+    /*//Farhan's Code
+    [Header("Volume Settings")]
+    [SerializeField] TMP_Text volume_ValTex = null;
+    [SerializeField] Slider volSlider = null;
+
+    [SerializeField] GameObject confirmationPrompt;
+    //Farhan's Code*/
+
 
     [Header("PlayerSelection")]
     public PlayerConfigManager playerConfigManager;
@@ -61,4 +71,29 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
         Invoke("DelayQuitGame", delayTime);
     }
+
+
+    /*//Farhan's Code
+    public void SetVolume(float volume)
+    {
+        AudioListener.volume = volume;
+        volume_ValTex.text = volume.ToString("0.0");
+    }
+
+    public void SaveSoundSettings()
+    {
+        PlayerPrefs.SetFloat("MasterVolume", AudioListener.volume);
+        StartCoroutine(ChangesConfirmed());
+    }
+
+    public IEnumerator ChangesConfirmed()
+    {
+        confirmationPrompt.SetActive(true);
+
+        yield return new WaitForSeconds(2);
+
+        confirmationPrompt.SetActive(false);
+    }
+
+    //Farhan's Code*/
 }

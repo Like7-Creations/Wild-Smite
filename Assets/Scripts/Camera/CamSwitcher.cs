@@ -23,6 +23,8 @@ public static class CamSwitcher
         if (camera.CompareTag("Player1"))
         {
             active_P1Cam = camera;
+
+            
             Debug.Log("Current Active Camera for Player 1: " + camera);
         }
         else if (camera.CompareTag("Player2"))

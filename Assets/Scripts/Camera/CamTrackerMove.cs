@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ultimate.AI;
 using UnityEngine;
 using UnityEngine.Animations;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CamTrackerMove : MonoBehaviour
 {
     #region Target Settings
     public GameObject playerTarget;
+    [SerializeField] PlayerActions pActions;
 
     [SerializeField] Vector3 targetOffset;
     Vector3 targetPos;
+
+    public List<Transform> enemyPositions;
+    [SerializeField] float enemyMinDist;
     #endregion
 
     #region SplitScreen Settings
@@ -32,34 +38,39 @@ public class CamTrackerMove : MonoBehaviour
     Vector3 velocity;
     #endregion
 
-    void IdentifyTargetPos()
+    Vector3 IdentifyTargetPos()
     {
-        //Check if there are any enemies within range
-
-        //if True
         //Grab a list of enemies from the PlayerActions script that are within range of the player.
-        //Select the two closest enemies from the player and add them to a new list.
+        foreach (UltimateAI enemy in pActions.enemiesInDot)
+        {
+            float targetDist = Vector3.Distance(enemy.transform.position, playerTarget.transform.position);
+            if (targetDist <= enemyMinDist)
+            {
+                if (enemyPositions.Count <= 2)
+                    //Select the two closest enemies from the player and add them to a new list.
+                    enemyPositions.Add(enemy.transform);
+                else
+                    break;
+            }
+        }
 
         //Idenitfy the midpoint between the two enemies and the targetPlayer.
+        Vector3 midpoint = new Vector3((playerTarget.transform.position.x + enemyPositions[0].position.x + enemyPositions[1].position.x) / 3,
+            (playerTarget.transform.position.y + enemyPositions[0].position.y + enemyPositions[1].position.y) / 3,
+            (playerTarget.transform.position.z + enemyPositions[0].position.z + enemyPositions[1].position.z) / 3);
 
         //Return the resulting Vector3 after subtracting the difference between the splitOffset and targetOffset from it.
-
-        //else
-        //Return the Vector3 after subtracting the difference between the splitOffset and targetOffset from the targetPlayer's Pos.
-
+        return midpoint - (-splitOffset);
     }
 
     Vector3 Arrival()
     {
         Vector3 desiredVel = targetPos - transform.position;
         desiredVel = desiredVel.normalized * tracker_MaxVel;
-
         float dist = Vector3.Distance(targetPos, transform.position);
-
-        if(dist<slowRadius)
+        if (dist < slowRadius)
         {
             desiredVel = desiredVel.normalized * tracker_MaxVel * (dist / slowRadius);
-
         }
         else
         {
@@ -85,23 +96,28 @@ public class CamTrackerMove : MonoBehaviour
 
         if (CompareTag("Player1"))
         {
-            isP1= true;
+            isP1 = true;
             isP2 = false;
         }
         else if (CompareTag("Player2"))
         {
-            isP2= true;
-            isP1= false;
+            isP2 = true;
+            isP1 = false;
         }
         else
         {
-            isP1= false;
-            isP2= false;
+            isP1 = false;
+            isP2 = false;
         }
     }
 
     void Update()
     {
+        if (playerTarget != null)
+        {
+            pActions = playerTarget.GetComponent<PlayerActions>();
+        }
+
         if (isP1)
         {
             splitOffset = dSplitScreen.camTrack1;
@@ -115,11 +131,23 @@ public class CamTrackerMove : MonoBehaviour
             splitOffset = Vector3.zero;
         }
 
-        targetPos = playerTarget.transform.position - (-splitOffset + targetOffset);
+        //Check if there are any enemies within range
+        if (pActions.enemiesInDot.Count >= 1)
+        {
+            //if True
+
+            targetPos = IdentifyTargetPos();
+        }
+        else
+        {
+            //Return the Vector3 after subtracting the difference between the splitOffset and targetOffset from the targetPlayer's Pos.
+            targetPos = playerTarget.transform.position - (-splitOffset + targetOffset);
+        }
 
         transform.position += Arrival();
 
         #region Failed Attempts
+
         /*if(Vector3.Distance(transform.position, target.transform.position) > maxDistFromTarget)
         {
             PlayerStats stats = target.GetComponent<PlayerStats>();

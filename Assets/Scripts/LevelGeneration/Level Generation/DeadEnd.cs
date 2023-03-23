@@ -10,6 +10,9 @@ namespace LevelGenerator.Scripts
         {
             transform.SetParent(levelGenerator.Container);
             levelGenerator.RegistrerNewDeadEnd(Bounds.Colliders);
+
+            name = name.Replace("(Clone)", "");
+            name += " " + transform.GetSiblingIndex().ToString();
         }
     }
 }
