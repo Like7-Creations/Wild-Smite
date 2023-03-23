@@ -11,6 +11,8 @@ public class Gatling : Attack
     public float delayTimer;
     bool abilityActivated;
 
+    public GameObject origin;
+
     public GameObject Bullet;
 
     public override IEnumerator AttackType()
@@ -18,6 +20,12 @@ public class Gatling : Attack
         if (vfx.isEnabled)
         {
             vfx.attackIndicationVFX.Play();
+        }
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Boss_SFXHandler>();
+            var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
+            audioSource.PlayOneShot(clip);
         }
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
         abilityActivated = true;
@@ -33,14 +41,22 @@ public class Gatling : Attack
                 delayTimer += Time.deltaTime;
                 if(delayTimer >= delayBetweenBullets) 
                 {
-                    Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-                    rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+                    GameObject rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity);
+                    rb.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
                     rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
+                    if(vfx.isEnabled)
+                    {
+                        vfx.GetComponent<Boss_VFXHandler>().GatlingVFX();
+                    }
                     if (sfx.isEnabled)
                     {
                         var obj = GetComponent<Boss_SFXHandler>();
                         var clip = obj.gatlingSFX[Random.Range(0, obj.gatlingSFX.Length)];
                         audioSource.PlayOneShot(clip);
+                    }
+                    if (vfx.isEnabled)
+                    {
+                        vfx.GetComponent<Boss_VFXHandler>().GatlingVFX();
                     }
                     delayTimer = 0;
                 }

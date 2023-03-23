@@ -54,9 +54,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        xOffset = 5.7f;
-        yOffset = 7.5f;
-        zOffset = -5.3f;
+        //xOffset = 5.7f;
+        yOffset = 13.31f;
+        zOffset = -8.2f;
         /*float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");*/
         Vector3 pos = new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, transform.position.z + zOffset);

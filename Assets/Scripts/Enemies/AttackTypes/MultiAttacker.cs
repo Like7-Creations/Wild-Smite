@@ -18,4 +18,6 @@ public class MultiAttacker : MonoBehaviour
         //StartCoroutine(attacksList[Random.Range(0, attacksList.Length)].AttackType());
         StartCoroutine(attacksList[Random.Range(0, attacksList.Length)].AttackType());       
     }
+
+    
 }

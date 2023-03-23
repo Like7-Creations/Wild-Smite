@@ -73,7 +73,7 @@ public class PlayerActions : MonoBehaviour
     public float maxRadius;
     public float chargingSpeed;
 
-    public List<UltimateAI> enemiesInDot = new List<UltimateAI>();
+    public List<EnemyStats> enemiesInDot = new List<EnemyStats>();
     PlayerControl Pc;
     PlayerControls controls;
 
@@ -138,9 +138,9 @@ public class PlayerActions : MonoBehaviour
         hits = Physics.OverlapSphere(transform.position, 5);
         foreach (Collider c in hits)
         {
-            if (c.GetComponent<UltimateAI>() != null)
+            if (c.GetComponent<EnemyStats>() != null)
             {
-                UltimateAI enemy = c.GetComponent<UltimateAI>();
+                EnemyStats enemy = c.GetComponent<EnemyStats>();
                 Vector3 player = transform.position;
                 Vector3 toEnemy = enemy.gameObject.transform.position - player;
                 toEnemy.y = 0;
@@ -173,7 +173,7 @@ public class PlayerActions : MonoBehaviour
         {
             Vector3 pointToLook = cameraRay.GetPoint(raylength);
             playerLookDir = pointToLook;
-            playerLookDir.y = 1;
+           //playerLookDir.y = 1;
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
             if (mouseShooting)
             {
@@ -242,8 +242,9 @@ public class PlayerActions : MonoBehaviour
 
     #region Player Take Damage
 
-    public void TakeDamage(float damage, Vector3 knockbackdir)
+    public void TakeDamage(float damage)
     {
+        print("Take damage called");
         if (!invincible)
         {
             if (!isAttacking)
@@ -294,10 +295,12 @@ public class PlayerActions : MonoBehaviour
         // Build One
         if (!testCombat)
         {
+            //transform.LookAt(playerLookDir);
             if (enemiesInDot.Count > 0) { transform.LookAt(GetClosestEnemy(enemiesInDot).transform); };
             //StartCoroutine(Mover(2, 0.1f, Dashdir));
             int randomNumber = UnityEngine.Random.Range(0, 2);
             int previous = randomNumber;
+
 
 
             if (!lastrands.Contains(randomNumber))
@@ -316,12 +319,12 @@ public class PlayerActions : MonoBehaviour
 
     }
 
-    UltimateAI GetClosestEnemy(List<UltimateAI> enemies)
+    EnemyStats GetClosestEnemy(List<EnemyStats> enemies)
     {
-        UltimateAI tMin = null;
+        EnemyStats tMin = null;
         float minDist = Mathf.Infinity;
         Vector3 currentPos = transform.position;
-        foreach (UltimateAI t in enemies)
+        foreach (EnemyStats t in enemies)
         {
             float dist = Vector3.Distance(t.transform.position, currentPos);
             if (dist < minDist)
@@ -369,7 +372,7 @@ public class PlayerActions : MonoBehaviour
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
                 Debug.Log("enable collider called");
-                enemiesInDot[i].TakeDamage(pStats.m_ATK, gameObject.GetComponent<PlayerStats>());
+                enemiesInDot[i].TakeDamage(pStats.m_ATK);
             }
         }
         //VFX.Melee();
@@ -425,12 +428,13 @@ public class PlayerActions : MonoBehaviour
                 chargedMELEE = pStats.m_ATK * currentCharge;
                 chargedRANGE = pStats.r_ATK * currentCharge;
             }
-            else if (currentCharge >= pStats.aoe_Hold)
+            else if (currentCharge >= pStats.aoe_Hold || chargedSTAM == pStats.stamina)
             {
                 currentCharge = pStats.aoe_Hold;
+                chargedSTAM = pStats.stamina;
             }
         }
-        else if (!charging && currentCharge > 0.11f)
+        else if (!charging && currentCharge > 0.11f || chargedSTAM == pStats.stamina)
         {
             trigger_aoeChargeVFX.Invoke();      //Disables the charging VFX
 
@@ -460,8 +464,10 @@ public class PlayerActions : MonoBehaviour
         //UnityEngine.Debug.Log("AOE attack");
 
         //trigger_aoeVFX.Invoke();        //Trigger AOE VFX
-
+      
+        
         pStats.UseSprint((int)multiplier);
+        
 
         charging = false;
     }
@@ -469,6 +475,7 @@ public class PlayerActions : MonoBehaviour
     //Event Required
     public void ReleaseAOE(float stamina, float melee, float radius)
     {
+        
         Collider[] hits;
         hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * radius);        //Use Range Stat to define AOE Radius.
         foreach (Collider c in hits)
@@ -489,10 +496,11 @@ public class PlayerActions : MonoBehaviour
 
     public void Dash()
     {
-        StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));        //Dashing stuff
-
         if (pStats.stamina > pStats.dash)
         {
+            StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));        //Dashing stuff
+
+        
             pStats.UseDash((int)pStats.dash);
         }
     }
@@ -522,6 +530,7 @@ public class PlayerActions : MonoBehaviour
     //Event Required
     public void Sprint()
     {
+        if(pStats.stamina >= pStats.sprint)
         playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
         isSprinting = true;
 

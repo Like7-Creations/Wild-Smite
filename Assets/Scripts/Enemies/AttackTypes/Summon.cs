@@ -15,12 +15,36 @@ public class Summon : Attack
         {
             vfx.attackIndicationVFX.Play();
         }
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Enemy_SFXHandler>();
+            if (obj.GetComponent<Tank_SFXHandler>() != null)
+            {
+                var clipObj = obj.GetComponent<Tank_SFXHandler>();
+                var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
+
+            if (obj.GetComponent<Boss_SFXHandler>() != null)
+            {
+                var clipObj = obj.GetComponent<Boss_SFXHandler>();
+                var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
+        }
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
 
-        ultimateAI.anim.SetTrigger("Summon");
+        //ultimateAI.anim.SetTrigger("Summon");
         if (vfx.isEnabled)
         {
-            vfx.GetComponent<Tank_VFXHandler>().SummonVFX();//vfx
+            if (vfx.GetComponent<Tank_VFXHandler>() != null) 
+            {
+                vfx.GetComponent<Tank_VFXHandler>().SummonVFX();
+            }
+            if (vfx.GetComponent<Boss_VFXHandler>() != null)
+            {
+                vfx.GetComponent<Boss_VFXHandler>().SummonVFX();
+            }
         }
         for (int i = 0; i < NoOfSpawns; i++)
         {
@@ -34,14 +58,32 @@ public class Summon : Attack
             elem.transform.Translate(new Vector3(distFromTank, 5, 0));
             if (sfx.isEnabled)
             {
-                var obj = GetComponent<Tank_SFXHandler>();
-                var clip = obj.summonSFX[Random.Range(0, obj.summonSFX.Length)];
-                audioSource.PlayOneShot(clip);
+                var obj = GetComponent<Enemy_SFXHandler>();
+                if(obj.GetComponent<Tank_SFXHandler>() != null)
+                {
+                    var clipObj = obj.GetComponent<Tank_SFXHandler>();
+                    var clip = clipObj.summonSFX[Random.Range(0, clipObj.summonSFX.Length)];
+                    audioSource.PlayOneShot(clip);
+                }
+
+                if (obj.GetComponent<Boss_SFXHandler>() != null)
+                {
+                    var clipObj = obj.GetComponent<Boss_SFXHandler>();
+                    var clip = clipObj.summonSFX[Random.Range(0, clipObj.summonSFX.Length)];
+                    audioSource.PlayOneShot(clip);
+                }
             }
         }
         if (vfx.isEnabled)
         {
-            vfx.GetComponent<Tank_VFXHandler>().SummonVFX();//vfx
+            if (vfx.GetComponent<Tank_VFXHandler>() != null)
+            {
+                vfx.GetComponent<Tank_VFXHandler>().SummonVFX();
+            }
+            if (vfx.GetComponent<Boss_VFXHandler>() != null)
+            {
+                vfx.GetComponent<Boss_VFXHandler>().SummonVFX();
+            }
         }
     }
 }

@@ -6,28 +6,26 @@ public class Swing : Attack
 {
     public override IEnumerator AttackType()
     {
-        //Debug.Log("Swing attack");
+        yield return new WaitForSeconds(0);
+        //ultimateAI.attackRange = 2;
+        //fov.viewAngle = 100;
+        // ultimateAI.anim.SetTrigger("Swing");
         if (vfx.isEnabled)
         {
-            vfx.attackIndicationVFX.Play();
+            vfx.GetComponent<Melee_VFXHandler>().swingVFX();
         }
-        yield return new WaitForSeconds(timeToAttackAfterIndicator);
-        ultimateAI.attackRange = 2;
-        fov.viewAngle = 100;
-        ultimateAI.anim.SetTrigger("Swing");
-        vfx.GetComponent<Melee_VFXHandler>().swingVFX();
         if (sfx.isEnabled) 
         {
             var obj = GetComponent<Melee_SFXHandler>();
             var clip = obj.swingSFX[Random.Range(0, obj.swingSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        for (int e = 0; e < ultimateAI.players.Count; e++)
+        for (int e = 0; e < state.players.Length; e++)
         {
-            float dist = Vector3.Distance(ultimateAI.players[e].transform.position, transform.position);
-            if (dist < ultimateAI.attackRange)
+            float dist = Vector3.Distance(state.players[e].transform.position, transform.position);
+            if (dist < stats.attackRange)
             {
-                ultimateAI.playerTakeDamage();
+                state.chosenPlayer.TakeDamage(stats.MATK);
             }
         }
         if(vfx.isEnabled)

@@ -6,6 +6,8 @@ public class Shoot : Attack
 {
     [SerializeField] float interval;
     [SerializeField] GameObject Bullet;
+    [SerializeField] GameObject origin;
+
     public override IEnumerator AttackType()
     {
         // triggert animation
@@ -13,17 +15,24 @@ public class Shoot : Attack
         {
             vfx.attackIndicationVFX.Play();
         }
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Tank_SFXHandler>();
+            var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
 
-        Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         for (int i = 0; i < 3; i++)
         {
+            Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.GetComponent<Destroy>().damage = stats.RATK;
             if (vfx.isEnabled)
             {
                 vfx.GetComponent<Tank_VFXHandler>().ShootVFX();
             }
             rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-            ultimateAI.anim.SetTrigger("Shoot");
+            //ultimateAI.anim.SetTrigger("Shoot");
             if (vfx.isEnabled)
             {
                 vfx.GetComponent<Tank_VFXHandler>().ShootVFX();

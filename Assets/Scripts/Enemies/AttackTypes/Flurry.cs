@@ -6,6 +6,7 @@ using UnityEngine;
 public class Flurry : Attack
 {
     public GameObject Bullet;
+    public GameObject origin;
     public float spinDuration;
     public float speed;
     public float fireRate;
@@ -15,6 +16,12 @@ public class Flurry : Attack
         if (vfx.isEnabled)
         {
             vfx.attackIndicationVFX.Play();
+        }
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Boss_SFXHandler>();
+            var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
+            audioSource.PlayOneShot(clip);
         }
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
         float startRotation = transform.eulerAngles.y;
@@ -27,19 +34,22 @@ public class Flurry : Attack
             time += Time.deltaTime;
             if (time > fireRate)
             {
-                Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-                rb.AddForce(ultimateAI.shooter.transform.forward * 10f, ForceMode.Impulse);
+                vfx.GetComponent<Boss_VFXHandler>().FlurryVFX();
+                Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                rb.AddForce(origin.transform.forward * 10f, ForceMode.Impulse);
                 if (sfx.isEnabled)
                 {
                     var obj = GetComponent<Boss_SFXHandler>();
                     var clip = obj.flurrySFX[Random.Range(0, obj.flurrySFX.Length)];
                     audioSource.PlayOneShot(clip);
+                    vfx.GetComponent<Boss_VFXHandler>().FlurryVFX();
                 }
                 time = 0;
             }
             t += Time.deltaTime;
             float yRotation = Mathf.Lerp(startRotation, endRotation, t / spinDuration) % 360.0f;
-            ultimateAI.shooter.transform.eulerAngles = new Vector3(ultimateAI.shooter.transform.eulerAngles.x, yRotation, ultimateAI.shooter.transform.eulerAngles.z);
+            origin.transform.eulerAngles = new Vector3(origin.transform.eulerAngles.x, yRotation, origin.transform.eulerAngles.z);
+
             yield return null;
         }
     }

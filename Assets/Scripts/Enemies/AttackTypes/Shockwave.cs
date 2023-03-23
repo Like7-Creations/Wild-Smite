@@ -17,6 +17,12 @@ public class Shockwave : Attack
         {
             vfx.attackIndicationVFX.Play();
         }
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Boss_SFXHandler>();
+            var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
         if (sfx.isEnabled)
         {
@@ -32,7 +38,7 @@ public class Shockwave : Attack
         if (begin)
         {
             radius += Time.deltaTime * expandSpeed;
-            
+            vfx.GetComponent<Boss_VFXHandler>().ShockwaveVFX();
             Collider[] hits;
             hits = Physics.OverlapSphere(transform.position, radius);
             foreach(Collider c in hits)
@@ -46,6 +52,8 @@ public class Shockwave : Attack
             if(radius >= radiusEnd)
             {
                 begin = false;
+
+                vfx.GetComponent<Boss_VFXHandler>().ShockwaveVFX();
                 reset();
             }
 

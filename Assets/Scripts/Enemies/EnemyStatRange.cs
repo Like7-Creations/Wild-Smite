@@ -51,7 +51,6 @@ public class EnemyStatRange : ScriptableObject
         float hello = diceMaxValue * numOfDice;
         float percentage = generationValue / hello;
 
-        //Debug.Log(percentage);
 
         return percentage;
     }

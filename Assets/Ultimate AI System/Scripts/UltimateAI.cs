@@ -751,7 +751,7 @@ namespace Ultimate.AI
 		public void playerTakeDamage()
 		{
 			// check if player is in range;
-            player.GetComponent<PlayerActions>().TakeDamage(damageToDeal, transform.forward);
+           // player.GetComponent<PlayerActions>().TakeDamage(damageToDeal, transform.forward);
         }
 
 		public IEnumerator Affect() //This is the function that is responsible for applying effects.
@@ -1246,7 +1246,7 @@ namespace Ultimate.AI
 		public void Die()
 		{
 			hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType);
-			hitPlayer.GetComponent<PlayerActions>().enemiesInDot.Remove(this);
+			//hitPlayer.GetComponent<PlayerActions>().enemiesInDot.Remove(this);
 			isDead = true;
 
 			moveSpeed = 0; //And both the rotation and moving speed are set to 0.
