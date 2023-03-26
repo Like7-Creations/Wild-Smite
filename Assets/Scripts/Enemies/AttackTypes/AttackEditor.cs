@@ -8,7 +8,7 @@ public class AttackEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        //DrawDefaultInspector();
+        DrawDefaultInspector();
 
         Attack attack = (Attack)target;
 

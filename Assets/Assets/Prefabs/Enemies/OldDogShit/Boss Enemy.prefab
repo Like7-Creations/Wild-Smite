@@ -46282,14 +46282,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players: []
-  moveSpeed: 10.6
-  chaseRange: 41.77
-  idlingDuration: 2.2
-  attackRange: 38.9
-  wanderRange: 3.22
+  moveSpeed: 0
+  chaseRange: 0
+  idlingDuration: 0
+  attackRange: 0
+  wanderRange: 0
   hearingRange: 0
-  lookSpeed: 10
-  renderDistance: {x: 17.29, y: 20, z: 20}
+  lookSpeed: 0
+  renderDistance: {x: 1, y: 1, z: 1}
   health: 503
   showRenderDistance: 0
   chasing: 0
@@ -46370,7 +46370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Tracked: {fileID: 5941828905020065157}
-  m_Size: {x: 17.29, y: 20, z: 20}
+  m_Size: {x: 1, y: 1, z: 1}
 --- !u!114 &5941828905020065164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46383,7 +46383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341fa5375f86fb14496ed05cf9c9aada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 41.77
+  viewRadius: 0
   viewAngle: 360
   targetMask:
     serializedVersion: 2
@@ -46403,10 +46403,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 2
-  m_Speed: 10.6
-  m_Acceleration: 13.25
+  m_Speed: 0
+  m_Acceleration: 0
   avoidancePriority: 50
-  m_AngularSpeed: 10
+  m_AngularSpeed: 0
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
