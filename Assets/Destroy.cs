@@ -35,10 +35,10 @@ public class Destroy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("collision detecteddddddddddd");
-        if (playershot & other.gameObject.GetComponent<UltimateAI>() != null)
+        if (playershot & other.gameObject.GetComponent<EnemyStats>() != null)
         {
-            UltimateAI victim = other.gameObject.GetComponent<UltimateAI>();
-            victim.TakeDamage(actions.pStats.r_ATK, actions.GetComponent<PlayerStats>());// Deal damage to the enemy
+            EnemyStats victim = other.gameObject.GetComponent<EnemyStats>();
+            victim.TakeDamage(actions.pStats.r_ATK);// Deal damage to the enemy
             destroyedVFX.transform.parent = null;
             destroyedVFX.Play();
             Destroy(gameObject);
@@ -59,17 +59,5 @@ public class Destroy : MonoBehaviour
             destroyedVFX.Play();
             Destroy(gameObject,0.05f);
         }
-        /*else
-        {
-            destroyedVFX.transform.parent = null;
-            destroyedVFX.Play();
-            Destroy(gameObject, timer);
-        }*/
-
-        /*if(other.gameObject.GetComponent<UltimateAI>() == null & playershot)
-        {
-            Destroy(gameObject);
-        }*/
-
     }
 }

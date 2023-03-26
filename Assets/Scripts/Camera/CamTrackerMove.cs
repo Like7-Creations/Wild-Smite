@@ -41,7 +41,7 @@ public class CamTrackerMove : MonoBehaviour
     Vector3 IdentifyTargetPos()
     {
         //Grab a list of enemies from the PlayerActions script that are within range of the player.
-        foreach (UltimateAI enemy in pActions.enemiesInDot)
+        foreach (EnemyStats enemy in pActions.enemiesInDot)
         {
             float targetDist = Vector3.Distance(enemy.transform.position, playerTarget.transform.position);
             if (targetDist <= enemyMinDist)

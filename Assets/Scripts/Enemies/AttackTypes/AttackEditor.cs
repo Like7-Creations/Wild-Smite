@@ -8,13 +8,13 @@ public class AttackEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        //DrawDefaultInspector();
 
-        Attack swipe = (Attack)target;
-        
-        if(GUILayout.Button("Activate Attack"))
+        Attack attack = (Attack)target;
+
+        if (GUILayout.Button("Activate Attack"))
         {
-            swipe.StartCoroutine(swipe.AttackType());
+            attack.StartCoroutine(attack.AttackType());
         }
     }
 }

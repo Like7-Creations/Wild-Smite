@@ -16,6 +16,17 @@ public class Spawner : MonoBehaviour
     LevelData currentLevel;
     LevelSettings.Difficulty currentDifficulty;
 
+    SpawnPositions[] roomSpawns;
+
+    List<SpawnPositions> enemySpawns = new List<SpawnPositions>();
+
+    List<SpawnPositions> ItemSpawns = new List<SpawnPositions>();
+
+    [Range(0, 100)]
+    public float enemyPercentage;
+    [Range(0, 100)]
+    public float ItemPercentage;
+
     float timer;
     bool test;
 
@@ -24,6 +35,8 @@ public class Spawner : MonoBehaviour
         //test = true;
         currentLevel = levelSettings.GetSelectedLevel();
         currentDifficulty = levelSettings.GetDifficulty();
+
+
 
         for (int i = 0; i < possibleEnemies.Length; i++)
         {
@@ -40,16 +53,31 @@ public class Spawner : MonoBehaviour
     {        
         if (timer > .5f && !test)
         {            
-            SpawnPositions[] rooms = FindObjectsOfType<SpawnPositions>();
-            for (int i = 0; i < rooms.Length; i++)
+            roomSpawns = FindObjectsOfType<SpawnPositions>();
+
+            for (int i = 0; i < roomSpawns.Length; i++)
             {
-                //SpawnPositions room = child.GetComponent<SpawnPositions>();
-                spawnPoints.AddRange(rooms[i].points);
+                switch (roomSpawns[i].spawnType)
+                {
+                    case SpawnPositions.Type.Enemy:
+
+                        enemySpawns.Add(roomSpawns[i]);
+
+                        break;
+                    
+                    case SpawnPositions.Type.Item:
+                       
+                        ItemSpawns.Add(roomSpawns[i]);
+
+                        break;                 
+                }
             }
+
             timer = 0;
             test = true;
 
             SpawnEnemies();
+            SpawnItems();
         }
         else
             timer += Time.deltaTime;
@@ -58,13 +86,20 @@ public class Spawner : MonoBehaviour
     void SpawnEnemies()
     {
         //Debug.Log ("Spawning Enemies at " + spawnPoints.Count + "Points");
-        for (int i = 0; i < spawnPoints.Count; i++)
+
+        int roomsAmount = Mathf.RoundToInt(enemySpawns.Count * (enemyPercentage / 100));
+        Debug.Log($"attempting to spawn in {roomsAmount} rooms");
+        int roomGap = enemySpawns.Count / roomsAmount;
+
+        for (int i = 0; i < enemySpawns.Count; i+= roomGap) 
         {
-            int amount = Random.Range(SpawnCountRange.x, SpawnCountRange.y);
+            enemySpawns[i].SpawnEnemies(SpawnCountRange, possibleEnemies[Random.Range(0, possibleEnemies.Length)], currentDifficulty);
+            /*int amount = Random.Range(SpawnCountRange.x, SpawnCountRange.y);
             //Debug.Log("Spawning " + amount + "enemies");
 
             for (int j = 0; j < amount; j++)
             {
+            
                 float angleIteration = 360 / amount;
 
                 float currentRotation = angleIteration * i;
@@ -77,7 +112,19 @@ public class Spawner : MonoBehaviour
 
                 enemyObject.GetComponent<EnemyStats>().ESR = enemy.statRange;
                 enemyObject.GetComponent<EnemyStats>().GenerateStatValues(currentDifficulty);
-            }
+            }*/
+        }
+    }
+
+    void SpawnItems()
+    {
+        int roomsAmount = Mathf.RoundToInt(ItemSpawns.Count * (ItemPercentage / 100));
+        Debug.Log($"attempting to spawn in {roomsAmount} rooms");
+        int roomGap = ItemSpawns.Count / roomsAmount;
+
+        for (int i = 0; i < ItemSpawns.Count; i++)
+        {
+            ItemSpawns[i].spawnItem();
         }
     }
 

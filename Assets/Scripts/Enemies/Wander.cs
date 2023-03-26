@@ -42,10 +42,13 @@ public class Wander : State
             }
         }
 
-        dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
+        if (chosenPlayer != null)       
+            dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
+        
+        // have to do null check cuz its  causingg errors at first frame...
 
         print("wander state");
-        if(dist <= chaseRange)
+        if(dist <= chaseRange && chosenPlayer != null)
         {
             return chaseState;
         }

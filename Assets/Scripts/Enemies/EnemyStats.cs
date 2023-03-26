@@ -109,7 +109,7 @@ public class EnemyStats : MonoBehaviour
     { 
         Health = ESR.AllocateStats(ESR.Health, difficulty);
         Speed = ESR.AllocateStats(ESR.SPD, difficulty);
-        agent.speed = Speed;
+        //agent.speed = Speed;
         MATK = ESR.AllocateStats(ESR.MATK, difficulty);
         MDEF = ESR.AllocateStats(ESR.MDEF, difficulty);
         MCDN = ESR.AllocateStats(ESR.MCDN, difficulty);

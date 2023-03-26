@@ -36,6 +36,9 @@ public class Retreat : State
             return orbit;
         }*/
 
+        //  Ranged enemy should  attack while  on retreat....
+
+
         // Sometimes the ai is being stuck in retreat and not moving at all for some reason so i added this timer to make sure to goes back to orbit state..
         if(timer >= 3)
         {

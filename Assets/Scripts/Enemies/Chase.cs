@@ -7,9 +7,12 @@ public class Chase : State
     public State orbitState;
     [SerializeField] float dist;
 
+
     [SerializeField] public int orbitRange;
     [SerializeField] int orbitRangeMin;
     [SerializeField] int orbitRangeMax;
+
+    bool pointSet;
 
 
 
@@ -28,11 +31,12 @@ public class Chase : State
     {
        // print("chase state");
          dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
-         if(dist >= orbitRange)
+         if(dist >= orbitRange && !pointSet)
          {
             print("chasingg player");
             Vector3 pos = chosenPlayer.transform.position - transform.position;
-            agent.SetDestination(pos);
+            agent.SetDestination(chosenPlayer.transform.position);
+            pointSet = true;
             //agent.destination = pos;
          }
          else if(dist <= orbitRange)
