@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Player Stats/PlayerStat_Data", order = 1)]
-public class PlayerStat_Data : ScriptableObject
+public class PlayerStat_Data : ScriptableObject, IDataPersistence
 {
     [SerializeField] ExperienceData expData;
-    [SerializeField] Leveling_Data lvlData;
+    public Leveling_Data lvlData;
 
     public PlayerConfig config;
     public string playerName;
@@ -82,9 +82,58 @@ public class PlayerStat_Data : ScriptableObject
         dash = 10;
 
         aoe_ChargeRate = 1;
-        aoe_TAP = 10; 
+        aoe_TAP = 10;
         aoe_HOLD = 1;
     }
+
+    #region Save & Load Functions [Trevor Mock Edition]
+
+    public void LoadData(GameData data)
+    {
+        hp = data.hp;
+        stamina = data.stamina;
+
+        m_ATK = data.m_ATK;
+        r_ATK = data.r_ATK;
+
+        current_XP = data.exp;
+        lvl = data.level;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.hp = hp;
+        data.stamina = stamina;
+
+        data.m_ATK= m_ATK;
+        data.r_ATK= r_ATK;
+
+        data.level = lvl;
+        data.exp = current_XP;
+    }
+
+    #endregion 
+
+    #region Save & Load Functions [Brackey's Edition] (Deprecate Later)
+    public void SaveData()
+    {
+        SaveSystem.SavePlayerData(this);
+    }
+
+    public void LoadData()
+    {
+        Player_SaveData pData = SaveSystem.LoadPlayerData();
+
+        hp = pData.hp;
+        stamina = pData.stamina;
+
+        m_ATK = pData.m_ATK;
+        r_ATK = pData.r_ATK;
+
+        current_XP = pData.exp;
+        lvl = pData.level;
+    }
+    #endregion
 
     //Increase player level based on Leveling Data class.
     void LevelUp()

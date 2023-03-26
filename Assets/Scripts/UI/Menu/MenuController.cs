@@ -45,11 +45,13 @@ public class MenuController : MonoBehaviour
     #region MainMenu Functions
     public void StartNewGame()
     {
-        SceneManager.LoadScene(newGameLevel);
+        Debug.Log("Starting New Game");
     }
 
     public void LoadGame()
     {
+        Debug.Log("Loading Game");
+
         if (PlayerPrefs.HasKey("SavedGames"))
         {
             levelToLoad = PlayerPrefs.GetString("SavedGames");

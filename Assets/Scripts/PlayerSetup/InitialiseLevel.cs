@@ -14,7 +14,7 @@ public class InitialiseLevel : MonoBehaviour
     public bool initialiseOnStart;
     public bool spawnLevel;
     bool initialised;
-    bool levelSpawned;
+    public bool levelSpawned;
 
     [Header("Difficulty Settings")]
     public LevelSettings levelSettings;
