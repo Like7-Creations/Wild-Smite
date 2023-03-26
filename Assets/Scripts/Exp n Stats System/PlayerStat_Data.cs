@@ -117,21 +117,21 @@ public class PlayerStat_Data : ScriptableObject, IDataPersistence
     #region Save & Load Functions [Brackey's Edition] (Deprecate Later)
     public void SaveData()
     {
-        SaveSystem.SavePlayerData(this);
+        //SaveSystem.SavePlayerData(this);
     }
 
     public void LoadData()
     {
-        Player_SaveData pData = SaveSystem.LoadPlayerData();
+        //Player_SaveData pData = SaveSystem.LoadPlayerData();
 
-        hp = pData.hp;
-        stamina = pData.stamina;
+        //hp = pData.hp;
+        //stamina = pData.stamina;
 
-        m_ATK = pData.m_ATK;
-        r_ATK = pData.r_ATK;
+        //m_ATK = pData.m_ATK;
+        //r_ATK = pData.r_ATK;
 
-        current_XP = pData.exp;
-        lvl = pData.level;
+        //current_XP = pData.exp;
+        //lvl = pData.level;
     }
     #endregion
 
