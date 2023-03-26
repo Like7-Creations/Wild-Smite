@@ -1506,8 +1506,8 @@ namespace Ultimate.AI
 
 			if ((highestRange > ai.renderDistance.x) || (highestRange > ai.renderDistance.y) || (highestRange > ai.renderDistance.z))
 			{
-				Debug.LogError("\nThe render distance of your ai (" + "\"" + ai.name + "\"" + ") must be bigger than all the ranges it has!"
-					+ " Your render distance is: " + ai.renderDistance + " while the biggest range is: " + highestRange + "!");
+				//Debug.LogError("\nThe render distance of your ai (" + "\"" + ai.name + "\"" + ") must be bigger than all the ranges it has!"
+					//+ " Your render distance is: " + ai.renderDistance + " while the biggest range is: " + highestRange + "!");
 			}
 		}
 	}

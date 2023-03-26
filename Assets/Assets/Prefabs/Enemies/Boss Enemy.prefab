@@ -46254,10 +46254,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c81867bb6013541b217f4a1c2009ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisEnemy: {fileID: 5941828905020065154}
   ESR: {fileID: 11400000, guid: aaa4f45b045c8884981352ec984dbdbd, type: 2}
   HealthBar: {fileID: 0}
   canvas: {fileID: 0}
+  isDead: 0
+  Type: 0
+  Health: 0
+  Speed: 0
+  attackRange: 0
+  MATK: 0
+  MDEF: 0
+  MCDN: 0
+  RATK: 0
+  RDEF: 0
+  RCDN: 0
+  generalCDN: 0
 --- !u!114 &5941828905020065154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46440,11 +46451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef714b54d557fc34a89bbcf3bc2e5596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ultimateAI: {fileID: 0}
-  fov: {fileID: 0}
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  state: {fileID: 0}
+  stats: {fileID: 0}
   timeToAttackAfterIndicator: 0
   Radius: 5
   smashPos: {fileID: 5941828904170452675}
@@ -46461,11 +46472,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7795bfec4aae734bb7d032f6f19cc67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ultimateAI: {fileID: 0}
-  fov: {fileID: 0}
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  state: {fileID: 0}
+  stats: {fileID: 0}
   timeToAttackAfterIndicator: 0
   NoOfSpawns: 3
   prefabsToSpawn:
@@ -46484,11 +46495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 579f6183753ccff43b2fcbca3bc0896e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ultimateAI: {fileID: 0}
-  fov: {fileID: 0}
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  state: {fileID: 0}
+  stats: {fileID: 0}
   timeToAttackAfterIndicator: 0
   Hitarea:
     Direction: 180
@@ -46509,11 +46520,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602aa0427a6b8c64eb72f49b8db41fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ultimateAI: {fileID: 0}
-  fov: {fileID: 0}
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  state: {fileID: 0}
+  stats: {fileID: 0}
   timeToAttackAfterIndicator: 0
   begin: 0
   radius: 0
@@ -46533,13 +46544,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec3888da564b274da895098153c70ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ultimateAI: {fileID: 0}
-  fov: {fileID: 0}
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  state: {fileID: 0}
+  stats: {fileID: 0}
   timeToAttackAfterIndicator: 0
   Bullet: {fileID: 1472468272477937308, guid: fdadadf755217ef44b76cce7eb349612, type: 3}
+  origin: {fileID: 0}
   spinDuration: 0
   speed: 2
   fireRate: 0.01
@@ -46584,11 +46596,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 942987a4688722c498b544e35ec60e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ultimateAI: {fileID: 0}
-  fov: {fileID: 0}
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  state: {fileID: 0}
+  stats: {fileID: 0}
   timeToAttackAfterIndicator: 0
   startPoint: {fileID: 5941828903934601335}
   EndPoint: {fileID: 5941828903386852997}
@@ -46596,6 +46608,8 @@ MonoBehaviour:
   amountOfProjectiles: 4
   fireRate: 0.1
   rocketSpeed: 600
+  shootAfterWarningTime: 0
+  projectileVFX: {fileID: 0}
 --- !u!114 &5941828905020065208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46608,16 +46622,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef2fb818871bff49a163b458449a925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ultimateAI: {fileID: 0}
-  fov: {fileID: 0}
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  state: {fileID: 0}
+  stats: {fileID: 0}
   timeToAttackAfterIndicator: 0
   shootingDuration: 0
   delayBetweenBullets: 0
   durationTimer: 0
   delayTimer: 0
+  origin: {fileID: 0}
   Bullet: {fileID: 0}
 --- !u!114 &902773636711295629
 MonoBehaviour:
@@ -46635,6 +46650,13 @@ MonoBehaviour:
   attackIndicationVFX: {fileID: 0}
   enemyHitVFX: {fileID: 0}
   enemyDeathVFX: {fileID: 0}
+  summon_VFX: {fileID: 0}
+  swipe_VFX: {fileID: 0}
+  smash_VFX: {fileID: 0}
+  Gatling_VFX: {fileID: 0}
+  flurry_VFX: {fileID: 0}
+  projectileshoot_vfx: {fileID: 0}
+  shockWave_VFX: {fileID: 0}
 --- !u!114 &2421524888888517768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46652,6 +46674,10 @@ MonoBehaviour:
   enemyAttackIndicatorSFX: []
   enemyHitSFX: []
   enemyDestroyedSFX: []
+  smashSFX: []
+  shootSFX: []
+  summonSFX: []
+  swipeSFX: []
   shockwaveSFX: []
   flurrySFX: []
   projectileBombingSFX: []
