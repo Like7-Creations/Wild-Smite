@@ -141,18 +141,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomIcon: {fileID: 0}
+  iconCollider: {fileID: 0}
   currentColor: {r: 1, g: 0.29411766, b: 0, a: 0}
   currentRoom: 0
-  adjacentRooms: []
   exploredRooms: []
+  roomStatus: 0
+  exploredRoom: 0
+  adjacentRooms: []
   unexploredColor: {r: 1, g: 0.8588236, b: 0.8000001, a: 0}
   exploredColor: {r: 0.7843138, g: 0.7843138, b: 0.78823537, a: 0}
   adjacentRoom: 0
-  exploredRoom: 0
   rayMagnitude: 75
   minimapLayer:
     serializedVersion: 2
     m_Bits: 256
+  roomsChecked: 0
 --- !u!1 &8144228862120811789
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +484,7 @@ MonoBehaviour:
   - {fileID: 3877547237259954851, guid: f8195258eb0a39b489c710085ff776eb, type: 3}
   - {fileID: 8824083018498521292, guid: edb89fa7785f84248ad194495a3d8db4, type: 3}
   - {fileID: 1868485612176670976, guid: f1732f1b649f8ca4e95f612a108d37d4, type: 3}
-  SpawnChance: 60
+  SpawnChance: 100
   SpawnLayouts:
   - {fileID: 1501931631460668815, guid: b03116184e27ea94588fad40599adc2e, type: 3}
   - {fileID: 6191738295795943402, guid: af6d96075396bff419fa66ce1428051f, type: 3}

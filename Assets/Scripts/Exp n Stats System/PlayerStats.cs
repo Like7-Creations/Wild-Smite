@@ -12,16 +12,16 @@ public class PlayerStats : MonoBehaviour
     [field: Header("Stats")]
 
     [field: SerializeField]
-    public int hp { get; private set; }
+    public int hp;
 
     [field: SerializeField]
     public float stamina { get; private set; }
 
     [field: SerializeField]
-    public int m_ATK { get; private set; }
+    public int m_ATK;
 
     [field: SerializeField]
-    public int r_ATK { get; private set; }
+    public int r_ATK;
     #endregion
 
     #region XP & Leveling Variables

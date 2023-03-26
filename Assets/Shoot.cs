@@ -6,36 +6,44 @@ public class Shoot : Attack
 {
     [SerializeField] float interval;
     [SerializeField] GameObject Bullet;
-    public override void AttackType()
+    [SerializeField] GameObject origin;
+
+    public override IEnumerator AttackType()
     {
         // triggert animation
-        StartCoroutine(shoot());
-    }
+        if (vfx.isEnabled)
+        {
+            vfx.attackIndicationVFX.Play();
+        }
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Tank_SFXHandler>();
+            var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
 
-    IEnumerator shoot()
-    {
-
-        Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         for (int i = 0; i < 3; i++)
         {
-            vfx.GetComponent<Tank_VFXHandler>().ShootVFX();
+            Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.GetComponent<Destroy>().damage = stats.RATK;
+            if (vfx.isEnabled)
+            {
+                vfx.GetComponent<Tank_VFXHandler>().ShootVFX();
+            }
             rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-            ultimateAI.anim.SetTrigger("Shoot");
-            vfx.GetComponent<Tank_VFXHandler>().ShootVFX();
+            //ultimateAI.anim.SetTrigger("Shoot");
+            if (vfx.isEnabled)
+            {
+                vfx.GetComponent<Tank_VFXHandler>().ShootVFX();
+            }
+            if (sfx.isEnabled)
+            {
+                var obj = GetComponent<Tank_SFXHandler>();
+                var clip = obj.shootSFX[Random.Range(0, obj.shootSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
             yield return new WaitForSeconds(interval);
         }
-
-        /*Rigidbody rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-        ultimateAI.anim.SetTrigger("Shoot");
-        yield return new WaitForSeconds(interval);
-        rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-        ultimateAI.anim.SetTrigger("Shoot");
-        yield return new WaitForSeconds(interval);
-        rb = Instantiate(Bullet, ultimateAI.shooter.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-        ultimateAI.anim.SetTrigger("Shoot");*/
-
     }
 }

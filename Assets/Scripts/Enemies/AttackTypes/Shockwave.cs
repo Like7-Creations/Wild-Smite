@@ -11,10 +11,25 @@ public class Shockwave : Attack
     [SerializeField] float knockBackStr;
     [SerializeField] float knockBacktime;
 
-    public override void AttackType()
+    public override IEnumerator AttackType()
     {
-        Debug.Log("Shockwave happened!");
-        reset();
+        if (vfx.isEnabled)
+        {
+            vfx.attackIndicationVFX.Play();
+        }
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Boss_SFXHandler>();
+            var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Boss_SFXHandler>();
+            var clip = obj.shockwaveSFX[Random.Range(0, obj.shockwaveSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
         begin = true;
     }
 
@@ -23,7 +38,7 @@ public class Shockwave : Attack
         if (begin)
         {
             radius += Time.deltaTime * expandSpeed;
-            
+            vfx.GetComponent<Boss_VFXHandler>().ShockwaveVFX();
             Collider[] hits;
             hits = Physics.OverlapSphere(transform.position, radius);
             foreach(Collider c in hits)
@@ -37,6 +52,9 @@ public class Shockwave : Attack
             if(radius >= radiusEnd)
             {
                 begin = false;
+
+                vfx.GetComponent<Boss_VFXHandler>().ShockwaveVFX();
+                reset();
             }
 
         }

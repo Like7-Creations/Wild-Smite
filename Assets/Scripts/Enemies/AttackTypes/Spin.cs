@@ -7,30 +7,37 @@ public class Spin : Attack
     public float noOfAttacks;
     public float TimeBetweenAttacks;
 
-    public override void AttackType()
+    public override IEnumerator AttackType()
     {
-        ultimateAI.attackRange = 2;
-        fov.viewAngle = 360;
+        //ultimateAI.attackRange = 2;
+        //fov.viewAngle = 360;
         // set animation
-        ultimateAI.anim.SetTrigger("Spin");
-        StartCoroutine(SpinAttack());
-    }
-
-    IEnumerator SpinAttack()
-    {
-        vfx.GetComponent<Melee_VFXHandler>().spinVFX();
+        //ultimateAI.anim.SetTrigger("Spin");
+        if(vfx.isEnabled)
+        {
+            vfx.GetComponent<Melee_VFXHandler>().spinVFX();
+        }
         for (int i = 0; i < noOfAttacks; i++)
         {
-            for (int e = 0; e < ultimateAI.players.Count; e++)
+            for (int e = 0; e < state.players.Length; e++)
             {
-                float dist = Vector3.Distance(ultimateAI.players[e].transform.position, transform.position);
-                if (dist < ultimateAI.attackRange)
+                float dist = Vector3.Distance(state.players[e].transform.position, transform.position);
+                if (dist < stats.attackRange)
                 {
-                    ultimateAI.playerTakeDamage();
+                    state.chosenPlayer.TakeDamage(stats.MATK);
+                }
+                if (sfx.isEnabled)
+                {
+                    var obj = GetComponent<Melee_SFXHandler>();
+                    var clip = obj.jabSFX[Random.Range(0, obj.jabSFX.Length)];
+                    audioSource.PlayOneShot(clip);
                 }
             }
             yield return new WaitForSeconds(TimeBetweenAttacks); // We either use this or we just use the normal void and call the melee as event at attack time
         }
-        vfx.GetComponent<Melee_VFXHandler>().spinVFX();
+        if (vfx.isEnabled)
+        {
+            vfx.GetComponent<Melee_VFXHandler>().spinVFX();
+        }
     }
 }

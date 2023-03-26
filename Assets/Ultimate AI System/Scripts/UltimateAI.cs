@@ -344,8 +344,10 @@ namespace Ultimate.AI
 		//Anmar Edits----
 		float Timer;
 		float battleTimer;
+		bool isOrbiting;
 		PlayerStats hitPlayer;
 		Enemy_VFXHandler vfx;
+		Enemy_SFXHandler sfx;
         //------
         #endregion
 
@@ -354,6 +356,7 @@ namespace Ultimate.AI
 			PlayerMovement[] ps = FindObjectsOfType<PlayerMovement>();
 			players.AddRange(ps);
 			vfx = GetComponent<Enemy_VFXHandler>();
+			sfx = GetComponent<Enemy_SFXHandler>();
             //players = FindObjectsOfType<PlayerMovement>();
         }
         private void Start() //This function will trigger once the game is started.
@@ -678,7 +681,7 @@ namespace Ultimate.AI
 
             MultiAttacker attack = GetComponent<MultiAttacker>();
 
-            attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType();
+            StartCoroutine(attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType());
 
             //playerTakeDamage();
 
@@ -728,8 +731,8 @@ namespace Ultimate.AI
 					//rb.GetComponent<Projectile>().ai = gameObject;
 					//rb.AddForce(transform.forward * 10f, ForceMode.Impulse); //The projectiles get pushed so that they can move using physics force.
 					MultiAttacker attack = GetComponent<MultiAttacker>();
-				    attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType();
-					//Debug.Log("Range attack called");
+                    StartCoroutine(attack.attacksList[Random.Range(0, attack.attacksList.Length)].AttackType());
+                    //Debug.Log("Range attack called");
 
                     foreach (ParticleSystem particle in wanderParticles) if (particle.isPlaying) particle.Stop(); //Only needed particles are being played.
 					foreach (ParticleSystem particle in attackParticles) particle.Play();
@@ -748,7 +751,7 @@ namespace Ultimate.AI
 		public void playerTakeDamage()
 		{
 			// check if player is in range;
-            player.GetComponent<PlayerActions>().TakeDamage(damageToDeal, transform.forward);
+           // player.GetComponent<PlayerActions>().TakeDamage(damageToDeal, transform.forward);
         }
 
 		public IEnumerator Affect() //This is the function that is responsible for applying effects.
@@ -1243,7 +1246,7 @@ namespace Ultimate.AI
 		public void Die()
 		{
 			hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType);
-			hitPlayer.GetComponent<PlayerActions>().enemiesInDot.Remove(this);
+			//hitPlayer.GetComponent<PlayerActions>().enemiesInDot.Remove(this);
 			isDead = true;
 
 			moveSpeed = 0; //And both the rotation and moving speed are set to 0.
@@ -1263,9 +1266,11 @@ namespace Ultimate.AI
 			{
 				int randomNumber = Random.Range(0, deathAnimations); //We are getting a random number.
 				anim.SetTrigger("Death" + randomNumber.ToString()); //And here we are creating a string using the number and the word attack. This way a trigger is being formed and sent to the animator.
-				/*var clip = deathSounds[Random.Range(0, deathSounds.Length)]; //A random sound is loaded and the played.
+                /*var clip = deathSounds[Random.Range(0, deathSounds.Length)]; //A random sound is loaded and the played.
 				audioSource.PlayOneShot(clip);*/
-				vfx.enemyDeathVFX.transform.parent = null;
+                var clip = sfx.enemyHitSFX[Random.Range(0, sfx.enemyHitSFX.Length)];
+                audioSource.PlayOneShot(clip);
+                vfx.enemyDeathVFX.transform.parent = null;
                 vfx.enemyDeathVFX.Play();
                 StartCoroutine(DeathWait(0f));
 			}
@@ -1296,6 +1301,10 @@ namespace Ultimate.AI
 			//player = attacker.transform;
 
 			vfx.enemyHitVFX.Play();
+
+			//Anmar sfx
+			var clip = sfx.enemyHitSFX[Random.Range(0, sfx.enemyHitSFX.Length)];
+			audioSource.PlayOneShot(clip);
 
             //var clip = hitSounds[Random.Range(0, hitSounds.Length)]; //A random sound is loaded and the played.
 			//audioSource.PlayOneShot(clip);
@@ -1497,8 +1506,8 @@ namespace Ultimate.AI
 
 			if ((highestRange > ai.renderDistance.x) || (highestRange > ai.renderDistance.y) || (highestRange > ai.renderDistance.z))
 			{
-				Debug.LogError("\nThe render distance of your ai (" + "\"" + ai.name + "\"" + ") must be bigger than all the ranges it has!"
-					+ " Your render distance is: " + ai.renderDistance + " while the biggest range is: " + highestRange + "!");
+				//Debug.LogError("\nThe render distance of your ai (" + "\"" + ai.name + "\"" + ") must be bigger than all the ranges it has!"
+					//+ " Your render distance is: " + ai.renderDistance + " while the biggest range is: " + highestRange + "!");
 			}
 		}
 	}

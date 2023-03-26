@@ -6,7 +6,7 @@ public class Smash : Attack
 {
     [SerializeField] float Radius;
     [SerializeField] Transform smashPos;
-
+    BossBehaviors bossbe;
     Vector3 targetHit;
 
 
@@ -15,12 +15,52 @@ public class Smash : Attack
     public override void Start()
     {
         base.Start();
+        bossbe = GetComponent<BossBehaviors>();
     }
 
-    public override void AttackType()
+    public override IEnumerator AttackType()
     {
-       // Debug.Log("Smash Attack");
-        ultimateAI.anim.SetTrigger("Smash");
+        // Debug.Log("Smash Attack");
+        if (vfx.isEnabled)
+        {
+            vfx.attackIndicationVFX.Play();
+        }
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Enemy_SFXHandler>();
+            if (obj.GetComponent<Tank_SFXHandler>() != null)
+            {
+                var clipObj = obj.GetComponent<Tank_SFXHandler>();
+                var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
+
+            if (obj.GetComponent<Boss_SFXHandler>() != null)
+            {
+                var clipObj = obj.GetComponent<Boss_SFXHandler>();
+                var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
+        }
+        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Enemy_SFXHandler>();
+            if (obj.GetComponent<Tank_SFXHandler>() != null)
+            {
+                var clipObj = obj.GetComponent<Tank_SFXHandler>();
+                var clip = clipObj.smashSFX[Random.Range(0, clipObj.smashSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
+
+            if (obj.GetComponent<Boss_SFXHandler>() != null)
+            {
+                var clipObj = obj.GetComponent<Boss_SFXHandler>();
+                var clip = clipObj.smashSFX[Random.Range(0, clipObj.smashSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
+        }
+        //ultimateAI.anim.SetTrigger("Smash");
         targetHit = smashPos.position;
         Collider[] hits;
         hits = Physics.OverlapSphere(targetHit, Radius);
@@ -31,32 +71,61 @@ public class Smash : Attack
                 PlayerActions player = c.GetComponent<PlayerActions>();
                 //player.health -= 10;
                 GetComponent<Animator>().SetTrigger("Smash");
-                vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
-                player.TakeDamage(10, transform.forward);
+                if (vfx.isEnabled)
+                {
+                    if (vfx.GetComponent<Tank_VFXHandler>() != null)
+                    {
+                        vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
+                    }
+                    if (vfx.GetComponent<Boss_VFXHandler>() != null)
+                    {
+                        vfx.GetComponent<Boss_VFXHandler>().SmashVFX();
+                    }//vfx;//vfx
+                }
+                player.TakeDamage(stats.MATK);
                 //player.GetComponent<PlayerMovement>().knockUp();
             }
         }
-        vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
+        if (vfx.isEnabled)
+        {
+            if (vfx.GetComponent<Tank_VFXHandler>() != null)
+            {
+                vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
+            }
+            if (vfx.GetComponent<Boss_VFXHandler>() != null)
+            {
+                vfx.GetComponent<Boss_VFXHandler>().SmashVFX();
+            }//vfx;//vfx
+        }
 
-        //yield return new WaitForSeconds(ultimateAI.attackRate);
     }
 
-    public void Update()
+    public override void Update()
     {
-        float dist = Vector3.Distance(transform.position, ultimateAI.players[0].transform.position);
+        float dist = Vector3.Distance(transform.position, bossbe.chosenPlayer.transform.position);
 
         if(dist <= GetComponent<Swipe>().Hitarea.Radius)
         {
-             smashPos.transform.position = Vector3.Lerp(smashPos.position, ultimateAI.players[0].transform.position, 5f * Time.deltaTime);
+             smashPos.transform.position = Vector3.Lerp(smashPos.position, bossbe.chosenPlayer.transform.position, 5f * Time.deltaTime);
         }
         else 
         { 
-            smashPos.transform.position = Vector3.Lerp(smashPos.position, ultimateAI.players[0].transform.position, 5f * Time.deltaTime);
+            smashPos.transform.position = Vector3.Lerp(smashPos.position, bossbe.chosenPlayer.transform.position, 5f * Time.deltaTime);
             Vector3 pos = smashPos.localPosition;
             pos.x = Mathf.Clamp(smashPos.localPosition.x, -4f, 5f);
             pos.z = Mathf.Clamp(smashPos.localPosition.z, 0f, 5f);
             smashPos.localPosition = pos;
-            vfx.GetComponent<Tank_VFXHandler>().smash_VFX.transform.position = smashPos.localPosition;
+            if(vfx.isEnabled)
+            {
+                if (vfx.GetComponent<Tank_VFXHandler>() != null)
+                {
+                    vfx.GetComponent<Tank_VFXHandler>().smash_VFX.transform.position = smashPos.localPosition;
+                }
+                if (vfx.GetComponent<Boss_VFXHandler>() != null)
+                {
+                    vfx.GetComponent<Boss_VFXHandler>().smash_VFX.transform.position = smashPos.localPosition;
+                }//vfx;//vfx
+            }
         }
     }
 

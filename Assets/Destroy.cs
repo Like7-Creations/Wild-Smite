@@ -35,30 +35,29 @@ public class Destroy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("collision detecteddddddddddd");
-        destroyedVFX.transform.parent = null;
-        if (playershot & other.gameObject.GetComponent<UltimateAI>() != null)
+        if (playershot & other.gameObject.GetComponent<EnemyStats>() != null)
         {
-            UltimateAI victim = other.gameObject.GetComponent<UltimateAI>();
-            victim.TakeDamage(actions.pStats.r_ATK, actions.GetComponent<PlayerStats>());// Deal damage to the enemy
+            EnemyStats victim = other.gameObject.GetComponent<EnemyStats>();
+            victim.TakeDamage(actions.pStats.r_ATK);// Deal damage to the enemy
+            destroyedVFX.transform.parent = null;
+            destroyedVFX.Play();
             Destroy(gameObject);
         }
 
         if(!playershot & other.gameObject.GetComponent<PlayerActions>() != null)
         {
             PlayerStats anotherVictim = other.gameObject.GetComponent<PlayerStats>();
-            anotherVictim.GetComponent<PlayerActions>().TakeDamage(damage, Vector3.zero);
+            anotherVictim.GetComponent<PlayerActions>().TakeDamage(damage);
+            destroyedVFX.transform.parent = null;
+            destroyedVFX.Play();
             Destroy(gameObject);
         }
 
         if (other.gameObject.CompareTag("Building"))
         {
+            destroyedVFX.transform.parent = null;
+            destroyedVFX.Play();
             Destroy(gameObject,0.05f);
         }
-
-        /*if(other.gameObject.GetComponent<UltimateAI>() == null & playershot)
-        {
-            Destroy(gameObject);
-        }*/
-
     }
 }
