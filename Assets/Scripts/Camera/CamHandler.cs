@@ -9,7 +9,24 @@ public class CamHandler : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera followCam;
     [SerializeField] CinemachineVirtualCamera combatCam;
 
-    private void OnEnable()
+    [SerializeField] int activePriorityVal;
+    [SerializeField] int inActivePriorityVal;
+
+    CinemachineVirtualCamera currentCam;
+
+    void Start()
+    {
+        if (!followCam.gameObject.activeSelf)
+        {
+            followCam.gameObject.SetActive(true);
+        }
+        currentCam = followCam;
+
+        combatCam.gameObject.SetActive(false);
+        combatCam.Priority++;
+    }
+
+    /*private void OnEnable()
     {
         CamSwitcher.RegisterCam(followCam);
         CamSwitcher.RegisterCam(combatCam);
@@ -21,9 +38,9 @@ public class CamHandler : MonoBehaviour
     {
         CamSwitcher.UnregisterCam(followCam);
         CamSwitcher.UnregisterCam(combatCam);
-    }
+    }*/
 
-    void Update()
+    /*void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -39,5 +56,45 @@ public class CamHandler : MonoBehaviour
                 CamSwitcher.SwitchCamera(followCam);
             }
         }
+    }*/
+
+    public void SwitchVirtualCamera()
+    {
+        //Check which camera is the current camera
+        if (currentCam == followCam)
+        {
+            combatCam.gameObject.SetActive(true);
+            combatCam.Priority++;
+            currentCam = combatCam;
+
+            followCam.Priority--;
+            followCam.gameObject.SetActive(false);
+        }
+        else if (currentCam == combatCam)
+        {
+            followCam.gameObject.SetActive(true);
+            followCam.Priority++;
+            currentCam = followCam;
+
+            currentCam.Priority--;
+            currentCam.gameObject.SetActive(false);
+        }
+        else if (currentCam == null)
+        {
+            currentCam = followCam;
+        }
+        //Switch current camera to the inactive one.
+        //Decrement the newly inactive camera's priority
+        //Disable the newly inactive camera.
+    }
+
+    void SwitchToFollow()
+    {
+
+    }
+
+    void SwitchToCombat()
+    {
+
     }
 }

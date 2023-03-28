@@ -18,7 +18,8 @@ public class CamTrackerMove : MonoBehaviour
     [SerializeField] float enemyMinDist;
     #endregion
 
-    #region SplitScreen Settings
+    #region Camera Settings
+    public CamHandler camHandler;
     public Dynamic_SplitScreen dSplitScreen;
     public Vector3 splitOffset;
     public bool splitScreen;
@@ -91,6 +92,7 @@ public class CamTrackerMove : MonoBehaviour
     {
         velocity = Vector3.zero;
 
+        camHandler = GetComponent<CamHandler>();
         dSplitScreen = FindObjectOfType<Dynamic_SplitScreen>();
 
 
@@ -131,18 +133,25 @@ public class CamTrackerMove : MonoBehaviour
             splitOffset = Vector3.zero;
         }
 
-        //Check if there are any enemies within range
+        //Comment out for now
+        #region Cam Switching Logic     
+        /*//Check if there are any enemies within range
         if (pActions.enemiesInDot.Count >= 1)
         {
             //if True
 
             targetPos = IdentifyTargetPos();
+            camHandler.SwitchVirtualCamera();
         }
         else
         {
             //Return the Vector3 after subtracting the difference between the splitOffset and targetOffset from the targetPlayer's Pos.
             targetPos = playerTarget.transform.position - (-splitOffset + targetOffset);
-        }
+            camHandler.SwitchVirtualCamera();
+        }*/
+        #endregion
+
+        targetPos = playerTarget.transform.position - (-splitOffset + targetOffset);
 
         transform.position += Arrival();
 

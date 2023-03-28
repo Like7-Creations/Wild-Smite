@@ -18,13 +18,16 @@ public static class CamSwitcher
 
     public static void SwitchCamera(CinemachineVirtualCamera camera)
     {
-        camera.Priority = 10;
+        //camera.Priority = 10;
 
         if (camera.CompareTag("Player1"))
         {
+            //camera.Priority = active_P1Cam.Priority + 1;
+
             active_P1Cam = camera;
 
-            
+
+
             Debug.Log("Current Active Camera for Player 1: " + camera);
         }
         else if (camera.CompareTag("Player2"))
@@ -35,7 +38,7 @@ public static class CamSwitcher
 
         foreach (CinemachineVirtualCamera c in p1_Cameras)
         {
-            if(c != camera)
+            if (c != camera)
             {
                 c.Priority = 0;
             }
