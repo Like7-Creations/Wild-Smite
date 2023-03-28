@@ -13,7 +13,7 @@ public class RangeBuff : Item
         originalAmount = plStats.r_ATK;
         plStats.r_ATK += buffAmount;
         timer = duration;
-        itemUI.GetComponentInChildren<Image>().fillAmount = 1;
+        //itemUI.GetComponentInChildren<Image>().fillAmount = 1;
         useItem = true;
     }
 
@@ -21,13 +21,13 @@ public class RangeBuff : Item
     {
         if (useItem)
         {
-            itemUI.SetActive(true);
+           // itemUI.SetActive(true);
             float thisint = timer / duration;
-            itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
+            //itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                itemUI.SetActive(false);
+            //    itemUI.SetActive(false);
                 plStats.r_ATK = originalAmount;
                 useItem = false;
             }

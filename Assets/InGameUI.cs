@@ -10,8 +10,6 @@ public class InGameUI : MonoBehaviour
 {
     [Header("Player 1")]
     public GameObject P1_Panel;
-    public Image p1_itemIcon;
-    public Slider p1_itemTimer;
     Item heldItem;
     public DynamicBar_Slider[] player1_HealthBars;
     public DynamicBar_Slider[] player1_StaminaBars;
@@ -37,7 +35,6 @@ public class InGameUI : MonoBehaviour
     public CamTrackerMove p2_Tracker;
 
     PlayerStats player1;
-    PlayerInventory p1_Inventory;
     PlayerStats player2;
 
     PlayerInventory p1Inv;
@@ -94,10 +91,18 @@ public class InGameUI : MonoBehaviour
         //    //update icon
         //}
 
-        if (p1_Inventory.itemDuration > 0)
+        if (p1Inv.itemDuration > 0)
         {
             //Run timer slider coroutine
-            p1_Inventory.itemDuration = 0;
+            StartCoroutine(itemSliderTimer(p1TimerSlider, p1Held.duration));
+            p1Inv.itemDuration = 0;
+        }
+
+        if (p1Inv.itemDuration > 0)
+        {
+            //Run timer slider coroutine
+            StartCoroutine(itemSliderTimer(p2TimerSlider, p2Held.duration));
+            p1Inv.itemDuration = 0;
         }
 
         //Player 2 Check Values
@@ -236,6 +241,22 @@ public class InGameUI : MonoBehaviour
     void UpdateItemIcon(Item item, Image Icon)
     {
         Icon.sprite = item.itemUI;
+    }
+
+    IEnumerator itemSliderTimer(Slider sliderTimer, float duration)
+    {
+        sliderTimer.maxValue = duration;
+        sliderTimer.value = 0;
+        float timer = 0;
+        
+        while (timer <= duration)
+        {
+            sliderTimer.value = timer;
+            yield return new WaitForSeconds(0.01f);
+            timer += 0.01f;
+        }
+        sliderTimer.value = duration;
+
     }
 
 }

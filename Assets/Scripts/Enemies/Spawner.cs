@@ -22,6 +22,7 @@ public class Spawner : MonoBehaviour
 
     List<SpawnPositions> ItemSpawns = new List<SpawnPositions>();
 
+
     [Range(0, 100)]
     public float enemyPercentage;
     [Range(0, 100)]
@@ -119,7 +120,7 @@ public class Spawner : MonoBehaviour
     void SpawnItems()
     {
         int roomsAmount = Mathf.RoundToInt(ItemSpawns.Count * (ItemPercentage / 100));
-        Debug.Log($"attempting to spawn in {roomsAmount} rooms");
+        Debug.Log($"attempting to spawn Items in {roomsAmount} rooms");
         int roomGap = ItemSpawns.Count / roomsAmount;
 
         for (int i = 0; i < ItemSpawns.Count; i++)

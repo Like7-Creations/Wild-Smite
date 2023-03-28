@@ -207,7 +207,7 @@ public class PlayerStats : MonoBehaviour
         aoe_ChargeRate = playerData.aoe_ChargeRate;
 
         if (FindObjectOfType<InGameUI>() != null)
-            FindObjectOfType<InGameUI>().AssignPlayer(playerData.playerIndex, GetComponent<PlayerStats>());
+            FindObjectOfType<InGameUI>().AssignPlayer(playerData.playerIndex, GetComponent<PlayerStats>(), GetComponent<PlayerInventory>());
     }
 }
 

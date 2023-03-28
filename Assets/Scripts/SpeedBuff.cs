@@ -12,7 +12,7 @@ public class SpeedBuff : Item
         originalAmount = (int)plStats.playerSpeed;
         plStats.playerSpeed += buffAmount;
         timer = duration;
-        itemUI.GetComponentInChildren<Image>().fillAmount = 1;
+        //temUI.GetComponentInChildren<Image>().fillAmount = 1;
         useItem = true;
     }
 
@@ -20,13 +20,13 @@ public class SpeedBuff : Item
     {
         if (useItem)
         {
-            itemUI.SetActive(true);
+           // itemUI.SetActive(true);
             float thisint = timer / duration;
-            itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
+           // itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                itemUI.SetActive(false);
+           //     itemUI.SetActive(false);
                 plStats.playerSpeed = originalAmount;
                 Destroy(gameObject);
                 useItem = false;

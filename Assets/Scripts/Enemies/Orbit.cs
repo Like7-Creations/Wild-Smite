@@ -51,7 +51,7 @@ public class Orbit : State
 
             agent.speed = orbitSpeed;
             Vector3 playerpos = chosenPlayer.transform.position;
-           // playerpos.y = 2;
+            playerpos.y = 1;
             transform.LookAt(playerpos);
 
             var offsetPlayer = chosenPlayer.transform.position - transform.position;

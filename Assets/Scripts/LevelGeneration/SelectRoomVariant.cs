@@ -11,6 +11,8 @@ public class SelectRoomVariant : MonoBehaviour
     public float SpawnChance;
     public GameObject[] SpawnLayouts;
 
+    public GameObject itemLayout;
+
     private void Awake()
     {
         int index = Random.Range(0, variants.Length);
@@ -29,5 +31,7 @@ public class SelectRoomVariant : MonoBehaviour
             GameObject obj = Instantiate(SpawnLayouts[layout], transform);
             //obj.transform.SetParent(spawnerRoot);
         }
+
+        GameObject itemobj = Instantiate(itemLayout, transform);
     }
 }
