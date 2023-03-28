@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
@@ -9,6 +10,9 @@ public class InGameUI : MonoBehaviour
 {
     [Header("Player 1")]
     public GameObject P1_Panel;
+    public Image p1_itemIcon;
+    public Slider p1_itemTimer;
+    Item heldItem;
     public DynamicBar_Slider[] player1_HealthBars;
     public DynamicBar_Slider[] player1_StaminaBars;
     float p1_HP, p1_STAM;
@@ -33,6 +37,7 @@ public class InGameUI : MonoBehaviour
     public CamTrackerMove p2_Tracker;
 
     PlayerStats player1;
+    PlayerInventory p1_Inventory;
     PlayerStats player2;
 
     PlayerInventory p1Inv;
@@ -83,6 +88,16 @@ public class InGameUI : MonoBehaviour
         {
             p1_STAM = player1.stamina;
             UpdateBars(player1_StaminaBars, p1_STAM);
+        }
+        //if (p1_Inventory.currentitem != heldItem)
+        //{
+        //    //update icon
+        //}
+
+        if (p1_Inventory.itemDuration > 0)
+        {
+            //Run timer slider coroutine
+            p1_Inventory.itemDuration = 0;
         }
 
         //Player 2 Check Values
@@ -186,6 +201,8 @@ public class InGameUI : MonoBehaviour
             SetUpBars(player1_HealthBars, p1_HP);
             p1_STAM = player1.stamina;
             SetUpBars(player1_StaminaBars, p1_STAM);
+
+            //
         }
         else if (index == 1)
         {

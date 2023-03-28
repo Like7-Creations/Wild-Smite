@@ -15,7 +15,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject speedBuffUI;
 
     public int healPacks;
-
+    public float itemDuration;
 
     private void Start()
     {
@@ -37,6 +37,7 @@ public class PlayerInventory : MonoBehaviour
         if (heldItem != null)
         {
             heldItem.Effect(plStats);
+            itemDuration = heldItem.duration;
         }
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 236934024}
-  m_IndirectSpecularColor: {r: 0.07052275, g: 0.35373604, b: 0.97078824, a: 1}
+  m_IndirectSpecularColor: {r: 0.04198966, g: 0.30647728, b: 1.1805259, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -753,6 +753,7 @@ MonoBehaviour:
     statRange: {fileID: 0}
   levelSettings: {fileID: 0}
   enemyPercentage: 0
+  ItemPercentage: 0
 --- !u!1 &53524098
 GameObject:
   m_ObjectHideFlags: 0
@@ -6420,7 +6421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoints: []
-  radius: 5
+  radius: 3
   SpawnCountRange: {x: 3, y: 5}
   possibleEnemies:
   - type: 0
@@ -6431,6 +6432,7 @@ MonoBehaviour:
     statRange: {fileID: 0}
   levelSettings: {fileID: 11400000, guid: a97af50f5a350d945b320ad798d847d3, type: 2}
   enemyPercentage: 100
+  ItemPercentage: 10
 --- !u!4 &439625604
 Transform:
   m_ObjectHideFlags: 0
@@ -11254,6 +11256,7 @@ MonoBehaviour:
     statRange: {fileID: 0}
   levelSettings: {fileID: 0}
   enemyPercentage: 0
+  ItemPercentage: 0
 --- !u!4 &825961243
 Transform:
   m_ObjectHideFlags: 0
@@ -12468,6 +12471,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 1875388763240933588, guid: 0f2ffbca409093e4d88bf41ea6523a92, type: 3}
   initialiseOnStart: 1
   spawnLevel: 1
+  levelSpawned: 0
   levelSettings: {fileID: 11400000, guid: a97af50f5a350d945b320ad798d847d3, type: 2}
   RunBarrierAdjustment: 1
   BarrierDistance: 1
@@ -21791,6 +21795,7 @@ MonoBehaviour:
     statRange: {fileID: 0}
   levelSettings: {fileID: 0}
   enemyPercentage: 0
+  ItemPercentage: 0
 --- !u!1 &1626234276
 GameObject:
   m_ObjectHideFlags: 0
