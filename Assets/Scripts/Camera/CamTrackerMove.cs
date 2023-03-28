@@ -133,7 +133,9 @@ public class CamTrackerMove : MonoBehaviour
             splitOffset = Vector3.zero;
         }
 
-        //Check if there are any enemies within range
+        //Comment out for now
+        #region Cam Switching Logic     
+        /*//Check if there are any enemies within range
         if (pActions.enemiesInDot.Count >= 1)
         {
             //if True
@@ -146,7 +148,10 @@ public class CamTrackerMove : MonoBehaviour
             //Return the Vector3 after subtracting the difference between the splitOffset and targetOffset from the targetPlayer's Pos.
             targetPos = playerTarget.transform.position - (-splitOffset + targetOffset);
             camHandler.SwitchVirtualCamera();
-        }
+        }*/
+        #endregion
+
+        targetPos = playerTarget.transform.position - (-splitOffset + targetOffset);
 
         transform.position += Arrival();
 
