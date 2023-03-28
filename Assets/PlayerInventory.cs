@@ -17,6 +17,10 @@ public class PlayerInventory : MonoBehaviour
     public int healPacks;
     public float itemDuration;
 
+    bool isHappening;
+
+    public float timer;
+
     private void Start()
     {
         plStats = GetComponent<PlayerStats>();
@@ -30,6 +34,13 @@ public class PlayerInventory : MonoBehaviour
         {
             useItem();
         }
+        if(heldItem!= null)
+        {
+            if(heldItem.timer <= 0)
+            {
+                heldItem = null;
+            }
+        }
     }
 
     void useItem()
@@ -38,6 +49,7 @@ public class PlayerInventory : MonoBehaviour
         {
             heldItem.Effect(plStats);
             itemDuration = heldItem.duration;
+            isHappening = true;
         }
     }
 }

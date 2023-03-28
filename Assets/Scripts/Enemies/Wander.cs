@@ -31,7 +31,7 @@ public class Wander : State
         {
             wanderBeh();
             wanderPointSet = true;
-            anim.SetFloat("Y", 1);
+            anim.SetBool("Moving", true);
         }
         if(wanderPointSet)
         {
@@ -43,8 +43,7 @@ public class Wander : State
             }
             if(agent.destination == wanderPoint)
             {
-                anim.SetFloat("Y", 0);
-                anim.SetFloat("X", 0);
+                anim.SetBool("Moving", false);
             }
         }
 

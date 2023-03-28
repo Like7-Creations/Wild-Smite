@@ -37,6 +37,15 @@ public class Retreat : State
         }*/
 
         //  Ranged enemy should  attack while on retreat....
+        if(GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Range)
+        {
+            GetComponent<Orbit>().timer += Time.deltaTime;
+            if(GetComponent<Orbit>().timer >= GetComponent<EnemyStats>().generalCDN)
+            {
+                GetComponent<AttackState>().Attack();
+                GetComponent<Orbit>().timer = 0;
+            }
+        }
 
 
         // Sometimes the ai is being stuck in retreat and not moving at all for some reason so i added this timer to make sure to goes back to orbit state..

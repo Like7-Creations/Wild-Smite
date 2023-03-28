@@ -48936,7 +48936,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -58862,7 +58862,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -63745,7 +63745,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -68784,6 +68784,7 @@ MonoBehaviour:
   ESR: {fileID: 11400000, guid: aaa4f45b045c8884981352ec984dbdbd, type: 2}
   HealthBar: {fileID: 891184762202702953}
   canvas: {fileID: 4116299536159267433}
+  dmgEffect: {fileID: 4087159230962088455, guid: 4dd9d36fd78efd14a84206536a584701, type: 3}
   isDead: 0
   Type: 0
   Health: 0
@@ -68855,6 +68856,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   state: {fileID: 0}
   stats: {fileID: 0}
+  anim: {fileID: 0}
   timeToAttackAfterIndicator: 1
 --- !u!114 &3300008344911806834
 MonoBehaviour:
@@ -68873,6 +68875,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   state: {fileID: 0}
   stats: {fileID: 0}
+  anim: {fileID: 0}
   timeToAttackAfterIndicator: 1
 --- !u!114 &3300008344911806845
 MonoBehaviour:
@@ -68891,6 +68894,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   state: {fileID: 0}
   stats: {fileID: 0}
+  anim: {fileID: 0}
   timeToAttackAfterIndicator: 1
   noOfAttacks: 3
   TimeBetweenAttacks: 0.1
@@ -69013,6 +69017,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   chaseState: {fileID: 3300008344911806849}
   chaseRange: 10
   wanderRange: 5
@@ -69035,6 +69040,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   orbitState: {fileID: 3300008344911806848}
   dist: 0
   orbitRange: 0
@@ -69058,6 +69064,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   timer: 0
   attackState: {fileID: 3300008344911806851}
   Chase: {fileID: 3300008344911806849}
@@ -69081,6 +69088,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   retreat: {fileID: 3300008344911806850}
   attackRange: 2
 --- !u!114 &3300008344911806850
@@ -69101,6 +69109,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   retreatDist: 4
   orbit: {fileID: 3300008344911806848}
 --- !u!1 &3319035648574939687
@@ -79077,7 +79086,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -84220,7 +84229,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -108786,7 +108795,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -109126,7 +109135,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -109179,7 +109188,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -113957,7 +113966,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -118717,7 +118726,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -133181,7 +133190,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

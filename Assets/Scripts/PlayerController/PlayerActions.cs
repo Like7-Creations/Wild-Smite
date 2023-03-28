@@ -292,28 +292,30 @@ public class PlayerActions : MonoBehaviour
     //Event Required
     public void Attack(/*InputAction.CallbackContext context*/)
     {
-        // Build One
-        if (!testCombat)
+        if (!shooting)
         {
-            //transform.LookAt(playerLookDir);
-            if (enemiesInDot.Count > 0) { transform.LookAt(GetClosestEnemy(enemiesInDot).transform); };
-            //StartCoroutine(Mover(2, 0.1f, Dashdir));
-            int randomNumber = UnityEngine.Random.Range(0, 2);
-            int previous = randomNumber;
-
-
-
-            if (!lastrands.Contains(randomNumber))
+            if (!testCombat)
             {
-                animator.SetTrigger("Attack" + randomNumber.ToString());
+                //transform.LookAt(playerLookDir);
+                if (enemiesInDot.Count > 0) { transform.LookAt(GetClosestEnemy(enemiesInDot).transform); };
+                //StartCoroutine(Mover(2, 0.1f, Dashdir));
+                int randomNumber = UnityEngine.Random.Range(0, 2);
+                int previous = randomNumber;
 
 
-                lastrands.Add(randomNumber);
 
-            }
-            else
-            {
-                Attack();
+                if (!lastrands.Contains(randomNumber))
+                {
+                    animator.SetTrigger("Attack" + randomNumber.ToString());
+
+
+                    lastrands.Add(randomNumber);
+
+                }
+                else
+                {
+                    Attack();
+                }
             }
         }
 
@@ -389,12 +391,12 @@ public class PlayerActions : MonoBehaviour
 
     public void SwipeLeft()
     {
-        trigger_attackVFX_left.Invoke();
+        //trigger_attackVFX_left.Invoke();
     }
 
     public void SwipeRight()
     {
-        trigger_attackVFX_right.Invoke();
+        //trigger_attackVFX_right.Invoke();
     }
 
     //Event Required
@@ -534,8 +536,6 @@ public class PlayerActions : MonoBehaviour
         playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
         isSprinting = true;
 
-
-
         trigger_sprintVFX.Invoke();
     }
 
@@ -553,11 +553,14 @@ public class PlayerActions : MonoBehaviour
         if (!fired)
         {
             animator.SetLayerWeight(animator.GetLayerIndex("Shooting Layer"), 1);
-            Rigidbody bullets = Instantiate(bullet, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);
-            bullets.GetComponent<Destroy>().damage = pStats.r_ATK;
-            bullets.GetComponent<Destroy>().playershot = true;
-            fired = true;
+            if (!isAttacking)
+            {
+                Rigidbody bullets = Instantiate(bullet, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);
+                bullets.GetComponent<Destroy>().damage = pStats.r_ATK;
+                bullets.GetComponent<Destroy>().playershot = true;
+                fired = true;
+            }
         }
     }
 

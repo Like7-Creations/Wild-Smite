@@ -21,31 +21,6 @@ public class AttackState : State
     }
     public override State RunCurrentState()
     {
-        if (!indicatorPlayed)
-        {
-            if (vfx.isEnabled)
-            {
-                vfx.attackIndicationVFX.Play();
-                indicatorPlayed = true;
-            }
-            if(sfx.isEnabled)
-            {
-                var obj = GetComponent<Enemy_SFXHandler>();
-                if (obj.GetComponent<Melee_SFXHandler>() != null)
-                {
-                    var clipObj = obj.GetComponent<Melee_SFXHandler>();
-                    var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
-                    audioSource.PlayOneShot(clip);
-                }
-
-                if (obj.GetComponent<Range_SFXHandler>() != null)
-                {
-                    var clipObj = obj.GetComponent<Range_SFXHandler>();
-                    var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
-                    audioSource.PlayOneShot(clip);
-                }
-            }
-        }
         print("attack state");
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
 
@@ -86,9 +61,34 @@ public class AttackState : State
 
     }
 
-    void Attack()
+    public void Attack()
     {
         GetComponent<MultiAttacker>().AttackPlayer();
         indicatorPlayed = false;
+        if (!indicatorPlayed)
+        {
+            if (vfx.isEnabled)
+            {
+                vfx.attackIndicationVFX.Play();
+                indicatorPlayed = true;
+            }
+            if (sfx.isEnabled)
+            {
+                var obj = GetComponent<Enemy_SFXHandler>();
+                if (obj.GetComponent<Melee_SFXHandler>() != null)
+                {
+                    var clipObj = obj.GetComponent<Melee_SFXHandler>();
+                    var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                    audioSource.PlayOneShot(clip);
+                }
+
+                if (obj.GetComponent<Range_SFXHandler>() != null)
+                {
+                    var clipObj = obj.GetComponent<Range_SFXHandler>();
+                    var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                    audioSource.PlayOneShot(clip);
+                }
+            }
+        }
     }
 }

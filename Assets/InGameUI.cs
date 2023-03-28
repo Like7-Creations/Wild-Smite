@@ -40,6 +40,8 @@ public class InGameUI : MonoBehaviour
     PlayerInventory p1Inv;
     PlayerInventory p2Inv;
 
+    public Sprite empty;
+
     Item p1Held;
     Item p2Held;
 
@@ -240,7 +242,14 @@ public class InGameUI : MonoBehaviour
 
     void UpdateItemIcon(Item item, Image Icon)
     {
-        Icon.sprite = item.itemUI;
+        if(item != null)
+        {
+            Icon.sprite = item.itemUI;
+        }
+        else
+        {
+            Icon.sprite = empty;
+        }
     }
 
     IEnumerator itemSliderTimer(Slider sliderTimer, float duration)

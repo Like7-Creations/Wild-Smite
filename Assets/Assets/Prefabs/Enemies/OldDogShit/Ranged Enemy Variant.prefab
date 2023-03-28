@@ -1010,6 +1010,7 @@ MonoBehaviour:
   ESR: {fileID: 11400000, guid: aaa4f45b045c8884981352ec984dbdbd, type: 2}
   HealthBar: {fileID: 1839583206692232387}
   canvas: {fileID: 146029516074375130}
+  dmgEffect: {fileID: 0}
   isDead: 0
   Type: 0
   Health: 0
@@ -1029,20 +1030,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7698132050552416451}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d655636fb5fe9242abfec077348643a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   players: []
-  moveSpeed: 10.6
-  chaseRange: 15.95
-  idlingDuration: 3.94
-  attackRange: 8.57
-  wanderRange: 3.22
+  moveSpeed: 0
+  chaseRange: 0
+  idlingDuration: 0
+  attackRange: 0
+  wanderRange: 0
   hearingRange: 0
-  lookSpeed: 10
-  renderDistance: {x: 17.29, y: 20, z: 20}
+  lookSpeed: 0
+  renderDistance: {x: 1, y: 1, z: 1}
   health: 1
   showRenderDistance: 0
   chasing: 0
@@ -1117,13 +1118,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7698132050552416451}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 115dfe7b0938447cbbf9507076f54049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Tracked: {fileID: 7034221282678387321}
-  m_Size: {x: 17.29, y: 20, z: 20}
+  m_Size: {x: 1, y: 1, z: 1}
 --- !u!114 &896890496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1131,12 +1132,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7698132050552416451}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 341fa5375f86fb14496ed05cf9c9aada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 15.95
+  viewRadius: 0
   viewAngle: 360
   targetMask:
     serializedVersion: 2
@@ -1156,10 +1157,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 2
-  m_Speed: 10.6
-  m_Acceleration: 13.25
+  m_Speed: 0
+  m_Acceleration: 0
   avoidancePriority: 50
-  m_AngularSpeed: 10
+  m_AngularSpeed: 0
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1

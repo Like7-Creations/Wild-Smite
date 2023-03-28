@@ -4804,7 +4804,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -78226,7 +78226,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -83017,7 +83017,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -92858,7 +92858,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -98021,7 +98021,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -107933,7 +107933,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -112847,7 +112847,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -123184,7 +123184,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -128389,7 +128389,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -138285,6 +138285,7 @@ MonoBehaviour:
   ESR: {fileID: 11400000, guid: 09ee5fca00df5c147954acea4fdc4288, type: 2}
   HealthBar: {fileID: 1454091766831017004}
   canvas: {fileID: 1129478809292613429}
+  dmgEffect: {fileID: 4087159230962088455, guid: 4dd9d36fd78efd14a84206536a584701, type: 3}
   isDead: 0
   Type: 1
   Health: 0
@@ -138356,6 +138357,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   state: {fileID: 0}
   stats: {fileID: 0}
+  anim: {fileID: 0}
   timeToAttackAfterIndicator: 0.5
   Bullet: {fileID: 6062017532498056028, guid: 61faec11d1115e142aab9d6346601f13, type: 3}
   origin: {fileID: 984735723363959617}
@@ -138377,6 +138379,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   state: {fileID: 0}
   stats: {fileID: 0}
+  anim: {fileID: 0}
   timeToAttackAfterIndicator: 0.5
   Bullet: {fileID: 9083669800240369609, guid: 18a6f0695ff6e4c4d8ea70a77e6f2290, type: 3}
   origin: {fileID: 984735723363959617}
@@ -138399,6 +138402,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   state: {fileID: 0}
   stats: {fileID: 0}
+  anim: {fileID: 0}
   timeToAttackAfterIndicator: 0.5
   Bullet: {fileID: 6062017532498056028, guid: 61faec11d1115e142aab9d6346601f13, type: 3}
   origin: {fileID: 984735723363959617}
@@ -138452,6 +138456,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   chaseState: {fileID: 7457742988947200040}
   chaseRange: 15
   wanderRange: 2
@@ -138474,6 +138479,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   orbitState: {fileID: 7457742988947200041}
   dist: 0
   orbitRange: 0
@@ -138497,6 +138503,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   timer: 0
   attackState: {fileID: 7457742988947200042}
   Chase: {fileID: 7457742988947200040}
@@ -138520,6 +138527,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   retreat: {fileID: 7457742988947200043}
   attackRange: 30
 --- !u!114 &7457742988947200043
@@ -138540,6 +138548,7 @@ MonoBehaviour:
   vfx: {fileID: 0}
   sfx: {fileID: 0}
   audioSource: {fileID: 0}
+  anim: {fileID: 0}
   retreatDist: 4
   orbit: {fileID: 7457742988947200041}
 --- !u!114 &7457742988947200053

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -16,7 +17,11 @@ public class EnemyStats : MonoBehaviour
 
     NavMeshAgent agent;
 
+    public DMGEffect dmgEffect;
+
     public bool isDead;
+
+    Animator anim;
     
 
     public enum enemyType
@@ -43,6 +48,7 @@ public class EnemyStats : MonoBehaviour
 
     private void Awake()
     {
+        anim =  GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -70,9 +76,6 @@ public class EnemyStats : MonoBehaviour
                 generalCDN= RCDN;
                 break;
         }
-
-        // this is for  testing..
-        //
     }
 
     void Update()
@@ -84,6 +87,9 @@ public class EnemyStats : MonoBehaviour
         {
             Die();
         }
+
+        anim.SetFloat("X", agent.velocity.x, 0.05f, Time.deltaTime);
+        anim.SetFloat("Y", agent.velocity.z, 0.05f, Time.deltaTime);
     }
 
     public void AllocateStats()
@@ -136,6 +142,10 @@ public class EnemyStats : MonoBehaviour
             audioSource.PlayOneShot(clip, 1);
         }
 
+        DMGEffect dmg = Instantiate(dmgEffect, transform);
+        dmg.transform.LookAt(Camera.main.transform);
+        dmg.amount = damageToTake;
+
         //damageToTake *= (1 - Defence); //health must be int or float?
         //health -= damageToTake;
         //player = attacker.transform;
@@ -178,7 +188,7 @@ public class EnemyStats : MonoBehaviour
 
     public void Die()
     {
-        agent.ResetPath(); //The AI's path is reset.
+        //agent.ResetPath(); //The AI's path is reset.
         agent.enabled = false;
         
         //int randomNumber = Random.Range(0, deathAnimations); //We are getting a random number.

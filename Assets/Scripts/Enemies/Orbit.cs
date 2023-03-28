@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class Orbit : State
 {
-    [SerializeField] float timer;
+    [SerializeField] public float timer;
     public State attackState;
     public State Chase;
     public State retreat;
@@ -14,12 +14,15 @@ public class Orbit : State
     public float orbitSpeed;
     float originalSpeed;
 
+    float orbitRange;
+
     Vector3 dire;
     int rotateDir;
 
     public override void Start()
     {
         base.Start();
+        orbitRange = GetComponent<Chase>().orbitRange;
         originalSpeed = agent.speed;
         rotateDir = Random.Range(1, 3);
        
@@ -45,7 +48,7 @@ public class Orbit : State
         print("orbit state");
         //print(orbitRange);
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
-        if (dist <= GetComponent<Chase>().orbitRange+1)
+        if (dist <= orbitRange)
         {
             //transform.RotateAround(chosenPlayer.transform.position, Vector3.up, speed * Time.deltaTime);
 
@@ -58,12 +61,17 @@ public class Orbit : State
             var dir = Vector3.Cross(offsetPlayer, dire);
             agent.SetDestination(transform.position + dir);
 
+            if(dist <= orbitRange - 1)
+            {
+                agent.speed = 0.5f;
+                agent.Move(-transform.forward * Time.deltaTime);
+            }
+            else
+            {
+                agent.speed = originalSpeed;
+            }
 
 
-
-            //Vector3 pos = transform.forward.normalized * 5;
-            //agent.SetDestination(pos);
-            //agent.destination = pos;
             timer += Time.deltaTime;
             if (timer >= GetComponent<EnemyStats>().generalCDN)
             {
@@ -72,13 +80,16 @@ public class Orbit : State
                 return attackState;
             }
         }
-        if(dist >= GetComponent<Chase>().orbitRange + 1)
+
+        if (dist >= orbitRange)
         {
-            agent.speed = originalSpeed;
-            return Chase;
+            print("Movingg towards player!");
+            agent.SetDestination(chosenPlayer.transform.position);
         }
 
-        if(GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Range)
+
+
+        if (GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Range)
         {
             if(dist <= GetComponent<Chase>().orbitRange)
             {

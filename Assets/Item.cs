@@ -16,6 +16,11 @@ public abstract class Item : MonoBehaviour
 
     public Sprite itemUI;
 
+    void Awake()
+    {
+        timer = 10;     
+    }
+
     public abstract void Effect(PlayerStats stats);
 
     public abstract void Update();

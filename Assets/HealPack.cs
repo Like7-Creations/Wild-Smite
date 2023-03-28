@@ -23,6 +23,7 @@ public class HealPack : Item
         {
             PlayerStats pl = other.gameObject.GetComponent<PlayerStats>();
             pl.hp += healthToAdd;
+            Destroy(gameObject);
         }
     }
 }

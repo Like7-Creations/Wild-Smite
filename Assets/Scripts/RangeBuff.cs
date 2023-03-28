@@ -12,7 +12,7 @@ public class RangeBuff : Item
     {
         originalAmount = plStats.r_ATK;
         plStats.r_ATK += buffAmount;
-        timer = duration;
+        //timer = duration;
         //itemUI.GetComponentInChildren<Image>().fillAmount = 1;
         useItem = true;
     }
@@ -44,6 +44,7 @@ public class RangeBuff : Item
                 pl.heldItem = this;
                 plStats = pl.GetComponent<PlayerStats>();
                 transform.parent = other.transform;
+                timer = duration;
                 GetComponent<MeshRenderer>().enabled = false;
                 GetComponent<BoxCollider>().enabled = false;
             }
