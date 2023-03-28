@@ -15,6 +15,9 @@ public class Dynamic_SplitScreen : MonoBehaviour
     public Vector3 camTrack1;
     public Vector3 camTrack2;
 
+    public LayerMask p2Cam_Settings;
+
+    public bool isSplit;
 
     //Two quads used to draw the 2nd screen and are setup in the start function.
     private GameObject splitterObj;    //CammChild
@@ -28,7 +31,7 @@ public class Dynamic_SplitScreen : MonoBehaviour
     int playerCount;
 
     //Minimum Distance Required To Split The Screen
-    [Range(0f, 10f)]
+    [Range(0f, 50f)]
     public float splitDistance;
 
 
@@ -55,7 +58,9 @@ public class Dynamic_SplitScreen : MonoBehaviour
         //Set Cam2 to be rendered first in the render order.
         c2.depth = c1.depth - 1;
         //Set Cam2 to ignore the TransparentFX layer, so that the splitter is only rendered forCam1
-        c2.cullingMask = ~(1 << LayerMask.NameToLayer("TransparentFX"));
+        //c2.cullingMask = ~(1 << LayerMask.NameToLayer("TransparentFX"));
+
+        c2.cullingMask = p2Cam_Settings;
         //c2.cullingMask = ~(2 << LayerMask.NameToLayer("Player1 Cam"));
 
         p2_Cam.SetActive(false);
@@ -183,6 +188,8 @@ public class Dynamic_SplitScreen : MonoBehaviour
 
                     p2_Cam.transform.position = p1_Cam.transform.position;
                     p2_Cam.transform.rotation = p1_Cam.transform.rotation;
+
+                    isSplit = true;
                 }
                 else
                 {
@@ -228,6 +235,8 @@ public class Dynamic_SplitScreen : MonoBehaviour
                     splitterObj.SetActive(false);
                     p2_Cam.SetActive(false);
                     camTracker_P2.SetActive(false);
+
+                    isSplit = false;
                 }
             }
 
