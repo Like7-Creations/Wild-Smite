@@ -29,8 +29,9 @@ public class Chase : State
 
     public override State RunCurrentState()
     {
-       // print("chase state");
-         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
+        // print("chase state");
+        // anim.SetFloat("Y", 1);
+        dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
          if(dist >= orbitRange && !pointSet)
          {
             print("chasingg player");

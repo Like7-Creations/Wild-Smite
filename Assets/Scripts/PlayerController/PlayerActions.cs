@@ -454,10 +454,10 @@ public class PlayerActions : MonoBehaviour
         hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * multiplier);        //Use Range Stat to define AOE Radius.
         foreach (Collider c in hits)
         {
-            if (c.GetComponent<DummyEnemy>() != null)
+            if (c.GetComponent<EnemyStats>() != null)
             {
-                DummyEnemy enemy = c.GetComponent<DummyEnemy>();
-                enemy.health -= pStats.m_ATK * multiplier;        //Use Melee Stat here.
+                EnemyStats enemy = c.GetComponent<EnemyStats>();
+                enemy.Health -= pStats.m_ATK * multiplier;        //Use Melee Stat here.
             }
         }
 

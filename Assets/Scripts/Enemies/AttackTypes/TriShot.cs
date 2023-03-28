@@ -17,10 +17,8 @@ public class TriShot : Attack
 
     public override IEnumerator AttackType()
     {
-        /*if (vfx.isEnabled)
-        {
-            vfx.attackIndicationVFX.Play();
-        }*/
+        // Attack indication for ranged and melee are implemented in the state machine, therefore they dont have to be here
+
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
         if (sfx.isEnabled)
         {
@@ -28,7 +26,7 @@ public class TriShot : Attack
             var clip = obj.triShotSFX[Random.Range(0, obj.triShotSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        //ultimateAI.anim.SetTrigger("Trishot");
+        //anim.SetTrigger("Trishot");
         for (int i = 0; i < 3; i++)
         {
             Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();

@@ -17,11 +17,7 @@ public class Homing : Attack
 
     public override IEnumerator AttackType()
     {
-        //Debug.Log("Homing Attack Happened");
-        /*if (vfx.isEnabled)
-        {
-            vfx.attackIndicationVFX.Play();
-        }*/
+        // Attack indication for ranged and melee are implemented in the state machine, therefore they dont have to be here
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
         if (sfx.isEnabled)
         {
@@ -30,7 +26,7 @@ public class Homing : Attack
             audioSource.PlayOneShot(clip);
         }
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
-        //ultimateAI.anim.SetTrigger("Homing");
+        //anim.SetTrigger("Trishot");
         Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
         yield return new WaitForSeconds(5);

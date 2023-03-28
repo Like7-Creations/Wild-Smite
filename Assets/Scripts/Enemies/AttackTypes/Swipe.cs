@@ -141,7 +141,6 @@ public class Swipe : Attack
          0) * transform.forward;
 
        // UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, Hitarea.Angle, Hitarea.Radius);
-        
     }
 }
 

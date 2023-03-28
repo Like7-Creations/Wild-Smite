@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.UI;
 
 public class InGameUI : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class InGameUI : MonoBehaviour
     public DynamicBar_Slider[] player1_StaminaBars;
     float p1_HP, p1_STAM;
     public bool p1_dead;
+    public Image P1_ItemUI;
+    public Slider p1TimerSlider;
 
     public Camera P1_Cam;
     public CamTrackerMove p1_Tracker;
@@ -23,12 +26,20 @@ public class InGameUI : MonoBehaviour
     public DynamicBar_Slider[] player2_StaminaBars;
     float p2_HP, p2_STAM;
     public bool p2_dead;
+    public Image P2_ItemUI;
+    public Slider p2TimerSlider;
 
     public Camera P2_Cam;
     public CamTrackerMove p2_Tracker;
 
     PlayerStats player1;
     PlayerStats player2;
+
+    PlayerInventory p1Inv;
+    PlayerInventory p2Inv;
+
+    Item p1Held;
+    Item p2Held;
 
     public GameObject gameOverUI;
 
@@ -87,6 +98,18 @@ public class InGameUI : MonoBehaviour
                 p2_STAM = player2.stamina;
                 UpdateBars(player2_StaminaBars, p2_STAM);
             }
+        }
+
+        if(p1Inv.heldItem != p1Held)
+        {
+            p1Held = p1Inv.heldItem;
+            UpdateItemIcon(p1Held, P1_ItemUI);
+        }
+
+        if (p2Inv.heldItem != p2Held)
+        {
+            p2Held = p2Inv.heldItem;
+            UpdateItemIcon(p2Held, P2_ItemUI);
         }
 
         if (p1_HP <= 0)
@@ -151,11 +174,14 @@ public class InGameUI : MonoBehaviour
         }
     }
 
-    public void AssignPlayer(int index, PlayerStats stats)
+    public void AssignPlayer(int index, PlayerStats stats, PlayerInventory pinv)
     {
         if (index == 0)
         {
             player1 = stats;
+            p1Inv = pinv;
+            p1Held = pinv.heldItem;
+            UpdateItemIcon(p1Held, P1_ItemUI);
             p1_HP = player1.hp;
             SetUpBars(player1_HealthBars, p1_HP);
             p1_STAM = player1.stamina;
@@ -164,6 +190,9 @@ public class InGameUI : MonoBehaviour
         else if (index == 1)
         {
             player2 = stats;
+            p2Inv = pinv;
+            p1Held = pinv.heldItem;
+            UpdateItemIcon(p1Held, P2_ItemUI);
             p2_HP = player2.hp;
             SetUpBars(player2_HealthBars, p2_HP);
             p2_STAM = player2.stamina;
@@ -186,4 +215,10 @@ public class InGameUI : MonoBehaviour
             sliders[i].SetSliderValues(value);
         }
     }
+
+    void UpdateItemIcon(Item item, Image Icon)
+    {
+        Icon.sprite = item.itemUI;
+    }
+
 }

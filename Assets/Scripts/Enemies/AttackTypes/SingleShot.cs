@@ -15,10 +15,7 @@ public class SingleShot : Attack
 
     public override IEnumerator AttackType()
     {
-        /*if (vfx.isEnabled)
-        {
-            vfx.attackIndicationVFX.Play();
-        }*/
+        // Attack indication for ranged and melee are implemented in the state machine, therefore they dont have to be here
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
         if (sfx.isEnabled)
         {
@@ -26,7 +23,7 @@ public class SingleShot : Attack
             var clip = obj.singleShotSFX[Random.Range(0, obj.singleShotSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        //ultimateAI.anim.SetTrigger("SingleShot");
+        //anim.SetTrigger("Trishot");
         Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
         rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;

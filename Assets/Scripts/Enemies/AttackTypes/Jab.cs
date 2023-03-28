@@ -4,25 +4,14 @@ using UnityEngine;
 
 public class Jab : Attack
 {
-    /*public override IEnumerator AttackType()
+    public override void Start()
     {
-        //Debug.Log("Jab attack");
-        ultimateAI.attackRange = 3;
-        fov.viewAngle = 65;
-        ultimateAI.anim.SetTrigger("Jab");
-        vfx.GetComponent<Melee_VFXHandler>().jabVFX();
-        for (int e = 0; e < ultimateAI.players.Count; e++)
-        {
-            float dist = Vector3.Distance(ultimateAI.players[e].transform.position, transform.position);
-            if (dist < ultimateAI.attackRange)
-            {
-                ultimateAI.playerTakeDamage();
-            }
-        }
-        vfx.GetComponent<Melee_VFXHandler>().jabVFX(); 
-    }*/
+        base.Start();
+    }
+
     public override IEnumerator AttackType()
     {
+        // Attack indication for ranged and melee are implemented in the state machine, therefore they dont have to be here
         yield return new WaitForSeconds(0);
         if (sfx.isEnabled)
         {
@@ -30,10 +19,8 @@ public class Jab : Attack
             var clip = obj.jabSFX[Random.Range(0, obj.jabSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        //ultimateAI.attackRange = 3;
-        //fov.viewAngle = 65;
-        //ultimateAI.anim.SetTrigger("Jab");
-        if(vfx.isEnabled)
+        anim.SetTrigger("Jab");
+        if (vfx.isEnabled)
         {
             vfx.GetComponent<Melee_VFXHandler>().jabVFX();
         }

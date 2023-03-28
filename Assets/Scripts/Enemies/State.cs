@@ -15,12 +15,14 @@ public abstract class State : MonoBehaviour
     [HideInInspector] public Enemy_VFXHandler vfx;
     [HideInInspector] public Enemy_SFXHandler sfx;
     [HideInInspector] public AudioSource audioSource;
+    [HideInInspector] public Animator anim;
 
 
     public abstract State RunCurrentState();
 
     public virtual void Start()
     {
+        anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         players = FindObjectsOfType<PlayerActions>();
         audioSource = GetComponent<AudioSource>();

@@ -7,13 +7,15 @@ public class Spin : Attack
     public float noOfAttacks;
     public float TimeBetweenAttacks;
 
+    public override void Start()
+    {
+        base.Start();
+    }
+
     public override IEnumerator AttackType()
     {
-        //ultimateAI.attackRange = 2;
-        //fov.viewAngle = 360;
-        // set animation
-        //ultimateAI.anim.SetTrigger("Spin");
-        if(vfx.isEnabled)
+        // Attack indication for ranged and melee are implemented in the state machine, therefore they dont have to be here
+        if (vfx.isEnabled)
         {
             vfx.GetComponent<Melee_VFXHandler>().spinVFX();
         }

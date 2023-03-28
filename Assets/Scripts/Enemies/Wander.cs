@@ -31,6 +31,7 @@ public class Wander : State
         {
             wanderBeh();
             wanderPointSet = true;
+            anim.SetFloat("Y", 1);
         }
         if(wanderPointSet)
         {
@@ -39,6 +40,11 @@ public class Wander : State
             {
                 wanderPointSet = false;
                 wanderTimer = 0;
+            }
+            if(agent.destination == wanderPoint)
+            {
+                anim.SetFloat("Y", 0);
+                anim.SetFloat("X", 0);
             }
         }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.PlayerLoop;
 
 public abstract class Item : MonoBehaviour
@@ -13,7 +14,7 @@ public abstract class Item : MonoBehaviour
     public int buffAmount;
     public int originalAmount;
 
-    public GameObject itemUI;
+    public Sprite itemUI;
 
     public abstract void Effect(PlayerStats stats);
 

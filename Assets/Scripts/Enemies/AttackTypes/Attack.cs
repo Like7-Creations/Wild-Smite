@@ -13,12 +13,14 @@ public abstract class Attack : MonoBehaviour
     [HideInInspector] public AudioSource audioSource;
     [HideInInspector] public State state;
     [HideInInspector] public EnemyStats stats;
+    [HideInInspector] public Animator anim;
     public float timeToAttackAfterIndicator;
 
     public virtual void Start()
     {
         //ultimateAI = GetComponent<UltimateAI>();
         //fov = GetComponent<FieldOfView>();
+        anim = GetComponent<Animator>();
         state = GetComponent<State>();
         stats = GetComponent<EnemyStats>();
         vfx = GetComponent<Enemy_VFXHandler>();

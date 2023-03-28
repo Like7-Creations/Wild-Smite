@@ -9,7 +9,7 @@ public class Orbit : State
     public State attackState;
     public State Chase;
     public State retreat;
-    //[SerializeField] float orbitRange;
+
     float dist;
     public float orbitSpeed;
     float originalSpeed;
@@ -22,6 +22,7 @@ public class Orbit : State
         base.Start();
         originalSpeed = agent.speed;
         rotateDir = Random.Range(1, 3);
+       
         if(rotateDir == 1)
         {
             dire = Vector3.down;
@@ -60,7 +61,7 @@ public class Orbit : State
 
 
 
-            Vector3 pos = transform.forward.normalized * 5;
+            //Vector3 pos = transform.forward.normalized * 5;
             //agent.SetDestination(pos);
             //agent.destination = pos;
             timer += Time.deltaTime;

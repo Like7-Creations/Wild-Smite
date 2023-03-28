@@ -5,13 +5,14 @@ using UnityEngine.UI;
 public class MeleeBuff : Item
 {
     PlayerStats plStats;
+    public Slider itemImage;
 
     public override void Effect(PlayerStats stats)
     {
         originalAmount = plStats.m_ATK;
         plStats.m_ATK += buffAmount;
         timer = duration;
-        itemUI.GetComponentInChildren<Image>().fillAmount = 1;
+        //itemUI.GetComponentInChildren<Slider>().fillAmount = 1;
         useItem = true;
     }
 
@@ -19,13 +20,13 @@ public class MeleeBuff : Item
     {
         if(useItem)
         {
-            itemUI.SetActive(true);
+            //itemUI.SetActive(true);
             float thisint = timer / duration;
-            itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
+            //itemUI.GetComponentInChildren<Slider>().fillAmount = thisint;
             timer -= Time.deltaTime;
             if(timer <= 0)
             {
-                itemUI.SetActive(false);
+              //  itemUI.SetActive(false);
                 plStats.m_ATK = originalAmount;
                 useItem = false;
             }

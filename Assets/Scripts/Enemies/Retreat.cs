@@ -30,13 +30,13 @@ public class Retreat : State
             obtainedPos = false;
             return orbit;
         }
-
+       // anim.SetFloat("Y", -1);
         /*if(GetComponent<EnemyStats>().Type != EnemyStats.enemyType.Melee)
         {
             return orbit;
         }*/
 
-        //  Ranged enemy should  attack while  on retreat....
+        //  Ranged enemy should  attack while on retreat....
 
 
         // Sometimes the ai is being stuck in retreat and not moving at all for some reason so i added this timer to make sure to goes back to orbit state..
