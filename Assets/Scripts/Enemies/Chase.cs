@@ -34,6 +34,7 @@ public class Chase : State
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
          if(dist >= orbitRange && !pointSet)
          {
+            anim.SetBool("Moving", true);
             print("chasingg player");
             Vector3 pos = chosenPlayer.transform.position - transform.position;
             agent.SetDestination(chosenPlayer.transform.position);

@@ -27,11 +27,11 @@ public class Wander : State
 
     public override State RunCurrentState()
     {
-        if(!wanderPointSet)
+        anim.SetBool("Moving", true);
+        if (!wanderPointSet)
         {
             wanderBeh();
             wanderPointSet = true;
-            anim.SetBool("Moving", true);
         }
         if(wanderPointSet)
         {
@@ -41,7 +41,7 @@ public class Wander : State
                 wanderPointSet = false;
                 wanderTimer = 0;
             }
-            if(agent.destination == wanderPoint)
+            if(transform.position == wanderPoint)
             {
                 anim.SetBool("Moving", false);
             }

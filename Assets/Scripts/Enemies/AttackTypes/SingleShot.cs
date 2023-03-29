@@ -23,7 +23,7 @@ public class SingleShot : Attack
             var clip = obj.singleShotSFX[Random.Range(0, obj.singleShotSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        //anim.SetTrigger("Trishot");
+        anim.SetTrigger("SingleShot");
         Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
         rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;

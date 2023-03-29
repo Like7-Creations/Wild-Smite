@@ -23,7 +23,7 @@ public class Swing : Attack
             var clip = obj.swingSFX[Random.Range(0, obj.swingSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        //anim.SetTrigger("Swing");
+        anim.SetTrigger("Swing");
         for (int e = 0; e < state.players.Length; e++)
         {
             float dist = Vector3.Distance(state.players[e].transform.position, transform.position);

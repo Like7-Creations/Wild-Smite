@@ -26,7 +26,7 @@ public class Homing : Attack
             audioSource.PlayOneShot(clip);
         }
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
-        //anim.SetTrigger("Trishot");
+        anim.SetTrigger("Homing");
         Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
         yield return new WaitForSeconds(5);

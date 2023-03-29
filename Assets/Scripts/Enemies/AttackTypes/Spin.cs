@@ -19,6 +19,7 @@ public class Spin : Attack
         {
             vfx.GetComponent<Melee_VFXHandler>().spinVFX();
         }
+        anim.SetTrigger("Jab");
         for (int i = 0; i < noOfAttacks; i++)
         {
             for (int e = 0; e < state.players.Length; e++)
