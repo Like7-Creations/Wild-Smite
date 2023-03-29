@@ -7,9 +7,11 @@ public class CharacterSelectionControl : MonoBehaviour
 {
 
     public MainMenu menu;
+    public GameObject cursor;
 
     public void ReturnToMainMenu()
     {
         menu.ResetManager(gameObject);
+        cursor.SetActive(false);
     }
 }

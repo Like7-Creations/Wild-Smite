@@ -120,6 +120,11 @@ public class InGameUI : MonoBehaviour
                 p2_STAM = player2.stamina;
                 UpdateBars(player2_StaminaBars, p2_STAM);
             }
+            if (p2Inv.heldItem != p2Held)
+            {
+                p2Held = p2Inv.heldItem;
+                UpdateItemIcon(p2Held, P2_ItemUI);
+            }
         }
 
         if(p1Inv.heldItem != p1Held)
@@ -128,11 +133,7 @@ public class InGameUI : MonoBehaviour
             UpdateItemIcon(p1Held, P1_ItemUI);
         }
 
-        if (p2Inv.heldItem != p2Held)
-        {
-            p2Held = p2Inv.heldItem;
-            UpdateItemIcon(p2Held, P2_ItemUI);
-        }
+        
 
         if (p1_HP <= 0)
         {

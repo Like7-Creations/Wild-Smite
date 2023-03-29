@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4753754325937345597}
   - component: {fileID: 8527391940683488152}
   - component: {fileID: 5887214630893727570}
+  - component: {fileID: -7377039302232331161}
+  - component: {fileID: -5464694294479197703}
   m_Layer: 0
   m_Name: house_type21
   m_TagString: Untagged
@@ -85,3 +87,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-7377039302232331161
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5382763575310323335}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5884800288571748807, guid: 3490afc2e9e87184f8111e85f1944571, type: 3}
+--- !u!208 &-5464694294479197703
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5382763575310323335}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 5.149, y: 6.201, z: 5.4}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 6.201, z: 0}
+  m_TimeToStationary: 0.5

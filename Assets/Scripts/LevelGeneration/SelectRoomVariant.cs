@@ -19,7 +19,7 @@ public class SelectRoomVariant : MonoBehaviour
         Instantiate(variants[index], transform);
 
         if (SpawnLayouts.Length > 0)
-        { 
+        {
             //int chance = Random.Range(0, 100);
             int layout = Random.Range(0, SpawnLayouts.Length);
             Transform spawnerRoot;
@@ -32,6 +32,7 @@ public class SelectRoomVariant : MonoBehaviour
             //obj.transform.SetParent(spawnerRoot);
         }
 
-        GameObject itemobj = Instantiate(itemLayout, transform);
+        if (itemLayout != null)
+            Instantiate(itemLayout, transform);
     }
 }

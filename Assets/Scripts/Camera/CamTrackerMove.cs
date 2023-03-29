@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Ultimate.AI;
 using UnityEngine;
 using UnityEngine.Animations;
-using static UnityEditor.Experimental.GraphView.GraphView;
+//using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CamTrackerMove : MonoBehaviour
 {
@@ -151,14 +151,15 @@ public class CamTrackerMove : MonoBehaviour
         }*/
         #endregion
 
-        if (dSplitScreen.isSplit)
-        {
+        //if (dSplitScreen.isSplit)
+        //{
+        //targetPos = playerTarget.transform.position - (-splitOffset + targetOffset);
+        //}
+        //else if (!dSplitScreen.isSplit)
+        //{
+        //    targetPos = LocatePlayerMidpoint();
+        //}
         targetPos = playerTarget.transform.position - (-splitOffset + targetOffset);
-        }
-        else if (!dSplitScreen.isSplit)
-        {
-            targetPos = LocatePlayerMidpoint();
-        }
 
         transform.position += Arrival();
 

@@ -957,7 +957,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71272262}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4045,7 +4045,7 @@ RectTransform:
   m_GameObject: {fileID: 313557052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 0.95, z: 1}
   m_Children: []
   m_Father: {fileID: 1233639056}
   m_RootOrder: 1
@@ -4083,7 +4083,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 486d4fef8d9f8f441b13f0c40c68ea88, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0f0e6079d8ac414f8826ad4752153a5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4200,11 +4200,11 @@ RectTransform:
   m_Father: {fileID: 278879678}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 169, y: -117}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -50, y: -50}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &324916460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6573,7 +6573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: []
   radius: 3
-  SpawnCountRange: {x: 3, y: 5}
+  SpawnCountRange: {x: 2, y: 3}
   possibleEnemies:
   - type: 0
     enemyPrefab: {fileID: 3300008344911806844, guid: 4c1a907404129a84e9d85ca28262ba57, type: 3}
@@ -6582,8 +6582,8 @@ MonoBehaviour:
     enemyPrefab: {fileID: 7457742988947200044, guid: e49d53d80b52194499774763cd9ad7f6, type: 3}
     statRange: {fileID: 0}
   levelSettings: {fileID: 11400000, guid: a97af50f5a350d945b320ad798d847d3, type: 2}
-  enemyPercentage: 100
-  ItemPercentage: 100
+  enemyPercentage: 60
+  ItemPercentage: 20
 --- !u!4 &439625604
 Transform:
   m_ObjectHideFlags: 0
@@ -6657,7 +6657,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 453388202}
-  m_LocalRotation: {x: 0.43318874, y: 0.000000015508167, z: -0.000000007453611, w: 0.90130323}
+  m_LocalRotation: {x: 0.43318874, y: -0.000000015508169, z: 0.000000007453612, w: 0.90130323}
   m_LocalPosition: {x: 0, y: 25, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7821,6 +7821,7 @@ MonoBehaviour:
   p2Cam_Settings:
     serializedVersion: 2
     m_Bits: 701
+  isSplit: 0
   player1: {fileID: 0}
   player2: {fileID: 0}
   splitDistance: 10
@@ -7954,8 +7955,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 490170576}
-  m_LocalRotation: {x: 0.43318874, y: 0.000000015508167, z: -0.000000007453611, w: 0.90130323}
-  m_LocalPosition: {x: 0, y: 25, z: -20}
+  m_LocalRotation: {x: 0.28978413, y: -0.000000016468091, z: 0.0000000049861364, w: 0.95709205}
+  m_LocalPosition: {x: 0, y: 10, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10681,7 +10682,7 @@ RectTransform:
   m_GameObject: {fileID: 711176515}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 0.95, z: 1}
   m_Children: []
   m_Father: {fileID: 1007651902}
   m_RootOrder: 0
@@ -10711,7 +10712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 486d4fef8d9f8f441b13f0c40c68ea88, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0f0e6079d8ac414f8826ad4752153a5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23448,8 +23449,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659551844}
-  m_LocalRotation: {x: 0.43318874, y: 0.000000015508167, z: -0.000000007453611, w: 0.90130323}
-  m_LocalPosition: {x: 0, y: 25, z: -20}
+  m_LocalRotation: {x: 0.28978413, y: -0.000000016468091, z: 0.0000000049861364, w: 0.95709205}
+  m_LocalPosition: {x: 0, y: 10, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1996579090}
@@ -27841,7 +27842,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 673ba4c04225685469655f95402e1341, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0f0e6079d8ac414f8826ad4752153a5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -29380,7 +29381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 0
-  m_FollowOffset: {x: 0, y: 25, z: -20}
+  m_FollowOffset: {x: 0, y: 10, z: -15}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
