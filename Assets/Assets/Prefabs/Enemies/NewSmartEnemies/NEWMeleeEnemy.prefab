@@ -68606,6 +68606,7 @@ GameObject:
   - component: {fileID: 3300008344911806848}
   - component: {fileID: 3300008344911806851}
   - component: {fileID: 3300008344911806850}
+  - component: {fileID: 8913068132140638428}
   m_Layer: 0
   m_Name: NEWMeleeEnemy
   m_TagString: Untagged
@@ -69069,7 +69070,7 @@ MonoBehaviour:
   attackState: {fileID: 3300008344911806851}
   Chase: {fileID: 3300008344911806849}
   retreat: {fileID: 0}
-  orbitSpeed: 1.5
+  orbitSpeed: 5
 --- !u!114 &3300008344911806851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69112,6 +69113,23 @@ MonoBehaviour:
   anim: {fileID: 0}
   retreatDist: 4
   orbit: {fileID: 3300008344911806848}
+--- !u!1818360609 &8913068132140638428
+RotationConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300008344911806844}
+  m_Enabled: 1
+  m_Weight: 1
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_AffectRotationX: 1
+  m_AffectRotationY: 0
+  m_AffectRotationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 0
+  m_Sources: []
 --- !u!1 &3319035648574939687
 GameObject:
   m_ObjectHideFlags: 0

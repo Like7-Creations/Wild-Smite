@@ -24,7 +24,7 @@ public class AttackState : State
         print("attack state");
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
 
-        Vector3 pos = chosenPlayer.transform.position;
+        Vector3 pos = chosenPlayer.transform.position + ((chosenPlayer.transform.position - transform.position).normalized * .8f);
         if(GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Melee)
         {
             agent.SetDestination(pos);
