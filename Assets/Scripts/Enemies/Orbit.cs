@@ -54,7 +54,7 @@ public class Orbit : State
 
             agent.speed = orbitSpeed;
             Vector3 playerpos = chosenPlayer.transform.position;
-            playerpos.y = 1;
+            //playerpos.y = 1;
             transform.LookAt(playerpos, Vector3.up);
 
             var offsetPlayer = chosenPlayer.transform.position - transform.position;
@@ -63,8 +63,8 @@ public class Orbit : State
 
             if(dist <= orbitRange - 1)
             {
-                agent.speed = 1;
-                agent.Move(-transform.forward * Time.deltaTime);
+                agent.speed = 3;
+                agent.Move(chosenPlayer.transform.forward * Time.deltaTime);
             }
             else
             {
