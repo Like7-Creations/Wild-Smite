@@ -13,6 +13,7 @@ public class Swing : Attack
     {
         // Attack indication for ranged and melee are implemented in the state machine, therefore they dont have to be here
         yield return new WaitForSeconds(0);
+        anim.SetLayerWeight(anim.GetLayerIndex("AttackLayer"), 1);
         if (vfx.isEnabled)
         {
             vfx.GetComponent<Melee_VFXHandler>().swingVFX();
@@ -23,7 +24,7 @@ public class Swing : Attack
             var clip = obj.swingSFX[Random.Range(0, obj.swingSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        //anim.SetTrigger("Swing");
+        anim.SetTrigger("Swing");
         for (int e = 0; e < state.players.Length; e++)
         {
             float dist = Vector3.Distance(state.players[e].transform.position, transform.position);

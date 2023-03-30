@@ -56,9 +56,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //xOffset = 5.7f;
-        //yOffset = 13.31f;
-        //zOffset = -8.2f;
+        xOffset = 4;
+        yOffset = 5;
+        zOffset = -4f;
         /*float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");*/
 
@@ -127,8 +127,6 @@ public class PlayerMovement : MonoBehaviour
         float rightDirection = Vector3.Dot(transform.right, new Vector3(direction.x, 0f, direction.z));
         if (PA.shooting)
         {
-            //transform.LookAt(PA.playerLookDir);
-
             animator.SetFloat("X", rightDirection);
             animator.SetFloat("Y", forwardDirection);
         }

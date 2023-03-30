@@ -88,8 +88,11 @@ public class EnemyStats : MonoBehaviour
             Die();
         }
 
-        anim.SetFloat("X", agent.velocity.x, 0.05f, Time.deltaTime);
-        anim.SetFloat("Y", agent.velocity.z, 0.05f, Time.deltaTime);
+        float forwardDirection = Vector3.Dot(transform.forward, new Vector3(agent.velocity.x, 0, agent.velocity.z));
+        float rightDirection = Vector3.Dot(transform.right, new Vector3(agent.velocity.x, 0f, agent.velocity.z));
+
+        anim.SetFloat("X", rightDirection, 0.05f, Time.deltaTime);
+        anim.SetFloat("Y", forwardDirection, 0.05f, Time.deltaTime);
     }
 
     public void AllocateStats()

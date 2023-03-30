@@ -23,6 +23,7 @@ public class Wander : State
     public override void Update()
     {
         base.Update();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     public override State RunCurrentState()
@@ -31,7 +32,7 @@ public class Wander : State
         {
             wanderBeh();
             wanderPointSet = true;
-            anim.SetBool("Moving", true);
+           // anim.SetBool("Moving", true);
         }
         if(wanderPointSet)
         {
@@ -41,9 +42,9 @@ public class Wander : State
                 wanderPointSet = false;
                 wanderTimer = 0;
             }
-            if(agent.destination == wanderPoint)
+           // if(agent.destination == wanderPoint)
             {
-                anim.SetBool("Moving", false);
+                //anim.SetBool("Moving", false);
             }
         }
 
@@ -67,7 +68,9 @@ public class Wander : State
         NavMeshHit hit;
         NavMesh.SamplePosition(randomDirection, out hit, wanderRange, 1);
         wanderPoint = hit.position;
+        //agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(wanderPoint);
-        agent.destination= wanderPoint;
+        //agent.destination= wanderPoint;
     }
 }
