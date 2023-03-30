@@ -86,8 +86,9 @@ public class InitialiseLevel : MonoBehaviour
         yield return new WaitForSeconds(.2f);
 
         LevelGenerator.Scripts.Section[] rooms = levelRoot.GetComponentsInChildren<LevelGenerator.Scripts.Section>();
-        int room = Random.Range(rooms.Length / 2, rooms.Length);
-        Instantiate(levelEndObject, levelRoot.transform.GetChild(room).transform);
+        int room = Random.Range((int)(rooms.Length / .8f), rooms.Length);
+        GameObject end = Instantiate(levelEndObject, levelRoot.transform.GetChild(room).transform);
+        //end.transform.SetParent(transform);
 
         yield return new WaitForSeconds(1);
         if (RunBarrierAdjustment)
