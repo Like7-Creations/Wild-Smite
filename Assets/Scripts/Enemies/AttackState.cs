@@ -11,6 +11,8 @@ public class AttackState : State
 
     bool indicatorPlayed;
 
+    bool animSet;
+
     public override void Start()
     {
         base.Start();
@@ -24,10 +26,39 @@ public class AttackState : State
         print("attack state");
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
 
+        //indicatorPlayed = false;
+        if (!indicatorPlayed)
+        {
+            if (vfx.isEnabled)
+            {
+                vfx.attackIndicationVFX.Play();
+                indicatorPlayed = true;
+            }
+            if (sfx.isEnabled)
+            {
+                var obj = GetComponent<Enemy_SFXHandler>();
+                if (obj.GetComponent<Melee_SFXHandler>() != null)
+                {
+                    var clipObj = obj.GetComponent<Melee_SFXHandler>();
+                    var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                    audioSource.PlayOneShot(clip);
+                }
+
+                if (obj.GetComponent<Range_SFXHandler>() != null)
+                {
+                    var clipObj = obj.GetComponent<Range_SFXHandler>();
+                    var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                    audioSource.PlayOneShot(clip);
+                }
+            }
+            indicatorPlayed = true;
+        }
+
         Vector3 pos = chosenPlayer.transform.position + ((chosenPlayer.transform.position - transform.position).normalized * .8f);
         if(GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Melee)
         {
             agent.SetDestination(pos);
+
             //agent.destination = pos;
             print("approaching player");
             if (dist <= attackRange)
@@ -65,30 +96,5 @@ public class AttackState : State
     {
         GetComponent<MultiAttacker>().AttackPlayer();
         indicatorPlayed = false;
-        if (!indicatorPlayed)
-        {
-            if (vfx.isEnabled)
-            {
-                vfx.attackIndicationVFX.Play();
-                indicatorPlayed = true;
-            }
-            if (sfx.isEnabled)
-            {
-                var obj = GetComponent<Enemy_SFXHandler>();
-                if (obj.GetComponent<Melee_SFXHandler>() != null)
-                {
-                    var clipObj = obj.GetComponent<Melee_SFXHandler>();
-                    var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
-                    audioSource.PlayOneShot(clip);
-                }
-
-                if (obj.GetComponent<Range_SFXHandler>() != null)
-                {
-                    var clipObj = obj.GetComponent<Range_SFXHandler>();
-                    var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
-                    audioSource.PlayOneShot(clip);
-                }
-            }
-        }
     }
 }
