@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8872025930957279693}
   - component: {fileID: 6700005898931381511}
   - component: {fileID: 9129947653208999972}
+  - component: {fileID: 5953897796389511617}
+  - component: {fileID: 901478370585336156}
   m_Layer: 0
   m_Name: house_type09
   m_TagString: Untagged
@@ -100,3 +102,36 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2727242734697340596, guid: dd3e1121d46b3884d9fc05ba12a66e71, type: 3}
+--- !u!208 &5953897796389511617
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5186967741415556306}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 7.8, y: 5.0010004, z: 5.498}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 5.0010004, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &901478370585336156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5186967741415556306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  ditherDist: 15
+  ditherPercentage: 0
