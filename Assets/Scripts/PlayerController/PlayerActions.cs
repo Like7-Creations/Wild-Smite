@@ -411,12 +411,13 @@ public class PlayerActions : MonoBehaviour
         yield return null;
     }
 
+
+    public float chargedSTAM = 0;
+    public float chargedMELEE = 0;
+    public float chargedRANGE = 0;
+
     public void ChargeAOE()
     {
-        float chargedSTAM = 0;
-        float chargedMELEE = 0;
-        float chargedRANGE = 0;
-
         if (charging)
         {
             StartCoroutine(BeginChargingAOE());
@@ -445,53 +446,34 @@ public class PlayerActions : MonoBehaviour
             Debug.Log("AOE charged release");
 
             currentCharge = 0;
+            chargedSTAM = 0;
+            chargedMELEE = 0;
+            chargedRANGE = 0;
         }
     }
 
 
     //Event Required
-    public void AOE(float multiplier)
+    public void ReleaseAOE(float stamina, float melee, float radius)
     {
         Collider[] hits;
-        hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * multiplier);        //Use Range Stat to define AOE Radius.
+        hits = Physics.OverlapSphere(transform.position, /*pStats.r_ATK */ radius);        //Use Range Stat to define AOE Radius.
         foreach (Collider c in hits)
         {
             if (c.GetComponent<EnemyStats>() != null)
             {
                 EnemyStats enemy = c.GetComponent<EnemyStats>();
-                enemy.Health -= pStats.m_ATK * multiplier;        //Use Melee Stat here.
+                enemy.Health -= pStats.m_ATK * melee;        //Use Melee Stat here.
             }
         }
 
         //UnityEngine.Debug.Log("AOE attack");
 
-        //trigger_aoeVFX.Invoke();        //Trigger AOE VFX
+        trigger_aoeVFX.Invoke();        //Trigger AOE VFX
       
         
-        pStats.UseSprint((int)multiplier);
+        pStats.UseSprint((int)radius);
         
-
-        charging = false;
-    }
-
-    //Event Required
-    public void ReleaseAOE(float stamina, float melee, float radius)
-    {
-        
-        Collider[] hits;
-        hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * radius);        //Use Range Stat to define AOE Radius.
-        foreach (Collider c in hits)
-        {
-            if (c.GetComponent<UltimateAI>() != null)
-            {
-                UltimateAI enemy = c.GetComponent<UltimateAI>();
-                enemy.health -= pStats.m_ATK * melee;        //Use Melee Stat here.
-            }
-        }
-
-        trigger_aoeVFX.Invoke();        //Trigger AOE VFX
-
-        pStats.UseSprint((int)stamina);
 
         charging = false;
     }
