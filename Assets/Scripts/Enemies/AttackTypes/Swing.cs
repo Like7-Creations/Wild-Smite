@@ -12,6 +12,7 @@ public class Swing : Attack
     public override IEnumerator AttackType()
     {
         // Attack indication for ranged and melee are implemented in the state machine, therefore they dont have to be here
+        print("called swing");
         yield return new WaitForSeconds(0);
         if (vfx.isEnabled)
         {
@@ -23,7 +24,6 @@ public class Swing : Attack
             var clip = obj.swingSFX[Random.Range(0, obj.swingSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        anim.SetTrigger("Swing");
         for (int e = 0; e < state.players.Length; e++)
         {
             float dist = Vector3.Distance(state.players[e].transform.position, transform.position);

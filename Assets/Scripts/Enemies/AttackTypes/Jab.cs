@@ -19,7 +19,6 @@ public class Jab : Attack
             var clip = obj.jabSFX[Random.Range(0, obj.jabSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        anim.SetTrigger("Jab");
         if (vfx.isEnabled)
         {
             vfx.GetComponent<Melee_VFXHandler>().jabVFX();

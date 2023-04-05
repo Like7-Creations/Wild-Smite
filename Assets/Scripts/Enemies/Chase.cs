@@ -29,22 +29,22 @@ public class Chase : State
 
     public override State RunCurrentState()
     {
-        // print("chase state");
-        // anim.SetFloat("Y", 1);
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
-         if(dist >= orbitRange && !pointSet)
-         {
-            anim.SetBool("Moving", true);
-            print("chasingg player");
-            Vector3 pos = chosenPlayer.transform.position - transform.position;
-            agent.SetDestination(chosenPlayer.transform.position);
-            pointSet = true;
-            //agent.destination = pos;
-         }
-         else if(dist <= orbitRange)
-         {
-            return orbitState;
-         }
+
+        agent.SetDestination(chosenPlayer.transform.position);
+
+        /*if (dist >= orbitRange)
+        {
+           print("chasingg player");
+           Vector3 pos = chosenPlayer.transform.position - transform.position;
+           agent.SetDestination(chosenPlayer.transform.position);
+           //pointSet = true;
+           //agent.destination = pos;
+        }*/
+        if(dist <= orbitRange)
+        {
+           return orbitState;
+        }
         return this;
     }
 }

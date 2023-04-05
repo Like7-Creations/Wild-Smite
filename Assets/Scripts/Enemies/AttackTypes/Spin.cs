@@ -15,6 +15,7 @@ public class Spin : Attack
     public override IEnumerator AttackType()
     {
         // Attack indication for ranged and melee are implemented in the state machine, therefore they dont have to be here
+
         if (vfx.isEnabled)
         {
             vfx.GetComponent<Melee_VFXHandler>().spinVFX();
@@ -36,6 +37,7 @@ public class Spin : Attack
                     audioSource.PlayOneShot(clip);
                 }
             }
+            //anim.SetTrigger("prepSpin");
             yield return new WaitForSeconds(TimeBetweenAttacks); // We either use this or we just use the normal void and call the melee as event at attack time
         }
         if (vfx.isEnabled)
