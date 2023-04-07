@@ -59,7 +59,7 @@ public class Minimap_Cam : MonoBehaviour
             }
         }
 
-        miniCam.orthographicSize = (lvlBounds.extents.z + 67f) * 1.5f;
+        miniCam.orthographicSize = (lvlBounds.extents.z + 67f) /* 2.5f*/;
 
         transform.position = new Vector3(lvlBounds.center.x, 125, lvlBounds.center.z);
     }
