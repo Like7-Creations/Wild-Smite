@@ -72,8 +72,9 @@ public class PlayerActions : MonoBehaviour
     [Header("AOE Settings")]
     public bool charging;
     public float startingRadius;
-    public float maxRadius;
     public float chargingSpeed;
+    [SerializeField] float minRadius;
+    [SerializeField] float maxRadius;
 
     public List<EnemyStats> enemiesInDot = new List<EnemyStats>();
     PlayerControl Pc;
@@ -471,23 +472,23 @@ public class PlayerActions : MonoBehaviour
     public void ReleaseAOE(float stamina, float melee, float radius)
     {
         Collider[] hits;
-        hits = Physics.OverlapSphere(transform.position, /*pStats.r_ATK */ radius);        //Use Range Stat to define AOE Radius.
+        hits = Physics.OverlapSphere(transform.position, radius);        //Use Range Stat to define AOE Radius.
         foreach (Collider c in hits)
         {
             if (c.GetComponent<EnemyStats>() != null)
             {
                 EnemyStats enemy = c.GetComponent<EnemyStats>();
-                enemy.Health -= pStats.m_ATK * melee;        //Use Melee Stat here.
+                enemy.Health -= melee;        //Use Melee Stat here.
             }
         }
 
+        minRadius = radius;
         //UnityEngine.Debug.Log("AOE attack");
 
         trigger_aoeVFX.Invoke();        //Trigger AOE VFX
       
         
         pStats.UseSprint((int)radius);
-        
 
         charging = false;
     }
@@ -578,10 +579,12 @@ public class PlayerActions : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 5);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, minRadius);
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, maxRadius);
+
     }
 
     private void OnDrawGizmosSelected()
