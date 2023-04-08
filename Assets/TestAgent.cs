@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class TestAgent : MonoBehaviour
 {
     [SerializeField] float time;
+
     void Start()
     {
 

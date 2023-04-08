@@ -107,6 +107,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""e51b30eb-2b7e-4beb-a721-2b986bb87d19"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -316,6 +325,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""GamePadRangeAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37699f12-74eb-4d20-9d06-4337783b2a19"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a71068d-8f89-45d2-9e5f-2315ffe4d2ea"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -579,6 +610,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
         m_Player_RangeAttack = m_Player.FindAction("RangeAttack", throwIfNotFound: true);
         m_Player_GamePadRangeAttack = m_Player.FindAction("GamePadRangeAttack", throwIfNotFound: true);
+        m_Player_UseItem = m_Player.FindAction("UseItem", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Movement = m_UI.FindAction("Movement", throwIfNotFound: true);
@@ -655,6 +687,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_PauseGame;
     private readonly InputAction m_Player_RangeAttack;
     private readonly InputAction m_Player_GamePadRangeAttack;
+    private readonly InputAction m_Player_UseItem;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -668,6 +701,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
         public InputAction @RangeAttack => m_Wrapper.m_Player_RangeAttack;
         public InputAction @GamePadRangeAttack => m_Wrapper.m_Player_GamePadRangeAttack;
+        public InputAction @UseItem => m_Wrapper.m_Player_UseItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -704,6 +738,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @GamePadRangeAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGamePadRangeAttack;
                 @GamePadRangeAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGamePadRangeAttack;
                 @GamePadRangeAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGamePadRangeAttack;
+                @UseItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseItem;
+                @UseItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseItem;
+                @UseItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseItem;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -735,6 +772,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @GamePadRangeAttack.started += instance.OnGamePadRangeAttack;
                 @GamePadRangeAttack.performed += instance.OnGamePadRangeAttack;
                 @GamePadRangeAttack.canceled += instance.OnGamePadRangeAttack;
+                @UseItem.started += instance.OnUseItem;
+                @UseItem.performed += instance.OnUseItem;
+                @UseItem.canceled += instance.OnUseItem;
             }
         }
     }
@@ -841,6 +881,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnPauseGame(InputAction.CallbackContext context);
         void OnRangeAttack(InputAction.CallbackContext context);
         void OnGamePadRangeAttack(InputAction.CallbackContext context);
+        void OnUseItem(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

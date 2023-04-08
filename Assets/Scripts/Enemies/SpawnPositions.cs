@@ -17,7 +17,7 @@ public class SpawnPositions : MonoBehaviour
 
     public List<Transform> points;
 
-    [SerializeField] Item[] items;
+    [SerializeField] public Item[] items;
 
     public float radius;
 
@@ -30,7 +30,7 @@ public class SpawnPositions : MonoBehaviour
 
     public void SpawnEnemies(Vector2 amountRange, EnemyInfo enemy, LevelSettings.Difficulty currentDifficulty)
     {
-        for (int i = 0; i < points.Count; i++)
+        /*for (int i = 0; i < points.Count; i++)
         {
             int enemyAmount = (int)Random.Range(amountRange.x, amountRange.y);
             for (int e = 0; e < enemyAmount; e++)
@@ -47,11 +47,11 @@ public class SpawnPositions : MonoBehaviour
                 enemyObject.GetComponent<EnemyStats>().ESR = enemy.statRange;
                 enemyObject.GetComponent<EnemyStats>().GenerateStatValues(currentDifficulty);
             }
-        }
+        }*/
     }
 
     public void spawnItem()
     {
-        Instantiate(items[Random.Range(0, items.Length)], points[Random.Range(0, points.Count)].position, Quaternion.identity);
+        //Instantiate(items[Random.Range(0, items.Length)], points[Random.Range(0, points.Count)].position, Quaternion.identity);
     }
 }

@@ -16,7 +16,9 @@ using System;
 public class PlayerActions : MonoBehaviour
 {
     [SerializeField] bool isGamepad;
-    //[SerializeField] bool isGamepad;
+
+    public bool lockX, lockY, lockZ;
+    private Vector3 startRotation;
 
     PlayerMovement playerController;
     PlayerVFX VFX;
@@ -110,6 +112,7 @@ public class PlayerActions : MonoBehaviour
         pStats = GetComponent<PlayerStats>();
         animator = GetComponent<Animator>();
         OriginalSpeed = playerController.playerSpeed;
+        startRotation = transform.rotation.eulerAngles;
     }
 
     public float currentCharge = 0;
@@ -173,14 +176,18 @@ public class PlayerActions : MonoBehaviour
         {
             Vector3 pointToLook = cameraRay.GetPoint(raylength);
             playerLookDir = pointToLook;
-           //playerLookDir.y = 1;
+            //pointToLook.y = 1;
+            //playerLookDir.y = 1;
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+            //float dist = Vector3.Distance(transform.position, pointToLook);
+            //if(dist >= 1.5f)
+            transform.LookAt(pointToLook);
             if (mouseShooting)
             {
-                transform.LookAt(pointToLook);
                 ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
             }
         }
+        //transform.LookAt(playerLookDir);
 
         if (fired)
         {
@@ -237,8 +244,15 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-
-
+    void LateUpdate()
+    {
+        Vector3 newRotation = transform.rotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(
+            lockX ? startRotation.x : newRotation.x,
+            lockY ? startRotation.y : newRotation.y,
+            lockZ ? startRotation.z : newRotation.z
+        );
+    }
 
     #region Player Take Damage
 
@@ -411,12 +425,13 @@ public class PlayerActions : MonoBehaviour
         yield return null;
     }
 
+
+    public float chargedSTAM = 0;
+    public float chargedMELEE = 0;
+    public float chargedRANGE = 0;
+
     public void ChargeAOE()
     {
-        float chargedSTAM = 0;
-        float chargedMELEE = 0;
-        float chargedRANGE = 0;
-
         if (charging)
         {
             StartCoroutine(BeginChargingAOE());
@@ -445,53 +460,34 @@ public class PlayerActions : MonoBehaviour
             Debug.Log("AOE charged release");
 
             currentCharge = 0;
+            chargedSTAM = 0;
+            chargedMELEE = 0;
+            chargedRANGE = 0;
         }
     }
 
 
     //Event Required
-    public void AOE(float multiplier)
+    public void ReleaseAOE(float stamina, float melee, float radius)
     {
         Collider[] hits;
-        hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * multiplier);        //Use Range Stat to define AOE Radius.
+        hits = Physics.OverlapSphere(transform.position, /*pStats.r_ATK */ radius);        //Use Range Stat to define AOE Radius.
         foreach (Collider c in hits)
         {
             if (c.GetComponent<EnemyStats>() != null)
             {
                 EnemyStats enemy = c.GetComponent<EnemyStats>();
-                enemy.Health -= pStats.m_ATK * multiplier;        //Use Melee Stat here.
+                enemy.Health -= pStats.m_ATK * melee;        //Use Melee Stat here.
             }
         }
 
         //UnityEngine.Debug.Log("AOE attack");
 
-        //trigger_aoeVFX.Invoke();        //Trigger AOE VFX
+        trigger_aoeVFX.Invoke();        //Trigger AOE VFX
       
         
-        pStats.UseSprint((int)multiplier);
+        pStats.UseSprint((int)radius);
         
-
-        charging = false;
-    }
-
-    //Event Required
-    public void ReleaseAOE(float stamina, float melee, float radius)
-    {
-        
-        Collider[] hits;
-        hits = Physics.OverlapSphere(transform.position, pStats.r_ATK * radius);        //Use Range Stat to define AOE Radius.
-        foreach (Collider c in hits)
-        {
-            if (c.GetComponent<UltimateAI>() != null)
-            {
-                UltimateAI enemy = c.GetComponent<UltimateAI>();
-                enemy.health -= pStats.m_ATK * melee;        //Use Melee Stat here.
-            }
-        }
-
-        trigger_aoeVFX.Invoke();        //Trigger AOE VFX
-
-        pStats.UseSprint((int)stamina);
 
         charging = false;
     }
