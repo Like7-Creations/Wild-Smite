@@ -102,7 +102,7 @@ public class DataPersistenceManager : MonoBehaviour
         //Pass the GameData to any scripts so that they can update it with their own information.
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjs)
         {
-            dataPersistenceObj.SaveData(ref gameData);
+            dataPersistenceObj.SaveData(gameData);
         }
 
         Debug.Log("Game Data Loaded In.");
