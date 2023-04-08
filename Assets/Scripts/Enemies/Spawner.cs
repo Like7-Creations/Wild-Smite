@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Ultimate.AI;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Spawner : MonoBehaviour
 {
@@ -87,6 +88,7 @@ public class Spawner : MonoBehaviour
     void SpawnEnemies()
     {
         //Debug.Log ("Spawning Enemies at " + spawnPoints.Count + "Points");
+        int currentEnemy = 0;
 
         int roomsAmount = Mathf.RoundToInt(enemySpawns.Count * (enemyPercentage / 100));
         Debug.Log($"attempting to spawn in {roomsAmount} rooms");
@@ -94,38 +96,50 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0; i < enemySpawns.Count; i+= roomGap) 
         {
-            enemySpawns[i].SpawnEnemies(SpawnCountRange, possibleEnemies[Random.Range(0, possibleEnemies.Length)], currentDifficulty);
-            /*int amount = Random.Range(SpawnCountRange.x, SpawnCountRange.y);
-            //Debug.Log("Spawning " + amount + "enemies");
-
-            for (int j = 0; j < amount; j++)
+            for (int e = 0; e < enemySpawns[i].points.Count; e++)
             {
-            
-                float angleIteration = 360 / amount;
+                int enemyAmount = Random.Range(SpawnCountRange.x, SpawnCountRange.y);
 
-                float currentRotation = angleIteration * i;
+                for (int k = 0; k < enemyAmount; k++)
+                {
+                    EnemyInfo enemy = possibleEnemies[currentEnemy];
+                    if (currentEnemy + 1 >= possibleEnemies.Length) currentEnemy = 0;
+                    else currentEnemy++;
+                    GameObject enemyObject = Instantiate(enemy.enemyPrefab, enemySpawns[i].points[e].position, enemySpawns[i].points[e].rotation);
 
-                EnemyInfo enemy = possibleEnemies[Random.Range(0, possibleEnemies.Length)];
-                GameObject enemyObject = Instantiate(enemy.enemyPrefab, spawnPoints[i].position, spawnPoints[i].rotation);
+                    float angleIteration = 360 / enemyAmount;
 
-                enemyObject.transform.Rotate(new Vector3(0, currentRotation, 0));
-                enemyObject.transform.Translate(new Vector3(radius, 5, 0));
+                    float currentRotation = angleIteration * i;
 
-                enemyObject.GetComponent<EnemyStats>().ESR = enemy.statRange;
-                enemyObject.GetComponent<EnemyStats>().GenerateStatValues(currentDifficulty);
-            }*/
+                    enemyObject.transform.Rotate(new Vector3(0, currentRotation, 0));
+                    enemyObject.transform.Translate(new Vector3(radius, 5, 0));
+
+                    enemyObject.GetComponent<EnemyStats>().ESR = enemy.statRange;
+                    enemyObject.GetComponent<EnemyStats>().GenerateStatValues(currentDifficulty);
+                }
+            }
+            enemySpawns[i].SpawnEnemies(SpawnCountRange, possibleEnemies[Random.Range(0, possibleEnemies.Length)], currentDifficulty);
         }
     }
 
     void SpawnItems()
     {
+        int currentItem = 0;
+
         int roomsAmount = Mathf.RoundToInt(ItemSpawns.Count * (ItemPercentage / 100));
         Debug.Log($"attempting to spawn Items in {roomsAmount} rooms");
         int roomGap = ItemSpawns.Count / roomsAmount;
 
         for (int i = 0; i < ItemSpawns.Count; i++)
         {
-            ItemSpawns[i].spawnItem();
+            for (int k = 0; k < ItemSpawns[i].points.Count; k++)
+            {
+                Item item = ItemSpawns[i].items[currentItem];
+                if (currentItem + 1 >= ItemSpawns[i].items.Length) currentItem = 0;
+                else currentItem++;
+                Instantiate(ItemSpawns[i].items[Random.Range(0, ItemSpawns[i].items.Length)], ItemSpawns[i].points[k].position, Quaternion.identity);
+            }
+           // ItemSpawns[i].spawnItem();
         }
     }
 

@@ -30,10 +30,6 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.V))
-        {
-            useItem();
-        }
         if(heldItem!= null)
         {
             if(heldItem.timer <= 0)
@@ -43,7 +39,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    void useItem()
+    public void useItem()
     {
         if (heldItem != null)
         {

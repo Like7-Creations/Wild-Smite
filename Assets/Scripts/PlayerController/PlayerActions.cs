@@ -16,7 +16,9 @@ using System;
 public class PlayerActions : MonoBehaviour
 {
     [SerializeField] bool isGamepad;
-    //[SerializeField] bool isGamepad;
+
+    public bool lockX, lockY, lockZ;
+    private Vector3 startRotation;
 
     PlayerMovement playerController;
     PlayerVFX VFX;
@@ -110,6 +112,7 @@ public class PlayerActions : MonoBehaviour
         pStats = GetComponent<PlayerStats>();
         animator = GetComponent<Animator>();
         OriginalSpeed = playerController.playerSpeed;
+        startRotation = transform.rotation.eulerAngles;
     }
 
     public float currentCharge = 0;
@@ -173,14 +176,18 @@ public class PlayerActions : MonoBehaviour
         {
             Vector3 pointToLook = cameraRay.GetPoint(raylength);
             playerLookDir = pointToLook;
-           //playerLookDir.y = 1;
+            //pointToLook.y = 1;
+            //playerLookDir.y = 1;
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+            //float dist = Vector3.Distance(transform.position, pointToLook);
+            //if(dist >= 1.5f)
+            transform.LookAt(pointToLook);
             if (mouseShooting)
             {
-                transform.LookAt(pointToLook);
                 ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
             }
         }
+        //transform.LookAt(playerLookDir);
 
         if (fired)
         {
@@ -237,8 +244,15 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-
-
+    void LateUpdate()
+    {
+        Vector3 newRotation = transform.rotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(
+            lockX ? startRotation.x : newRotation.x,
+            lockY ? startRotation.y : newRotation.y,
+            lockZ ? startRotation.z : newRotation.z
+        );
+    }
 
     #region Player Take Damage
 

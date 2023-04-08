@@ -10,6 +10,7 @@ public class PlayerControl : MonoBehaviour
     PlayerControls controls;
     PlayerActions pActions;
     PlayerMovement pMovement;
+    PlayerInventory pInventory;
 
     public Renderer[] matMeshes;
     Animator anim;
@@ -18,6 +19,7 @@ public class PlayerControl : MonoBehaviour
     {
         pMovement = GetComponent<PlayerMovement>();
         pActions = GetComponent<PlayerActions>();
+        pInventory = GetComponent<PlayerInventory>();
         anim = GetComponent<Animator>();
 
     }
@@ -115,6 +117,12 @@ public class PlayerControl : MonoBehaviour
             PauseMenuController pause = FindObjectOfType<PauseMenuController>();
             if (pause != null)
                 pause.PauseGame(playerConfig);
+        }
+
+        // Use Item 
+        if(context.action.name == controls.Player.UseItem.name && context.performed)
+        {
+            pInventory.useItem();
         }
     }
 
