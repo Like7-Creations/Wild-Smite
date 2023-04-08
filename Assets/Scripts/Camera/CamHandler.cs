@@ -63,25 +63,37 @@ public class CamHandler : MonoBehaviour
         //Check which camera is the current camera
         if (currentCam == followCam)
         {
+            //Instead of switching to a completely different camera, talk to Chris about simply changing values.
+            //We can have preset values in the script which will be fed into the VCam when switching.
+
+            #region Attempt 1
             combatCam.gameObject.SetActive(true);
             combatCam.Priority++;
             currentCam = combatCam;
 
             followCam.Priority--;
             followCam.gameObject.SetActive(false);
+            #endregion
         }
         else if (currentCam == combatCam)
         {
+            //Instead of switching to a completely different camera, talk to Chris about simply changing values.
+            //We can have preset values in the script which will be fed into the VCam when switching.
+
+            #region Attempt 1
             followCam.gameObject.SetActive(true);
             followCam.Priority++;
             currentCam = followCam;
 
             currentCam.Priority--;
             currentCam.gameObject.SetActive(false);
+            #endregion
         }
         else if (currentCam == null)
         {
-            currentCam = followCam;
+            //Set some values as the default values that the camera can use when necessary.
+
+            currentCam = followCam;     //Attempt 1
         }
         //Switch current camera to the inactive one.
         //Decrement the newly inactive camera's priority

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+using UnityEngine.SceneManagement;
 
 #region Summary & Notes
 //This class must exist as a singleton, and attached to its own GameObject in the scene. 
@@ -10,6 +10,13 @@ using System.Linq;
 #endregion
 public class DataPersistenceManager : MonoBehaviour
 {
+    [Header("Debugging")]
+    [SerializeField] bool disableDataPersistence = false;
+    [SerializeField] bool initializeDataIfNull = false;     //Set to true if you wanna test data persistence for specific scenes.
+
+    [SerializeField] bool overrideSelectedProfileID = false;
+    [SerializeField] string testSelectedProfileID = "test";
+
     [Header("File Storage Config")]
     [SerializeField] string filename;
     [SerializeField] bool useEncryption;
@@ -19,21 +26,56 @@ public class DataPersistenceManager : MonoBehaviour
     List<IDataPersistence> dataPersistenceObjs;
     FileDataManager dataManager;
 
+    string selectedProfileID = "";
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+
     private void Awake()
     {
         if (instance != null)
         {
-            Debug.Log("Multiple 'Data Persistence Managers' found in scene");
+            Debug.Log("Multiple 'Data Persistence Managers' found in scene. Destrying newest one.");
+            Destroy(this.gameObject);
+            return;
         }
         instance = this;
-    }
 
-    private void Start()
-    {
+        DontDestroyOnLoad(this.gameObject);
+
+        if(disableDataPersistence)
+        {
+            Debug.LogWarning("Data Persistence Is Currently Disabled!");
+        }
+
         this.dataManager = new FileDataManager(Application.persistentDataPath, filename, useEncryption);
-        this.dataPersistenceObjs = FindAllDataPersistenceObjects();
+
+        this.selectedProfileID = dataManager.GetRecentlyUpdatedProfileID();
+
+        //For debugging
+        if (overrideSelectedProfileID)
+        {
+            selectedProfileID = testSelectedProfileID;
+            Debug.LogWarning("Selected Profile ID has been overriden by the Test Profile ID: " + testSelectedProfileID);
+        }
     }
 
+    #region NewGame() Summary:
+    /* This function should be called only under a specific circumstance:
+     * When players create a new game, we directly reference this class' instance, and call the function through it.
+     * After calling this function, the "SceneManager.LoadSceneAsync("insert scene here")" function should be called.
+     * This in turn will result in this new game being saved, since the current scene will be unloaded, resulting in OnSceneUnloaded(), a subscriber of the SceneUnload, is called. 
+     * */
+    #endregion
     public void NewGame()
     {
         //Create a new Game Data object when starting a new game.
@@ -42,6 +84,21 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void SaveGame()
     {
+        #region Debugging Section
+        //Return if disableDataPersistence is enabled
+        if (disableDataPersistence)
+        {
+            return;
+        }
+        #endregion
+
+        //If there is no save data, send out a warnign.
+        if (this.gameData == null)
+        {
+            Debug.LogWarning("No data found. Please start a new game, before trying to save data.");
+            return;
+        }
+
         //Pass the GameData to any scripts so that they can update it with their own information.
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjs)
         {
@@ -51,21 +108,45 @@ public class DataPersistenceManager : MonoBehaviour
         Debug.Log("Game Data Loaded In.");
         Debug.Log($"The Saved Player Stats are - HP: {gameData.hp}, STAM: {gameData.stamina}, MELEE: {gameData.m_ATK}, RANGE: {gameData.r_ATK}");
 
+        //Update the timestamp of the saved game.
+        gameData.lastUpdatedStamp = System.DateTime.Now.ToBinary();
+
         //Save that data to a file using a data handler.
-        dataManager.Save(gameData);
+        dataManager.Save(gameData, selectedProfileID);
     }
 
+    #region LoadGame() Summary:
+    /* This function should only be called when continuing an existing game:
+     * As such, it will first Load the next scene.
+     * This results in OnSceneLoaded being called from this class, due to it being a subscriber of SceneLoaded.
+     * Lastly the scene is then loaded using "SceneManager.LoadSceneAsync("insert scene here")".
+     * 
+     * */
+    #endregion
     public void LoadGame()
     {
-        //Load any saved data from a file using a data handler.
-        this.gameData = dataManager.Load();
+        #region Debugging Section
+        //Return if disableDataPersistence is enabled
+        if (disableDataPersistence)
+        {
+            return;
+        }
+        #endregion
 
-        //If there is no data to load, start a new game.
+        //Load any saved data from a file using a data handler.
+        this.gameData = dataManager.Load(selectedProfileID);
+
+        //Start a new game  if the data is null && we're configured to initialize data for debugging purposes.
+        if (this.gameData == null && initializeDataIfNull)
+        {
+            NewGame();
+        }
+
+        //If there is no data to load, don't continue.
         if (instance.gameData == null)
         {
-            Debug.Log("No Saves Located. Initializing New Game With Default Data.");
-
-            NewGame();
+            Debug.Log("No Saves Located. Please start a new game.");
+            return;
         }
 
         //Push all the loaded data to all scripts that need it.
@@ -79,6 +160,18 @@ public class DataPersistenceManager : MonoBehaviour
         Debug.Log($"The Loaded Player Stats are - HP: {gameData.hp}, STAM: {gameData.stamina}, MELEE: {gameData.m_ATK}, RANGE: {gameData.r_ATK}");
     }
 
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded called");
+        this.dataPersistenceObjs = FindAllDataPersistenceObjects();
+        LoadGame();
+    }
+
+    public void OnSceneUnloaded(Scene scene)
+    {
+        Debug.Log("OnSceneUnloaded called");
+        SaveGame();
+    }
     List<IDataPersistence> FindAllDataPersistenceObjects()
     {
         //Default Code
@@ -90,5 +183,32 @@ public class DataPersistenceManager : MonoBehaviour
         IEnumerable<IDataPersistence> dataPersistenceObjs = Resources.FindObjectsOfTypeAll<ScriptableObject>().OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjs);
+    }
+
+    #region HasGameData() Summarry:
+    //Can be used to disable the continue game button in the mainmenu if there is no save game
+    #endregion
+    public bool HasGameData()
+    {
+        return this.gameData != null;
+    }
+
+    public void ChangeSelectedProfileID(string newProfileID)
+    {
+        //Update the profile to use for saving and loading
+        this.selectedProfileID = newProfileID;
+
+        //Load the game saved on this profile, and use its data accordingly.
+        LoadGame();
+    }
+
+    public Dictionary<string, GameData> GetAllProfilesGameData()
+    {
+        return dataManager.LoadAllProfiles();
+    }
+
+    private void OnApplicationQuit()
+    {
+        //Call Save func here??
     }
 }

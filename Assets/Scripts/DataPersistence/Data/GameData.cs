@@ -5,6 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
+    [Header("Profile Info")]
+    public long lastUpdatedStamp;
+
+
     PlayerStat_Data pData;
 
     #region Player_Stat Variables
