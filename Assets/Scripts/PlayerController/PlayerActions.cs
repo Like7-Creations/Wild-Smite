@@ -128,7 +128,7 @@ public class PlayerActions : MonoBehaviour
         #region Find Enemies With CheckSphere Then Check If Inside Dot Product
         //if (enemiesInDot != null) { enemiesInDot = enemiesInDot.Distinct().ToList(); } //Keeping it From Duplicates.
         enemiesInDot.Clear();
-        if(enemiesInDot.Count > 0)
+        if (enemiesInDot.Count > 0)
         {
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
@@ -398,7 +398,7 @@ public class PlayerActions : MonoBehaviour
     //Event Required
     public void DisableCollider()
     {
-       //trigger_attackVFX.Invoke();
+        //trigger_attackVFX.Invoke();
         //animator.applyRootMotion = true;
         //VFX.Melee();
         playerController.enabled = true;
@@ -426,6 +426,68 @@ public class PlayerActions : MonoBehaviour
         yield return null;
     }
 
+    public static float GetPercentage(float value, float maxValue)
+    {
+        float percentage = (1 - value / maxValue) * 100;
+
+        return percentage;
+    }
+
+    /*public static Func<float, float> GetPercentValueFunction(float minPercent, float maxPercent)
+    {
+        if (minPercent >= maxPercent)
+        {
+            throw new ArgumentException("Min percentage must be less than max percentage.");
+        }
+
+        return (value) =>
+        {
+            float normalizedPercentage = (value - minPercent) / (maxPercent - minPercent);
+            return normalizedPercentage;
+        };
+    }
+
+    public static float AddValueFromCharge(float minPercent, float maxPercent, float value, float charge)
+    {
+        float normalizedPercentage = (charge - minPercent) / (maxPercent - minPercent);
+        float percentValue = value * normalizedPercentage;
+
+        return value + percentValue;
+    }
+
+    /*public static float GetPercentageBetweenValues(float minValue, float maxValue, float value)
+    {
+        if (minValue >= maxValue)
+        {
+            throw new ArgumentException("Min value must be less than max value.");
+        }
+
+        float percentage = (value - minValue) / (maxValue - minValue);
+
+        if (percentage < 0)
+        {
+            percentage = 1 - percentage;
+        }
+
+        // Clamp the percentage to be between 0 and 1
+        percentage = Mathf.Clamp01(percentage);
+
+
+        return percentage;
+    }*/
+
+    public float CalculateStatPercentValue(float percentage, float statValue)
+    {
+        return (percentage / 100) * statValue;
+    }
+
+    public float ReturnValueFromPercentage(float minValue, float maxValue, float percentage)
+    {
+        float result = minValue + (maxValue - minValue) * percentage / 100f;
+
+        return result;
+        //return Mathf.Clamp(minValue, maxValue, result);
+    }
 
     public float chargedSTAM = 0;
     public float chargedMELEE = 0;
@@ -441,10 +503,53 @@ public class PlayerActions : MonoBehaviour
 
             if (currentCharge <= pStats.aoe_Hold)
             {
+                #region Attempt #3 [Success]
+
+                float chargePercentage = Mathf.InverseLerp(0, pStats.aoe_Hold, currentCharge) * 100;
+
+                //Debug.Log($"Charge Percentage: {(float)chargePercentage}");
+
+                //Melee
+                float minMeleeMultiplier = CalculateStatPercentValue(30f, pStats.m_ATK);
+                float maxMeleeMultiplier = CalculateStatPercentValue(100f, pStats.m_ATK);
+
+                chargedMELEE = pStats.m_ATK + ReturnValueFromPercentage(minMeleeMultiplier, maxMeleeMultiplier, chargePercentage);
+                Debug.Log($"Min Melee Multiplier: {minMeleeMultiplier}, Max Melee Multiplier: {maxMeleeMultiplier}");
+                //Debug.Log("Charged Melee" + chargedMELEE);
+
+
+
+                //Radius
+                float minRadiusMultiplier = CalculateStatPercentValue(4f, pStats.r_ATK);
+                float maxRadiusMultiplier = CalculateStatPercentValue(6f, pStats.r_ATK);
+
+                chargedRANGE = ReturnValueFromPercentage(minRadiusMultiplier, maxRadiusMultiplier, chargePercentage);
+                Debug.Log($"Min Radius Multiplier: {minRadiusMultiplier}, Max Radius Multiplier: {maxRadiusMultiplier}");
+                //Debug.Log("Charged Radius" + chargedRANGE);
+
+                #endregion
+
+                #region Attempt #2 [Failed]
+                /*float chargePercent = GetPercentage(currentCharge, pStats.aoe_Hold);
+
+                //Melee
+                chargedMELEE = AddValueFromCharge(30f, 100f, pStats.m_ATK, chargePercent);
+
+                //Radius
+                Func<float, float> percentValueFunction = GetPercentValueFunction(4f, 6f);
+                float percentValue = percentValueFunction(chargePercent);*/
+
+                #endregion
+
+                #region Attempt #1 [Failed]
+                //chargedRANGE = pStats.r_ATK * GetPercentageBetweenValues(minRadius, maxRadius, currentCharge);
+                //chargedMELEE = pStats.m_ATK + (pStats.m_ATK * GetPercentageBetweenValues(30f, 100f, currentCharge));
+                #endregion
+
                 //Charge radius, damamge, stamina
                 chargedSTAM = pStats.aoe_Tap * currentCharge;
-                chargedMELEE = pStats.m_ATK * currentCharge;
-                chargedRANGE = pStats.r_ATK * currentCharge;
+                //chargedMELEE = pStats.m_ATK * currentCharge;
+                //chargedRANGE = pStats.r_ATK * currentCharge;
             }
             else if (currentCharge >= pStats.aoe_Hold || chargedSTAM == pStats.stamina)
             {
@@ -459,6 +564,7 @@ public class PlayerActions : MonoBehaviour
             ReleaseAOE(chargedSTAM, chargedMELEE, chargedRANGE);
 
             Debug.Log("AOE charged release");
+            Debug.Log($"Stamina: {chargedSTAM}, Melee: {chargedMELEE}, Radius: {chargedRANGE}");
 
             currentCharge = 0;
             chargedSTAM = 0;
@@ -467,8 +573,6 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-
-    //Event Required
     public void ReleaseAOE(float stamina, float melee, float radius)
     {
         Collider[] hits;
@@ -482,13 +586,11 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        minRadius = radius;
+        //minRadius = radius;
         //UnityEngine.Debug.Log("AOE attack");
 
         trigger_aoeVFX.Invoke();        //Trigger AOE VFX
-      
-        
-        pStats.UseSprint((int)radius);
+        pStats.UseDash((int)chargedSTAM);
 
         charging = false;
     }
@@ -499,7 +601,7 @@ public class PlayerActions : MonoBehaviour
         {
             StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));        //Dashing stuff
 
-        
+
             pStats.UseDash((int)pStats.dash);
         }
     }
@@ -529,8 +631,8 @@ public class PlayerActions : MonoBehaviour
     //Event Required
     public void Sprint()
     {
-        if(pStats.stamina >= pStats.sprint)
-        playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
+        if (pStats.stamina >= pStats.sprint)
+            playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
         isSprinting = true;
 
         trigger_sprintVFX.Invoke();
@@ -605,7 +707,7 @@ public class PlayerActions : MonoBehaviour
              -HitAreas[i].Direction * 0.5f,
              0) * transform.forward;
 
-           // UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
+            // UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
         }
     }
 }

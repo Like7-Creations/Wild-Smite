@@ -30,7 +30,9 @@ public class ObjectDithering : MonoBehaviour
     public float GetPercentage(float value, float minValue, float maxValue)
     {
         // Calculate the percentage using the formula: (1 - value / maxValue) * 100
-        float percentage = 1 - (value - minValue / maxValue - minValue);
+        float percentage = (1 - value / maxValue) * 100;
+
+        //float percentage = 1 - (value - minValue / maxValue - minValue);
 
         // Return the percentage
         return percentage;

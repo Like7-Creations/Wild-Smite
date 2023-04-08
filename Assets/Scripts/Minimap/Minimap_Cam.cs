@@ -31,8 +31,11 @@ public class Minimap_Cam : MonoBehaviour
     {
         if (lvlInitializer.levelSpawned)        //Add a null check to prevent it from running repeatedly
         {
-            lvlGenerator = lvlInitializer.GetComponentInChildren<LevelGenerator.Scripts.LevelGenerator>();
-            Debug.Log("Level Generator Located");
+            if (lvlGenerator == null)
+            {
+                lvlGenerator = lvlInitializer.GetComponentInChildren<LevelGenerator.Scripts.LevelGenerator>();
+                Debug.Log("Level Generator Located");
+            }
         }
         else
         {

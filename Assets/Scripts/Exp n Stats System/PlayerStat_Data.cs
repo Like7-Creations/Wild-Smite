@@ -83,7 +83,7 @@ public class PlayerStat_Data : ScriptableObject, IDataPersistence
 
         aoe_ChargeRate = 1;
         aoe_TAP = 10;
-        aoe_HOLD = 1;
+        aoe_HOLD = 5;
     }
 
     #region Save & Load Functions [Trevor Mock Edition]
