@@ -100,7 +100,7 @@ public class PlayerStat_Data : ScriptableObject, IDataPersistence
         lvl = data.level;
     }
 
-    public void SaveData(ref GameData data)
+    public void SaveData(GameData data)
     {
         data.hp = hp;
         data.stamina = stamina;

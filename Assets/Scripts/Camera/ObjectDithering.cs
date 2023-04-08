@@ -69,7 +69,7 @@ public class ObjectDithering : MonoBehaviour
 
         if (distFromCam < minDitherDist)
         {
-            ditherPercentage = GetPercentage(distFromCam, maxDitherDist);
+            ditherPercentage = GetPercentage(distFromCam, minDitherDist, maxDitherDist);
         }
 
         foreach (var mat in PrefabMats)
