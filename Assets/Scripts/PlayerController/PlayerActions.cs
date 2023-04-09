@@ -11,6 +11,7 @@ using UnityEngine.Scripting.APIUpdating;
 using UnityEditor.UIElements;
 using UnityEngine.Events;
 using System;
+using UnityEngine.SceneManagement;
 //using System.Diagnostics;
 
 public class PlayerActions : MonoBehaviour
@@ -234,6 +235,20 @@ public class PlayerActions : MonoBehaviour
 
         //Implement HP Recov later.
 
+        //Testing Saving
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            // save the game anytime before loading a new scene
+            DataPersistenceManager.instance.SaveGame();
+
+            Debug.Log("Game is being Saved");
+
+
+            // load the main menu scene
+            SceneManager.LoadSceneAsync("_MVP_MainMenu");
+        }
+
         //Farhan's Code-----
 
 
@@ -256,7 +271,6 @@ public class PlayerActions : MonoBehaviour
     }
 
     #region Player Take Damage
-
     public void TakeDamage(float damage)
     {
         print("Take damage called");
@@ -290,21 +304,17 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    //Event Required
     IEnumerator resetFlashDamage(Color origin)
     {
         yield return new WaitForSeconds(flashDamageTime);
         flash.gameObject.SetActive(false);
         // hit.materials[0].color = origin;
     }
-
     #endregion
-
 
     bool testCombat;
     [SerializeField] List<int> lastrands = new List<int>();
 
-    //Event Required
     public void Attack(/*InputAction.CallbackContext context*/)
     {
         if (!shooting)
@@ -414,68 +424,7 @@ public class PlayerActions : MonoBehaviour
         //trigger_attackVFX_right.Invoke();
     }
 
-    //Event Required
-    IEnumerator BeginChargingAOE()
-    {
-        Debug.Log("Begin Powering Up AOE");
-
-        trigger_aoeChargeVFX.Invoke();      //Enables Charging VFX
-
-        currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
-
-        yield return null;
-    }
-
-    public static float GetPercentage(float value, float maxValue)
-    {
-        float percentage = (1 - value / maxValue) * 100;
-
-        return percentage;
-    }
-
-    /*public static Func<float, float> GetPercentValueFunction(float minPercent, float maxPercent)
-    {
-        if (minPercent >= maxPercent)
-        {
-            throw new ArgumentException("Min percentage must be less than max percentage.");
-        }
-
-        return (value) =>
-        {
-            float normalizedPercentage = (value - minPercent) / (maxPercent - minPercent);
-            return normalizedPercentage;
-        };
-    }
-
-    public static float AddValueFromCharge(float minPercent, float maxPercent, float value, float charge)
-    {
-        float normalizedPercentage = (charge - minPercent) / (maxPercent - minPercent);
-        float percentValue = value * normalizedPercentage;
-
-        return value + percentValue;
-    }
-
-    /*public static float GetPercentageBetweenValues(float minValue, float maxValue, float value)
-    {
-        if (minValue >= maxValue)
-        {
-            throw new ArgumentException("Min value must be less than max value.");
-        }
-
-        float percentage = (value - minValue) / (maxValue - minValue);
-
-        if (percentage < 0)
-        {
-            percentage = 1 - percentage;
-        }
-
-        // Clamp the percentage to be between 0 and 1
-        percentage = Mathf.Clamp01(percentage);
-
-
-        return percentage;
-    }*/
-
+    #region Calculting Percentages
     public float CalculateStatPercentValue(float percentage, float statValue)
     {
         return (percentage / 100) * statValue;
@@ -488,10 +437,22 @@ public class PlayerActions : MonoBehaviour
         return result;
         //return Mathf.Clamp(minValue, maxValue, result);
     }
+    #endregion
 
+    #region AOE Functions
     public float chargedSTAM = 0;
     public float chargedMELEE = 0;
     public float chargedRANGE = 0;
+    IEnumerator BeginChargingAOE()
+    {
+        Debug.Log("Begin Powering Up AOE");
+
+        trigger_aoeChargeVFX.Invoke();      //Enables Charging VFX
+
+        currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
+
+        yield return null;
+    }
 
     public void ChargeAOE()
     {
@@ -594,7 +555,9 @@ public class PlayerActions : MonoBehaviour
 
         charging = false;
     }
+    #endregion
 
+    #region Sprint & Dash Functions
     public void Dash()
     {
         if (pStats.stamina > pStats.dash)
@@ -646,7 +609,9 @@ public class PlayerActions : MonoBehaviour
 
         trigger_sprintVFX.Invoke();
     }
+    #endregion
 
+    #region Ranged Attack Functions
     public void RangeAttack()
     {
         if (!fired)
@@ -678,6 +643,8 @@ public class PlayerActions : MonoBehaviour
             }
         }
     }
+    #endregion
+
 
     private void OnDrawGizmos()
     {

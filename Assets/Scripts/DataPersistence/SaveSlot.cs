@@ -29,7 +29,7 @@ public class SaveSlot : MonoBehaviour
             noDataContent.SetActive(false);
             hasDataContent.SetActive(true);
 
-            pLvl_Txt.text = data.level.ToString();
+            //pLvl_Txt.text = data.level.ToString();    //Show player's current level
             //set player count here.
         }
     }

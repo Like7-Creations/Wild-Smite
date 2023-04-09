@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Policy;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : MonoBehaviour, IDataPersistence
 {
     public PlayerStat_Data playerData;
 
@@ -120,7 +120,18 @@ public class PlayerStats : MonoBehaviour
         playerData = data;
     }
 
-    
+    #region Data Persistence Functons
+    public void LoadData(GameData saved_Pdata)
+    {
+        playerData.LoadStats(saved_Pdata);
+    }
+
+    public void SaveData(GameData saved_Pdata)
+    {
+        playerData.SaveStats(saved_Pdata);
+    }
+    #endregion
+
 
     #region Player Health Functions
     public void LoseHealth(int dmg)
@@ -150,8 +161,6 @@ public class PlayerStats : MonoBehaviour
         stam_recov = false;
         begin_STAMRecov = false;
     }
-
-
 
     public void RecoverStamina(float amount)
     {

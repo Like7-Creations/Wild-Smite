@@ -78,6 +78,8 @@ public class FileDataManager
         //Use Path.Combine to account for different OS's having different  path deparators.
         string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
 
+        Debug.Log("Game Will Be Saved To:" + fullPath);
+
         try
         {
             //Create the directory path in case it doesn't exist.
@@ -98,6 +100,8 @@ public class FileDataManager
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
                     writer.Write(dataToStore);
+
+                    Debug.Log("Game has Been Saved");
                 }
             }
         }

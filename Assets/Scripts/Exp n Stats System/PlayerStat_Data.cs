@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Player Stats/PlayerStat_Data", order = 1)]
-public class PlayerStat_Data : ScriptableObject, IDataPersistence
+public class PlayerStat_Data : ScriptableObject//, IDataPersistence
 {
-    [SerializeField] ExperienceData expData;
+    public ExperienceData expData;
     public Leveling_Data lvlData;
 
     public PlayerConfig config;
@@ -86,10 +87,71 @@ public class PlayerStat_Data : ScriptableObject, IDataPersistence
         aoe_HOLD = 5;
     }
 
+    #region Data Persistence
+    public void LoadStats(GameData data)
+    {
+        for (int i = 0; i < data.playerData.Count; i++)
+        {
+            Debug.Log($"Loading data for {playerName}");
+
+            if(playerIndex == data.playerData[i].pIndex)
+            {
+                playerName = data.playerData[i].name;
+                playerIndex = data.playerData[i].pIndex;
+                expData = data.playerData[i].xpData;
+                lvlData = data.playerData[i].lvlData;
+                config = data.playerData[i].pConfig;
+
+                hp = data.playerData[i].hp;
+                stamina = data.playerData[i].stamina;
+
+                m_ATK = data.playerData[i].m_ATK;
+                r_ATK = data.playerData[i].r_ATK;
+
+                current_XP = data.playerData[i].exp;
+                lvl = data.playerData[i].level;
+            }
+        }
+    }
+
+    public void SaveStats(GameData data)
+    {
+        for (int i = 0; i < data.playerData.Count; i++)
+        {
+            if (playerIndex == data.playerData[i].pIndex)
+            {
+                Debug.Log("Player Index matches");
+
+                data.playerData[i].name = playerName;
+                data.playerData[i].pIndex = playerIndex;
+                data.playerData[i].xpData = expData;
+                data.playerData[i].lvlData = lvlData;
+                data.playerData[i].pConfig = config;
+
+                data.playerData[i].hp = hp;
+                data.playerData[i].stamina = stamina;
+
+                data.playerData[i].m_ATK = m_ATK;
+                data.playerData[i].r_ATK = r_ATK;
+
+                data.playerData[i].exp = current_XP;
+                data.playerData[i].level = lvl;
+            }
+            Debug.Log($"Player Data for {playerName} has been saved");
+        }
+    }
+    #endregion
+
     #region Save & Load Functions [Trevor Mock Edition]
 
-    public void LoadData(GameData data)
+    /*public void LoadData(GameData data)
     {
+        playerName = data.name;
+        playerIndex = data.pIndex;
+        expData = data.xpData;
+        lvlData = data.lvlData;
+        config = data.pConfig;
+
         hp = data.hp;
         stamina = data.stamina;
 
@@ -102,20 +164,26 @@ public class PlayerStat_Data : ScriptableObject, IDataPersistence
 
     public void SaveData(GameData data)
     {
+        data.name = playerName;
+        data.pIndex = playerIndex;
+        data.xpData = expData;
+        data.lvlData = lvlData;
+        data.pConfig = config;
+
         data.hp = hp;
         data.stamina = stamina;
 
-        data.m_ATK= m_ATK;
-        data.r_ATK= r_ATK;
+        data.m_ATK = m_ATK;
+        data.r_ATK = r_ATK;
 
         data.level = lvl;
         data.exp = current_XP;
-    }
+    }*/
 
-    #endregion 
+    #endregion
 
     #region Save & Load Functions [Brackey's Edition] (Deprecate Later)
-    public void SaveData()
+    /*public void SaveData()
     {
         //SaveSystem.SavePlayerData(this);
     }
@@ -132,7 +200,7 @@ public class PlayerStat_Data : ScriptableObject, IDataPersistence
 
         //current_XP = pData.exp;
         //lvl = pData.level;
-    }
+    }*/
     #endregion
 
     //Increase player level based on Leveling Data class.

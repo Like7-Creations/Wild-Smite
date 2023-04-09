@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 #region Summary & Notes
-//This class must exist as a singleton, and attached to its own GameObject in the scene. 
-//No other class related to Data Persistence should exist in the scene itself.
+/* This class must exist as a singleton, and attached to its own GameObject in the scene. 
+ * No other class related to Data Persistence should exist in the scene itself.
+ *
+ * Instead of using OnSceneUnloaded, reference the Save function of this instance just before calling a scene change.
+ **/
 #endregion
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -31,14 +35,18 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+        //Application.quitting += SaveOnQuit;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+
+        //Application.quitting -= SaveOnQuit;
     }
+
+
 
     private void Awake()
     {
@@ -52,7 +60,7 @@ public class DataPersistenceManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        if(disableDataPersistence)
+        if (disableDataPersistence)
         {
             Debug.LogWarning("Data Persistence Is Currently Disabled!");
         }
@@ -69,6 +77,13 @@ public class DataPersistenceManager : MonoBehaviour
         }
     }
 
+    static void SaveOnQuit()
+    {
+        Debug.Log("Quitting PlayMode");
+
+        instance.SaveGame();
+    }
+
     #region NewGame() Summary:
     /* This function should be called only under a specific circumstance:
      * When players create a new game, we directly reference this class' instance, and call the function through it.
@@ -79,7 +94,9 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         //Create a new Game Data object when starting a new game.
-        this.gameData = new GameData();
+        this.gameData = new GameData(FindObjectOfType<PlayerConfigManager>());
+
+        Debug.Log("New Game Data is being created");
     }
 
     public void SaveGame()
@@ -91,6 +108,8 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
         #endregion
+
+        Debug.Log("Saving Game");
 
         //If there is no save data, send out a warnign.
         if (this.gameData == null)
@@ -106,7 +125,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         Debug.Log("Game Data Loaded In.");
-        Debug.Log($"The Saved Player Stats are - HP: {gameData.hp}, STAM: {gameData.stamina}, MELEE: {gameData.m_ATK}, RANGE: {gameData.r_ATK}");
+        //Debug.Log($"The Saved Player Stats are - HP: {gameData.hp}, STAM: {gameData.stamina}, MELEE: {gameData.m_ATK}, RANGE: {gameData.r_ATK}");
 
         //Update the timestamp of the saved game.
         gameData.lastUpdatedStamp = System.DateTime.Now.ToBinary();
@@ -157,7 +176,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         Debug.Log("Game Data Loaded In.");
-        Debug.Log($"The Loaded Player Stats are - HP: {gameData.hp}, STAM: {gameData.stamina}, MELEE: {gameData.m_ATK}, RANGE: {gameData.r_ATK}");
+        //Debug.Log($"The Loaded Player Stats are - HP: {gameData.hp}, STAM: {gameData.stamina}, MELEE: {gameData.m_ATK}, RANGE: {gameData.r_ATK}");
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -167,11 +186,7 @@ public class DataPersistenceManager : MonoBehaviour
         LoadGame();
     }
 
-    public void OnSceneUnloaded(Scene scene)
-    {
-        Debug.Log("OnSceneUnloaded called");
-        SaveGame();
-    }
+
     List<IDataPersistence> FindAllDataPersistenceObjects()
     {
         //Default Code
@@ -180,7 +195,12 @@ public class DataPersistenceManager : MonoBehaviour
         //This code is designed to work with monobehaviours. But we use Scriptable Objects to store data. 
         //So Im using Resources.FindObjectsOfTypeAll to locate ay scriptableObj that is connected to the IDataPersistence interface.
         //Basically, what Im saying is I have no idea if this is gonna work.
-        IEnumerable<IDataPersistence> dataPersistenceObjs = Resources.FindObjectsOfTypeAll<ScriptableObject>().OfType<IDataPersistence>();
+
+        //IEnumerable<IDataPersistence> dataPersistenceObjs = Resources.FindObjectsOfTypeAll<ScriptableObject>().OfType<IDataPersistence>();
+
+        //Might need to rewrite this formula, so that it can properly track data. Might just have this link to PlayerStats instead of the scriptable object.
+
+        IEnumerable<IDataPersistence> dataPersistenceObjs = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjs);
     }

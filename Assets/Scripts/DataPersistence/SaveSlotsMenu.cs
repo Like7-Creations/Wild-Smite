@@ -29,6 +29,9 @@ public class SaveSlotsMenu : MonoBehaviour
             DataPersistenceManager.instance.NewGame();
         }
 
+        //Save the game anytime before loading a new scene.
+        DataPersistenceManager.instance.SaveGame();
+
         //Load the scene, which will save the scene as a result becase of OnSceneUnloaded.
         //SceneManager.LoadSceneAsync(/*insert scene name here*/);
     }
