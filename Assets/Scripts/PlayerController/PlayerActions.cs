@@ -618,7 +618,7 @@ public class PlayerActions : MonoBehaviour
         {
             if (!isAttacking)
             {
-                animator.SetLayerWeight(animator.GetLayerIndex("Shooting Layer"), 1);
+                //animator.SetLayerWeight(animator.GetLayerIndex("Shooting Layer"), 1);
                 Rigidbody bullets = Instantiate(bullet, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
                 bullets.AddForce(ProjectileOrigin.transform.forward * bulletSpeed, ForceMode.Impulse);
                 bullets.GetComponent<Destroy>().damage = pStats.r_ATK;

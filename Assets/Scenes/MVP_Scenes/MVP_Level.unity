@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.844, g: 1, b: 1, a: 1}
-  m_AmbientEquatorColor: {r: 0.2917707, g: 0.29613832, b: 0.31398875, a: 1}
-  m_AmbientGroundColor: {r: 0.16826946, g: 0.17788847, b: 0.2086369, a: 1}
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 1
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 4553d10596944944ab1fe9380fede6a2, type: 2}
   m_HaloStrength: 0.5
@@ -35,10 +35,10 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0
+  m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 236934024}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
+  m_IndirectSpecularColor: {r: 0.04198966, g: 0.30647728, b: 1.1805259, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -751,6 +751,7 @@ MonoBehaviour:
   - type: 1
     enemyPrefab: {fileID: 7698132050552416451, guid: 175187faace7794438a24d647d51c881, type: 3}
     statRange: {fileID: 0}
+  possibleItems: []
   levelSettings: {fileID: 0}
   enemyPercentage: 0
   ItemPercentage: 0
@@ -957,7 +958,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71272262}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3342,7 +3343,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.9937843, g: 1, b: 0.6933962, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -3400,13 +3401,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 236934023}
-  m_LocalRotation: {x: 0.28678817, y: 0.70940655, z: -0.49673176, w: 0.409576}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 70, y: 120, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &236934026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6581,6 +6582,15 @@ MonoBehaviour:
   - type: 1
     enemyPrefab: {fileID: 7457742988947200044, guid: e49d53d80b52194499774763cd9ad7f6, type: 3}
     statRange: {fileID: 0}
+  possibleItems:
+  - type: 0
+    itemPrefab:
+    - {fileID: 6039705399954296747, guid: 1937e2eddbb7f344dbb260466f9bf815, type: 3}
+  - type: 1
+    itemPrefab:
+    - {fileID: 3323020656248559522, guid: d61291cddb39f5644b8fe14c7d69be0f, type: 3}
+    - {fileID: 902451364733845393, guid: 158060c9737aaf24aae177b67c1feb43, type: 3}
+    - {fileID: 2900168735616739790, guid: 91cd8352f8c18c24d8d2d6ffe466be41, type: 3}
   levelSettings: {fileID: 11400000, guid: a97af50f5a350d945b320ad798d847d3, type: 2}
   enemyPercentage: 60
   ItemPercentage: 20
@@ -7955,8 +7965,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 490170576}
-  m_LocalRotation: {x: 0.33100694, y: -0.000000016236429, z: 0.0000000056954317, w: 0.9436283}
-  m_LocalPosition: {x: 0, y: 20, z: -25}
+  m_LocalRotation: {x: 0.28978413, y: 0.000000016468091, z: -0.0000000049861364, w: 0.95709205}
+  m_LocalPosition: {x: 0, y: 10, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11643,6 +11653,7 @@ MonoBehaviour:
   - type: 0
     enemyPrefab: {fileID: 5577086592835663258, guid: f4a0523f0dc22ee49b95150a55d2916f, type: 3}
     statRange: {fileID: 0}
+  possibleItems: []
   levelSettings: {fileID: 0}
   enemyPercentage: 0
   ItemPercentage: 0
@@ -12864,7 +12875,7 @@ MonoBehaviour:
   levelSettings: {fileID: 11400000, guid: a97af50f5a350d945b320ad798d847d3, type: 2}
   RunBarrierAdjustment: 1
   BarrierDistance: 1
-  spawnEndPoint: 1
+  spawnEndPoint: 0
   levelEndObject: {fileID: 7549363064304869460, guid: 64d8b25955a939649829a82788295962, type: 3}
 --- !u!1 &983627391
 GameObject:
@@ -22511,6 +22522,7 @@ MonoBehaviour:
   - type: 2
     enemyPrefab: {fileID: 5493125859887787577, guid: 61aed67a4514d2545bd3f56a391087b6, type: 3}
     statRange: {fileID: 0}
+  possibleItems: []
   levelSettings: {fileID: 0}
   enemyPercentage: 0
   ItemPercentage: 0
@@ -23449,8 +23461,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659551844}
-  m_LocalRotation: {x: 0.33100694, y: -0.000000016236429, z: 0.0000000056954317, w: 0.9436283}
-  m_LocalPosition: {x: 0, y: 20, z: -25}
+  m_LocalRotation: {x: 0.28978413, y: 0.000000016468091, z: -0.0000000049861364, w: 0.95709205}
+  m_LocalPosition: {x: 0, y: 10, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1996579090}
@@ -29381,7 +29393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 0
-  m_FollowOffset: {x: 0, y: 20, z: -25}
+  m_FollowOffset: {x: 0, y: 10, z: -15}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1

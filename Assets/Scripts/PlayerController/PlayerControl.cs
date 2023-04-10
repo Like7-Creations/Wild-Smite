@@ -67,13 +67,13 @@ public class PlayerControl : MonoBehaviour
         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
         {
             pActions.shooting = true;
-            anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 1);
+            //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 1);
         }
 
         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.canceled)
         {
             pActions.shooting = false;
-            anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
+           // anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
         }
 
         //Keyboard and Mouse Range Attack
@@ -81,13 +81,13 @@ public class PlayerControl : MonoBehaviour
         {
             pActions.shooting = true;
             pActions.mouseShooting = true;
-            anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 1);
+            //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 1);
         }
         if (context.action.name == controls.Player.RangeAttack.name && context.canceled)
         {
             pActions.shooting = false;
             pActions.mouseShooting = false;
-            anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
+            //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
         }
 
         // AOE

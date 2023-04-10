@@ -13,6 +13,8 @@ public class Spawner : MonoBehaviour
 
     public EnemyInfo[] possibleEnemies;
 
+    public ItemInfo[] possibleItems;
+
     public LevelSettings levelSettings;
     LevelData currentLevel;
     LevelSettings.Difficulty currentDifficulty;
@@ -134,10 +136,10 @@ public class Spawner : MonoBehaviour
         {
             for (int k = 0; k < ItemSpawns[i].points.Count; k++)
             {
-                Item item = ItemSpawns[i].items[currentItem];
-                if (currentItem + 1 >= ItemSpawns[i].items.Length) currentItem = 0;
+                ItemInfo item = possibleItems[currentItem];
+                if (currentItem + 1 >= possibleItems.Length) currentItem = 0;
                 else currentItem++;
-                Instantiate(ItemSpawns[i].items[Random.Range(0, ItemSpawns[i].items.Length)], ItemSpawns[i].points[k].position, Quaternion.identity);
+                Instantiate(item.itemPrefab[Random.Range(0, item.itemPrefab.Length)], ItemSpawns[i].points[k].position, Quaternion.identity);
             }
            // ItemSpawns[i].spawnItem();
         }
@@ -164,4 +166,17 @@ public class EnemyInfo
     public Type type;
     public GameObject enemyPrefab;
     public EnemyStatRange statRange;
+}
+
+[System.Serializable]
+public class ItemInfo 
+{
+    public enum Type 
+    { 
+        Health,
+        Buff
+    }
+
+    public Type type;
+    public GameObject[] itemPrefab;
 }
