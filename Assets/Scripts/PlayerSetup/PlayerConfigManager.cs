@@ -1,3 +1,4 @@
+using Serielization;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,6 +158,16 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
                 if (loadScene)
                 {
                     Debug.Log("All Players Ready");
+
+                    SaveLoadSystem.BeginLoad("/player.data");
+                    bool loading = SaveLoadSystem.checkLoad();
+                    SaveLoadSystem.EndLoad();
+
+                    if (loading)
+                    {
+                        Debug.Log("Data Found. Loading To Player");
+                        SaveLoadTest.LoadPlayerData(playerConfigs);
+                    }
 
                     SceneManager.LoadScene(SceneToLoad);
                 }

@@ -399,7 +399,7 @@ public class PlayerActions : MonoBehaviour
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
                 Debug.Log("enable collider called");
-                enemiesInDot[i].TakeDamage(pStats.m_ATK);
+                enemiesInDot[i].TakeDamage(pStats.m_ATK, pStats);
             }
         }
         //VFX.Melee();

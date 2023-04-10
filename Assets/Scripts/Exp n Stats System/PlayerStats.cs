@@ -127,7 +127,7 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
         {
             if (saved_Pdata.playerData[i].pIndex == playerData.playerIndex)
             {
-                playerData.LoadStats(saved_Pdata.playerData[i].pData);
+                //playerData.LoadStats(saved_Pdata.playerData[i].pData);
             }
         }
 
