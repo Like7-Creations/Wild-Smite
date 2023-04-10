@@ -21,12 +21,14 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] bool overrideSelectedProfileID = false;
     [SerializeField] string testSelectedProfileID = "test";
 
+    public bool firstInstance;
+
     [Header("File Storage Config")]
     [SerializeField] string filename;
     [SerializeField] bool useEncryption;
     public static DataPersistenceManager instance { get; private set; }
 
-    GameData gameData;
+    public GameData gameData;
     List<IDataPersistence> dataPersistenceObjs;
     FileDataManager dataManager;
 
@@ -67,7 +69,7 @@ public class DataPersistenceManager : MonoBehaviour
 
         this.dataManager = new FileDataManager(Application.persistentDataPath, filename, useEncryption);
 
-        this.selectedProfileID = dataManager.GetRecentlyUpdatedProfileID();
+        //this.selectedProfileID = dataManager.GetRecentlyUpdatedProfileID();
 
         //For debugging
         if (overrideSelectedProfileID)
@@ -94,9 +96,12 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         //Create a new Game Data object when starting a new game.
-        this.gameData = new GameData(FindObjectOfType<PlayerConfigManager>());
+        //this.gameData = new GameData();
+
+        firstInstance = true;
 
         Debug.Log("New Game Data is being created");
+        Debug.Log("Please load the Homebase scene to create a new save");
     }
 
     public void SaveGame()
@@ -158,13 +163,17 @@ public class DataPersistenceManager : MonoBehaviour
         //Start a new game  if the data is null && we're configured to initialize data for debugging purposes.
         if (this.gameData == null && initializeDataIfNull)
         {
-            NewGame();
+            //NewGame();
+            Debug.Log("No data to load. Starting new game.");
         }
 
         //If there is no data to load, don't continue.
         if (instance.gameData == null)
         {
             Debug.Log("No Saves Located. Please start a new game.");
+
+            //firstInstance = true;
+
             return;
         }
 
@@ -176,14 +185,28 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         Debug.Log("Game Data Loaded In.");
-        //Debug.Log($"The Loaded Player Stats are - HP: {gameData.hp}, STAM: {gameData.stamina}, MELEE: {gameData.m_ATK}, RANGE: {gameData.r_ATK}");
+        Debug.Log($"The Loaded Player Stats are - HP: {gameData.playerData[0].hp}, STAM: {gameData.playerData[0].stamina}, MELEE: {gameData.playerData[0].m_ATK}, RANGE: {gameData.playerData[0].r_ATK}");
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded called");
-        this.dataPersistenceObjs = FindAllDataPersistenceObjects();
-        LoadGame();
+        if (scene.buildIndex == 1)
+        {
+            Debug.Log("OnSceneLoaded called for Scene: " + scene.buildIndex);
+            this.dataPersistenceObjs = FindAllDataPersistenceObjects();
+            LoadGame();
+
+            /*List<PlayerConfig> configs = PlayerConfigManager.Instance.GetPlayerConfigs();
+
+            for (int i = 0; i < configs.Count; i++)
+            {
+                 configs[i].playerStats = 
+            }*/
+        }
+        else if (scene.buildIndex == 0)
+        {
+            Debug.Log("OnSceneLoaded called for Scene: " + scene.buildIndex);
+        }
     }
 
 
@@ -213,19 +236,19 @@ public class DataPersistenceManager : MonoBehaviour
         return this.gameData != null;
     }
 
-    public void ChangeSelectedProfileID(string newProfileID)
+    /*public void ChangeSelectedProfileID(string newProfileID)
     {
         //Update the profile to use for saving and loading
         this.selectedProfileID = newProfileID;
 
         //Load the game saved on this profile, and use its data accordingly.
         LoadGame();
-    }
+    }*/
 
-    public Dictionary<string, GameData> GetAllProfilesGameData()
+    /*public Dictionary<string, GameData> GetAllProfilesGameData()
     {
         return dataManager.LoadAllProfiles();
-    }
+    }*/
 
     private void OnApplicationQuit()
     {

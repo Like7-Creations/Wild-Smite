@@ -21,12 +21,12 @@ public class SaveSlotsMenu : MonoBehaviour
     public void OnSaveSlotClicked(SaveSlot slot)
     {
         //Update the selected ProfileID to be used for Data persistence.
-        DataPersistenceManager.instance.ChangeSelectedProfileID(slot.GetProfileID());
+        //DataPersistenceManager.instance.ChangeSelectedProfileID(slot.GetProfileID());
 
         if (!isLoadingGame)
         {
             //Create a new game - which will initialize our data with a clean slate.
-            DataPersistenceManager.instance.NewGame();
+            //DataPersistenceManager.instance.NewGame();
         }
 
         //Save the game anytime before loading a new scene.
@@ -51,13 +51,13 @@ public class SaveSlotsMenu : MonoBehaviour
         isLoadingGame = isLoading;
 
         //Load all existing profiles
-        Dictionary<string, GameData> profilesGameData = DataPersistenceManager.instance.GetAllProfilesGameData();
+        //Dictionary<string, GameData> profilesGameData = DataPersistenceManager.instance.GetAllProfilesGameData();
 
         //Loop through each save slot and load the appropriate content.
         foreach (SaveSlot saveSlot in saveSlots)
         {
             GameData profileData = null;
-            profilesGameData.TryGetValue(saveSlot.GetProfileID(), out profileData);
+            //profilesGameData.TryGetValue(saveSlot.GetProfileID(), out profileData);
             saveSlot.SetData(profileData);
 
             if (profileData == null && isLoadingGame)

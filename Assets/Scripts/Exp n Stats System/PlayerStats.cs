@@ -120,15 +120,40 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
         playerData = data;
     }
 
-    #region Data Persistence Functons
+    #region Data Persistence Functons [Failed. Moved to PlayerConfigManager. Deprecate This Later]
     public void LoadData(GameData saved_Pdata)
     {
-        playerData.LoadStats(saved_Pdata);
+        for (int i = 0; i < saved_Pdata.playerData.Count; i++)
+        {
+            if (saved_Pdata.playerData[i].pIndex == playerData.playerIndex)
+            {
+                playerData.LoadStats(saved_Pdata.playerData[i].pData);
+            }
+        }
+
+
+        /*for (int i = 0; i < saved_Pdata.playerData.Count; i++)
+        {
+            if (saved_Pdata.playerData[i].pIndex == playerData.playerIndex)
+            {
+                SetData(saved_Pdata.playerData[i].pData);
+
+                //playerData.config = saved_Pdata.pConfigs[i];
+            }
+
+        }*/
+
     }
 
     public void SaveData(GameData saved_Pdata)
     {
-        playerData.SaveStats(saved_Pdata);
+        for (int i = 0; i < saved_Pdata.playerData.Count; i++)
+        {
+            if (saved_Pdata.playerData[i].pIndex == playerData.playerIndex)
+            {
+                playerData.SaveStats(saved_Pdata.playerData[i].pData);
+            }
+        }
     }
     #endregion
 

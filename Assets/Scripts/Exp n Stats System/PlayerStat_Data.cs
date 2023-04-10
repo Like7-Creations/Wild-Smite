@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Player Stats/PlayerStat_Data", order = 1)]
-public class PlayerStat_Data : ScriptableObject//, IDataPersistence
+public class PlayerStat_Data : ScriptableObject
 {
     public ExperienceData expData;
     public Leveling_Data lvlData;
@@ -87,58 +87,46 @@ public class PlayerStat_Data : ScriptableObject//, IDataPersistence
         aoe_HOLD = 5;
     }
 
-    #region Data Persistence
-    public void LoadStats(GameData data)
+    /*public void reInit(PlayerStat_Data pStats)
     {
-        for (int i = 0; i < data.playerData.Count; i++)
-        {
-            Debug.Log($"Loading data for {playerName}");
+        hp = pStats.hp;
+        stamina = pStats.stamina;
+        m_ATK = pStats.m_ATK;
+        r_ATK = pStats.r_ATK;
 
-            if(playerIndex == data.playerData[i].pIndex)
-            {
-                playerName = data.playerData[i].name;
-                playerIndex = data.playerData[i].pIndex;
-                expData = data.playerData[i].xpData;
-                lvlData = data.playerData[i].lvlData;
-                config = data.playerData[i].pConfig;
+        current_XP = pStats.current_XP;
+        lvl = pStats.lvl;
+    }*/
 
-                hp = data.playerData[i].hp;
-                stamina = data.playerData[i].stamina;
+    #region Data Persistence
+    public void LoadStats(PlayerStat_Data data)
+    {
+        Debug.Log($"Loading data for {playerName}");
 
-                m_ATK = data.playerData[i].m_ATK;
-                r_ATK = data.playerData[i].r_ATK;
+        hp = data.hp;
+        stamina = data.stamina;
 
-                current_XP = data.playerData[i].exp;
-                lvl = data.playerData[i].level;
-            }
-        }
+        m_ATK = data.m_ATK;
+        r_ATK = data.r_ATK;
+
+        current_XP = data.current_XP;
+        lvl = data.lvl;
     }
 
-    public void SaveStats(GameData data)
+    public void SaveStats(PlayerStat_Data data)
     {
-        for (int i = 0; i < data.playerData.Count; i++)
-        {
-            if (playerIndex == data.playerData[i].pIndex)
-            {
-                Debug.Log("Player Index matches");
+        Debug.Log("Player Index matches");
 
-                data.playerData[i].name = playerName;
-                data.playerData[i].pIndex = playerIndex;
-                data.playerData[i].xpData = expData;
-                data.playerData[i].lvlData = lvlData;
-                data.playerData[i].pConfig = config;
+        data.playerIndex = playerIndex;
 
-                data.playerData[i].hp = hp;
-                data.playerData[i].stamina = stamina;
+        data.hp = hp;
+        data.stamina = stamina;
 
-                data.playerData[i].m_ATK = m_ATK;
-                data.playerData[i].r_ATK = r_ATK;
+        data.m_ATK = m_ATK;
+        data.r_ATK = r_ATK;
 
-                data.playerData[i].exp = current_XP;
-                data.playerData[i].level = lvl;
-            }
-            Debug.Log($"Player Data for {playerName} has been saved");
-        }
+        data.current_XP = current_XP;
+        data.lvl = lvl;
     }
     #endregion
 

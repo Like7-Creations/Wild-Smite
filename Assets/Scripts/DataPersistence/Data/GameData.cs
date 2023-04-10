@@ -14,20 +14,18 @@ public class GameData
 
     //Values set by this constructor serve as default values that will be loaded if there is no save data. 
     //Normally these would be hard coded, but we have these values set in the PlayerStats_Data scriptable object, we can pull from there instead.
-    public GameData(PlayerConfigManager config)
+    public GameData()
     {
-        PlayerConfigManager pConfig = config;
+        pConfigs = PlayerConfigManager.Instance.GetPlayerConfigs();
 
-        pConfigs = pConfig.GetPlayerConfigs();
-
-        playerData= new List<PlayerGameData>();
+        playerData = new List<PlayerGameData>();
 
         for (int i = 0; i < pConfigs.Count; i++)
         {
             if (pConfigs[i].playerStats != null)
             {
                 Debug.Log($"Currently Checking {pConfigs[i].Name} with an index of {pConfigs[i].PlayerIndex}.");
-                playerData.Add(new PlayerGameData(pConfigs[i].playerStats, pConfigs[i], pConfigs[i].Name, pConfigs[i].PlayerIndex));
+                playerData.Add(new PlayerGameData(pConfigs[i].playerStats, pConfigs[i].Name, pConfigs[i].PlayerIndex));
             }
         }
     }
@@ -37,14 +35,11 @@ public class GameData
 [System.Serializable]
 public class PlayerGameData
 {
-    PlayerStat_Data pData;
+    public PlayerStat_Data pData;
 
     #region Player Info
     public string name = "";
     public int pIndex;
-    public ExperienceData xpData;
-    public Leveling_Data lvlData;
-    public PlayerConfig pConfig;
 
     #endregion
 
@@ -61,14 +56,10 @@ public class PlayerGameData
     public int level;
     #endregion  
 
-    public PlayerGameData(PlayerStat_Data data, PlayerConfig playerConfig, string pName, int index)
+    public PlayerGameData(PlayerStat_Data data, string pName, int index)
     {
         //Saving Basic Info
         pData = data;
-
-        xpData = data.expData;
-        lvlData = data.lvlData;
-        pConfig = playerConfig;
 
         name = pName;
         pIndex = index;
