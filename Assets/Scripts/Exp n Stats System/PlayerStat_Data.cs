@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Player Stats/PlayerStat_Data", order = 1)]
+[System.Serializable]
 public class PlayerStat_Data : ScriptableObject, IDataPersistence
 {
     [SerializeField] ExperienceData expData;
@@ -179,5 +180,37 @@ public class PlayerStat_Data : ScriptableObject, IDataPersistence
         stamina += pointAllocations[1];
         m_ATK += pointAllocations[2];
         r_ATK += pointAllocations[3];
+    }
+
+    public void LoadStats(int hp, int stamina, int melee, int range, int index, int currentXP, int level)
+    {
+        Debug.Log($"Loading data for {playerName}");
+
+        this.hp = hp;
+        this.stamina =stamina;
+
+        m_ATK = melee;
+        r_ATK = range;
+
+        playerIndex = index;
+
+        current_XP = currentXP;
+        lvl = level;
+    }
+
+    public void SaveStats(PlayerStat_Data data)
+    {
+        Debug.Log("Player Index matches");
+
+        data.playerIndex = playerIndex;
+
+        data.hp = hp;
+        data.stamina = stamina;
+
+        data.m_ATK = m_ATK;
+        data.r_ATK = r_ATK;
+
+        data.current_XP = current_XP;
+        data.lvl = lvl;
     }
 }
