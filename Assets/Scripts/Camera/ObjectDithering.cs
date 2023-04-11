@@ -11,7 +11,8 @@ public class ObjectDithering : MonoBehaviour
 
     [SerializeField] float distFromCam;
 
-    [SerializeField] float ditherDist;      //Default around 15 maybe
+    [SerializeField] float minDitherDist;      //Default around 55 maybe
+    [SerializeField] float maxDitherDist;      //Default around 55 maybe
 
     public float ditherPercentage;
 
@@ -26,10 +27,12 @@ public class ObjectDithering : MonoBehaviour
         PrefabMats = renderer.materials;
     }
 
-    public float GetPercentage(float value, float maxValue)
+    public float GetPercentage(float value, float minValue, float maxValue)
     {
         // Calculate the percentage using the formula: (1 - value / maxValue) * 100
-        float percentage = 1 - (1 - value / maxValue);
+        float percentage = (1 - value / maxValue) * 100;
+
+        //float percentage = 1 - (value - minValue / maxValue - minValue);
 
         // Return the percentage
         return percentage;
@@ -66,9 +69,9 @@ public class ObjectDithering : MonoBehaviour
 
         ditherPercentage = 1;
 
-        if (distFromCam < ditherDist)
+        if (distFromCam < minDitherDist)
         {
-            ditherPercentage = GetPercentage(distFromCam, ditherDist);
+            ditherPercentage = GetPercentage(distFromCam, minDitherDist, maxDitherDist);
         }
 
         foreach (var mat in PrefabMats)

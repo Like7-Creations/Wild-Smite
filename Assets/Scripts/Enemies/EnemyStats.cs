@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class EnemyStats : MonoBehaviour
 {
+    PlayerStats hitPlayer;
+
     float myMaxHealth;
     public EnemyStatRange ESR;
     public Image HealthBar;
@@ -132,8 +134,10 @@ public class EnemyStats : MonoBehaviour
         AllocateStats();
     }
 
-    public void TakeDamage(float damageToTake)
+    public void TakeDamage(float damageToTake, PlayerStats player)
     {
+        hitPlayer = player;
+
         // anim.ResetTrigger("GotHit0"/* randomNumber.ToString()*/);
         Vector3 knockBack = transform.position - transform.forward * 0.5f;
         knockBack.y = 0;
@@ -191,6 +195,8 @@ public class EnemyStats : MonoBehaviour
 
     public void Die()
     {
+        hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType);
+
         //agent.ResetPath(); //The AI's path is reset.
         agent.enabled = false;
         

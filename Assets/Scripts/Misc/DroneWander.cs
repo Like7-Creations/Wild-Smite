@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class DroneWander : MonoBehaviour
 {
@@ -9,6 +10,18 @@ public class DroneWander : MonoBehaviour
     NavMeshAgent agent;
     Vector3 wanderPoint;
     public float wanderRange;
+    public float wanderDelay;
+    float timer;
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+        if(timer >= wanderDelay)
+        {
+            WanderDrone();
+            timer = 0;
+        }
+    }
 
     void WanderDrone()
     {
