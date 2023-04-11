@@ -2,6 +2,7 @@ using Serielization;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -211,6 +212,32 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
                 GetComponent<PlayerInputManager>().DisableJoining();
         }
     }
+
+    public void SlotOne(string filename)
+    {
+        saveFileName = filename;
+    }
+
+    public SaveData CreateSave()
+    {
+        if(playerConfigs.Count == 1)
+        {
+            //sami is gay
+            PlayerData playerone = new PlayerData(playerConfigs[0].playerStats);
+            SaveData savedata = new SaveData(playerone);
+            return savedata;
+        }
+        else if (playerConfigs.Count == 2)
+        {
+            //sami is gay
+            PlayerData playerone = new PlayerData(playerConfigs[0].playerStats);
+            PlayerData playerTwo = new PlayerData(playerConfigs[1].playerStats);
+            SaveData savedata = new SaveData(playerone, playerTwo);
+            return savedata;
+        }
+        return null;
+    }
+
 }
 
 [System.Serializable]

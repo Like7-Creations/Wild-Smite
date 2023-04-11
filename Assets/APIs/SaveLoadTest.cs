@@ -7,36 +7,6 @@ using UnityEngine.UI;
 
 public static class SaveLoadTest
 {
-    public string slot;
-    public string saveName;
-
-    public PlayerStat_Data dataToSave;
-    public PlayerStat_Data dataToLoad;
-
-    public Button save1;
-    public Button save2;
-    public Button save3;
-
-    void Start()
-    {
-        LoadSlots();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Debug.Log("saveddd");
-            Save();
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Debug.Log("loaded");
-            Load();
-        }
-    }*/
-
     public static void SavePlayerData(List<PlayerConfig> data, string filePath)
     {
         if (data.Count == 1)
@@ -92,50 +62,6 @@ public static class SaveLoadTest
         }
 
     }
-
-    public void LoadSlots()
-    {
-        SaveLoadSystem.BeginLoad("/SlotOne.data");
-        save1.GetComponentInChildren<TextMeshProUGUI>().text = SaveLoadSystem.Load<string>();
-        SaveLoadSystem.EndLoad();
-
-        SaveLoadSystem.BeginLoad("/SlotTwo.data");
-        save2.GetComponentInChildren<TextMeshProUGUI>().text = SaveLoadSystem.Load<string>();
-        SaveLoadSystem.EndLoad();
-
-        SaveLoadSystem.BeginLoad("/SlotThree.data");
-        save3.GetComponentInChildren<TextMeshProUGUI>().text = SaveLoadSystem.Load<string>();
-        SaveLoadSystem.EndLoad();
-
-        if(save1.GetComponentInChildren<TextMeshProUGUI>().text == null)
-        {
-            save1.GetComponentInChildren<TextMeshProUGUI>().text = "No Save Slot";
-        }
-        if (save2.GetComponentInChildren<TextMeshProUGUI>().text == null)
-        {
-            save2.GetComponentInChildren<TextMeshProUGUI>().text = "No Save Slot";
-        }
-        if (save3.GetComponentInChildren<TextMeshProUGUI>().text == null)
-        {
-            save3.GetComponentInChildren<TextMeshProUGUI>().text = "No Save Slot";
-        }
-    }
-
-    public void SlotOne()
-    {
-        slot = "/SlotOne.data";
-        saveName = "farhans's Save";
-    }
-    public void SlotTwo()
-    {
-        slot = "/SlotTwo.data";
-        saveName = "chris's Save";
-    }
-    public void SlotThree()
-    {
-        slot = "/SlotThree.data";
-        saveName = "anmar's Save";
-    }
 }
 
 [System.Serializable]
@@ -175,6 +101,7 @@ public class SaveData
 
         playerCount = 1;
     }
+   
 
     public SaveData(PlayerData p1, PlayerData p2)
     {
