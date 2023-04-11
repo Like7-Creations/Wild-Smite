@@ -5,7 +5,43 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    PlayerStat_Data pData;
+    [Header("Profile Info")]
+    public long lastUpdatedStamp;
+
+    public List<PlayerConfig> pConfigs;
+
+    public List<PlayerGameData> playerData;
+
+    //Values set by this constructor serve as default values that will be loaded if there is no save data. 
+    //Normally these would be hard coded, but we have these values set in the PlayerStats_Data scriptable object, we can pull from there instead.
+    public GameData()
+    {
+        pConfigs = PlayerConfigManager.Instance.GetPlayerConfigs();
+
+        playerData = new List<PlayerGameData>();
+
+        for (int i = 0; i < pConfigs.Count; i++)
+        {
+            if (pConfigs[i].playerStats != null)
+            {
+                Debug.Log($"Currently Checking {pConfigs[i].Name} with an index of {pConfigs[i].PlayerIndex}.");
+                playerData.Add(new PlayerGameData(pConfigs[i].playerStats, pConfigs[i].Name, pConfigs[i].PlayerIndex));
+            }
+        }
+    }
+
+}
+
+[System.Serializable]
+public class PlayerGameData
+{
+    public PlayerStat_Data pData;
+
+    #region Player Info
+    public string name = "";
+    public int pIndex;
+
+    #endregion
 
     #region Player_Stat Variables
     public int hp;
@@ -20,18 +56,29 @@ public class GameData
     public int level;
     #endregion  
 
-    //Values set by this constructor serve as default values that will be loaded if there is no save data. 
-    //Normally these would be hard coded, but we have these values set in the PlayerStats_Data scriptable object, we can pull from there instead.
-    public GameData()
+    public PlayerGameData(PlayerStat_Data data, string pName, int index)
     {
-        hp = pData.lvlData.base_HP;
-        stamina = pData.lvlData.base_STAM;
+        //Saving Basic Info
+        pData = data;
 
-        m_ATK = pData.lvlData.base_MATK;
-        r_ATK = pData.lvlData.base_RATK;
+        name = pName;
+        pIndex = index;
+        //Saving Basic Info
 
-        exp = pData.current_XP;     //Or make it zero.
-        level = pData.lvl;          //Or make it zero.
+
+        //Saving Basic Stats
+        hp = data.hp;
+        stamina = data.stamina;
+
+        m_ATK = data.m_ATK;
+        r_ATK = data.r_ATK;
+        //Saving Basic Stats
+
+
+        //Saving XP & Lvl
+        exp = data.current_XP;
+        level = data.lvl;
+        //Saving XP & Lvl
+
     }
-
 }

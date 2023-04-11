@@ -94,7 +94,7 @@ public class DynamicBar_Slider : MonoBehaviour
         {
             midRT.sizeDelta = new Vector2(desiredWidth, barHeight);
             currentWidth = midRT.rect.width;
-            Debug.Log("Adjusting width: " + currentWidth + " to : " + desiredWidth);
+            //Debug.Log("Adjusting width: " + currentWidth + " to : " + desiredWidth);
         }
 
         if (midBars.transform.childCount > midBarCount)

@@ -1,3 +1,4 @@
+using Serielization;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,8 +6,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class PlayerConfigManager : MonoBehaviour
+public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
 {
+    [Header("Save Data Stuff")]
+    public string saveFileName = "";
 
     [Header("Player Settings")]
     public Leveling_Data levelData;
@@ -31,8 +34,17 @@ public class PlayerConfigManager : MonoBehaviour
     public GameObject defaultCharacter;
     public Material defaultMaterial;
 
-
     public static PlayerConfigManager Instance { get; private set; }
+
+    private void OnEnable()
+    {
+        //SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        //SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
     private void Awake()
     {
@@ -50,6 +62,16 @@ public class PlayerConfigManager : MonoBehaviour
         }
     }
 
+    /*public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    { 
+        if(scene.buildIndex == 1)
+        {
+            DataPersistenceManager.instance.LoadGame();
+
+            Debug.Log("Loading Data for Homebase");
+        }
+    }*/
+
     private void Update()
     {
         if (!loadScene && !spawnedPlayers)
@@ -61,6 +83,16 @@ public class PlayerConfigManager : MonoBehaviour
             }
         }
     }
+
+    /*public void LoadData(GameData dataToLoad)
+    {
+
+    }
+
+    public void SaveData(GameData data)
+    {
+
+    }*/
 
     public void ResetManager(GameObject SelectionPanel)
     {
@@ -129,6 +161,16 @@ public class PlayerConfigManager : MonoBehaviour
                 {
                     Debug.Log("All Players Ready");
 
+                    //SaveLoadSystem.BeginLoad(/*"/player.data"*/saveFileName);
+                    //bool loading = SaveLoadSystem.checkLoad();
+                    //SaveLoadSystem.EndLoad();*/
+
+                    //if (loading)
+                    //{
+                        Debug.Log("Data Found. Loading To Player");
+                        SaveLoadTest.LoadPlayerData(playerConfigs, saveFileName);
+                    //}
+
                     SceneManager.LoadScene(SceneToLoad);
                 }
             }
@@ -144,6 +186,22 @@ public class PlayerConfigManager : MonoBehaviour
             {
                 pInput.transform.SetParent(transform);
                 PlayerConfig p = new PlayerConfig(pInput, experienceData, levelData);
+
+                /*if (!DataPersistenceManager.instance.firstInstance)
+                {
+                    DataPersistenceManager.instance.LoadGame();
+
+                    List<PlayerConfig> tempData = DataPersistenceManager.instance.gameData.pConfigs;
+
+                    for (int i = 0; i < tempData.Count; i++)
+                    {
+                        if (tempData[i].PlayerIndex == p.PlayerIndex)
+                        {
+                            p.playerStats.reInit(tempData[i].playerStats);
+                        }
+                    }
+                }*/
+
                 p.Character = defaultCharacter;
                 p.PlayerMat = defaultMaterial;
                 playerConfigs.Add(p);

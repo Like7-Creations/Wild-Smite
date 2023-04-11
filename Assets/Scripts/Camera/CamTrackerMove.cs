@@ -86,7 +86,22 @@ public class CamTrackerMove : MonoBehaviour
 
         return velocity * Time.deltaTime;
     }
+    
+    Vector3 LocatePlayerMidpoint()
+    {
+        Vector3 midpoint = new Vector3((playerTarget.transform.position.x + dSplitScreen.player2.position.x) / 2, 
+            (playerTarget.transform.position.y + dSplitScreen.player2.position.y) / 2, 
+            (playerTarget.transform.position.z + dSplitScreen.player2.position.z) / 2);
 
+        return midpoint;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, 1f);
+    }
+    
     #region Standard Functions
     void Start()
     {
@@ -176,21 +191,6 @@ public class CamTrackerMove : MonoBehaviour
                                         target.transform.position - (-splitOffset + targetOffset),
                                         baseTrackerSpeed * Time.deltaTime);*/
         #endregion
-    }
-
-    Vector3 LocatePlayerMidpoint()
-    {
-        Vector3 midpoint = new Vector3((playerTarget.transform.position.x + dSplitScreen.player2.position.x) / 2, 
-            (playerTarget.transform.position.y + dSplitScreen.player2.position.y) / 2, 
-            (playerTarget.transform.position.z + dSplitScreen.player2.position.z) / 2);
-
-        return midpoint;
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, 1f);
     }
     #endregion
 }

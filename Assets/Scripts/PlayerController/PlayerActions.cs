@@ -11,6 +11,7 @@ using UnityEngine.Scripting.APIUpdating;
 using UnityEditor.UIElements;
 using UnityEngine.Events;
 using System;
+using UnityEngine.SceneManagement;
 //using System.Diagnostics;
 
 public class PlayerActions : MonoBehaviour
@@ -128,7 +129,7 @@ public class PlayerActions : MonoBehaviour
         #region Find Enemies With CheckSphere Then Check If Inside Dot Product
         //if (enemiesInDot != null) { enemiesInDot = enemiesInDot.Distinct().ToList(); } //Keeping it From Duplicates.
         enemiesInDot.Clear();
-        if(enemiesInDot.Count > 0)
+        if (enemiesInDot.Count > 0)
         {
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
@@ -234,6 +235,20 @@ public class PlayerActions : MonoBehaviour
 
         //Implement HP Recov later.
 
+        //Testing Saving
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            // save the game anytime before loading a new scene
+            DataPersistenceManager.instance.SaveGame();
+
+            Debug.Log("Game is being Saved");
+
+
+            // load the main menu scene
+            SceneManager.LoadSceneAsync("_MVP_MainMenu");
+        }
+
         //Farhan's Code-----
 
 
@@ -256,7 +271,6 @@ public class PlayerActions : MonoBehaviour
     }
 
     #region Player Take Damage
-
     public void TakeDamage(float damage)
     {
         print("Take damage called");
@@ -290,21 +304,17 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    //Event Required
     IEnumerator resetFlashDamage(Color origin)
     {
         yield return new WaitForSeconds(flashDamageTime);
         flash.gameObject.SetActive(false);
         // hit.materials[0].color = origin;
     }
-
     #endregion
-
 
     bool testCombat;
     [SerializeField] List<int> lastrands = new List<int>();
 
-    //Event Required
     public void Attack(/*InputAction.CallbackContext context*/)
     {
         if (!shooting)
@@ -389,7 +399,7 @@ public class PlayerActions : MonoBehaviour
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
                 Debug.Log("enable collider called");
-                enemiesInDot[i].TakeDamage(pStats.m_ATK);
+                enemiesInDot[i].TakeDamage(pStats.m_ATK, pStats);
             }
         }
         //VFX.Melee();
@@ -398,7 +408,7 @@ public class PlayerActions : MonoBehaviour
     //Event Required
     public void DisableCollider()
     {
-       //trigger_attackVFX.Invoke();
+        //trigger_attackVFX.Invoke();
         //animator.applyRootMotion = true;
         //VFX.Melee();
         playerController.enabled = true;
@@ -414,7 +424,25 @@ public class PlayerActions : MonoBehaviour
         //trigger_attackVFX_right.Invoke();
     }
 
-    //Event Required
+    #region Calculting Percentages
+    public float CalculateStatPercentValue(float percentage, float statValue)
+    {
+        return (percentage / 100) * statValue;
+    }
+
+    public float ReturnValueFromPercentage(float minValue, float maxValue, float percentage)
+    {
+        float result = minValue + (maxValue - minValue) * percentage / 100f;
+
+        return result;
+        //return Mathf.Clamp(minValue, maxValue, result);
+    }
+    #endregion
+
+    #region AOE Functions
+    public float chargedSTAM = 0;
+    public float chargedMELEE = 0;
+    public float chargedRANGE = 0;
     IEnumerator BeginChargingAOE()
     {
         Debug.Log("Begin Powering Up AOE");
@@ -426,11 +454,6 @@ public class PlayerActions : MonoBehaviour
         yield return null;
     }
 
-
-    public float chargedSTAM = 0;
-    public float chargedMELEE = 0;
-    public float chargedRANGE = 0;
-
     public void ChargeAOE()
     {
         if (charging)
@@ -441,10 +464,53 @@ public class PlayerActions : MonoBehaviour
 
             if (currentCharge <= pStats.aoe_Hold)
             {
+                #region Attempt #3 [Success]
+
+                float chargePercentage = Mathf.InverseLerp(0, pStats.aoe_Hold, currentCharge) * 100;
+
+                //Debug.Log($"Charge Percentage: {(float)chargePercentage}");
+
+                //Melee
+                float minMeleeMultiplier = CalculateStatPercentValue(30f, pStats.m_ATK);
+                float maxMeleeMultiplier = CalculateStatPercentValue(100f, pStats.m_ATK);
+
+                chargedMELEE = pStats.m_ATK + ReturnValueFromPercentage(minMeleeMultiplier, maxMeleeMultiplier, chargePercentage);
+                Debug.Log($"Min Melee Multiplier: {minMeleeMultiplier}, Max Melee Multiplier: {maxMeleeMultiplier}");
+                //Debug.Log("Charged Melee" + chargedMELEE);
+
+
+
+                //Radius
+                float minRadiusMultiplier = CalculateStatPercentValue(4f, pStats.r_ATK);
+                float maxRadiusMultiplier = CalculateStatPercentValue(6f, pStats.r_ATK);
+
+                chargedRANGE = ReturnValueFromPercentage(minRadiusMultiplier, maxRadiusMultiplier, chargePercentage);
+                Debug.Log($"Min Radius Multiplier: {minRadiusMultiplier}, Max Radius Multiplier: {maxRadiusMultiplier}");
+                //Debug.Log("Charged Radius" + chargedRANGE);
+
+                #endregion
+
+                #region Attempt #2 [Failed]
+                /*float chargePercent = GetPercentage(currentCharge, pStats.aoe_Hold);
+
+                //Melee
+                chargedMELEE = AddValueFromCharge(30f, 100f, pStats.m_ATK, chargePercent);
+
+                //Radius
+                Func<float, float> percentValueFunction = GetPercentValueFunction(4f, 6f);
+                float percentValue = percentValueFunction(chargePercent);*/
+
+                #endregion
+
+                #region Attempt #1 [Failed]
+                //chargedRANGE = pStats.r_ATK * GetPercentageBetweenValues(minRadius, maxRadius, currentCharge);
+                //chargedMELEE = pStats.m_ATK + (pStats.m_ATK * GetPercentageBetweenValues(30f, 100f, currentCharge));
+                #endregion
+
                 //Charge radius, damamge, stamina
                 chargedSTAM = pStats.aoe_Tap * currentCharge;
-                chargedMELEE = pStats.m_ATK * currentCharge;
-                chargedRANGE = pStats.r_ATK * currentCharge;
+                //chargedMELEE = pStats.m_ATK * currentCharge;
+                //chargedRANGE = pStats.r_ATK * currentCharge;
             }
             else if (currentCharge >= pStats.aoe_Hold || chargedSTAM == pStats.stamina)
             {
@@ -459,6 +525,7 @@ public class PlayerActions : MonoBehaviour
             ReleaseAOE(chargedSTAM, chargedMELEE, chargedRANGE);
 
             Debug.Log("AOE charged release");
+            Debug.Log($"Stamina: {chargedSTAM}, Melee: {chargedMELEE}, Radius: {chargedRANGE}");
 
             currentCharge = 0;
             chargedSTAM = 0;
@@ -467,8 +534,6 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-
-    //Event Required
     public void ReleaseAOE(float stamina, float melee, float radius)
     {
         Collider[] hits;
@@ -482,24 +547,24 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        minRadius = radius;
+        //minRadius = radius;
         //UnityEngine.Debug.Log("AOE attack");
 
         trigger_aoeVFX.Invoke();        //Trigger AOE VFX
-      
-        
-        pStats.UseSprint((int)radius);
+        pStats.UseDash((int)chargedSTAM);
 
         charging = false;
     }
+    #endregion
 
+    #region Sprint & Dash Functions
     public void Dash()
     {
         if (pStats.stamina > pStats.dash)
         {
             StartCoroutine(Mover(DashSpeed, DashTime, Dashdir));        //Dashing stuff
 
-        
+
             pStats.UseDash((int)pStats.dash);
         }
     }
@@ -529,8 +594,8 @@ public class PlayerActions : MonoBehaviour
     //Event Required
     public void Sprint()
     {
-        if(pStats.stamina >= pStats.sprint)
-        playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
+        if (pStats.stamina >= pStats.sprint)
+            playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
         isSprinting = true;
 
         trigger_sprintVFX.Invoke();
@@ -544,7 +609,9 @@ public class PlayerActions : MonoBehaviour
 
         trigger_sprintVFX.Invoke();
     }
+    #endregion
 
+    #region Ranged Attack Functions
     public void RangeAttack()
     {
         if (!fired)
@@ -576,6 +643,8 @@ public class PlayerActions : MonoBehaviour
             }
         }
     }
+    #endregion
+
 
     private void OnDrawGizmos()
     {
@@ -605,7 +674,7 @@ public class PlayerActions : MonoBehaviour
              -HitAreas[i].Direction * 0.5f,
              0) * transform.forward;
 
-           // UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
+            // UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, HitAreas[i].Angle, HitAreas[i].Radius);
         }
     }
 }

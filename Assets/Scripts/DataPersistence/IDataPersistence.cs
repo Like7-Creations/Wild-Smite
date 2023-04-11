@@ -8,5 +8,5 @@ public interface IDataPersistence
     void LoadData(GameData data);
 
     //We use a reference here so that the scripts that call this function can modify the GameData that's provided to them.
-    void SaveData(ref GameData data);
+    void SaveData(GameData data);
 }
