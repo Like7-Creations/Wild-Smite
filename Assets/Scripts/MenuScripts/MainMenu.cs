@@ -31,9 +31,9 @@ public class MainMenu : MonoBehaviour
         ResetManager(SelectionPanel);
     }
 
-    public void LoadCharacterSelection(int playerCount)
+    public void LoadCharacterSelection()
     {
-        PlayerConfigManager.Instance.SetMaxPlayers(playerCount);
+        //PlayerConfigManager.Instance.SetMaxPlayers(playerCount);
         SelectionCanvas.SetActive(true);
     }
 

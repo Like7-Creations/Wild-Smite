@@ -17,42 +17,68 @@ public class LoadSlots : MonoBehaviour
     public TMP_Text saveInfo_P1;
     public TMP_Text saveInfo_P2;
 
-    void Start()
+    public bool DebugKeys;
+    bool hasData;
+    bool newGame;
+    int players;
+
+    void Awake()
     {
         saveButton = GetComponent<Button>();
         filePath = $"/slot{slot}.save";
-        //LoadS();
+        LoadSaveInfo();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (DebugKeys)
         {
-            Debug.Log("saved");
-            Save();
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Debug.Log("loaded");
-            Load();
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Debug.Log("loaded slots");
-            LoadS();
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                Debug.Log("saved");
+                Save();
+            }
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                Debug.Log("loaded");
+                Load();
+            }
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                Debug.Log("loaded slots");
+                LoadSaveInfo();
+            }
         }
     }
 
-
     void Save()
     {
-       /// SaveLoadSystem.BeginSave("/player.data");
+        /// SaveLoadSystem.BeginSave("/player.data");
         SaveLoadSystem.BeginSave(filePath);
         SaveData save = PlayerConfigManager.Instance.CreateSave();
         SaveLoadSystem.Insert(save);
         //SaveLoadSystem.Insert(lolTwo);
         SaveLoadSystem.EndSave();
+    }
+    public void SelectCurrentSlot()
+    {
+        PlayerConfigManager.Instance.SetJoinState(true);
+        PlayerConfigManager.Instance.SetGameState(newGame);
+        PlayerConfigManager.Instance.SetMaxPlayers(players);
+        PlayerConfigManager.Instance.SetCurrentSlot(filePath);
+    }
+
+    public void SetPlayers(int count)
+    {
+        if (newGame)
+            players = count;
+    }
+
+    public void SetMode(bool game)
+    {
+        newGame = game;
     }
 
     public void Load()
@@ -65,39 +91,53 @@ public class LoadSlots : MonoBehaviour
             Debug.Log("loaded data");
             SaveLoadSystem.EndLoad();
         }
-        else Debug.LogError("Your creating a new Save File");
+        else
+        {
+            SaveLoadSystem.EndLoad();
+            Debug.LogError("Your creating a new Save File");
+        }
         // load the new game scene
 
     }
 
 
-    public void LoadS()
+    public void LoadSaveInfo()
     {
         SaveLoadSystem.BeginLoad(filePath);
-        bool slotOneExist = SaveLoadSystem.checkLoad();
-        if(slotOneExist) 
+        bool slotExist = SaveLoadSystem.checkLoad();
+        if (slotExist)
         {
+            hasData = true;
             SaveData savedata = SaveLoadSystem.Load<SaveData>();
-            if(savedata.playerCount == 1) 
+            players = savedata.playerCount;
+            if (savedata.playerCount == 1)
             {
-                saveButton.GetComponentInChildren<TextMeshProUGUI>().text = "Your Solo Save";
+                saveInfo.text = "Solo";
                 // Set Save Info Text To Be Solo
-                saveInfo_P1.text = "P1 : "+ savedata.player1_Data.level;
+                saveInfo_P1.text = "P1 : LVL" + savedata.player1_Data.level;
+                saveInfo_P2.GetComponent<RectTransform>().sizeDelta = new Vector2(saveInfo_P2.GetComponent<RectTransform>().sizeDelta.x, 0);
                 saveInfo_P2.text = "";
                 // Player one Text is equal to player one level
                 // Player two text i empty
                 SaveLoadSystem.EndLoad();
             }
-            else if(savedata.playerCount == 2) 
+            else if (savedata.playerCount == 2)
             {
-                saveButton.GetComponentInChildren<TextMeshProUGUI>().text = "Your Duo";
-                saveInfo_P1.text = "P1 : " + savedata.player1_Data.level;
-                saveInfo_P2.text = "P2 : " + savedata.player2_Data.level;
+                saveInfo.text = "Duo";
+                saveInfo_P1.text = "P1 : LVL" + savedata.player1_Data.level;
+                saveInfo_P2.text = "P2 : LVL" + savedata.player2_Data.level;
                 // Set Save Info Text To Be Duo
                 // Player one Text is equal to player one level
                 // Player two text is is equal to player two level
                 SaveLoadSystem.EndLoad();
             }
+        }
+        else
+        {
+            saveInfo.text = "Empty Save";
+            saveInfo_P1.text = "";
+            saveInfo_P2.text = "";
+            //SaveLoadSystem.EndLoad();
         }
         //else save1.GetComponentInChildren<TextMeshProUGUI>().text = "Create New";
 
