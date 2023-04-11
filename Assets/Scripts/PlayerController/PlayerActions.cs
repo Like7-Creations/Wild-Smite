@@ -82,18 +82,18 @@ public class PlayerActions : MonoBehaviour
     PlayerControls controls;
 
     [Space(5)]
-    [Header("VFX Events")]
+    [Header("VFX & SFX Events")]
 
-    public UnityEvent trigger_walkVFX;
-    public UnityEvent trigger_dashVFX;
-    public UnityEvent trigger_sprintVFX;
+    public UnityEvent trigger_walk;
+    public UnityEvent trigger_dash;
+    public UnityEvent trigger_sprint;
 
-    public UnityEvent trigger_attackVFX_left;
-    public UnityEvent trigger_attackVFX_right;
-    public UnityEvent trigger_dmgVFX;
+    public UnityEvent trigger_attack_left;
+    public UnityEvent trigger_attack_right;
+    public UnityEvent trigger_dmg;
 
-    public UnityEvent trigger_aoeVFX;
-    public UnityEvent trigger_aoeChargeVFX;
+    public UnityEvent trigger_aoe;
+    public UnityEvent trigger_aoeCharge;
 
 
     void Awake()
@@ -290,7 +290,7 @@ public class PlayerActions : MonoBehaviour
             //Farhan's Code-----
             pStats.LoseHealth((int)damage);      //Call Take Damage function, since the actual stat values have a private set.
 
-            trigger_dmgVFX.Invoke();
+            trigger_dmg.Invoke();
 
             //Farhan's Code-----
 
@@ -447,7 +447,7 @@ public class PlayerActions : MonoBehaviour
     {
         Debug.Log("Begin Powering Up AOE");
 
-        trigger_aoeChargeVFX.Invoke();      //Enables Charging VFX
+        trigger_aoeCharge.Invoke();      //Enables Charging VFX
 
         currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
 
@@ -520,7 +520,7 @@ public class PlayerActions : MonoBehaviour
         }
         else if (!charging && currentCharge > 0.11f || chargedSTAM == pStats.stamina)
         {
-            trigger_aoeChargeVFX.Invoke();      //Disables the charging VFX
+            trigger_aoeCharge.Invoke();      //Disables the charging VFX
 
             ReleaseAOE(chargedSTAM, chargedMELEE, chargedRANGE);
 
@@ -550,7 +550,7 @@ public class PlayerActions : MonoBehaviour
         //minRadius = radius;
         //UnityEngine.Debug.Log("AOE attack");
 
-        trigger_aoeVFX.Invoke();        //Trigger AOE VFX
+        trigger_aoe.Invoke();        //Trigger AOE VFX
         pStats.UseDash((int)chargedSTAM);
 
         charging = false;
@@ -578,7 +578,7 @@ public class PlayerActions : MonoBehaviour
 
         //VFX.Dash();
 
-        trigger_dashVFX.Invoke();
+        trigger_dash.Invoke();
 
         while (Time.time < startTime + time)
         {
@@ -588,7 +588,7 @@ public class PlayerActions : MonoBehaviour
         invincible = false;
 
         //VFX.Dash();
-        trigger_dashVFX.Invoke();
+        trigger_dash.Invoke();
     }
 
     //Event Required
@@ -598,7 +598,7 @@ public class PlayerActions : MonoBehaviour
             playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
         isSprinting = true;
 
-        trigger_sprintVFX.Invoke();
+        trigger_sprint.Invoke();
     }
 
     //Event Required
@@ -607,7 +607,7 @@ public class PlayerActions : MonoBehaviour
         playerController.playerSpeed = OriginalSpeed;   //Ensure that stamina is not being depleted anymore.
         isSprinting = false;
 
-        trigger_sprintVFX.Invoke();
+        trigger_sprint.Invoke();
     }
     #endregion
 
