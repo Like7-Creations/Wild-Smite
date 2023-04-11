@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
 
             //VFX Walk
-            PA.trigger_walkVFX.Invoke();
+            PA.trigger_walk.Invoke();
             //VFX Walk
 
             Vector3 lookDirection = transform.forward;

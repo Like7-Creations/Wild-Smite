@@ -951,6 +951,7 @@ GameObject:
   - component: {fileID: 455018896}
   - component: {fileID: 455018895}
   - component: {fileID: 455018894}
+  - component: {fileID: 455018897}
   m_Layer: 5
   m_Name: CloseLevelSelection_Button
   m_TagString: Untagged
@@ -1071,6 +1072,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455018892}
   m_CullTransparentMesh: 1
+--- !u!114 &455018897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455018892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1514942079}
+          m_TargetAssemblyTypeName: UI_SFXHandler, Assembly-CSharp
+          m_MethodName: Play_PointerHoverSFX
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &509484147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,6 +1298,18 @@ MonoBehaviour:
         - m_Target: {fileID: 684404668}
           m_TargetAssemblyTypeName: HoverToScale, Assembly-CSharp
           m_MethodName: PointToEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1514942079}
+          m_TargetAssemblyTypeName: UI_SFXHandler, Assembly-CSharp
+          m_MethodName: Play_PointerHoverSFX
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1809,6 +1851,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 257028231}
     m_Modifications:
+    - target: {fileID: 4460585373376245751, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460585373376245751, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460585373376245751, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1514942079}
+    - target: {fileID: 4460585373376245751, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460585373376245751, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Play_SceneTransitionSFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460585373376245751, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_SFXHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460585373376245751, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741992358504080762, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1514942079}
+    - target: {fileID: 5741992358504080762, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Play_PointerHoverSFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741992358504080762, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_SFXHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741992358504080762, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7969456286114712991, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2720,6 +2806,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1514942079}
+          m_TargetAssemblyTypeName: UI_SFXHandler, Assembly-CSharp
+          m_MethodName: Play_PointerHoverSFX
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -3501,6 +3599,74 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1001 &1514942078
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4102746354184605122, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_Name
+      value: UI_AudioHandler
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -58.23771
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 53.3888
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 151.27602
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311717501131265960, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+--- !u!114 &1514942079 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4531245157861460437, guid: 9f6f942dafd888740b69674c1b0c885c, type: 3}
+  m_PrefabInstance: {fileID: 1514942078}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ff571673796824998755dac86d9cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1522298268
 GameObject:
   m_ObjectHideFlags: 0
@@ -4243,6 +4409,18 @@ MonoBehaviour:
         - m_Target: {fileID: 2042747093}
           m_TargetAssemblyTypeName: HoverToBig, Assembly-CSharp
           m_MethodName: PointToEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1514942079}
+          m_TargetAssemblyTypeName: UI_SFXHandler, Assembly-CSharp
+          m_MethodName: Play_PointerHoverSFX
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
