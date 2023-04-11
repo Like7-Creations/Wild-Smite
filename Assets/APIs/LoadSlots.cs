@@ -100,7 +100,6 @@ public class LoadSlots : MonoBehaviour
 
     }
 
-
     public void LoadSaveInfo()
     {
         SaveLoadSystem.BeginLoad(filePath);
@@ -137,6 +136,22 @@ public class LoadSlots : MonoBehaviour
             saveInfo.text = "Empty Save";
             saveInfo_P1.text = "";
             saveInfo_P2.text = "";
+
+            //if (!newGame)
+            //{
+            //    saveInfo.color = GetComponent<Button>().colors.disabledColor;
+            //    saveInfo_P1.color = GetComponent<Button>().colors.disabledColor;
+            //    saveInfo_P2.color = GetComponent<Button>().colors.disabledColor;
+            //    GetComponent<Button>().enabled = false;
+            //}
+            //else
+            //{
+            //    saveInfo.color = GetComponent<Button>().colors.normalColor;
+            //    saveInfo_P1.color = GetComponent<Button>().colors.normalColor;
+            //    saveInfo_P2.color = GetComponent<Button>().colors.normalColor;
+            //    GetComponent<Button>().enabled = true;
+            //}
+
             //SaveLoadSystem.EndLoad();
         }
         //else save1.GetComponentInChildren<TextMeshProUGUI>().text = "Create New";

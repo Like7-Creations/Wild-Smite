@@ -52,6 +52,9 @@ public class InGameUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        p1TimerSlider.value = 0;
+        p2TimerSlider.value = 0;
+
         if (PlayerConfigManager.Instance.GetPlayerConfigs().Count == 1)
         {
             solo = true;
@@ -96,14 +99,14 @@ public class InGameUI : MonoBehaviour
         if (p1Inv.itemDuration > 0)
         {
             //Run timer slider coroutine
-            StartCoroutine(itemSliderTimer(p1TimerSlider, p1Held.duration));
+            StartCoroutine(itemSliderTimer(p1TimerSlider, p1Held.duration, P1_ItemUI));
             p1Inv.itemDuration = 0;
         }
 
         if (p1Inv.itemDuration > 0)
         {
             //Run timer slider coroutine
-            StartCoroutine(itemSliderTimer(p2TimerSlider, p2Held.duration));
+            StartCoroutine(itemSliderTimer(p2TimerSlider, p2Held.duration, P2_ItemUI));
             p1Inv.itemDuration = 0;
         }
 
@@ -253,7 +256,7 @@ public class InGameUI : MonoBehaviour
         }
     }
 
-    IEnumerator itemSliderTimer(Slider sliderTimer, float duration)
+    IEnumerator itemSliderTimer(Slider sliderTimer, float duration, Image icon)
     {
         sliderTimer.maxValue = duration;
         sliderTimer.value = 0;
@@ -265,8 +268,8 @@ public class InGameUI : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             timer += 0.01f;
         }
-        sliderTimer.value = duration;
-
+        sliderTimer.value = 0;
+        UpdateItemIcon(null, icon);
     }
 
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameSelectionPanel : MonoBehaviour
 {
@@ -13,7 +14,20 @@ public class GameSelectionPanel : MonoBehaviour
     public GameObject SelectionCanvas;
     public GameObject SelectionPanel;
 
-    private void Awake()
+    [Header("FirstSelectedButtons")]
+    public Button modeSelect;
+
+    public void LoadCharacterSelection()
+    {
+        SelectionCanvas.SetActive(true);
+    }
+
+    public void SelectMode()
+    {
+        modeSelect.Select();
+    }
+
+    public void SelectSlots()
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -24,12 +38,11 @@ public class GameSelectionPanel : MonoBehaviour
                 slots[i].SetPlayers(1);
             else
                 slots[i].SetPlayers(2);
-        }
-    }
 
-    public void LoadCharacterSelection()
-    {
-        SelectionCanvas.SetActive(true);
+            slots[i].LoadSaveInfo();
+        }
+
+        slots[0].GetComponent<Button>().Select();
     }
 
     public void SetMode(bool mode)
@@ -40,6 +53,8 @@ public class GameSelectionPanel : MonoBehaviour
         {
             if (newGame)
                 slots[i].SetMode(newGame);
+
+            //slots[i].LoadSaveInfo();
         }
     }
 
