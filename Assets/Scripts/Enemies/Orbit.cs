@@ -15,7 +15,7 @@ public class Orbit : State
 
     float dist;
     public float orbitSpeed;
-    float originalSpeed;
+    public float originalSpeed;
 
     float orbitRange;
 
@@ -89,46 +89,6 @@ public class Orbit : State
             return attackState;
         }
 
-
-
-        /*if (dist <= orbitRange)
-        {
-            //transform.RotateAround(chosenPlayer.transform.position, Vector3.up, speed * Time.deltaTime);
-
-            if (dist <= orbitRange - 1)
-            {
-                agent.speed = 3;
-                agent.Move(chosenPlayer.transform.forward * Time.deltaTime);
-            }
-            else
-            {
-                agent.speed = originalSpeed;
-            }
-
-
-            timer += Time.deltaTime;
-            if (timer >= GetComponent<EnemyStats>().generalCDN)
-            {
-                timer = 0;
-                agent.speed = originalSpeed;
-                return attackState;
-            }
-        }*/
-
-
-        /*if (GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Range)
-        {
-            if(dist <= GetComponent<Chase>().orbitRange)
-            {
-                return retreat;
-            }
-        }*/
-        /*else
-        {
-            Vector3 pos = transform.position - chosenPlayer.transform.position;
-            agent.SetDestination(pos);
-            agent.destination = pos;
-        }*/
         return this;
     }
 

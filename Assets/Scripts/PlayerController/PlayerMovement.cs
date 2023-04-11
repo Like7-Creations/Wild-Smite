@@ -52,13 +52,14 @@ public class PlayerMovement : MonoBehaviour
         //xOffset = 5.7f;
         //yOffset = 13.31f;
         //zOffset = -8.2f;
+        xOffset = 0;
+        yOffset = 3;
+        zOffset = -3f;
     }
 
     void Update()
     {
-        xOffset = 0;
-        yOffset = 3;
-        zOffset = -3f;
+
 
         Vector3 pos = new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, transform.position.z + zOffset);
         

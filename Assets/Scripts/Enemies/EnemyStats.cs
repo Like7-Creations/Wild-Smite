@@ -58,6 +58,7 @@ public class EnemyStats : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         GenerateStatValues(LevelSettings.Difficulty.Easy);
+        GetComponent<Orbit>().originalSpeed = agent.speed;
         
         myMaxHealth = Health;
 

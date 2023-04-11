@@ -12,8 +12,6 @@ public class Chase : State
     [SerializeField] int orbitRangeMin;
     [SerializeField] int orbitRangeMax;
 
-    bool pointSet;
-
 
 
     public override void Start()
