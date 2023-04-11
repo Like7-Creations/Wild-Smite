@@ -20,10 +20,16 @@ public class FileDataManager
         this.useEncryption = useEncryption;
     }
 
-    public GameData Load()
+    public GameData Load(string profileID)
     {
+        // Base Case - If profileID is null, return right away.
+        if(profileID== null)
+        {
+            return null;
+        }
+
         //Use Path.Combine to account for different OS's having different  path deparators.
-        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
 
         GameData loadedData = null;
 
@@ -61,10 +67,18 @@ public class FileDataManager
         return loadedData;
     }
 
-    public void Save(GameData data)
+    public void Save(GameData data, string profileID)
     {
+        // Base Case - If profileID is null, return right away.
+        if (profileID == null)
+        {
+            return;
+        }
+
         //Use Path.Combine to account for different OS's having different  path deparators.
-        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
+
+        Debug.Log("Game Will Be Saved To:" + fullPath);
 
         try
         {
@@ -86,6 +100,8 @@ public class FileDataManager
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
                     writer.Write(dataToStore);
+
+                    Debug.Log("Game has Been Saved");
                 }
             }
         }
@@ -93,6 +109,84 @@ public class FileDataManager
         {
             Debug.LogError("Error Occured Trying To Save PlayerData To File: " + fullPath + "\n" + e);
         }
+    }
+
+    public Dictionary<string, GameData> LoadAllProfiles()
+    {
+        Dictionary<string, GameData> profileDictionary = new Dictionary<string, GameData>();
+
+        IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories();
+
+        foreach (DirectoryInfo dirInfo in dirInfos)
+        {
+            string profileId = dirInfo.Name;
+
+            //check if save data exists at the current directory.
+            //If it doesn't, this folder isn't a relevant profile and should be ignored.
+            string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
+            if(!File.Exists(fullPath))
+            {
+                Debug.LogWarning($"No Relevant Data '{profileId}' Found. Skipping Directory.");
+                continue;
+            }
+
+            //Load game data for this profile and store it in the dictionary.
+            GameData profileData = Load(profileId);
+
+            //Ensure the profile isn't null.
+            //If it is, send out a warning.
+            if(profileData!= null)
+            {
+                profileDictionary.Add(profileId, profileData);
+            }
+            else
+            {
+                Debug.LogError("Tried to load data. But Something Went Wrong at Profile: " + profileId);
+            }
+
+        }
+
+
+        return profileDictionary;
+    }
+
+    public string GetRecentlyUpdatedProfileID()
+    {
+        string mostRecentProfileID = null;
+
+        Dictionary<string, GameData> profilesGameData = LoadAllProfiles();
+
+        foreach(KeyValuePair<string, GameData> pair in profilesGameData)
+        {
+            string profileID = pair.Key;
+            GameData data = pair.Value;
+
+            //Skip entry if gamedata is null.
+            if(data == null)
+            {
+                continue;
+            }
+            
+            //If this is the first data we've come across that exists, its the most recent so far.
+            if(mostRecentProfileID== null)
+            {
+                mostRecentProfileID = profileID;
+            }
+            //Otherwise, compare to see which date is the most recent
+            else
+            {
+                DateTime mostRecentDateTime = DateTime.FromBinary(profilesGameData[mostRecentProfileID].lastUpdatedStamp);
+                DateTime newDateTime = DateTime.FromBinary(data.lastUpdatedStamp);
+
+                //The greatest DateTime value is the most recent
+                if (newDateTime > mostRecentDateTime)
+                {
+                    mostRecentProfileID = profileID;
+                }
+            }
+        }
+
+        return mostRecentProfileID;
     }
 
     //A simple implementation of XOR encryption.

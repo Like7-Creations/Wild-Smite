@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerSetupController : MonoBehaviour
 {
+    bool ready;
 
     int PlayerIndex;
 
@@ -33,6 +34,11 @@ public class PlayerSetupController : MonoBehaviour
     Toggle readyButton;
     Toggle charAButton;
     Button backButton;
+
+    private void Awake()
+    {
+        ready = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -72,15 +78,21 @@ public class PlayerSetupController : MonoBehaviour
         characterText.text = name;
     }
 
-    public void ReadyPlayer(bool ready)
+    public void ReadyPlayer()
     {
         if (!inputEnabled)
             return;
 
-        if (readyButton.isOn != ready)
+        if (!ready)
         {
-            readyButton.isOn = ready;
+            ready = true;
         }
+        else if (ready)
+        {
+            ready = false;
+        }
+
+        readyButton.isOn = ready;
         PlayerConfigManager.Instance.ReadyPlayer(PlayerIndex, ready);
         //readyButton.gameObject.SetActive(false);
     }

@@ -220,6 +220,16 @@ public class LevelCompletion : MonoBehaviour
 
     public void ReturnToBase()
     {
+        List<PlayerConfig> configs = PlayerConfigManager.Instance.GetPlayerConfigs();
+
+
+        for (int i = 0; i < configs.Count; i++)
+        {
+            SaveLoadTest.SavePlayerData(configs, PlayerConfigManager.Instance.saveFileName);
+
+            Debug.Log("Saving Data for " + configs[i].Name);
+        }
+
         SceneManager.LoadScene(HomebaseScene);
     }
 }

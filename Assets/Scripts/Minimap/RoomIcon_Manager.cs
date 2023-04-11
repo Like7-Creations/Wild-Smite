@@ -21,7 +21,6 @@ public class RoomIcon_Manager : MonoBehaviour
     [SerializeField] LayerMask minimapLayer;
     [SerializeField] float rayMagnitude;
 
-    // Start is called before the first frame update
     void Start()
     {
         name = transform.parent.transform.parent.name;
@@ -30,12 +29,6 @@ public class RoomIcon_Manager : MonoBehaviour
         
         roomStatus = RoomStatus.Hidden;
         UpdateRoomState();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void UpdateRoomState()
