@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
 {
+    [Header("Save Data Stuff")]
+    public string saveFileName = "";
 
     [Header("Player Settings")]
     public Leveling_Data levelData;
@@ -159,15 +161,15 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
                 {
                     Debug.Log("All Players Ready");
 
-                    SaveLoadSystem.BeginLoad("/player.data");
-                    bool loading = SaveLoadSystem.checkLoad();
-                    SaveLoadSystem.EndLoad();
+                    //SaveLoadSystem.BeginLoad(/*"/player.data"*/saveFileName);
+                    //bool loading = SaveLoadSystem.checkLoad();
+                    //SaveLoadSystem.EndLoad();*/
 
-                    if (loading)
-                    {
+                    //if (loading)
+                    //{
                         Debug.Log("Data Found. Loading To Player");
-                        SaveLoadTest.LoadPlayerData(playerConfigs);
-                    }
+                        SaveLoadTest.LoadPlayerData(playerConfigs, saveFileName);
+                    //}
 
                     SceneManager.LoadScene(SceneToLoad);
                 }

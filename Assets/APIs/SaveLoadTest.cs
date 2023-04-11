@@ -26,11 +26,11 @@ public static class SaveLoadTest
         }
     }*/
 
-    public static void SavePlayerData(List<PlayerConfig> data)
+    public static void SavePlayerData(List<PlayerConfig> data, string filePath)
     {
         if (data.Count == 1)
         {
-            SaveLoadSystem.BeginSave("/player.data");
+            SaveLoadSystem.BeginSave(/*"/player.data"*/filePath);
             PlayerData pData = new PlayerData(data[0].playerStats);
             SaveData save = new SaveData(pData);
             SaveLoadSystem.Insert(save);
@@ -39,7 +39,7 @@ public static class SaveLoadTest
         }
         else if (data.Count == 2)
         {
-            SaveLoadSystem.BeginSave("/player.data");
+            SaveLoadSystem.BeginSave(/*"/player.data"*/filePath);
 
             PlayerData p1Data = new PlayerData(data[0].playerStats);
             PlayerData p2Data = new PlayerData(data[1].playerStats);
@@ -53,23 +53,33 @@ public static class SaveLoadTest
 
     }
 
-    public static void LoadPlayerData(List<PlayerConfig> data)
+    public static void LoadPlayerData(List<PlayerConfig> data, string filePath)
     {
-        SaveLoadSystem.BeginLoad("/player.data");
+        SaveLoadSystem.BeginLoad(/*"/player.data"*/filePath);
 
-        SaveData save = SaveLoadSystem.Load<SaveData>();
-        
-        if (save.playerCount == 1)
+        bool loading = SaveLoadSystem.checkLoad();
+
+        if (loading)
         {
-            data[0].playerStats.LoadStats(save.player1_Data.hp, save.player1_Data.stamina, save.player1_Data.melee, save.player1_Data.range, save.player1_Data.index, save.player1_Data.currentXP, save.player1_Data.level);
+            SaveData save = SaveLoadSystem.Load<SaveData>();
+
+            if (save.playerCount == 1)
+            {
+                data[0].playerStats.LoadStats(save.player1_Data.hp, save.player1_Data.stamina, save.player1_Data.melee, save.player1_Data.range, save.player1_Data.index, save.player1_Data.currentXP, save.player1_Data.level);
+            }
+            else if (save.playerCount == 2)
+            {
+                data[0].playerStats.LoadStats(save.player1_Data.hp, save.player1_Data.stamina, save.player1_Data.melee, save.player1_Data.range, save.player1_Data.index, save.player1_Data.currentXP, save.player1_Data.level);
+                data[1].playerStats.LoadStats(save.player2_Data.hp, save.player2_Data.stamina, save.player2_Data.melee, save.player2_Data.range, save.player2_Data.index, save.player2_Data.currentXP, save.player2_Data.level);
+            }
+     
+            SaveLoadSystem.EndLoad();
         }
-        else if (save.playerCount == 2)
+        else if (!loading)
         {
-            data[0].playerStats.LoadStats(save.player1_Data.hp, save.player1_Data.stamina, save.player1_Data.melee, save.player1_Data.range, save.player1_Data.index, save.player1_Data.currentXP, save.player1_Data.level);
-            data[1].playerStats.LoadStats(save.player2_Data.hp, save.player2_Data.stamina, save.player2_Data.melee, save.player2_Data.range, save.player2_Data.index, save.player2_Data.currentXP, save.player2_Data.level);
+            Debug.Log("The API IS sorta broken. Its still Mustafa's tho");
         }
 
-        SaveLoadSystem.EndLoad();
     }
 }
 

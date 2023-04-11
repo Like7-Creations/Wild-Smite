@@ -225,7 +225,7 @@ public class LevelCompletion : MonoBehaviour
 
         for (int i = 0; i < configs.Count; i++)
         {
-            SaveLoadTest.SavePlayerData(configs);
+            SaveLoadTest.SavePlayerData(configs, PlayerConfigManager.Instance.saveFileName);
 
             Debug.Log("Saving Data for " + configs[i].Name);
         }
