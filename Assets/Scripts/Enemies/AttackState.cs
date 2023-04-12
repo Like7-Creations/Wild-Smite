@@ -51,7 +51,7 @@ public class AttackState : State
             }
             if (sfx.isEnabled)
             {
-                var obj = GetComponent<Enemy_SFXHandler>();
+                var obj = GetComponent<BaseEnemy_SFXHandler>();
                 if (obj.GetComponent<Melee_SFXHandler>() != null)
                 {
                     var clipObj = obj.GetComponent<Melee_SFXHandler>();

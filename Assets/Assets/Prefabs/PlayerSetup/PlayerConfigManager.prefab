@@ -44,8 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fbbcb70b45f7974da6b25612e391cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveFileName: 
+  levelData: {fileID: 0}
+  experienceData: {fileID: 0}
   MaxPlayers: 2
   SceneToLoad: Chris_MultiPlayer
+  loadScene: 0
+  joinonStart: 0
+  levelStart: {fileID: 0}
+  defaultCharacter: {fileID: 0}
+  defaultMaterial: {fileID: 0}
 --- !u!114 &8458360607324529395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,9 +67,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
-  m_MaxPlayerCount: -1
-  m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_MaxPlayerCount: 2
+  m_AllowJoining: 0
+  m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -77,19 +85,47 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_SFXHandler, Assembly-CSharp
+        m_MethodName: Play_PlayerJoinedSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_PlayerLeftEvent:
     m_PersistentCalls:
       m_Calls: []
   m_JoinAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 
+      m_Name: Join
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 4c5a7f5f-89f9-422f-87bb-fac5012aa2fb
       m_Processors: 
       m_Interactions: 
-      m_SingletonActionBindings: []
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: b9203418-cdbc-4c0b-8895-a9cb31093d2c
+        m_Path: <Keyboard>/enter
+        m_Interactions: Press(behavior=2)
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 2cffe6e2-1a07-4212-955c-224b03eec893
+        m_Path: <Gamepad>/buttonSouth
+        m_Interactions: Press(behavior=2)
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
       m_Flags: 0
     m_Reference: {fileID: 0}
   m_PlayerPrefab: {fileID: 9175069558547882047, guid: 8a9e2aa5ca75f3f4d844f5a4d50ec3c1, type: 3}

@@ -30,12 +30,23 @@ public class ObjectDithering : MonoBehaviour
     public float GetPercentage(float value, float minValue, float maxValue)
     {
         // Calculate the percentage using the formula: (1 - value / maxValue) * 100
-        float percentage = (1 - value / maxValue) * 100;
+        //float percentage = 1 - (1 - value / maxValue) * 100;
 
         //float percentage = 1 - (value - minValue / maxValue - minValue);
 
+        if (value <= minValue)
+            return 0;
+        else if (value >= maxValue)
+            return 1;
+        else
+        {
+            float range = maxValue - minValue;
+            float percent = (value - minValue) / range;
+            Debug.Log($"percent is {percent}");
+            return percent;
+        }
+
         // Return the percentage
-        return percentage;
     }
 
     float LocateClosestCam()
@@ -67,9 +78,9 @@ public class ObjectDithering : MonoBehaviour
 
         //distFromCam = Mathf.Clamp(distFromCam, 0f, 1f);
 
-        ditherPercentage = 1;
+        //ditherPercentage = 1;
 
-        if (distFromCam < minDitherDist)
+        if (distFromCam <= maxDitherDist)
         {
             ditherPercentage = GetPercentage(distFromCam, minDitherDist, maxDitherDist);
         }

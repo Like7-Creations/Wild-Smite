@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using Ultimate.AI;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Spawner : MonoBehaviour
 {
