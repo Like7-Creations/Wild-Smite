@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7513188791342356683}
   - component: {fileID: 3702200644881929189}
   - component: {fileID: -5990957384705506226}
+  - component: {fileID: 5550268137917356031}
   m_Layer: 0
   m_Name: large_buildingE
   m_TagString: Untagged
@@ -61,11 +62,11 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3963241562183589234, guid: 3d965854b7711774387311b73da1cdd2, type: 3}
-  - {fileID: -2870021472586168505, guid: 3d965854b7711774387311b73da1cdd2, type: 3}
-  - {fileID: 3398073514908505954, guid: 3d965854b7711774387311b73da1cdd2, type: 3}
-  - {fileID: 1550975326256456482, guid: 3d965854b7711774387311b73da1cdd2, type: 3}
-  - {fileID: 8457432598939410078, guid: 3d965854b7711774387311b73da1cdd2, type: 3}
+  - {fileID: 2100000, guid: 2db117f9c6c3c9240a05b7ed1b411264, type: 2}
+  - {fileID: 2100000, guid: 127ba79a54349394bb42bc2c49d1c83d, type: 2}
+  - {fileID: 2100000, guid: 62318e1ade8a9fc4f8a525747b63ffce, type: 2}
+  - {fileID: 2100000, guid: ebce027d4eac6424abc3d11bc650109b, type: 2}
+  - {fileID: 2100000, guid: 3925ebe8bd27b774dbcdff290c5417a7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,3 +118,21 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 12.4800005, z: -0.6}
   m_TimeToStationary: 0.5
+--- !u!114 &5550268137917356031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8305984709520259358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0

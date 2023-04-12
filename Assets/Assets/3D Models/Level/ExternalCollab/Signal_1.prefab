@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 7264129138141185201}
   - component: {fileID: 5229564802105320599}
   - component: {fileID: 8441850605833961171}
+  - component: {fileID: 731345986025541444}
   m_Layer: 0
   m_Name: Light_Area
   m_TagString: Untagged
@@ -163,6 +164,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &731345986025541444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537796004644246742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6138b088b8462974cb907d5004019467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpTime: 1
+  myColor:
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 1, g: 0.39215687, b: 0, a: 0}
+  - {r: 0, g: 1, b: 0, a: 0}
+  colorIndex: 0
 --- !u!1 &9139764482099318395
 GameObject:
   m_ObjectHideFlags: 0

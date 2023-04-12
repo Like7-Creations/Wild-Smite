@@ -38,7 +38,7 @@ public class Destroy : MonoBehaviour
         if (playershot & other.gameObject.GetComponent<EnemyStats>() != null)
         {
             EnemyStats victim = other.gameObject.GetComponent<EnemyStats>();
-            victim.TakeDamage(actions.pStats.r_ATK);// Deal damage to the enemy
+            victim.TakeDamage(actions.pStats.r_ATK, actions.pStats);// Deal damage to the enemy
             destroyedVFX.transform.parent = null;
             destroyedVFX.Play();
             Destroy(gameObject);

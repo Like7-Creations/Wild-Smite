@@ -11,7 +11,6 @@ public class Minimap_Cam : MonoBehaviour
 
     Bounds lvlBounds;
 
-    // Start is called before the first frame update
     void Start()
     {
         miniCam = GetComponent<Camera>();
@@ -28,19 +27,15 @@ public class Minimap_Cam : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawCube(lvlBounds.center, (lvlBounds.extents * 4) + new Vector3(36.5f, 0, 36.5f));
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (lvlInitializer.levelSpawned)
+        if (lvlInitializer.levelSpawned)        //Add a null check to prevent it from running repeatedly
         {
-            lvlGenerator = lvlInitializer.GetComponentInChildren<LevelGenerator.Scripts.LevelGenerator>();
-            Debug.Log("Level Generator Located");
+            if (lvlGenerator == null)
+            {
+                lvlGenerator = lvlInitializer.GetComponentInChildren<LevelGenerator.Scripts.LevelGenerator>();
+                //Debug.Log("Level Generator Located");
+            }
         }
         else
         {
@@ -59,8 +54,14 @@ public class Minimap_Cam : MonoBehaviour
             }
         }
 
-        miniCam.orthographicSize = (lvlBounds.extents.z + 67f) * 1.5f;
+        miniCam.orthographicSize = (lvlBounds.extents.z + 67f) /* 2.5f*/;
 
         transform.position = new Vector3(lvlBounds.center.x, 125, lvlBounds.center.z);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawCube(lvlBounds.center, (lvlBounds.extents * 4) + new Vector3(36.5f, 0, 36.5f));
     }
 }

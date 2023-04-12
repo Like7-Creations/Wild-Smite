@@ -29,20 +29,20 @@ public class PlayerMovement : MonoBehaviour
     float turnAmount;
     float forwardAmount;
 
+    public SkyBoxGen weather;
+    GameObject[] rains;
+
     // Just testing stuff 
     public Camera cam;
     public float xOffset;
     public float yOffset;
     public float zOffset;
-
-
-   /* public EnemyStatRange ESR;
-    public EnemyStats ES;*/
     
     void Start()
     {
         // for testing
-        cam= Camera.main;
+        weather.ManageWeather();
+        cam = Camera.main;
         Pc = GetComponent<PlayerControl>();
         controls = Pc.GetControls();
         PA = GetComponent<PlayerActions>();
@@ -52,15 +52,14 @@ public class PlayerMovement : MonoBehaviour
         //xOffset = 5.7f;
         //yOffset = 13.31f;
         //zOffset = -8.2f;
+        xOffset = 0;
+        yOffset = 3;
+        zOffset = -3f;
     }
 
     void Update()
     {
-        xOffset = 4;
-        yOffset = 5;
-        zOffset = -4f;
-        /*float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");*/
+
 
         Vector3 pos = new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, transform.position.z + zOffset);
         
@@ -69,7 +68,6 @@ public class PlayerMovement : MonoBehaviour
         refer = direction;
         float targetangle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
-        // controller.Move(new Vector3(0, -9.81f, 0));
         if (direction != Vector3.zero)
         {
             if (!PA.shooting)
@@ -98,37 +96,27 @@ public class PlayerMovement : MonoBehaviour
 
             if (PA.isSprinting)
             {
-                animator.SetBool("Sprinting", PA.isSprinting);
+                //animator.SetBool("Sprinting", PA.isSprinting);
+               animator.SetFloat("Sprinting", 2);
                 //InvokeRepeating("lostStamina", 1f, 1);
             }
-            else animator.SetBool("Sprinting", PA.isSprinting);
+            else animator.SetFloat("Sprinting", 1);
 
 
         }
         else
         {
             animator.SetFloat("X", 0f, 0.05f, Time.deltaTime);
-            animator.SetBool("Sprinting", false);
+            //animator.SetBool("Sprinting", false);
         }
-
-        /*  if(cam != null) 
-          { 
-              camForward = Vector3.Scale(cam.transform.up, new Vector3(1, 0, 1)).normalized;
-              move = movementInput.y * camForward + movementInput.x * cam.transform.right;
-          }
-          if(move.magnitude > 1)
-          {
-              move.Normalize();
-          }*/
-
-        //Move(move);
 
         float forwardDirection = Vector3.Dot(transform.forward, new Vector3(direction.x, 0, direction.z));
         float rightDirection = Vector3.Dot(transform.right, new Vector3(direction.x, 0f, direction.z));
+
+        animator.SetFloat("X", rightDirection * 1.5f, 0.1f, Time.deltaTime);
+        animator.SetFloat("Y", forwardDirection * 1.5f, 0.1f, Time.deltaTime);
         if (PA.shooting)
         {
-            animator.SetFloat("X", rightDirection);
-            animator.SetFloat("Y", forwardDirection);
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -136,29 +124,6 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
         animCheck();
     }
-   /* void Move(Vector3 move)
-    {
-        if(move.magnitude> 1)
-        {
-            move.Normalize();
-        }
-        moveInput = move;
-        ConvertAnimator();
-        UpdateAnimator();
-    }*/
-    /*void ConvertAnimator()
-    {
-        Vector3 localMove = transform.InverseTransformDirection(moveInput);
-        turnAmount = localMove.x;
-
-        forwardAmount = localMove.z;
-    }
-
-    void UpdateAnimator()
-    {
-        animator.SetFloat("Y", forwardAmount, 0.1f, Time.deltaTime);
-        animator.SetFloat("X", turnAmount, 0.1f, Time.deltaTime);
-    }*/
 
     public void animCheck()
     {
@@ -175,13 +140,13 @@ public class PlayerMovement : MonoBehaviour
         movementInput = context.ReadValue<Vector2>();
     }
 
-    void Input_onActionTriggered(CallbackContext obj)
+    /*void Input_onActionTriggered(CallbackContext obj)
     {
         if (obj.action.name == controls.Player.Movement.name)
         {
             onMove(obj);
         }
-    }
+    }*/
 
     private void OnDrawGizmos()
     {

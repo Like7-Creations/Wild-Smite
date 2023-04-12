@@ -191,38 +191,6 @@ public class Dynamic_SplitScreen : MonoBehaviour
 
                     isSplit = true;
                 }
-                else
-                {
-                    //Failed Attempts-----
-
-                    /*Calculate the split offset, by adding the midpoint2 with the vCam's body offset
-                    Vector3 p2_vOffset = p2_Vcam.GetComponentInChildren<CinemachineTransposer>().m_FollowOffset;
-
-                    p2_Vcam.GetComponentInParent<CamTrackerMove>().splitOffset = 
-                        new Vector3(p2_Offset.x, 0, p2_Offset.z) + new Vector3(p2_vOffset.x, 0, p2_vOffset.z);*/
-
-                    /*Quaternion p2_CamRot = Quaternion.LookRotation(midpoint2 - p2_Cam.transform.position);
-                    p2_Cam.transform.rotation = Quaternion.Lerp(p2_Cam.transform.rotation, p2_CamRot, Time.deltaTime * 5);*/
-
-                    /*//-----
-                    CinemachineTransposer cam1_Transposer = p1_Vcam.GetComponentInChildren<CinemachineTransposer>();
-
-                    Vector3 p1_CamRot = midpoint - p1_Cam.transform.position;
-
-                    cam1_Transposer.m_FollowOffset = Vector3.Lerp(p1_Cam.transform.position, p1_CamRot, Time.deltaTime * 5);
-                    //-----
-
-                    //-----
-                    CinemachineTransposer cam2_Transposer = p2_Vcam.GetComponentInChildren<CinemachineTransposer>();
-
-                    Vector3 p2_CamRot = midpoint2 - p2_Cam.transform.position;
-
-                    cam2_Transposer.m_FollowOffset = Vector3.Lerp(p2_Cam.transform.position, p2_CamRot, Time.deltaTime * 5);
-                    //-----*/
-                    //Failed Attempts-----
-                }
-
-
             }
             else
             {

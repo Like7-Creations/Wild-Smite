@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6031071412478379776}
   - component: {fileID: 8382989147854959562}
   - component: {fileID: -8346448468752637942}
+  - component: {fileID: 2347518945464123244}
   m_Layer: 0
   m_Name: tree_large
   m_TagString: Untagged
@@ -60,8 +61,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8457432598939410078, guid: 546934cafc650a349aed5419e24797b5, type: 3}
-  - {fileID: -8067726398312463513, guid: 546934cafc650a349aed5419e24797b5, type: 3}
+  - {fileID: 2100000, guid: a125c2ce8ca3cb047ab150bd4cc51c4b, type: 2}
+  - {fileID: 2100000, guid: 2c14e055052552a4ba07fc24dc0616a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,3 +98,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3400815241036995570, guid: 546934cafc650a349aed5419e24797b5, type: 3}
+--- !u!114 &2347518945464123244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8022776014074991135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  ditherDist: 15
+  ditherPercentage: 0
