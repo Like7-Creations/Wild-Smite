@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.1341476, b: 0.121078834, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1230,7 +1230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &585437473
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1945,7 +1945,7 @@ PrefabInstance:
       objectReference: {fileID: 1514942079}
     - target: {fileID: 5741992358504080762, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Play_PointerHoverSFX
+      value: Play_ResumeGameSFX
       objectReference: {fileID: 0}
     - target: {fileID: 5741992358504080762, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -1953,6 +1953,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5741992358504080762, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183727676178405932, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1514942079}
+    - target: {fileID: 7183727676178405932, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play_PointerHoverSFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183727676178405932, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI_SFXHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183727676178405932, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7969456286114712991, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
@@ -2046,6 +2062,22 @@ PrefabInstance:
     - target: {fileID: 8671446644703232830, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006538526929465627, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1514942079}
+    - target: {fileID: 9006538526929465627, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play_PointerHoverSFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006538526929465627, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI_SFXHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006538526929465627, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 391fa58049d77bf4ca637f745ea5fb01, type: 3}
