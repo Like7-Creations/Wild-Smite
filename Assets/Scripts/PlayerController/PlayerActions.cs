@@ -237,17 +237,17 @@ public class PlayerActions : MonoBehaviour
 
         //Testing Saving
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            // save the game anytime before loading a new scene
-            DataPersistenceManager.instance.SaveGame();
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    // save the game anytime before loading a new scene
+        //    DataPersistenceManager.instance.SaveGame();
 
-            Debug.Log("Game is being Saved");
+        //    Debug.Log("Game is being Saved");
 
 
-            // load the main menu scene
-            SceneManager.LoadSceneAsync("_MVP_MainMenu");
-        }
+        //    // load the main menu scene
+        //    SceneManager.LoadSceneAsync("_MVP_MainMenu");
+        //}
 
         //Farhan's Code-----
 

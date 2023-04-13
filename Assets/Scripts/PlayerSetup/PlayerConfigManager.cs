@@ -2,6 +2,7 @@ using Serielization;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,7 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
 {
     [Header("Save Data Stuff")]
     public string saveFileName = "";
+    bool newGame;
 
     [Header("Player Settings")]
     public Leveling_Data levelData;
@@ -116,12 +118,23 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
         //GetComponent<PlayerInputManager>().maxPlayerCount = num;
     }
 
+    public void SetGameState(bool state)
+    {
+        newGame = state;
+    }
+
     public void SetJoinState(bool state)
     {
         if (state)
+        {
+            canJoin = true;
             GetComponent<PlayerInputManager>().EnableJoining();
+        }
         else
+        {
+            canJoin = false;
             GetComponent<PlayerInputManager>().DisableJoining();
+        }
     }
 
     public List<PlayerConfig> GetPlayerConfigs()
@@ -165,11 +178,16 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
                     //bool loading = SaveLoadSystem.checkLoad();
                     //SaveLoadSystem.EndLoad();*/
 
-                    //if (loading)
-                    //{
+                    if (!newGame)
+                    {
                         Debug.Log("Data Found. Loading To Player");
                         SaveLoadTest.LoadPlayerData(playerConfigs, saveFileName);
-                    //}
+                        SaveLoadTest.SavePlayerData(playerConfigs, saveFileName);
+                    }
+                    else
+                    {
+                        SaveLoadTest.SavePlayerData(playerConfigs, saveFileName);
+                    }
 
                     SceneManager.LoadScene(SceneToLoad);
                 }
@@ -179,7 +197,7 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
 
     public void HandlePlayerJoin(PlayerInput pInput)
     {
-        if (playerConfigs.Count < MaxPlayers)
+        if (playerConfigs.Count < MaxPlayers && canJoin)
         {
             Debug.Log("Player joined" + pInput.playerIndex);
             if (!playerConfigs.Any(p => p.PlayerIndex == pInput.playerIndex))
@@ -211,6 +229,32 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
                 GetComponent<PlayerInputManager>().DisableJoining();
         }
     }
+
+    public void SetCurrentSlot(string filename)
+    {
+        saveFileName = filename;
+    }
+
+    public SaveData CreateSave()
+    {
+        if (playerConfigs.Count == 1)
+        {
+            //sami is gay
+            PlayerData playerone = new PlayerData(playerConfigs[0].playerStats);
+            SaveData savedata = new SaveData(playerone);
+            return savedata;
+        }
+        else if (playerConfigs.Count == 2)
+        {
+            //sami is gay
+            PlayerData playerone = new PlayerData(playerConfigs[0].playerStats);
+            PlayerData playerTwo = new PlayerData(playerConfigs[1].playerStats);
+            SaveData savedata = new SaveData(playerone, playerTwo);
+            return savedata;
+        }
+        return null;
+    }
+
 }
 
 [System.Serializable]

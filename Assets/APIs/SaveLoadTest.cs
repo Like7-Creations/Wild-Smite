@@ -3,29 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Serielization;
 using TMPro;
+using UnityEngine.UI;
 
 public static class SaveLoadTest
 {
-    /*void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Debug.Log("saveddd");
-            Save();
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Debug.Log("loaded");
-            Load();
-        }
-    }*/
-
     public static void SavePlayerData(List<PlayerConfig> data, string filePath)
     {
         if (data.Count == 1)
@@ -120,6 +101,7 @@ public class SaveData
 
         playerCount = 1;
     }
+   
 
     public SaveData(PlayerData p1, PlayerData p2)
     {

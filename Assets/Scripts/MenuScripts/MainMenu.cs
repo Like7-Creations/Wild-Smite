@@ -24,6 +24,7 @@ public class MainMenu : MonoBehaviour
     public GameObject SelectionCanvas;
     public GameObject SelectionPanel;
     public GameObject MenuPanel;
+    public Button firstButton;
 
     private void Awake()
     {
@@ -31,9 +32,9 @@ public class MainMenu : MonoBehaviour
         ResetManager(SelectionPanel);
     }
 
-    public void LoadCharacterSelection(int playerCount)
+    public void LoadCharacterSelection()
     {
-        PlayerConfigManager.Instance.SetMaxPlayers(playerCount);
+        //PlayerConfigManager.Instance.SetMaxPlayers(playerCount);
         SelectionCanvas.SetActive(true);
     }
 
@@ -41,6 +42,11 @@ public class MainMenu : MonoBehaviour
     {
         PlayerConfigManager.Instance.ResetManager(panel);
         SelectionCanvas.SetActive(false);
+    }
+
+    public void SelectFirstButton()
+    {
+        firstButton.Select();
     }
 
     public void ToggleMenuState()
