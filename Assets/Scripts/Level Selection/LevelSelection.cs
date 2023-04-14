@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelSelection : MonoBehaviour
 {
@@ -21,10 +22,14 @@ public class LevelSelection : MonoBehaviour
     List<Vector3> placedPositions;
 
     int loopCountExceded;
+    public Button closeButton;
+    public List<LevelOption> options;
+    int currentOption;
 
     // Start is called before the first frame update
     void Start()
     {
+        options = new List<LevelOption>();
         placedPositions = new List<Vector3>();
         loopCountExceded = 0;
 
@@ -32,24 +37,66 @@ public class LevelSelection : MonoBehaviour
             GenerateLevelOptions();
 
         panel.SetActive(false);
+
+    }
+
+    public void SelectFirstOption()
+    {
+        Debug.Log("Selecting fisrt option");
+        options[0].CollapsedButton.Select();
+        currentOption = 0;
     }
 
     public void GenerateLevelOptions()
     {
-        int amount = Random.Range(minLevels, player.lvl);
-
+        int amount = Random.Range(minLevels, maxLevels);
+        Debug.Log($"Want to spawn {amount} options");
         for (int i = 0; i < amount; i++)
         {
-            GameObject option = Instantiate(optionPrefab);
-            option.transform.SetParent(transform, false);
+            GameObject option = Instantiate(optionPrefab, transform);
+            //option.transform.SetParent(transform, false);
             Debug.Log("Spawning Option " + (i + 1));
 
             RectTransform rt = option.GetComponent<RectTransform>();
             rt.anchorMax = Vector2.zero;
             rt.anchorMin = Vector2.zero;
-            rt.anchoredPosition3D = GeneratePosition();
+            Vector3 pos = GeneratePosition();
+            option.GetComponent<LevelOption>().optionPosition = pos;
+            options.Add(option.GetComponent<LevelOption>());
+            rt.anchoredPosition3D = pos;
             //rt.localScale = Vector3.one;
         }
+
+        options.Sort((o1, o2) => o1.optionPosition.x.CompareTo(o2.optionPosition.x));
+        for (int i = 0; i < options.Count; i++)
+        {
+            Navigation nav = options[i].CollapsedButton.navigation;
+            nav.mode = Navigation.Mode.Explicit;
+
+            if (i + 1 < options.Count)
+                nav.selectOnRight = options[i + 1].CollapsedButton;
+            else
+                nav.selectOnRight = options[0].CollapsedButton;
+
+
+
+            if (i == 0)
+                nav.selectOnLeft = options[options.Count - 1].CollapsedButton;
+            else
+                nav.selectOnLeft = options[i - 1].CollapsedButton;
+
+            nav.selectOnUp = closeButton;
+
+            options[i].CollapsedButton.navigation = nav;
+            options[i].ExpandedButton.navigation = nav;
+
+            options[i].CreateOption();
+        }
+
+        Navigation cNav = closeButton.navigation;
+        cNav.mode = Navigation.Mode.Explicit;
+        cNav.selectOnDown = options[0].CollapsedButton;
+        closeButton.navigation = cNav;
 
         OptionsCreated = true;
     }
@@ -67,7 +114,7 @@ public class LevelSelection : MonoBehaviour
 
             while (!validPosition)
             {
-                
+
                 loopCount++;
                 bool tooCloseX = false;
                 bool tooCloseY = false;
@@ -109,7 +156,7 @@ public class LevelSelection : MonoBehaviour
                     Debug.Log("Loop Count Exceeded, breaking Loop");
                     loopCountExceded++;
                     break;
-                }                
+                }
             }
 
             placedPositions.Add(position);

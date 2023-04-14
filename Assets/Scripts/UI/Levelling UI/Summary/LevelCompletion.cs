@@ -56,6 +56,10 @@ public class LevelCompletion : MonoBehaviour
     private void Awake()
     {
         playersToLevel = new Queue<PlayerStats>();
+
+        EnemyStats[] enemies = FindObjectsOfType<EnemyStats>();
+        foreach (EnemyStats enemy in enemies)
+            enemy.gameObject.SetActive(false);
     }
 
     public void ShowSummary()

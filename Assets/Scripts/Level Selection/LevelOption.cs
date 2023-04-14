@@ -23,11 +23,17 @@ public class LevelOption : MonoBehaviour
     public TMP_Text Info_UI;
     public GameObject expanded;
 
+    public Vector3 optionPosition;
 
+    public Button CollapsedButton;
+    public Button ExpandedButton;
 
-    private void Awake()
+    public void CreateOption()
     {
-        List< PlayerConfig> players = PlayerConfigManager.Instance.GetPlayerConfigs();
+
+        List<PlayerConfig> players = new List<PlayerConfig>();
+        if (PlayerConfigManager.Instance != null)
+            players = PlayerConfigManager.Instance.GetPlayerConfigs();
         int maxLvl = 0;
         for (int i = 0; i < players.Count; i++)
         {
@@ -67,5 +73,11 @@ public class LevelOption : MonoBehaviour
     {
         Settings.SetSelectedLevel(levelField, difficultyField);
         SceneManager.LoadScene(levelToLoad);
+    }
+
+    public void SelectOption()
+    {
+        expanded.SetActive(true);
+        ExpandedButton.Select();
     }
 }
