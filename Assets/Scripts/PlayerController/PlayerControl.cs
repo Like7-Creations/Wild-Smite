@@ -73,7 +73,7 @@ public class PlayerControl : MonoBehaviour
         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.canceled)
         {
             pActions.shooting = false;
-           // anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
+            // anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
         }
 
         //Keyboard and Mouse Range Attack
@@ -102,6 +102,8 @@ public class PlayerControl : MonoBehaviour
         }
 
         // Sprinting
+        //AudioSource sprintSource = GetComponent<Player_SFXHandler>().loopAudio;
+
         if (context.action.name == controls.Player.Sprinting.name && context.performed)
         {
             pActions.Sprint();
@@ -120,7 +122,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         // Use Item 
-        if(context.action.name == controls.Player.UseItem.name && context.performed)
+        if (context.action.name == controls.Player.UseItem.name && context.performed)
         {
             pInventory.useItem();
         }

@@ -6402,6 +6402,7 @@ GameObject:
   - component: {fileID: 8677192015910937241}
   - component: {fileID: -6499161388970198589}
   - component: {fileID: 4108979130654174356}
+  - component: {fileID: 4671952168339284679}
   m_Layer: 0
   m_Name: C_TestPlayer_A
   m_TagString: Player
@@ -6516,6 +6517,7 @@ MonoBehaviour:
   lockX: 1
   lockY: 0
   lockZ: 1
+  playerController: {fileID: 0}
   pStats: {fileID: 0}
   health: 500
   HitAreas:
@@ -6557,33 +6559,6 @@ MonoBehaviour:
   minRadius: 4
   maxRadius: 6
   enemiesInDot: []
-  trigger_walk:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1539933998243019925}
-        m_TargetAssemblyTypeName: Player_VFXHandler, Assembly-CSharp
-        m_MethodName: TriggerWalkingVFX
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8677192015910937241}
-        m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
-        m_MethodName: Play_WalkingSFX
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   trigger_dash:
     m_PersistentCalls:
       m_Calls:
@@ -6602,33 +6577,6 @@ MonoBehaviour:
       - m_Target: {fileID: 8677192015910937241}
         m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
         m_MethodName: Play_DashingSFX
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  trigger_sprint:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1539933998243019925}
-        m_TargetAssemblyTypeName: Player_VFXHandler, Assembly-CSharp
-        m_MethodName: TriggerSprintVFX
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8677192015910937241}
-        m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
-        m_MethodName: Play_SprintingSFX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6746,7 +6694,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  trigger_aoeCharge:
+  trigger_walkVFX:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1539933998243019925}
+        m_TargetAssemblyTypeName: Player_VFXHandler, Assembly-CSharp
+        m_MethodName: TriggerWalkingVFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  trigger_sprintVFX:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1539933998243019925}
+        m_TargetAssemblyTypeName: Player_VFXHandler, Assembly-CSharp
+        m_MethodName: TriggerSprintVFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  trigger_aoeChargeVFX:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1539933998243019925}
@@ -6761,6 +6739,39 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  trigger_walkSFX:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8677192015910937241}
+        m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
+        m_MethodName: Play_WalkingSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  trigger_sprintSFX:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8677192015910937241}
+        m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
+        m_MethodName: Play_SprintingSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  trigger_aoeChargeSFX:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 8677192015910937241}
         m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
         m_MethodName: Play_AOEChargeSFX
@@ -6889,6 +6900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a99c1a242581794d909dec18c546142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseAudio: {fileID: 4108979130654174356}
+  loopAudio: {fileID: 4671952168339284679}
   playerFootsteps_SFX: {fileID: 8300000, guid: fccb178d47cc4d346a28ae027988c533, type: 3}
   playerDash_SFX: {fileID: 8300000, guid: 7c03fd9976e31cf4594bb9b70d442a81, type: 3}
   playerSprint_SFX: {fileID: 8300000, guid: 568bb4da116f575429d31e3112410ad2, type: 3}
@@ -6926,7 +6939,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -6934,11 +6947,11 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -6987,6 +7000,102 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &4671952168339284679
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875388763240933588}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 1
+  MaxDistance: 50
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.097222224
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -16569,14 +16678,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afc4445b291e8aa459400b2adadbf003, type: 3}
---- !u!198 &6987473417876806219 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5711623030954887836, guid: afc4445b291e8aa459400b2adadbf003, type: 3}
-  m_PrefabInstance: {fileID: 3439550479355973847}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1746439311424601818 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4001208176055954957, guid: afc4445b291e8aa459400b2adadbf003, type: 3}
+  m_PrefabInstance: {fileID: 3439550479355973847}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6987473417876806219 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5711623030954887836, guid: afc4445b291e8aa459400b2adadbf003, type: 3}
   m_PrefabInstance: {fileID: 3439550479355973847}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4527926642615378380
@@ -16861,14 +16970,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cbaa6bb92b28b1429635aaac01ba04f, type: 3}
---- !u!4 &7870626588306879914 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4224731142052519997, guid: 6cbaa6bb92b28b1429635aaac01ba04f, type: 3}
-  m_PrefabInstance: {fileID: 6312735757225465239}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &7870626588711741767 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 4224731141921111248, guid: 6cbaa6bb92b28b1429635aaac01ba04f, type: 3}
+  m_PrefabInstance: {fileID: 6312735757225465239}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7870626588306879914 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4224731142052519997, guid: 6cbaa6bb92b28b1429635aaac01ba04f, type: 3}
   m_PrefabInstance: {fileID: 6312735757225465239}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6816906504499090270

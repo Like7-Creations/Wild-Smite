@@ -17,13 +17,20 @@ public class BaseEnemy_SFXHandler : MonoBehaviour
 
     public void Play_AttackWarningSFX()
     {
-        audioSource.clip= enemy_AttackWarningVFX;
-        audioSource.Play();
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = enemy_AttackWarningVFX;
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.Stop();
+        }
     }
 
     public void Play_DestroyedSFX()
     {
-        audioSource.clip= enemy_DestroyedVFX;
+        audioSource.clip = enemy_DestroyedVFX;
         audioSource.Play();
     }
 
@@ -41,7 +48,7 @@ public class BaseEnemy_SFXHandler : MonoBehaviour
 
     public void Play_DamagedSFX()
     {
-        audioSource.clip=enemy_DamagedVFX;
+        audioSource.clip = enemy_DamagedVFX;
         audioSource.Play();
     }
 
