@@ -18,7 +18,8 @@ public class MeleeBuff : Item
 
     public override void Update()
     {
-        if(useItem)
+        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        if (useItem)
         {
             //itemUI.SetActive(true);
             float thisint = timer / duration;

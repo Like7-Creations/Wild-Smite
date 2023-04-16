@@ -7,7 +7,6 @@ public class RangeBuff : Item
 {
     PlayerStats plStats;
 
-
     public override void Effect(PlayerStats stats)
     {
         originalAmount = plStats.r_ATK;
@@ -19,15 +18,13 @@ public class RangeBuff : Item
 
     public override void Update()
     {
+        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         if (useItem)
         {
-           // itemUI.SetActive(true);
             float thisint = timer / duration;
-            //itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-            //    itemUI.SetActive(false);
                 plStats.r_ATK = originalAmount;
                 useItem = false;
             }

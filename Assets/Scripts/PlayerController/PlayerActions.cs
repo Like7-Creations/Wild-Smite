@@ -68,7 +68,7 @@ public class PlayerActions : MonoBehaviour
     [HideInInspector] public bool isSprinting;
     [HideInInspector] public Vector3 refer;
     [HideInInspector] public Vector3 Dashdir;
-    float OriginalSpeed;
+    [HideInInspector] public float OriginalSpeed;
 
     [Header("AOE Settings")]
     public bool charging;
@@ -595,8 +595,14 @@ public class PlayerActions : MonoBehaviour
     public void Sprint()
     {
         if (pStats.stamina >= pStats.sprint)
-            playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
-        isSprinting = true;
+        {
+            playerController.playerSpeed = SprintSpeed; //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
+            isSprinting = true;
+        }
+        else
+        {
+            isSprinting = false;
+        }
 
         trigger_sprint.Invoke();
     }

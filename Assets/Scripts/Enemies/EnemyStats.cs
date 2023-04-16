@@ -163,29 +163,12 @@ public class EnemyStats : MonoBehaviour
             vfx.enemyHitVFX.Play();
         }
 
-        //Anmar sfx
-        //var clip = sfx.enemyHitSFX[Random.Range(0, sfx.enemyHitSFX.Length)];
-        //audioSource.PlayOneShot(clip);
-
-        //var clip = hitSounds[Random.Range(0, hitSounds.Length)]; //A random sound is loaded and the played.
-        //audioSource.PlayOneShot(clip);
-        //Anmar
-        /* var particle = hitParticles[Random.Range(0, hitParticles.Length)];
-         particle.Play();*/
-
-
-        // once animations are ready...
-        //int randomNumber = Random.Range(0, hittedAnimations);
-        // anim.SetTrigger("GotHit0"/* randomNumber.ToString()*/);
-
         if (Type == enemyType.Melee || Type == enemyType.Range)
         {
             GetComponent<Wander>().chaseRange = 100;
         }
 
-        //----
-        //Gizmos.DrawSphere(transform.position, 1);
-        Health -= damageToTake; //The damage given is being taken from the AI's health.
+        Health -= damageToTake;
     }
 
     public IEnumerator DeathWait(float deathTime)
@@ -198,14 +181,7 @@ public class EnemyStats : MonoBehaviour
     {
         hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType);
 
-        //agent.ResetPath(); //The AI's path is reset.
         agent.enabled = false;
-        
-        //int randomNumber = Random.Range(0, deathAnimations); //We are getting a random number.
-        //anim.SetTrigger("Death" + randomNumber.ToString()); //And here we are creating a string using the number and the word attack. This way a trigger is being formed and sent to the animator.
-        /*var clip = deathSounds[Random.Range(0, deathSounds.Length)]; //A random sound is loaded and the played.
-        audioSource.PlayOneShot(clip);*/
-
 
         var deathclip = sfx.enemyDestroyedSFX[Random.Range(0, sfx.enemyDestroyedSFX.Length)];
 
