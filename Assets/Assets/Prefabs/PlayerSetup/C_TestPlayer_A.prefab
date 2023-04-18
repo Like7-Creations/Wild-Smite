@@ -6551,11 +6551,13 @@ MonoBehaviour:
   isSprinting: 0
   refer: {x: 0, y: 0, z: 0}
   Dashdir: {x: 0, y: 0, z: 0}
+  OriginalSpeed: 0
   charging: 0
   startingRadius: 0
   chargingSpeed: 0
   minRadius: 4
   maxRadius: 6
+  rain: {fileID: 8412207490273835248}
   enemiesInDot: []
   trigger_walk:
     m_PersistentCalls:
@@ -16862,6 +16864,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79ec0fdfd609cc04eb041604a5d4c561, type: 3}
+--- !u!198 &8412207490273835248 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4296128400735966064, guid: 79ec0fdfd609cc04eb041604a5d4c561, type: 3}
+  m_PrefabInstance: {fileID: 5701768373029006208}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4496843389998681678 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8162562241919198670, guid: 79ec0fdfd609cc04eb041604a5d4c561, type: 3}

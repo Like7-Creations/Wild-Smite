@@ -13,10 +13,9 @@ public class MultiAttacker : MonoBehaviour
     public PlayerMovement playerTwo;
     
     PlayerConfigManager playerConfig;
-    public void AttackPlayer()
+    public void AttackPlayer(int a, int b)
     {
-        //StartCoroutine(attacksList[Random.Range(0, attacksList.Length)].AttackType());
-        StartCoroutine(attacksList[Random.Range(0, attacksList.Length)].AttackType());       
+        StartCoroutine(attacksList[Random.Range(a, b)].AttackType());     
     }
 
     

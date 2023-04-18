@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Threading;
-using Ultimate.AI;
 using System.Linq;
 using UnityEditor;
 using UnityEngine.Rendering;
@@ -76,6 +75,8 @@ public class PlayerActions : MonoBehaviour
     public float chargingSpeed;
     [SerializeField] float minRadius;
     [SerializeField] float maxRadius;
+
+    public ParticleSystem rain;
 
     public List<EnemyStats> enemiesInDot = new List<EnemyStats>();
     PlayerControl Pc;

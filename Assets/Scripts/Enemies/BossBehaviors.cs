@@ -19,6 +19,8 @@ public class BossBehaviors : MonoBehaviour
 
     public float attackRate;
 
+    public bool boss;
+
     void Start()
     {
         stats = GetComponent<EnemyStats>();
@@ -33,9 +35,17 @@ public class BossBehaviors : MonoBehaviour
        
         if(timer >= 5)
         {
-            multiAttacker.AttackPlayer();
-            Debug.Log("boss behaviors happened");
-            timer= 0;
+            if(dist < 5)
+            {
+                if(boss)
+                {
+                    multiAttacker.AttackPlayer(0, 4);
+                }else multiAttacker.AttackPlayer(0, 2);
+            }
+            else multiAttacker.AttackPlayer(4, multiAttacker.attacksList.Length);
+
+            //Debug.Log("boss behaviors happened");
+            timer = 0;
         }
 
         if(players.Length > 1)
