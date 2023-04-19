@@ -5,25 +5,36 @@ using UnityEngine;
 public class HealPack : Item
 {
     public int healthToAdd;
+
+    PlayerStats plStats;
     // Playerstats player;
 
     public override void Effect(PlayerStats stats)
     {
-        GetComponent<PlayerStats>().hp += healthToAdd;
+        plStats.hp += healthToAdd;
+        plStats.GetComponent<PlayerInventory>().heldItem= null;
     }
 
     public override void Update()
     {
-        
+        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
     }
 
     private void OnTriggerEnter(Collider other)
     { 
-        if(other.gameObject.GetComponent<PlayerStats>() != null)
+
+        if (other.GetComponent<PlayerInventory>() != null)
         {
-            PlayerStats pl = other.gameObject.GetComponent<PlayerStats>();
-            pl.hp += healthToAdd;
-            Destroy(gameObject);
+            PlayerInventory pl = other.GetComponent<PlayerInventory>();
+            if (pl.heldItem == null)
+            {
+                pl.heldItem = this;
+                plStats = pl.GetComponent<PlayerStats>();
+                transform.parent = other.transform;
+                GetComponent<MeshRenderer>().enabled = false;
+                GetComponent<BoxCollider>().enabled = false;
+            }
+
         }
     }
 }

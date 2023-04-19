@@ -5,12 +5,21 @@ using UnityEngine.UI;
 
 public class SpeedBuff : Item
 {
-    PlayerMovement plStats;
+    PlayerMovement plMovement;
+    PlayerActions pActions;
+
+    float originalSprintSpeed;
+    float originalSpeed;
 
     public override void Effect(PlayerStats stats)
     {
-        originalAmount = (int)plStats.playerSpeed;
-        plStats.playerSpeed += buffAmount;
+        originalSpeed = pActions.OriginalSpeed;
+        originalSprintSpeed = pActions.SprintSpeed;
+        plMovement.playerSpeed += buffAmount;
+        pActions.SprintSpeed = plMovement.playerSpeed;
+        pActions.OriginalSpeed = plMovement.playerSpeed;
+        originalAmount = (int)plMovement.playerSpeed;
+        //plStats.ori
         timer = duration;
         //temUI.GetComponentInChildren<Image>().fillAmount = 1;
         useItem = true;
@@ -18,6 +27,7 @@ public class SpeedBuff : Item
 
     public override void Update()
     {
+        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         if (useItem)
         {
            // itemUI.SetActive(true);
@@ -27,7 +37,9 @@ public class SpeedBuff : Item
             if (timer <= 0)
             {
            //     itemUI.SetActive(false);
-                plStats.playerSpeed = originalAmount;
+                pActions.OriginalSpeed = plMovement.playerSpeed - buffAmount;
+                plMovement.playerSpeed = pActions.OriginalSpeed;
+                pActions.SprintSpeed = originalSprintSpeed;
                 Destroy(gameObject);
                 useItem = false;
             }
@@ -42,7 +54,8 @@ public class SpeedBuff : Item
             if (pl.heldItem == null)
             {
                 pl.heldItem = this;
-                plStats = pl.GetComponent<PlayerMovement>();
+                pActions = pl.GetComponent<PlayerActions>();
+                plMovement = pl.GetComponent<PlayerMovement>();
                 transform.parent = other.transform;
                 GetComponent<MeshRenderer>().enabled = false;
                 GetComponent<BoxCollider>().enabled = false;

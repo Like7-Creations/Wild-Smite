@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Ultimate.AI.Utils;
 using UnityEngine;
 
 public class TriShot : Attack

@@ -8,6 +8,7 @@ public class AttackState : State
     public  State retreat;
     float dist;
     [SerializeField] public float attackRange;
+    public State chase;
 
     bool indicatorPlayed;
 
@@ -15,19 +16,29 @@ public class AttackState : State
 
     [SerializeField] int randomAttack;
 
+    float test;
+
+    MultiAttacker multiAttack;
+
     public override void Start()
     {
         base.Start();
+        multiAttack = GetComponent<MultiAttacker>();
+        test = agent.speed;
     }
     public override void Update()
     {
         base.Update();
+        if(agent.speed != test)
+        {
+            Debug.LogFormat("speed Changed");
+        }
     }
     public override State RunCurrentState()
     {
         print("attack state");
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
-        ///agent.acceleration = 20;
+        agent.acceleration = 20;
 
         Vector3 playerpos = chosenPlayer.transform.position;
         //playerpos.y = 1;
@@ -85,49 +96,40 @@ public class AttackState : State
         if(GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Melee)
         {
             agent.SetDestination(pos);
-            
 
             //agent.destination = pos;
-            print("approaching player");
+            //print("approaching player");
             if (dist <= attackRange)
             {
                 //Attack();
+                print($"attacked player at {dist}");
                 StartCoroutine(GetComponent<MultiAttacker>().attacksList[randomAttack].AttackType());
                 indicatorPlayed = false;
                 agent.acceleration = 10;
                 return retreat;
+            }
+            else if(dist >= GetComponent<Chase>().orbitRange + 2)
+            {
+                indicatorPlayed = false;
+                agent.acceleration = 10;
+                return chase;
             }
         }
         else
         {
             anim.SetTrigger("AttackPrep");
             Attack();
-            agent.acceleration = 10;
+            //agent.acceleration = 10;
             return retreat;
         }
         
-
-        /*if (dist >= attackRange)
-        {
-            Vector3 pos = chosenPlayer.transform.position = transform.position;
-            agent.SetDestination(pos);
-            agent.destination = pos;
-        }*/
-        //else
-        //{
-        /*if (dist<=attackRange)
-        {
-            meleeAttack();
-            return retreat;
-        }*/
-        //}
         return this;
 
     }
 
     public void Attack()
     {
-        GetComponent<MultiAttacker>().AttackPlayer();
+        GetComponent<MultiAttacker>().AttackPlayer(0, multiAttack.attacksList.Length);
         print("attacked at attack state");
         indicatorPlayed = false;
     }
