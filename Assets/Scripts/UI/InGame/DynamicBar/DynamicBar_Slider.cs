@@ -30,7 +30,7 @@ public class DynamicBar_Slider : MonoBehaviour
     float sliderInterval;
     public Slider startBar;
     public Slider endBar;
-    public Slider[] midBarSliders;
+    public List<Slider> midBarSliders = new List<Slider>();
 
     bool obtainedValue;
 
@@ -97,32 +97,40 @@ public class DynamicBar_Slider : MonoBehaviour
             //Debug.Log("Adjusting width: " + currentWidth + " to : " + desiredWidth);
         }
 
-        if (midBars.transform.childCount > midBarCount)
+        if (midBarSliders.Count > midBarCount)
         {
+            Debug.Log($"Extra bars found current bars are {midBarSliders.Count} | desired count is {midBarCount}");
             Transform bar = midBars.transform.GetChild(midBars.transform.childCount - 1);
             Destroy(bar.gameObject);
         }
-        else if (midBars.transform.childCount < midBarCount)
+        else if (midBarSliders.Count < midBarCount)
         {
-            for (int i = 0; i < (midBarCount - midBars.transform.childCount); i++)
+            for (int i = midBars.transform.childCount - 1; i >= 0; i--)
+            {
+                Destroy(midBars.transform.GetChild(i));
+                midBarSliders.Clear();
+            }
+
+            for (int i = 0; i < midBarCount; i++)
             {
                 GameObject bar = Instantiate(barPrefab, midBars.transform);
+                midBarSliders.Add(bar.GetComponent<Slider>());
             }
         }
 
-        CollectMidSliders();
+        //CollectMidSliders();
         SetMidBarValues();
     }
 
     void CollectMidSliders()
     {
-        midBarSliders = midBars.GetComponentsInChildren<Slider>(true);
+        //midBarSliders = midBars.GetComponentsInChildren<Slider>(true);
     }
 
     void SetMidBarValues()
     {
         float minValue = sliderInterval;
-        for (int i = 0; i < midBarSliders.Length; i++)
+        for (int i = 0; i < midBarSliders.Count; i++)
         {
             midBarSliders[i].minValue = minValue;
 
@@ -148,7 +156,7 @@ public class DynamicBar_Slider : MonoBehaviour
         else
             endBar.value = currentValue;
 
-        for (int i = 0; i < midBarSliders.Length; i++)
+        for (int i = 0; i < midBarSliders.Count; i++)
         {
             if (currentValue > midBarSliders[i].maxValue)
                 midBarSliders[i].value = midBarSliders[i].maxValue;
