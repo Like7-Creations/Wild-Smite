@@ -26,7 +26,9 @@ public class InitialiseLevel : MonoBehaviour
     List<Barrier> testList;
     public bool spawnEndPoint;
     public GameObject levelEndObject;
-    GameObject levelRoot;    
+    GameObject levelRoot;
+
+    public int rain;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +40,17 @@ public class InitialiseLevel : MonoBehaviour
 
         if (initialiseOnStart)
             Initialise();
+
+        PlayerActions[] players = GetComponentsInChildren<PlayerActions>();
+        rain = Random.Range(0, 2);
+        
+        for (int i = 0; i < players.Length; i++)
+        {
+            if(rain == 0)
+            {
+                players[i].rain.Play();
+            }else players[i].rain.Stop();
+        }          
     }
 
     public void Initialise()
