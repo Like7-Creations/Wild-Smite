@@ -31,8 +31,7 @@ public class GameSelectionPanel : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (newGame)
-                slots[i].SetMode(newGame);
+            slots[i].SetMode(newGame);
 
             if (solo)
                 slots[i].SetPlayers(1);
