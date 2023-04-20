@@ -20,7 +20,7 @@ public class PlayerActions : MonoBehaviour
     public bool lockX, lockY, lockZ;
     private Vector3 startRotation;
 
-    PlayerMovement playerController;
+    public PlayerMovement playerController;
     PlayerVFX VFX;
 
     [Header("Stats stuff")]
@@ -85,16 +85,28 @@ public class PlayerActions : MonoBehaviour
     [Space(5)]
     [Header("VFX & SFX Events")]
 
-    public UnityEvent trigger_walk;
     public UnityEvent trigger_dash;
-    public UnityEvent trigger_sprint;
 
     public UnityEvent trigger_attack_left;
     public UnityEvent trigger_attack_right;
     public UnityEvent trigger_dmg;
 
     public UnityEvent trigger_aoe;
-    public UnityEvent trigger_aoeCharge;
+
+    [Space(5)]
+    [Header("VFX Only Events")]
+    public UnityEvent trigger_walkVFX;
+    public UnityEvent trigger_sprintVFX;
+
+    public UnityEvent trigger_aoeChargeVFX;
+
+    [Space(5)]
+    [Header("SFX Only Events")]
+    public UnityEvent trigger_walkSFX;
+    public UnityEvent trigger_sprintSFX;
+
+    public UnityEvent trigger_aoeChargeSFX;
+
 
 
     void Awake()
@@ -210,6 +222,9 @@ public class PlayerActions : MonoBehaviour
             //Rotation();
         }
         #endregion
+
+        //Debug.Log(playerController.controller.velocity);
+
 
         //Farhan's  UwU Code-----
         //Check if sprinting, consume stamina by the specified amount.
@@ -448,7 +463,8 @@ public class PlayerActions : MonoBehaviour
     {
         Debug.Log("Begin Powering Up AOE");
 
-        trigger_aoeCharge.Invoke();      //Enables Charging VFX
+        trigger_aoeChargeVFX.Invoke();      //Enables Charging VFX
+        trigger_aoeChargeSFX.Invoke();
 
         currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
 
@@ -521,7 +537,8 @@ public class PlayerActions : MonoBehaviour
         }
         else if (!charging && currentCharge > 0.11f || chargedSTAM == pStats.stamina)
         {
-            trigger_aoeCharge.Invoke();      //Disables the charging VFX
+            trigger_aoeChargeVFX.Invoke();      //Disables the charging VFX
+            trigger_aoeChargeSFX.Invoke();
 
             ReleaseAOE(chargedSTAM, chargedMELEE, chargedRANGE);
 
@@ -605,7 +622,8 @@ public class PlayerActions : MonoBehaviour
             isSprinting = false;
         }
 
-        trigger_sprint.Invoke();
+        trigger_sprintVFX.Invoke();
+        trigger_sprintSFX.Invoke();
     }
 
     //Event Required
@@ -614,7 +632,8 @@ public class PlayerActions : MonoBehaviour
         playerController.playerSpeed = OriginalSpeed;   //Ensure that stamina is not being depleted anymore.
         isSprinting = false;
 
-        trigger_sprint.Invoke();
+        trigger_sprintVFX.Invoke();
+        trigger_sprintSFX.Invoke();
     }
     #endregion
 

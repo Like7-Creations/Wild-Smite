@@ -1500,10 +1500,10 @@ RectTransform:
   m_Father: {fileID: 5781757654833683582}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 85, y: -175}
+  m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5781757654125849856
 CanvasRenderer:
@@ -2791,10 +2791,10 @@ RectTransform:
   m_Father: {fileID: 5781757654833683582}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 85, y: -60}
+  m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5781757654426646093
 CanvasRenderer:
@@ -3206,12 +3206,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: a3a9fad5c6bd3e04b9d8876fd55ab40f, type: 2}
-  <hp>k__BackingField: 0
+  hp: 0
   <stamina>k__BackingField: 0
-  <m_ATK>k__BackingField: 0
-  <r_ATK>k__BackingField: 0
+  m_ATK: 0
+  r_ATK: 0
   <exp>k__BackingField: 0
   defeatedEnemies: []
+  <recovRate_HP>k__BackingField: 0
+  <dash>k__BackingField: 0
+  <sprint>k__BackingField: 0
+  <recovRate_STAMINA>k__BackingField: 0
+  <stamRecov_Delay>k__BackingField: 0
+  <begin_STAMRecov>k__BackingField: 0
+  <stam_recov>k__BackingField: 0
+  <aoe_Tap>k__BackingField: 0
+  <aoe_Hold>k__BackingField: 0
+  <aoe_ChargeRate>k__BackingField: 0
 --- !u!1 &5781757654477019898
 GameObject:
   m_ObjectHideFlags: 0
@@ -3467,7 +3477,7 @@ MonoBehaviour:
   mXP: 6
   rXP: 4
   tXP: 20
-  SummaryPanel: {fileID: 5781757655695874739}
+  solo_SummaryPanel: {fileID: 0}
   levelText: {fileID: 5781757654042208927}
   gainedXPText: {fileID: 5781757655458872321}
   currentXPText: {fileID: 5781757655713548824}
@@ -3475,7 +3485,23 @@ MonoBehaviour:
   battleLogRoot: {fileID: 5781757654626236312}
   logItemPrefab: {fileID: 1557396197030620668, guid: 21cbe18e5d2f0b241be9afd6e3130cf1, type: 3}
   totalXPText: {fileID: 5781757655752710029}
+  coop_SummaryPanel: {fileID: 0}
+  levelText_1: {fileID: 0}
+  levelText_2: {fileID: 0}
+  gainedXPText_1: {fileID: 0}
+  gainedXPText_2: {fileID: 0}
+  currentXPText_1: {fileID: 0}
+  currentXPText_2: {fileID: 0}
+  xpSlider_1: {fileID: 0}
+  xpSlider_2: {fileID: 0}
+  battleLogRoot_1: {fileID: 0}
+  battleLogRoot_2: {fileID: 0}
+  logItemPrefab_coop: {fileID: 0}
+  totalXPText_1: {fileID: 0}
+  totalXPText_2: {fileID: 0}
   levelUpPanel: {fileID: 5781757655131535120}
+  allocationPanel: {fileID: 0}
+  statsPanel: {fileID: 0}
 --- !u!1 &5781757654562811601
 GameObject:
   m_ObjectHideFlags: 0
@@ -4844,7 +4870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5781757654833683582
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7078,10 +7104,10 @@ RectTransform:
   m_Father: {fileID: 5781757654833683582}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -175}
+  m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5781757655064682810
 CanvasRenderer:
@@ -7746,6 +7772,9 @@ MonoBehaviour:
   AllocatePanel: {fileID: 5781757655183190453}
   StatPanel: {fileID: 5781757654645524723}
   statBarPrefab: {fileID: 4887158882196589998, guid: ba9e1343b011c64459278098998cb544, type: 3}
+  player1_Toggle: {fileID: 0}
+  player2_Toggle: {fileID: 0}
+  playerCharacter: {fileID: 0}
   CurrentHP_Text: {fileID: 5781757654659630664}
   NewHP_Text: {fileID: 5781757654055357219}
   HP_Bars: {fileID: 5781757655776279132}
@@ -9520,7 +9549,19 @@ MonoBehaviour:
   m_Value: 31
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5781757655458872323
 GameObject:
   m_ObjectHideFlags: 0
@@ -9960,10 +10001,10 @@ RectTransform:
   m_Father: {fileID: 5781757654833683582}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -60}
+  m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5781757655568965861
 CanvasRenderer:

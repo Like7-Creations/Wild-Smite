@@ -42,7 +42,7 @@ public class ObjectDithering : MonoBehaviour
         {
             float range = maxValue - minValue;
             float percent = (value - minValue) / range;
-            Debug.Log($"percent is {percent}");
+            //Debug.Log($"percent is {percent}");
             return percent;
         }
 
