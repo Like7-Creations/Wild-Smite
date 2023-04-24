@@ -473,13 +473,13 @@ public class PlayerActions : MonoBehaviour
 
     public void ChargeAOE()
     {
-        if (charging)
+        if (charging && pStats.stamina >10)
         {
             StartCoroutine(BeginChargingAOE());
 
             Debug.Log((int)currentCharge);
 
-            if (currentCharge <= pStats.aoe_Hold)
+            if (currentCharge <= pStats.aoe_Hold && chargedSTAM < pStats.stamina)
             {
                 #region Attempt #3 [Success]
 
@@ -535,10 +535,15 @@ public class PlayerActions : MonoBehaviour
                 chargedSTAM = pStats.stamina;
             }
         }
-        else if (!charging && currentCharge > 0.11f || chargedSTAM == pStats.stamina)
+        else if (!charging && currentCharge > 0.11f /*|| chargedSTAM >= pStats.stamina*/)
         {
             trigger_aoeChargeVFX.Invoke();      //Disables the charging VFX
             trigger_aoeChargeSFX.Invoke();
+
+            if(chargedSTAM >= pStats.stamina)
+            {
+                chargedSTAM = pStats.stamina;
+            }
 
             ReleaseAOE(chargedSTAM, chargedMELEE, chargedRANGE);
 
