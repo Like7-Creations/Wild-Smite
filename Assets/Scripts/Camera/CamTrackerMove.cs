@@ -30,8 +30,8 @@ public class CamTrackerMove : MonoBehaviour
     #endregion
 
     #region Arrival Behavior Settings
-    public float trackerMass = 15;
-    public float tracker_MaxVel = 3;
+    public float trackerMass = 1;
+    public float tracker_MaxVel = 25;
     public float tracker_MaxForce = 15;
     public float slowRadius;
 
@@ -145,6 +145,17 @@ public class CamTrackerMove : MonoBehaviour
         else
         {
             splitOffset = Vector3.zero;
+        }
+
+        if (pActions.isSprinting)
+        {
+            tracker_MaxVel = 30f;
+            slowRadius = 3.5f;
+        }
+        else
+        {
+            tracker_MaxVel = 25f;
+            slowRadius = 7f;
         }
 
         //Comment out for now

@@ -26,7 +26,12 @@ public class RoomIcon_Manager : MonoBehaviour
         name = transform.parent.transform.parent.name;
 
         roomIcon = transform.parent.GetComponent<SpriteRenderer>();
-        
+
+        //Run a check to see if the room has a levelComplete obj as a child.
+        //If yes, mark a bool as true.
+
+        //Run a similar check to see if there is a tank in the room.
+
         roomStatus = RoomStatus.Hidden;
         UpdateRoomState();
     }
@@ -107,10 +112,13 @@ public class RoomIcon_Manager : MonoBehaviour
     public void SetAdjacentState()
     {
         roomStatus = RoomStatus.Adjacent;
-        roomIcon.color = unexploredColor;
+        if (!exploredRoom)
+            roomIcon.color = unexploredColor;
+        else
+            roomIcon.color = exploredColor;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
             if (roomStatus != RoomStatus.Current)
@@ -120,12 +128,27 @@ public class RoomIcon_Manager : MonoBehaviour
             }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        /*if (other.CompareTag("Player"))
+            if (roomStatus != RoomStatus.Current)
+            {
+                roomStatus = RoomStatus.Current;
+                UpdateRoomState();
+            }*/
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (roomStatus == RoomStatus.Current)
             if (other.CompareTag("Player"))
             {
                 roomStatus = RoomStatus.Hidden;
+                if (!exploredRoom)
+                {
+                    exploredRoom = true;
+                }
+
                 UpdateRoomState();
             }
     }
