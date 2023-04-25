@@ -43,7 +43,7 @@ public class ProjectileBombing : Attack
         for (int i = 0; i < amountOfProjectiles; i++)
         {
             Vector3 particlePos = bombPosition;
-            particlePos.y = 0.5f;
+            particlePos.y = 1.9f;
             ParticleSystem vfx = Instantiate(projectileVFX, particlePos, Quaternion.identity);
             vfx.Play();
             bombPosition += direction;

@@ -196,6 +196,7 @@ public class PlayerActions : MonoBehaviour
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
             //float dist = Vector3.Distance(transform.position, pointToLook);
             //if(dist >= 1.5f)
+            if(!Pc.controlScheme)
             transform.LookAt(pointToLook);
             if (mouseShooting)
             {
@@ -596,10 +597,11 @@ public class PlayerActions : MonoBehaviour
 
         //VFX.Dash();
 
-        trigger_dash.Invoke();
+        //trigger_dash.Invoke();
 
         while (Time.time < startTime + time)
         {
+            trigger_dash.Invoke();
             playerController.controller.Move(dir * speed * Time.deltaTime);
             yield return null;
         }
@@ -664,8 +666,8 @@ public class PlayerActions : MonoBehaviour
 
             if (playerDir.sqrMagnitude > 0.0f)
             {
-                Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
-                ProjectileOrigin.transform.rotation = Quaternion.RotateTowards(ProjectileOrigin.transform.rotation, newrotation, 1000f * Time.deltaTime);
+                 Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
+                 transform.rotation = Quaternion.RotateTowards(transform.rotation, newrotation, 1000f * Time.deltaTime);   
             }
         }
     }

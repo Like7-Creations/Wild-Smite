@@ -132,8 +132,12 @@ public class PlayerMovement : MonoBehaviour
         float forwardDirection = Vector3.Dot(transform.forward, new Vector3(direction.x, 0, direction.z));
         float rightDirection = Vector3.Dot(transform.right, new Vector3(direction.x, 0f, direction.z));
 
-        animator.SetFloat("X", rightDirection * 1.5f, 0.1f, Time.deltaTime);
-        animator.SetFloat("Y", forwardDirection * 1.5f, 0.1f, Time.deltaTime);
+        forwardDirection = Mathf.RoundToInt(forwardDirection);
+        rightDirection = Mathf.RoundToInt(rightDirection);
+
+
+        animator.SetFloat("X", rightDirection);
+        animator.SetFloat("Y", forwardDirection);
         if (PA.shooting)
         {
         }

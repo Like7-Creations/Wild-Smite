@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
-    PlayerConfig playerConfig;
+    [HideInInspector] public PlayerConfig playerConfig;
+    public bool controlScheme;
     PlayerControls controls;
     PlayerActions pActions;
     PlayerMovement pMovement;
@@ -52,8 +52,8 @@ public class PlayerControl : MonoBehaviour
             pActions.Attack();
         }
 
-        // GamePad Rotation
-        /* if (context.action.name == controls.Player.Rotation.name && context.performed)
+         //GamePad Rotation
+         if (context.action.name == controls.Player.Rotation.name && context.performed)
          {
              //pActions.shooting = true;
          }
@@ -61,7 +61,7 @@ public class PlayerControl : MonoBehaviour
          if (context.action.name == controls.Player.Rotation.name && context.canceled)
          {
              //pActions.shooting = false;
-         }*/
+         }
 
         //GamePad Range Attack
         if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
@@ -131,6 +131,8 @@ public class PlayerControl : MonoBehaviour
     public void InitialisePlayer(PlayerConfig pc)
     {
         playerConfig = pc;
+        string scheme = playerConfig.Input.user.controlScheme.ToString();
+        controlScheme = scheme == "Controller(<Gamepad>)" ? true : false;
         controls = new PlayerControls();
         GetComponent<PlayerStats>().SetData(pc.playerStats);
         pActions = GetComponent<PlayerActions>();

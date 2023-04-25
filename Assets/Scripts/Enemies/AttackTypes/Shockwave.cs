@@ -68,6 +68,9 @@ public class Shockwave : Attack
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(transform.position, radiusEnd);
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

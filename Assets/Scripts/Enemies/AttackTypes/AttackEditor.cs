@@ -4,17 +4,17 @@ using UnityEngine;
 //using UnityEditor;
 
 //[CustomEditor(typeof(Attack), true)]
-public class AttackEditor //: //Editor
+public class AttackEditor //: Editor
 {
-    //public override void OnInspectorGUI()
-    //{
-    //    DrawDefaultInspector();
+   /* public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
 
-    //    Attack attack = (Attack)target;
+        Attack attack = (Attack)target;
 
-    //    if (GUILayout.Button("Activate Attack"))
-    //    {
-    //        attack.StartCoroutine(attack.AttackType());
-    //    }
-    //}
+       if (GUILayout.Button("Activate Attack"))
+       {
+           attack.StartCoroutine(attack.AttackType());
+       }
+    }*/
 }

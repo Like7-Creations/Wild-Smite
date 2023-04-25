@@ -41,7 +41,12 @@ public class Swipe : Attack
                 audioSource.PlayOneShot(clip);
             }
         }
-        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+
+        anim.SetTrigger("SwipePrep");
+        AnimationClip animClip = getAnimationClip(anim, "SwipePrep");
+        float time = animClip.length;
+        yield return new WaitForSeconds(time);
+
         if (sfx.isEnabled)
         {
             // sfx 
@@ -128,7 +133,7 @@ public class Swipe : Attack
         if (Hitarea.enemyFound)
         {
             Color c = new Color(0f, 0, 1, 0.4f);
-            //UnityEditor.Handles.color = c;
+           // UnityEditor.Handles.color = c;
         }
         else
         {
