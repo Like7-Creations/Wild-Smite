@@ -59,8 +59,16 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
             Instance = this;
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfig>();
-            if (!joinonStart)
+            if (joinonStart)
+            {
+                canJoin = true;
+                GetComponent<PlayerInputManager>().EnableJoining();
+            }
+            else
+            {
                 canJoin = false;
+                GetComponent<PlayerInputManager>().DisableJoining();
+            }
         }
     }
 

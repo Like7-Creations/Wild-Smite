@@ -147,7 +147,7 @@ public class StatAllocations : MonoBehaviour
     }
     public void DecreaseHP()
     {
-        if (StatPoints < startingPoints)
+        if (StatPoints < startingPoints && newHP - data.hp_Conversion >= currentHP)
         {
             newHP -= data.hp_Conversion;
             NewHP_Text.text = "" + newHP;
@@ -172,7 +172,7 @@ public class StatAllocations : MonoBehaviour
     }
     public void DecreaseSTAM()
     {
-        if (StatPoints < startingPoints)
+        if (StatPoints < startingPoints && newSTAM - data.stamina_Conversion >= currentSTAM)
         {
             newSTAM -= data.stamina_Conversion;
             NewSTAM_Text.text = "" + newSTAM;
@@ -197,7 +197,7 @@ public class StatAllocations : MonoBehaviour
     }
     public void DecreaseMATK()
     {
-        if (StatPoints < startingPoints)
+        if (StatPoints < startingPoints && newMATK - data.mATK_Conversion >= currentMATK)
         {
             newMATK -= data.mATK_Conversion;
             NewMATK_Text.text = "" + newMATK;
@@ -222,7 +222,7 @@ public class StatAllocations : MonoBehaviour
     }
     public void DecreaseRATK()
     {
-        if (StatPoints < startingPoints)
+        if (StatPoints < startingPoints && newRATK - data.rATK_Conversion >= currentRATK)
         {
             newRATK -= data.rATK_Conversion;
             NewRATK_Text.text = "" + newRATK;
