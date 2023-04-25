@@ -17,11 +17,17 @@ public class EnemyStatRange : ScriptableObject
     public Vector2 RDEF;
     public Vector2 RCDN;
 
+    public Vector2 exp;
+
     [Header("Allocation Settings")]
     public int numOfDice;
     public int diceMaxValue;
 
     public EnemyInfo.Type enemyType;
+
+
+
+
     //[Header("Difficulty")]
     public enum Difficulty
     {

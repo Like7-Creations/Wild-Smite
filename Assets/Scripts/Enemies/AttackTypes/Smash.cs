@@ -42,7 +42,12 @@ public class Smash : Attack
                 audioSource.PlayOneShot(clip);
             }
         }
-        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+
+        anim.SetTrigger("SmashPrep");
+        AnimationClip animClip = getAnimationClip(anim, "SmashPrep");
+        float time = animClip.length;
+        yield return new WaitForSeconds(time);
+
         if (sfx.isEnabled)
         {
             var obj = GetComponent<BaseEnemy_SFXHandler>();
@@ -106,9 +111,20 @@ public class Smash : Attack
 
         if(dist <= GetComponent<Swipe>().Hitarea.Radius)
         {
-             smashPos.transform.position = Vector3.Lerp(smashPos.position, bossbe.chosenPlayer.transform.position, 5f * Time.deltaTime);
+            smashPos.transform.position = Vector3.Lerp(smashPos.position, bossbe.chosenPlayer.transform.position, 5f * Time.deltaTime);
+            Vector3 pos = smashPos.localPosition;
+            pos.x = Mathf.Clamp(smashPos.localPosition.x, -4f, 5f);
+            pos.z = Mathf.Clamp(smashPos.localPosition.z, 0f, 5f);
+            if (vfx.GetComponent<Tank_VFXHandler>() != null)
+            {
+                vfx.GetComponent<Tank_VFXHandler>().smash_VFX.transform.position = smashPos.localPosition;
+            }
+            if (vfx.GetComponent<Boss_VFXHandler>() != null)
+            {
+                vfx.GetComponent<Boss_VFXHandler>().smash_VFX.transform.position = smashPos.localPosition;
+            }//vfx;
         }
-        else 
+        /*else 
         { 
             smashPos.transform.position = Vector3.Lerp(smashPos.position, bossbe.chosenPlayer.transform.position, 5f * Time.deltaTime);
             Vector3 pos = smashPos.localPosition;
@@ -124,15 +140,15 @@ public class Smash : Attack
                 if (vfx.GetComponent<Boss_VFXHandler>() != null)
                 {
                     vfx.GetComponent<Boss_VFXHandler>().smash_VFX.transform.position = smashPos.localPosition;
-                }//vfx;//vfx
+                }//vfx;
             }
-        }
+        }*/
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-       // Gizmos.DrawWireSphere(smashPos.position, Radius);
+        Gizmos.DrawWireSphere(smashPos.position, Radius);
 
         Gizmos.DrawSphere(smashPos.position, 1);
 

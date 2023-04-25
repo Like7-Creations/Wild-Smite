@@ -32,6 +32,8 @@ public class Summon : Attack
                 audioSource.PlayOneShot(clip);
             }
         }
+
+        anim.SetTrigger("SummonPrep");
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
 
         //ultimateAI.anim.SetTrigger("Summon");

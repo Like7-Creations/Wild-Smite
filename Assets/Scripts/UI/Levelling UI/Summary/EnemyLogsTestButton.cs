@@ -17,6 +17,6 @@ public class EnemyLogsTestButton : MonoBehaviour
 
     public void ApplyValues()
     {
-        player.SetEnemyCount(type);
+        //player.SetEnemyCount(type);
     }
 }

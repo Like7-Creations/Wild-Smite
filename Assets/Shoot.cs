@@ -21,7 +21,11 @@ public class Shoot : Attack
             var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
             audioSource.PlayOneShot(clip);
         }
-        yield return new WaitForSeconds(timeToAttackAfterIndicator);
+
+        anim.SetTrigger("ShootPrep");
+        AnimationClip animClip = getAnimationClip(anim, "ShootPrep");
+        float time = animClip.length;
+        yield return new WaitForSeconds(time);
 
         for (int i = 0; i < 3; i++)
         {

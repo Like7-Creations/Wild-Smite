@@ -264,9 +264,9 @@ public class InGameUI : MonoBehaviour
         
         while (timer <= duration)
         {
+            timer += 0.01f * 2f;
             sliderTimer.value = timer;
             yield return new WaitForSeconds(0.01f);
-            timer += 0.01f;
         }
         sliderTimer.value = 0;
         UpdateItemIcon(null, icon);

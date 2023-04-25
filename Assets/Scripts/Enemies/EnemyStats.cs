@@ -45,6 +45,7 @@ public class EnemyStats : MonoBehaviour
     public float RATK;
     public float RDEF;
     public float RCDN;
+    public int exp;
 
     public float generalCDN;
 
@@ -58,7 +59,9 @@ public class EnemyStats : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         GenerateStatValues(LevelSettings.Difficulty.Easy);
-        GetComponent<Orbit>().originalSpeed = agent.speed;
+        if(Type == enemyType.Melee || Type == enemyType.Range)
+                    GetComponent<Orbit>().originalSpeed = agent.speed;
+        
         
         myMaxHealth = Health;
 
@@ -132,6 +135,8 @@ public class EnemyStats : MonoBehaviour
         RATK = ESR.AllocateStats(ESR.RATK, difficulty);
         RDEF = ESR.AllocateStats(ESR.RDEF, difficulty);
         RCDN = ESR.AllocateStats(ESR.RCDN, difficulty);
+        exp = Mathf.RoundToInt(ESR.AllocateStats(ESR.exp, difficulty));
+        
         AllocateStats();
     }
 
@@ -140,9 +145,12 @@ public class EnemyStats : MonoBehaviour
         hitPlayer = player;
 
         // anim.ResetTrigger("GotHit0"/* randomNumber.ToString()*/);
-        Vector3 knockBack = transform.position - transform.forward * 0.5f;
-        knockBack.y = 0;
-        transform.position = knockBack;
+        if(Type == enemyType.Melee&& Type == enemyType.Range)
+        {
+            Vector3 knockBack = transform.position - transform.forward * 0.5f;
+            knockBack.y = 0;
+            transform.position = knockBack;
+        }
 
         if (sfx.isEnabled)
         {
@@ -179,7 +187,8 @@ public class EnemyStats : MonoBehaviour
 
     public void Die()
     {
-        hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType);
+        if(!isDead)
+        hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType, exp);
 
         agent.enabled = false;
 
@@ -192,18 +201,6 @@ public class EnemyStats : MonoBehaviour
         vfx.enemyDeathVFX.Play();
         isDead = true;
         StartCoroutine(DeathWait(0f));
-        
-
-        /* public float AllocateStats(Vector2 valu)
-         {
-             float percentage = ESR.GeneratePosInRange();
-             float stat = 0;
-
-             stat = valu.x + (valu.y - valu.x) * percentage;
-             stat = Mathf.RoundToInt(stat);
-             Debug.Log(stat);
-             return stat;
-         }*/
     }
 
     public void playerTakeDamage(float damage)

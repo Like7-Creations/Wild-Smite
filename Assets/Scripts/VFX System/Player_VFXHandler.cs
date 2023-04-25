@@ -9,6 +9,7 @@ public class Player_VFXHandler : MonoBehaviour
     [SerializeField] ParticleSystem playerFootsteps_VFX;
 
     [SerializeField] ParticleSystem playerDash1_VFX;
+    TrailRenderer dashRend;
 
     [SerializeField] ParticleSystem playerSprint1_VFX;
 
@@ -39,10 +40,13 @@ public class Player_VFXHandler : MonoBehaviour
         if (!playerDash1_VFX.isPlaying)
         {
             playerDash1_VFX.Play();
+            dashRend.emitting = true;
         }
         else if (playerDash1_VFX.isPlaying)
         {
+            Debug.Log(playerDash1_VFX.isPlaying);
             playerDash1_VFX.Stop();
+            dashRend.emitting = false;
         }
     }
 
@@ -152,6 +156,10 @@ public class Player_VFXHandler : MonoBehaviour
 
         playerFootsteps_VFX.Stop();
         playerDash1_VFX.Stop();
+       
+        dashRend = playerDash1_VFX.GetComponent<TrailRenderer>();
+        dashRend.emitting = false;
+        
         playerSprint1_VFX.Stop();
 
         playerAttack_VFX_right.Stop();

@@ -19,7 +19,7 @@ public class TestEnemyDefeat : MonoBehaviour
         if (other.tag == "Player")
         {
             count++;
-            other.GetComponent<PlayerStats>().SetEnemyCount(type);
+            //other.GetComponent<PlayerStats>().SetEnemyCount(type);
             Debug.Log($"Player Defeated {type.ToString()} Enemy");
         }
     }
