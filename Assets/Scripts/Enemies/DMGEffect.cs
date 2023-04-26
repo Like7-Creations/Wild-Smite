@@ -15,7 +15,7 @@ public class DMGEffect : MonoBehaviour
 
     void Start()
     {
-        GetComponentInChildren<TextMeshProUGUI>().text = $"{amount}";
+        GetComponentInChildren<TextMeshProUGUI>().text = $"{amount}uwu";
     }
 
     void Update()
