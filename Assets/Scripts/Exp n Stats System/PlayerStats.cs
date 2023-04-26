@@ -99,20 +99,28 @@ public class PlayerStats : MonoBehaviour
         if (!hasEntry)
             defeatedEnemies.Add(new EnemyDefeats(type, count));
     }*/
-    public void SetEnemyCount(EnemyInfo.Type type)
+    public void SetEnemyCount(EnemyInfo.Type type, int exp)
     {
         bool hasEntry = false;
-        for (int i = 0; i < defeatedEnemies.Count; i++)
+        if (defeatedEnemies.Count >= 0)
         {
-            if (defeatedEnemies[i].enemyType == type)
+            for (int i = 0; i < defeatedEnemies.Count; i++)
             {
-                hasEntry = true;
-                defeatedEnemies[i].count++;
+                print(defeatedEnemies[i].count);
+                if (defeatedEnemies[i].enemyType == type)
+                {
+                    hasEntry = true;
+                    defeatedEnemies[i].count++;
+                    defeatedEnemies[i].exp += exp;
+                }
             }
         }
 
         if (!hasEntry)
+        {
             defeatedEnemies.Add(new EnemyDefeats(type, 1));
+            defeatedEnemies[defeatedEnemies.Count - 1].exp = exp;
+        }
     }
 
     public void SetData(PlayerStat_Data data)
@@ -253,10 +261,12 @@ public class EnemyDefeats
     public EnemyInfo.Type enemyType;
     public string name { set { name = enemyType.ToString(); } }
     public int count;
+    public int exp;
 
     public EnemyDefeats(EnemyInfo.Type type, int count)
     {
         this.enemyType = type;
         this.count = count;
+        exp = 0;
     }
 }

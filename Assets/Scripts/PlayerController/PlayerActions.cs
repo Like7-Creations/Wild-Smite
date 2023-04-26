@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Threading;
-using Ultimate.AI;
 using System.Linq;
 using UnityEditor;
 using UnityEngine.Rendering;
@@ -21,7 +20,7 @@ public class PlayerActions : MonoBehaviour
     public bool lockX, lockY, lockZ;
     private Vector3 startRotation;
 
-    PlayerMovement playerController;
+    public PlayerMovement playerController;
     PlayerVFX VFX;
 
     [Header("Stats stuff")]
@@ -68,7 +67,7 @@ public class PlayerActions : MonoBehaviour
     [HideInInspector] public bool isSprinting;
     [HideInInspector] public Vector3 refer;
     [HideInInspector] public Vector3 Dashdir;
-    float OriginalSpeed;
+    [HideInInspector] public float OriginalSpeed;
 
     [Header("AOE Settings")]
     public bool charging;
@@ -77,6 +76,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] float minRadius;
     [SerializeField] float maxRadius;
 
+    public ParticleSystem rain;
+
     public List<EnemyStats> enemiesInDot = new List<EnemyStats>();
     PlayerControl Pc;
     PlayerControls controls;
@@ -84,16 +85,28 @@ public class PlayerActions : MonoBehaviour
     [Space(5)]
     [Header("VFX & SFX Events")]
 
-    public UnityEvent trigger_walk;
     public UnityEvent trigger_dash;
-    public UnityEvent trigger_sprint;
 
     public UnityEvent trigger_attack_left;
     public UnityEvent trigger_attack_right;
     public UnityEvent trigger_dmg;
 
     public UnityEvent trigger_aoe;
-    public UnityEvent trigger_aoeCharge;
+
+    [Space(5)]
+    [Header("VFX Only Events")]
+    public UnityEvent trigger_walkVFX;
+    public UnityEvent trigger_sprintVFX;
+
+    public UnityEvent trigger_aoeChargeVFX;
+
+    [Space(5)]
+    [Header("SFX Only Events")]
+    public UnityEvent trigger_walkSFX;
+    public UnityEvent trigger_sprintSFX;
+
+    public UnityEvent trigger_aoeChargeSFX;
+
 
 
     void Awake()
@@ -183,6 +196,7 @@ public class PlayerActions : MonoBehaviour
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
             //float dist = Vector3.Distance(transform.position, pointToLook);
             //if(dist >= 1.5f)
+            if(!Pc.controlScheme)
             transform.LookAt(pointToLook);
             if (mouseShooting)
             {
@@ -209,6 +223,9 @@ public class PlayerActions : MonoBehaviour
             //Rotation();
         }
         #endregion
+
+        //Debug.Log(playerController.controller.velocity);
+
 
         //Farhan's  UwU Code-----
         //Check if sprinting, consume stamina by the specified amount.
@@ -447,7 +464,8 @@ public class PlayerActions : MonoBehaviour
     {
         Debug.Log("Begin Powering Up AOE");
 
-        trigger_aoeCharge.Invoke();      //Enables Charging VFX
+        trigger_aoeChargeVFX.Invoke();      //Enables Charging VFX
+        trigger_aoeChargeSFX.Invoke();
 
         currentCharge += pStats.aoe_ChargeRate * Time.deltaTime;
 
@@ -520,7 +538,8 @@ public class PlayerActions : MonoBehaviour
         }
         else if (!charging && currentCharge > 0.11f || chargedSTAM == pStats.stamina)
         {
-            trigger_aoeCharge.Invoke();      //Disables the charging VFX
+            trigger_aoeChargeVFX.Invoke();      //Disables the charging VFX
+            trigger_aoeChargeSFX.Invoke();
 
             ReleaseAOE(chargedSTAM, chargedMELEE, chargedRANGE);
 
@@ -578,10 +597,11 @@ public class PlayerActions : MonoBehaviour
 
         //VFX.Dash();
 
-        trigger_dash.Invoke();
+        //trigger_dash.Invoke();
 
         while (Time.time < startTime + time)
         {
+            trigger_dash.Invoke();
             playerController.controller.Move(dir * speed * Time.deltaTime);
             yield return null;
         }
@@ -595,10 +615,17 @@ public class PlayerActions : MonoBehaviour
     public void Sprint()
     {
         if (pStats.stamina >= pStats.sprint)
-            playerController.playerSpeed = SprintSpeed;     //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
-        isSprinting = true;
+        {
+            playerController.playerSpeed = SprintSpeed; //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
+            isSprinting = true;
+        }
+        else
+        {
+            isSprinting = false;
+        }
 
-        trigger_sprint.Invoke();
+        trigger_sprintVFX.Invoke();
+        trigger_sprintSFX.Invoke();
     }
 
     //Event Required
@@ -607,7 +634,8 @@ public class PlayerActions : MonoBehaviour
         playerController.playerSpeed = OriginalSpeed;   //Ensure that stamina is not being depleted anymore.
         isSprinting = false;
 
-        trigger_sprint.Invoke();
+        trigger_sprintVFX.Invoke();
+        trigger_sprintSFX.Invoke();
     }
     #endregion
 
@@ -638,8 +666,8 @@ public class PlayerActions : MonoBehaviour
 
             if (playerDir.sqrMagnitude > 0.0f)
             {
-                Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
-                ProjectileOrigin.transform.rotation = Quaternion.RotateTowards(ProjectileOrigin.transform.rotation, newrotation, 1000f * Time.deltaTime);
+                 Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
+                 transform.rotation = Quaternion.RotateTowards(transform.rotation, newrotation, 1000f * Time.deltaTime);   
             }
         }
     }

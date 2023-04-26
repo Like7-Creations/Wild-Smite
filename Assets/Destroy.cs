@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Ultimate.AI;
 using UnityEngine;
 
 public class Destroy : MonoBehaviour
@@ -34,7 +33,7 @@ public class Destroy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("collision detecteddddddddddd");
+        Debug.Log("collision detecteddddddddddd");
         if (playershot & other.gameObject.GetComponent<EnemyStats>() != null)
         {
             EnemyStats victim = other.gameObject.GetComponent<EnemyStats>();
@@ -44,7 +43,7 @@ public class Destroy : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(!playershot & other.gameObject.GetComponent<PlayerActions>() != null)
+        if (!playershot & other.gameObject.GetComponent<PlayerActions>() != null)
         {
             PlayerStats anotherVictim = other.gameObject.GetComponent<PlayerStats>();
             anotherVictim.GetComponent<PlayerActions>().TakeDamage(damage);
@@ -55,7 +54,9 @@ public class Destroy : MonoBehaviour
 
         if (other.gameObject.CompareTag("Building"))
         {
+            Debug.Log("collider with building");
             destroyedVFX.transform.parent = null;
+            destroyedVFX.transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z);
             destroyedVFX.Play();
             Destroy(gameObject,0.05f);
         }

@@ -26,18 +26,36 @@ public class InitialiseLevel : MonoBehaviour
     List<Barrier> testList;
     public bool spawnEndPoint;
     public GameObject levelEndObject;
-    GameObject levelRoot;    
+    [Range(0, 10)]
+    public int furthestRooms;
+    public List<FurthestR> Furthest;
+    GameObject levelRoot;
+
+    public int rain;
 
     // Start is called before the first frame update
     void Start()
     {
         initialised = false;
+        Furthest = new List<FurthestR>();
 
         if (levelSettings != null)
             levelDifficulty = levelSettings.GetDifficulty();
 
         if (initialiseOnStart)
             Initialise();
+
+        PlayerActions[] players = GetComponentsInChildren<PlayerActions>();
+        rain = Random.Range(0, 2);
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (rain == 0)
+            {
+                players[i].rain.Play();
+            }
+            else players[i].rain.Stop();
+        }
     }
 
     public void Initialise()
@@ -86,8 +104,64 @@ public class InitialiseLevel : MonoBehaviour
         yield return new WaitForSeconds(.2f);
 
         LevelGenerator.Scripts.Section[] rooms = levelRoot.GetComponentsInChildren<LevelGenerator.Scripts.Section>();
-        int room = Random.Range((int)(rooms.Length / .8f), rooms.Length);
-        GameObject end = Instantiate(levelEndObject, levelRoot.transform.GetChild(room).transform);
+
+        GameObject startingRoom = null;
+        bool closeLoop = false;
+        for (int i = 0; i < rooms.Length; i++)
+        {
+            for (int j = 0; j < rooms[i].Tags.Length; j++)
+            {
+                if (rooms[i].Tags[j] == "Start")
+                {
+                    startingRoom = rooms[i].gameObject;
+                    closeLoop = true;
+                    break;
+
+                }
+            }
+
+            if (closeLoop)
+                break;
+        }
+
+        int range = Mathf.RoundToInt(rooms.Length * .2f);
+        List<GameObject> possibleEndRooms = new List<GameObject>();
+        
+        float prevFurthest = 0;
+        for (int i = 0; i < furthestRooms; i++)
+        {
+            //if ()
+            LevelGenerator.Scripts.Section currentFurthest = null;
+            float furthestDist = 0;
+
+            for (int j = 0; j < rooms.Length; j++)
+            {
+                float dist = Vector3.Distance(startingRoom.transform.position, rooms[j].gameObject.transform.position);
+
+                if (i == 0)
+                {
+                    if (dist > furthestDist)
+                    {
+                        furthestDist = dist;
+                        currentFurthest = rooms[j];
+                    }
+                }
+                else
+                {
+                    if (dist > furthestDist && dist < prevFurthest)
+                    {
+                        furthestDist = dist;
+                        currentFurthest = rooms[j];
+                    }
+                }
+            }
+
+            possibleEndRooms.Add(currentFurthest.gameObject);
+            Furthest.Add(new FurthestR(furthestDist, currentFurthest.gameObject));
+            prevFurthest = furthestDist;
+        }
+
+        GameObject end = Instantiate(levelEndObject, possibleEndRooms[Random.Range(0, possibleEndRooms.Count)].transform);
         //end.transform.SetParent(transform);
 
         yield return new WaitForSeconds(1);
@@ -141,6 +215,19 @@ public class InitialiseLevel : MonoBehaviour
             for (int i = testList.Count - 1; i > 0; i--)
                 Destroy(testList[i].gameObject);
             //testList.Clear();
+        }
+    }
+
+    [System.Serializable]
+    public class FurthestR
+    {
+        public float distance;
+        public GameObject room;
+
+        public FurthestR (float d, GameObject r)
+        {
+            distance = d;
+            room = r;
         }
     }
 }

@@ -79,19 +79,19 @@ public class LevelCompletion : MonoBehaviour
             int xp = 0;
             for (int i = 0; i < p.defeatedEnemies.Count; i++)
             {
-                int sumXP = 0;
+                
 
-                if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Melee)
+               /* if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Melee)
                     sumXP = p.defeatedEnemies[i].count * mXP;
                 else if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Ranged)
                     sumXP = p.defeatedEnemies[i].count * rXP;
                 else if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Tank)
-                    sumXP = p.defeatedEnemies[i].count * tXP;
+                    sumXP = p.defeatedEnemies[i].count * tXP;*/
 
-                xp += sumXP;
+                xp += p.defeatedEnemies[i].exp;
 
                 GameObject item = Instantiate(logItemPrefab, battleLogRoot);
-                item.GetComponent<LogItem>().SetItem(("" + p.defeatedEnemies[i].enemyType.ToString() + " x" + p.defeatedEnemies[i].count), ("+ " + sumXP.ToString("000") + " XP"));
+                item.GetComponent<LogItem>().SetItem(("" + p.defeatedEnemies[i].enemyType.ToString() + " x" + p.defeatedEnemies[i].count), ("+ " + p.defeatedEnemies[i].exp.ToString("000") + " XP"));
             }
 
             //Apply XP to player

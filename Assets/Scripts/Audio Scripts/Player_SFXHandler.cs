@@ -6,8 +6,12 @@ public class Player_SFXHandler : MonoBehaviour
 {
     PlayerActions pActions;
 
-    AudioSource audioSource;
+    [Header("Audio Sources")]
+    public AudioSource baseAudio;
+    public AudioSource loopAudio;
 
+    [Space(10)]
+    [Header("Audio Clips")]
     [SerializeField] AudioClip playerFootsteps_SFX;
 
     [SerializeField] AudioClip playerDash_SFX;
@@ -21,51 +25,96 @@ public class Player_SFXHandler : MonoBehaviour
 
     [SerializeField] AudioClip playerDmg_SFX;
 
+    [Space(10)]
+    [Header("Audio Settings")]
+    [SerializeField, Range(0, 1)] float volume = 0.8f;
+
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        //baseAudio = GetComponent<AudioSource>();
+        pActions = GetComponent<PlayerActions>();
     }
 
     public void Play_WalkingSFX()
     {
-        audioSource.clip = playerFootsteps_SFX;
-        audioSource.Play();
+        if (loopAudio.clip != playerFootsteps_SFX)
+        {
+            Debug.Log("Triggering WalkSFX");
+            loopAudio.clip = playerFootsteps_SFX;
+            loopAudio.Play();
+        }
+        else if (loopAudio.isPlaying && loopAudio.clip == playerFootsteps_SFX)
+        {
+            loopAudio.clip = null;
+            loopAudio.Stop();
+        }
     }
 
     public void Play_DashingSFX()
     {
-        audioSource.clip = playerDash_SFX;
-        audioSource.Play();
+        //baseAudio.clip = playerDash_SFX;
+        baseAudio.PlayOneShot(playerDash_SFX);
     }
 
     public void Play_SprintingSFX()
     {
-        audioSource.clip = playerSprint_SFX;
-        audioSource.Play();
+        if (pActions.isSprinting)
+        {
+            if (loopAudio.clip != playerSprint_SFX)
+            {
+                Debug.Log("Triggering SprintSFX");
+                loopAudio.clip = playerSprint_SFX;
+                loopAudio.Play();
+            }
+        }
+        else
+        {
+            if (loopAudio.isPlaying && loopAudio.clip == playerSprint_SFX)
+            {
+                Debug.Log("Stopping SprintSFX");
+
+                loopAudio.clip = null;
+                loopAudio.Stop();
+            }
+        }
     }
 
     public void Play_AttackSFX()
     {
-        audioSource.clip = playerAttack_SFX;
-        audioSource.Play();
+        //baseAudio.clip = playerAttack_SFX;
+        baseAudio.PlayOneShot(playerAttack_SFX);
     }
 
     public void Play_AOESFX()
     {
-        audioSource.clip = playerAOE_SFX;
-        audioSource.Play();
+        //baseAudio.clip = playerAOE_SFX;
+        baseAudio.PlayOneShot(playerAOE_SFX);
     }
 
     public void Play_AOEChargeSFX()
     {
-        audioSource.clip = playerAOECharging_SFX;
-        audioSource.Play();
+        if (pActions.charging)
+        {
+            if (!loopAudio.isPlaying)
+            {
+                loopAudio.clip = playerAOECharging_SFX;
+                loopAudio.Play();
+            }
+        }
+        else
+        {
+            if (loopAudio.isPlaying && loopAudio.clip == playerAOECharging_SFX)
+            {
+                loopAudio.clip = playerAOECharging_SFX;
+                loopAudio.Stop();
+            }
+        }
     }
 
     public void Play_DamageSFX()
     {
-        audioSource.clip = playerDmg_SFX;
-        audioSource.Play();
+        //baseAudio.clip = playerDmg_SFX;
+        baseAudio.PlayOneShot(playerDmg_SFX);
     }
 
 

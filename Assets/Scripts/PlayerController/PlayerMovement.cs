@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float xOffset;
     public float yOffset;
     public float zOffset;
-    
+
     void Start()
     {
         // for testing
@@ -62,12 +62,17 @@ public class PlayerMovement : MonoBehaviour
 
 
         Vector3 pos = new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, transform.position.z + zOffset);
-        
-        cam.transform.position = Vector3.Lerp(cam.transform.position, pos,4 * Time.deltaTime);
+
+        cam.transform.position = Vector3.Lerp(cam.transform.position, pos, 4 * Time.deltaTime);
         Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y).normalized; //should be movementinput.x,0,movementinput.y
         refer = direction;
         float targetangle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
+
+        //Farhan's Code-----
+        AudioSource walkSource = GetComponent<Player_SFXHandler>().loopAudio;
+        //Farhan's Code-----
+
         if (direction != Vector3.zero)
         {
             if (!PA.shooting)
@@ -85,19 +90,26 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
 
             //VFX Walk
-            PA.trigger_walk.Invoke();
+            PA.trigger_walkVFX.Invoke();
             //VFX Walk
+
+            //Farhan's Code-----
+            if (!walkSource.isPlaying)
+            {
+                PA.trigger_walkSFX.Invoke();
+            }
+            //Farhan's Code-----
 
             Vector3 lookDirection = transform.forward;
             dot = controller.velocity;
 
-            
+
 
 
             if (PA.isSprinting)
             {
                 //animator.SetBool("Sprinting", PA.isSprinting);
-               animator.SetFloat("Sprinting", 2);
+                animator.SetFloat("Sprinting", 2);
                 //InvokeRepeating("lostStamina", 1f, 1);
             }
             else animator.SetFloat("Sprinting", 1);
@@ -108,13 +120,24 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetFloat("X", 0f, 0.05f, Time.deltaTime);
             //animator.SetBool("Sprinting", false);
+
+            //Farhan's Code-----
+            if (walkSource.isPlaying)
+            {
+                PA.trigger_walkSFX.Invoke();
+            }
+            //Farhan's Code-----
         }
 
         float forwardDirection = Vector3.Dot(transform.forward, new Vector3(direction.x, 0, direction.z));
         float rightDirection = Vector3.Dot(transform.right, new Vector3(direction.x, 0f, direction.z));
 
-        animator.SetFloat("X", rightDirection * 1.5f, 0.1f, Time.deltaTime);
-        animator.SetFloat("Y", forwardDirection * 1.5f, 0.1f, Time.deltaTime);
+        forwardDirection = Mathf.RoundToInt(forwardDirection);
+        rightDirection = Mathf.RoundToInt(rightDirection);
+
+
+        animator.SetFloat("X", rightDirection);
+        animator.SetFloat("Y", forwardDirection);
         if (PA.shooting)
         {
         }
@@ -151,6 +174,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position , transform.position + dot.normalized);
+        Gizmos.DrawLine(transform.position, transform.position + dot.normalized);
     }
 }

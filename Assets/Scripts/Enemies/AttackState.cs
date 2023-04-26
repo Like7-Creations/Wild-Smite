@@ -18,9 +18,12 @@ public class AttackState : State
 
     float test;
 
+    MultiAttacker multiAttack;
+
     public override void Start()
     {
         base.Start();
+        multiAttack = GetComponent<MultiAttacker>();
         test = agent.speed;
     }
     public override void Update()
@@ -126,7 +129,7 @@ public class AttackState : State
 
     public void Attack()
     {
-        GetComponent<MultiAttacker>().AttackPlayer();
+        GetComponent<MultiAttacker>().AttackPlayer(0, multiAttack.attacksList.Length);
         print("attacked at attack state");
         indicatorPlayed = false;
     }

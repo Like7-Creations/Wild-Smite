@@ -20271,9 +20271,10 @@ MonoBehaviour:
   ESR: {fileID: 11400000, guid: aaa4f45b045c8884981352ec984dbdbd, type: 2}
   HealthBar: {fileID: 4350474146583148269}
   canvas: {fileID: 4350474146049555827}
+  sfx: {fileID: 0}
   dmgEffect: {fileID: 4087159230962088455, guid: 4dd9d36fd78efd14a84206536a584701, type: 3}
   isDead: 0
-  Type: 0
+  Type: 3
   Health: 0
   Speed: 0
   attackRange: 0
@@ -20322,6 +20323,7 @@ MonoBehaviour:
   players: []
   chosenPlayer: {fileID: 0}
   attackRate: 5
+  boss: 1
 --- !u!114 &4350474145898906470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20336,11 +20338,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacksList:
   - {fileID: 4350474145898906471}
-  - {fileID: 4350474145898906465}
-  - {fileID: 4350474145898906466}
   - {fileID: 4350474145898906476}
+  - {fileID: 4350474145898906466}
   - {fileID: 4350474145898906464}
   - {fileID: 4350474145898906451}
+  - {fileID: 4350474145898906465}
   - {fileID: 4350474145898906448}
   playerAmount: []
   chosenPlayer: {fileID: 0}

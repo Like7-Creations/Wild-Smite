@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Ultimate.AI;
 using UnityEngine;
 
 public abstract class Attack : MonoBehaviour
@@ -29,4 +28,16 @@ public abstract class Attack : MonoBehaviour
     }
     public abstract IEnumerator AttackType();
     public virtual void Update(){}
+
+    protected AnimationClip getAnimationClip(Animator anim, string clipname)
+    {
+        foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
+        {
+            if(clip.name == clipname)
+            {
+                return clip;
+            }
+        }
+        return null;
+    }
 }
