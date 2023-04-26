@@ -196,8 +196,8 @@ public class EnemyStats : MonoBehaviour
 
         vfx.enemyDeathVFX.transform.parent = null;
         AudioSource deathsfx = vfx.enemyDeathVFX.gameObject.AddComponent<AudioSource>();
-        deathsfx.clip = deathclip;
-        deathsfx.Play();
+        //deathsfx.clip = deathclip;
+        deathsfx.PlayOneShot(deathclip, 0.2f);
         vfx.enemyDeathVFX.Play();
         isDead = true;
         StartCoroutine(DeathWait(0f));
