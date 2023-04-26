@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 48e58d041438a3745ac2be4922f08338
+guid: 0047743eb8c5df74089caf3de65fc55e
 ModelImporter:
   serializedVersion: 20300
   internalIDToNameTable: []
   externalObjects: {}
   materials:
-    materialImportMode: 2
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -16,7 +16,10 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Avatar Rig Configuration mis-match. Inbetween bone rotation
+      in configuration does not match rotation in animation file:\n\t'DEF-shin.L'
+      : rotation error = 14.319637 deg\n\t'DEF-shin.R' : rotation error = 14.319761
+      deg\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -101,7 +104,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: DEF-thigh.L.002
+    - boneName: DEF-thigh.L.003
       humanName: LeftLowerLeg
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -109,7 +112,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: DEF-thigh.R.002
+    - boneName: DEF-thigh.R.003
       humanName: RightLowerLeg
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -223,22 +226,6 @@ ModelImporter:
         modified: 0
     - boneName: DEF-hand.R
       humanName: RightHand
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Ear.L
-      humanName: LeftEye
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Ear.R
-      humanName: RightEye
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -494,43 +481,43 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Kangaroo_3(Clone)
+    - name: Kangaroo 3(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Arm
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0.2618948, y: 1.1958524, z: 0.10804229}
       rotation: {x: -0.000000034494466, y: -0.000000011747124, z: -0.15623198, w: 0.9877204}
       scale: {x: 1, y: 1, z: 1}
     - name: Body
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0, y: 1.195257, z: 0.11893147}
       rotation: {x: -0.00000009735359, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ChestArmor
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0, y: 1.4374763, z: 0.122391805}
       rotation: {x: -0.00000009735359, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ChestPlate
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0, y: 1.4250141, z: 0.222682}
       rotation: {x: -0.00000009735359, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Hand
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0.36926505, y: 0.8643639, z: 0.10772215}
       rotation: {x: -0.000000034493603, y: -0.00000001174747, z: -0.15625863, w: 0.9877162}
       scale: {x: 0.99999994, y: 0.99999994, z: 1}
     - name: Head
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0, y: 1.6875384, z: 0.25053293}
       rotation: {x: 0.10596053, y: 0, z: -0, w: 0.99437034}
       scale: {x: 1, y: 0.9999999, z: 0.9999999}
     - name: Kangaroo_rig
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 100, y: 100, z: 100}
@@ -861,8 +848,8 @@ ModelImporter:
       scale: {x: 1, y: 0.9999999, z: 0.99999994}
     - name: DEF-shin.L
       parentName: DEF-thigh.L.003
-      position: {x: 5.5362154e-10, y: 0.0014128202, z: 0.0000000036200603}
-      rotation: {x: -0.27692384, y: 0.09524386, z: -0.05401057, w: 0.9546333}
+      position: {x: 6.693881e-11, y: 0.0014128251, z: -2.7008354e-10}
+      rotation: {x: 0.28160456, y: 0.030175613, z: 0.017402658, w: -0.9588981}
       scale: {x: 0.9999999, y: 1, z: 1}
     - name: DEF-shin.L.001
       parentName: DEF-shin.L
@@ -901,8 +888,8 @@ ModelImporter:
       scale: {x: 1.0000001, y: 0.99999994, z: 1.0000002}
     - name: DEF-shin.R
       parentName: DEF-thigh.R.003
-      position: {x: 7.549942e-10, y: 0.0014128536, z: -0.000000020390024}
-      rotation: {x: 0.2816048, y: -0.030178655, z: -0.017401723, w: -0.95889795}
+      position: {x: 6.548362e-11, y: 0.0014128245, z: 2.7939677e-11}
+      rotation: {x: 0.28160486, y: -0.030179057, z: -0.0174016, w: -0.9588979}
       scale: {x: 0.9999998, y: 1, z: 0.9999998}
     - name: DEF-shin.R.001
       parentName: DEF-shin.R
@@ -940,17 +927,17 @@ ModelImporter:
       rotation: {x: -0.0067168027, y: 9.4349145e-15, z: 0.0000000032028218, w: 0.99997747}
       scale: {x: 1, y: 0.99999994, z: 0.99999994}
     - name: Leg
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0.12, y: 0.42727885, z: 0.07375446}
       rotation: {x: -0.00000009735359, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ShoulderPad
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0.15794218, y: 1.5247134, z: 0.1110654}
       rotation: {x: -0.00000009657825, y: 0.000000005027822, z: -0.09197837, w: 0.99576104}
       scale: {x: 1, y: 1, z: 1}
     - name: Tail
-      parentName: Kangaroo_3(Clone)
+      parentName: Kangaroo 3(Clone)
       position: {x: -0, y: 0.62355375, z: -0.44496706}
       rotation: {x: 0.11501043, y: 0, z: -0, w: 0.9933643}
       scale: {x: 1, y: 1, z: 1}
