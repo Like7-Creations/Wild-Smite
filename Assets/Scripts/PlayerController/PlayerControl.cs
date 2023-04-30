@@ -12,6 +12,8 @@ public class PlayerControl : MonoBehaviour
     PlayerMovement pMovement;
     PlayerInventory pInventory;
 
+    bool isPaused;
+
     public Renderer[] matMeshes;
     Animator anim;
 
@@ -31,26 +33,28 @@ public class PlayerControl : MonoBehaviour
 
     public void OnInputAction(InputAction.CallbackContext context)
     {
-        //Dashing
-        if (context.action.name == controls.Player.Dash.name && context.performed)
+        if (!isPaused)
         {
-            pActions.Dash();
-            //StartCoroutine(pActions.Dashing());
-        }
+            //Dashing
+            if (context.action.name == controls.Player.Dash.name && context.performed)
+            {
+                pActions.Dash();
+                //StartCoroutine(pActions.Dashing());
+            }
 
-        //Player Movement
-        if (context.action.name == controls.Player.Movement.name && context.performed)
-        {
-            //Debug.Log("Movement Called");
-            //pMovement.animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
-            pMovement.onMove(context);
-        }
+            //Player Movement
+            if (context.action.name == controls.Player.Movement.name && context.performed)
+            {
+                //Debug.Log("Movement Called");
+                //pMovement.animator.SetFloat("X", 0.5f, 0.05f, Time.deltaTime);
+                pMovement.onMove(context);
+            }
 
-        //Melee Attack
-        if (context.action.name == controls.Player.Attack.name && context.performed)
-        {
-            pActions.Attack();
-        }
+            //Melee Attack
+            if (context.action.name == controls.Player.Attack.name && context.performed)
+            {
+                pActions.Attack();
+            }
 
          //GamePad Rotation
          if (context.action.name == controls.Player.Rotation.name && context.performed)
@@ -63,54 +67,61 @@ public class PlayerControl : MonoBehaviour
              //pActions.shooting = false;
          }
 
-        //GamePad Range Attack
-        if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
-        {
-            pActions.shooting = true;
-            //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 1);
-        }
+            //GamePad Range Attack
+            if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
+            {
+                pActions.shooting = true;
+                //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 1);
+            }
 
-        if (context.action.name == controls.Player.GamePadRangeAttack.name && context.canceled)
-        {
-            pActions.shooting = false;
-            // anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
-        }
+            if (context.action.name == controls.Player.GamePadRangeAttack.name && context.canceled)
+            {
+                pActions.shooting = false;
+                // anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
+            }
 
-        //Keyboard and Mouse Range Attack
-        if (context.action.name == controls.Player.RangeAttack.name && context.performed)
-        {
-            pActions.shooting = true;
-            pActions.mouseShooting = true;
-            //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 1);
-        }
-        if (context.action.name == controls.Player.RangeAttack.name && context.canceled)
-        {
-            pActions.shooting = false;
-            pActions.mouseShooting = false;
-            //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
-        }
+            //Keyboard and Mouse Range Attack
+            if (context.action.name == controls.Player.RangeAttack.name && context.performed)
+            {
+                pActions.shooting = true;
+                pActions.mouseShooting = true;
 
-        // AOE
-        if (context.action.name == controls.Player.AreaOfEffect.name && context.performed)
-        {
-            pActions.charging = true;
-        }
+                UnityEngine.Debug.Log("Player is shooting");
+                //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 1);
+            }
+            if (context.action.name == controls.Player.RangeAttack.name && context.canceled)
+            {
+                pActions.shooting = false;
+                pActions.mouseShooting = false;
+                //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
+            }
 
-        if (context.action.name == controls.Player.AreaOfEffect.name && context.canceled)
-        {
-            pActions.ReleaseAOE(pActions.chargedSTAM, pActions.chargedMELEE, pActions.chargedRANGE);
-        }
+            // AOE
+            if (context.action.name == controls.Player.AreaOfEffect.name && context.performed)
+            {
+                pActions.charging = true;
+            }
 
-        // Sprinting
-        //AudioSource sprintSource = GetComponent<Player_SFXHandler>().loopAudio;
+            if (context.action.name == controls.Player.AreaOfEffect.name && context.canceled)
+            {
+                pActions.ReleaseAOE(pActions.chargedSTAM, pActions.chargedMELEE, pActions.chargedRANGE);
+            }
 
-        if (context.action.name == controls.Player.Sprinting.name && context.performed)
-        {
-            pActions.Sprint();
-        }
-        if (context.action.name == controls.Player.Sprinting.name && context.canceled)
-        {
-            pActions.UnSprint();
+            // Sprinting
+            if (context.action.name == controls.Player.Sprinting.name && context.performed)
+            {
+                pActions.Sprint();
+            }
+            if (context.action.name == controls.Player.Sprinting.name && context.canceled)
+            {
+                pActions.UnSprint();
+            }
+
+            // Use Item 
+            if (context.action.name == controls.Player.UseItem.name && context.performed)
+            {
+                pInventory.useItem();
+            }
         }
 
         // Pause Game
@@ -119,13 +130,18 @@ public class PlayerControl : MonoBehaviour
             PauseMenuController pause = FindObjectOfType<PauseMenuController>();
             if (pause != null)
                 pause.PauseGame(playerConfig);
+
+            if (isPaused)
+            {
+                isPaused = false;
+            }
+            else
+            {
+                isPaused = true;
+            }
         }
 
-        // Use Item 
-        if (context.action.name == controls.Player.UseItem.name && context.performed)
-        {
-            pInventory.useItem();
-        }
+
     }
 
     public void InitialisePlayer(PlayerConfig pc)

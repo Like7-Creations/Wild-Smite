@@ -18,7 +18,15 @@ public class ObjectDithering : MonoBehaviour
 
     private void Awake()
     {
-        cams = FindObjectsOfType<Camera>();
+        /*if (!enabled)
+        {
+            enabled = true;
+        }*/
+
+        //cams = new Camera[3];
+        cams = FindObjectsOfType<Camera>(true);
+
+        //cams[2] = cams[0].GetComponent<Dynamic_SplitScreen>().p2_Cam.GetComponent<Camera>();
     }
 
     void Start()
@@ -73,7 +81,6 @@ public class ObjectDithering : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         distFromCam = LocateClosestCam();
 
         //distFromCam = Mathf.Clamp(distFromCam, 0f, 1f);
