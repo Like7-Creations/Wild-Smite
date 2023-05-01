@@ -37,6 +37,11 @@ public class LevelData
 {
     public string Name;
 
+    [Range(0, 100)]
+    public float initialTankChance = 0;
+    [Range(0, 100)]
+    public float additionalTankChance = 0;
+
     public EnemyData[] enemyData;
 
     public int Level;
