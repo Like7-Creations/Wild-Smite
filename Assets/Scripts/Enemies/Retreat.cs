@@ -18,6 +18,7 @@ public class Retreat : State
         timer += Time.deltaTime;
         Debug.Log("Retreat");
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
+        transform.LookAt(chosenPlayer.transform.position, Vector3.up);
         if (!obtainedPos)
         {
             pos = transform.position + (transform.forward * -1 * retreatDist);
