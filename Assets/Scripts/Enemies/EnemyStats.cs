@@ -159,7 +159,6 @@ public class EnemyStats : MonoBehaviour
         }
 
         DMGEffect dmg = Instantiate(dmgEffect, transform);
-        dmg.transform.LookAt(Camera.main.transform);
         dmg.amount = damageToTake;
 
         //damageToTake *= (1 - Defence); //health must be int or float?
@@ -187,20 +186,23 @@ public class EnemyStats : MonoBehaviour
 
     public void Die()
     {
-        if(!isDead)
-        hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType, exp);
+        if (!isDead)
+        {
+            hitPlayer.SetEnemyCount(GetComponent<EnemyStats>().ESR.enemyType, exp);
 
-        agent.enabled = false;
+            agent.enabled = false;
 
-        var deathclip = sfx.enemyDestroyedSFX[Random.Range(0, sfx.enemyDestroyedSFX.Length)];
+            var deathclip = sfx.enemyDestroyedSFX[Random.Range(0, sfx.enemyDestroyedSFX.Length)];
 
-        vfx.enemyDeathVFX.transform.parent = null;
-        AudioSource deathsfx = vfx.enemyDeathVFX.gameObject.AddComponent<AudioSource>();
-        //deathsfx.clip = deathclip;
-        deathsfx.PlayOneShot(deathclip, 0.2f);
-        vfx.enemyDeathVFX.Play();
-        isDead = true;
-        StartCoroutine(DeathWait(0f));
+            vfx.enemyDeathVFX.transform.parent = null;
+            AudioSource deathsfx = vfx.enemyDeathVFX.gameObject.AddComponent<AudioSource>();
+            //deathsfx.clip = deathclip;
+            deathsfx.PlayOneShot(deathclip, 0.2f);
+            vfx.enemyDeathVFX.Play();
+            isDead = true;
+            StartCoroutine(DeathWait(0f));
+        }
+    
     }
 
     public void playerTakeDamage(float damage)

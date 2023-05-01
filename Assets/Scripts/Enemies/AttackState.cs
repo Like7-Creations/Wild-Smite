@@ -36,7 +36,6 @@ public class AttackState : State
     }
     public override State RunCurrentState()
     {
-        print("attack state");
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
         agent.acceleration = 20;
 
@@ -68,10 +67,11 @@ public class AttackState : State
                     var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
                     audioSource.PlayOneShot(clip);
                 }
+                randomAttack = Random.Range(0, 2);
             }
 
             anim.SetLayerWeight(anim.GetLayerIndex("AttackLayer"), 1);
-            randomAttack = Random.Range(0, 3);
+            //randomAttack = Random.Range(0, 2);
 
             if (GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Melee)
             {
@@ -102,7 +102,7 @@ public class AttackState : State
             if (dist <= attackRange)
             {
                 //Attack();
-                print($"attacked player at {dist}");
+                //print($"attacked player at {dist}");
                 StartCoroutine(GetComponent<MultiAttacker>().attacksList[randomAttack].AttackType());
                 indicatorPlayed = false;
                 agent.acceleration = 10;

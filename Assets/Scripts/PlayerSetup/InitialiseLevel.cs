@@ -53,8 +53,9 @@ public class InitialiseLevel : MonoBehaviour
             if (rain == 0)
             {
                 players[i].rain.Play();
+                players[i].rain.GetComponent<AudioSource>().Play();
             }
-            else players[i].rain.Stop();
+            else { players[i].rain.Stop(); players[i].rain.GetComponent<AudioSource>().Stop(); }
         }
     }
 

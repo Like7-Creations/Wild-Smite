@@ -6,7 +6,7 @@ using UnityEngine;
 public class SkyBoxGen : ScriptableObject
 {
     public Material[] skyBoxes;
-    public ParticleSystem weather;
+    //public ParticleSystem weather;
     int rando;
 
     public void ManageWeather()

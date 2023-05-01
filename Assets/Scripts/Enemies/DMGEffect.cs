@@ -22,6 +22,7 @@ public class DMGEffect : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + Dir, speed * Time.deltaTime);  
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + Dir, speed * Time.deltaTime);
+        transform.LookAt(Camera.main.transform.position);
     }
 }
