@@ -22,10 +22,10 @@ public class Shoot : Attack
             audioSource.PlayOneShot(clip);
         }
 
-        anim.SetTrigger("ShootPrep");
+       /* anim.SetTrigger("ShootPrep");
         AnimationClip animClip = getAnimationClip(anim, "ShootPrep");
         float time = animClip.length;
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time);*/
 
         for (int i = 0; i < 3; i++)
         {

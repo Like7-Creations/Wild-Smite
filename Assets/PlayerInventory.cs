@@ -10,9 +10,9 @@ public class PlayerInventory : MonoBehaviour
     PlayerMovement plMovement;
     public Item heldItem;
 
-    public GameObject rangeBuffUI;
+   /* public GameObject rangeBuffUI;
     public GameObject meleeBuffUI;
-    public GameObject speedBuffUI;
+    public GameObject speedBuffUI;*/
 
     public int healPacks;
     public float itemDuration;

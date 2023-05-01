@@ -297,8 +297,8 @@ public class PlayerActions : MonoBehaviour
             {
                 animator.SetTrigger("Hit");
             }
-            Color origin = hit.material.color;
-            flash.gameObject.SetActive(true);
+            //Color origin = hit.material.color;
+            //flash.gameObject.SetActive(true);
             /* hit.materials[0].color = Color.red;
              for (int i = 0; i < hit.materials.Length; i++)
              {
@@ -316,7 +316,7 @@ public class PlayerActions : MonoBehaviour
             //Vector3 knockBack = transform.position - transform.forward * knockbackStr;
             //knockBack.y = 0;
             //transform.position = knockBack;
-            StartCoroutine(resetFlashDamage(origin));
+            //StartCoroutine(resetFlashDamage(origin));
             // hit.materials[0].color = origin;
         }
     }
@@ -594,7 +594,7 @@ public class PlayerActions : MonoBehaviour
     }
 
     //Event Required
-    public IEnumerator Mover(float speed, float time, Vector3 dir)
+    public IEnumerator Mover(float speed, float time, Vector3 knockBack)
     {
         float startTime = Time.time;
 
@@ -607,7 +607,7 @@ public class PlayerActions : MonoBehaviour
         while (Time.time < startTime + time)
         {
             trigger_dash.Invoke();
-            playerController.controller.Move(dir * speed * Time.deltaTime);
+            playerController.controller.Move(knockBack * speed * Time.deltaTime);
             yield return null;
         }
         invincible = false;

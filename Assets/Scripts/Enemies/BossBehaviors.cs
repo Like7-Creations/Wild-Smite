@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BossBehaviors : MonoBehaviour
 {
@@ -15,49 +16,60 @@ public class BossBehaviors : MonoBehaviour
     public PlayerActions[] players;
 
     public PlayerActions chosenPlayer;
-    bool chosenPlayerDetected;
 
     public float attackRate;
 
     public bool boss;
+
+    public enum Type
+    {
+        Tank,
+        Boss
+    }
+    public Type BossType;
+
+    int a, b;
 
     void Start()
     {
         stats = GetComponent<EnemyStats>();
         multiAttacker = GetComponent<MultiAttacker>();
         players = FindObjectsOfType<PlayerActions>();
+        if(players.Length == 1) { chosenPlayer = players[0]; }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(playerDetected) timer += Time.deltaTime;
-       
-        if(timer >= 5)
-        {
-            if(dist < 5)
-            {
-                if(boss)
-                {
-                    multiAttacker.AttackPlayer(0, 4);
-                }else multiAttacker.AttackPlayer(0, 2);
-            }
-            else multiAttacker.AttackPlayer(4, multiAttacker.attacksList.Length);
-
-            //Debug.Log("boss behaviors happened");
-            timer = 0;
-        }
-
-        if(players.Length > 1)
-        {
-            chosenPlayer = findClosestPlayer(players);
-        }
-        else if(!chosenPlayerDetected) {chosenPlayer = players[0]; chosenPlayerDetected = true; }
+        if (players.Length > 1) chosenPlayer = findClosestPlayer(players);
 
         dist = Vector3.Distance(transform.position, chosenPlayer.transform.position);
-        if(dist < detectionRange)
+
+        if(dist < detectionRange) playerDetected = true;
+        if (playerDetected) timer += Time.deltaTime;
+
+        switch (BossType)
         {
-            playerDetected = true;
+            case Type.Tank:
+                
+                if (dist < 5) { a = 0; b = 2; }
+                else { a = 2; b = 4; }
+                   
+                break;
+
+            case Type.Boss:
+               
+                if (dist < 5) { a = 0; b = 3; }
+                else { a = 4; b = 7; }
+                
+                break;
+        }
+
+        if(timer >= 10000)
+        {
+            print($"{a} / {b}");
+            multiAttacker.AttackPlayer(a,b);
+            timer = 0;
         }
 
         Vector3 pos = chosenPlayer.transform.position;
