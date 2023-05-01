@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4993413600106007853}
   - component: {fileID: 4993413600106007852}
   - component: {fileID: 4993413600106007851}
+  - component: {fileID: 1217806240403669077}
   m_Layer: 0
   m_Name: BillboardScreen (1)
   m_TagString: Untagged
@@ -135,6 +136,24 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
+--- !u!114 &1217806240403669077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993413600106007850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &4993413600451732101
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +166,7 @@ GameObject:
   - component: {fileID: 4993413600451732105}
   - component: {fileID: 4993413600451732104}
   - component: {fileID: 4993413600451732103}
+  - component: {fileID: 1164180333449927265}
   m_Layer: 0
   m_Name: BillboardBorder (1)
   m_TagString: Untagged
@@ -230,6 +250,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1164180333449927265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993413600451732101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &4993413601132640189
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +280,7 @@ GameObject:
   - component: {fileID: 4993413601132640161}
   - component: {fileID: 4993413601132640160}
   - component: {fileID: 4993413601132640191}
+  - component: {fileID: 8569410304902576806}
   m_Layer: 0
   m_Name: BillboardBorder (2)
   m_TagString: Untagged
@@ -325,6 +364,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8569410304902576806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993413601132640189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &4993413601772964443
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +394,7 @@ GameObject:
   - component: {fileID: 4993413601772964447}
   - component: {fileID: 4993413601772964446}
   - component: {fileID: 4993413601772964445}
+  - component: {fileID: 6771920228351885186}
   m_Layer: 0
   m_Name: BillboardBorder (4)
   m_TagString: Untagged
@@ -420,6 +478,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6771920228351885186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993413601772964443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &4993413601840801413
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +508,7 @@ GameObject:
   - component: {fileID: 4993413601840801417}
   - component: {fileID: 4993413601840801416}
   - component: {fileID: 4993413601840801415}
+  - component: {fileID: 2971492334292668316}
   m_Layer: 0
   m_Name: BillboardBorder (3)
   m_TagString: Untagged
@@ -515,3 +592,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2971492334292668316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993413601840801413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
