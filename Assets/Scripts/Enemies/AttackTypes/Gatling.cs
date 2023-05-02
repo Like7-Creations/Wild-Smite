@@ -15,7 +15,30 @@ public class Gatling : Attack
 
     public GameObject Bullet;
 
-    public override IEnumerator AttackType()
+    public override void attackLogic()
+    {
+        abilityActivated = true;
+    }
+
+    public override void attackVFX()
+    {
+        if (vfx.isEnabled)
+        {
+            vfx.GetComponent<Boss_VFXHandler>().GatlingVFX();
+        }
+    }
+
+    public override void attackSFX()
+    {
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Boss_SFXHandler>();
+            var clip = obj.gatlingSFX[Random.Range(0, obj.gatlingSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
+    /*public override IEnumerator AttackType()
     {
         if (vfx.isEnabled)
         {
@@ -29,7 +52,7 @@ public class Gatling : Attack
         }
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
         abilityActivated = true;
-    }
+    }*/
 
     public override void Update()
     {
@@ -44,20 +67,6 @@ public class Gatling : Attack
                     GameObject rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity);
                     rb.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
                     rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
-                    if(vfx.isEnabled)
-                    {
-                        vfx.GetComponent<Boss_VFXHandler>().GatlingVFX();
-                    }
-                    if (sfx.isEnabled)
-                    {
-                        var obj = GetComponent<Boss_SFXHandler>();
-                        var clip = obj.gatlingSFX[Random.Range(0, obj.gatlingSFX.Length)];
-                        audioSource.PlayOneShot(clip);
-                    }
-                    if (vfx.isEnabled)
-                    {
-                        vfx.GetComponent<Boss_VFXHandler>().GatlingVFX();
-                    }
                     delayTimer = 0;
                 }
             }
@@ -65,6 +74,7 @@ public class Gatling : Attack
             {
                 abilityActivated = false;
                 durationTimer = 0;
+                GetComponent<BossBehaviors>().currentAttack = false;
             }
         }
     }

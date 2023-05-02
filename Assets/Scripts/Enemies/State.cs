@@ -22,7 +22,7 @@ public abstract class State : MonoBehaviour
 
     public virtual void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         players = FindObjectsOfType<PlayerActions>();
         audioSource = GetComponent<AudioSource>();

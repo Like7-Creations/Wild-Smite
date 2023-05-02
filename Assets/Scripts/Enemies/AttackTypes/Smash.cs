@@ -18,13 +18,69 @@ public class Smash : Attack
         bossbe = GetComponent<BossBehaviors>();
     }
 
-    public override IEnumerator AttackType()
+    public override void attackLogic()
     {
-        // Debug.Log("Smash Attack");
+        targetHit = smashPos.position;
+        Collider[] hits;
+        hits = Physics.OverlapSphere(targetHit, Radius);
+        foreach (Collider c in hits)
+        {
+            if (c.GetComponent<PlayerActions>() != null)
+            {
+                PlayerActions player = c.GetComponent<PlayerActions>();
+                //player.health -= 10;
+                if (vfx.isEnabled)
+                {
+                    if (vfx.GetComponent<Tank_VFXHandler>() != null)
+                    {
+                        vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
+                    }
+                    if (vfx.GetComponent<Boss_VFXHandler>() != null)
+                    {
+                        vfx.GetComponent<Boss_VFXHandler>().SmashVFX();
+                    }//vfx;//vfx
+                }
+                player.TakeDamage(stats.MATK);
+            }
+        }
+        GetComponent<BossBehaviors>().currentAttack = false;
+    }
+
+    public override void attackVFX()
+    {
         if (vfx.isEnabled)
         {
-            vfx.attackIndicationVFX.Play();
+            if (vfx.GetComponent<Tank_VFXHandler>() != null)
+            {
+                vfx.GetComponent<Tank_VFXHandler>().SmashVFX();
+            }
+            if (vfx.GetComponent<Boss_VFXHandler>() != null)
+            {
+                vfx.GetComponent<Boss_VFXHandler>().SmashVFX();
+            }//vfx;//vfx
         }
+    }
+
+    public override void attackSFX()
+    {
+        var obj = GetComponent<Enemy_SFXHandler>();
+        if (obj.GetComponent<Tank_SFXHandler>() != null)
+        {
+            var clipObj = obj.GetComponent<Tank_SFXHandler>();
+            var clip = clipObj.smashSFX[Random.Range(0, clipObj.smashSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+
+        if (obj.GetComponent<Boss_SFXHandler>() != null)
+        {
+            var clipObj = obj.GetComponent<Boss_SFXHandler>();
+            var clip = clipObj.smashSFX[Random.Range(0, clipObj.smashSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
+    public override void AttackIndication()
+    {
         if (sfx.isEnabled)
         {
             var obj = GetComponent<Enemy_SFXHandler>();
@@ -43,9 +99,36 @@ public class Smash : Attack
             }
         }
 
-        /*anim.SetTrigger("SmashPrep");
-        AnimationClip animClip = getAnimationClip(anim, "SmashPrep");
-        float time = animClip.length;*/
+        if (vfx.isEnabled)
+        {
+            vfx.GetComponent<Enemy_VFXHandler>().attackIndicationVFX.Play();
+        }
+    }
+
+    /*public override IEnumerator AttackType()
+    {
+        // Debug.Log("Smash Attack");
+        if (vfx.isEnabled)
+        {
+            //vfx.attackIndicationVFX.Play();
+        }
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Enemy_SFXHandler>();
+            if (obj.GetComponent<Tank_SFXHandler>() != null)
+            {
+                var clipObj = obj.GetComponent<Tank_SFXHandler>();
+                var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
+
+            if (obj.GetComponent<Boss_SFXHandler>() != null)
+            {
+                var clipObj = obj.GetComponent<Boss_SFXHandler>();
+                var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
+                audioSource.PlayOneShot(clip);
+            }
+        }
         yield return new WaitForSeconds(0);
 
         if (sfx.isEnabled)
@@ -103,7 +186,7 @@ public class Smash : Attack
             }//vfx;//vfx
         }
 
-    }
+    }*/
 
     public override void Update()
     {
