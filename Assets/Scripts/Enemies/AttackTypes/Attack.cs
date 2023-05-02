@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public abstract class Attack : MonoBehaviour
@@ -13,20 +14,45 @@ public abstract class Attack : MonoBehaviour
     [HideInInspector] public State state;
     [HideInInspector] public EnemyStats stats;
     [HideInInspector] public Animator anim;
+
+    public string animTriggerName; 
+
     public float timeToAttackAfterIndicator;
 
     public virtual void Start()
     {
         //ultimateAI = GetComponent<UltimateAI>();
         //fov = GetComponent<FieldOfView>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         state = GetComponent<State>();
         stats = GetComponent<EnemyStats>();
         vfx = GetComponent<Enemy_VFXHandler>();
         sfx = GetComponent<Enemy_SFXHandler>();
         audioSource = GetComponent<AudioSource>();
     }
-    public abstract IEnumerator AttackType();
+    //public abstract IEnumerator AttackType();
+
+    public void startAttack() 
+    {
+        //StartCoroutine(AttackType());
+        anim.SetTrigger(animTriggerName);
+        //Debug.Log("trigggered" + animTriggerName);
+    }
+
+    /*public void CallCour()
+    {
+        StartCoroutine(AttackType());
+    }*/
+
+    public virtual void attackSFX() { }
+
+    public virtual void attackVFX() { }
+
+    public virtual void attackLogic() { }
+
+    public virtual void AttackIndication() { }
+
+
     public virtual void Update(){}
 
     protected AnimationClip getAnimationClip(Animator anim, string clipname)

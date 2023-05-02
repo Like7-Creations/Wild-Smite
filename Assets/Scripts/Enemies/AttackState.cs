@@ -10,9 +10,11 @@ public class AttackState : State
     [SerializeField] public float attackRange;
     public State chase;
 
-    bool indicatorPlayed;
+    //bool indicatorPlayed;
 
-    bool animSet;
+    //bool animSet;
+
+    [HideInInspector] public bool attacked;
 
     [SerializeField] int randomAttack;
 
@@ -43,8 +45,10 @@ public class AttackState : State
         //playerpos.y = 1;
         transform.LookAt(playerpos, Vector3.up);
 
+        anim.SetLayerWeight(anim.GetLayerIndex("AttackLayer"), 1);
+
         //indicatorPlayed = false;
-        if (!indicatorPlayed)
+        /*if (!indicatorPlayed)
         {
             if (vfx.isEnabled)
             {
@@ -67,7 +71,7 @@ public class AttackState : State
                     var clip = clipObj.enemyAttackIndicatorSFX[Random.Range(0, clipObj.enemyAttackIndicatorSFX.Length)];
                     audioSource.PlayOneShot(clip);
                 }
-                randomAttack = Random.Range(0, 2);
+                //srandomAttack = Random.Range(0, 2);
             }
 
             anim.SetLayerWeight(anim.GetLayerIndex("AttackLayer"), 1);
@@ -90,10 +94,45 @@ public class AttackState : State
             }
 
             indicatorPlayed = true;
+        }*/
+
+
+
+
+        if(GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Melee)
+        {
+            Vector3 pos = chosenPlayer.transform.position + ((chosenPlayer.transform.position - transform.position).normalized * .8f);
+            agent.SetDestination(pos);
+
+            //agent.destination = pos;
+            //print("approaching player");
+            if (dist <= attackRange)
+            {
+                //Attack();
+                //if(!attacked) Attack();
+                //print($"attacked player at {dist}");
+                //StartCoroutine(GetComponent<MultiAttacker>().attacksList[randomAttack].AttackType());
+                //GetComponent<MultiAttacker>().attacksList[randomAttack].AttackType();
+
+                // indicatorPlayed = false;
+                agent.acceleration = 10;
+                //return retreat;
+            }
+        }
+        else
+        {
+            agent.acceleration = 10;
+            //return retreat;
         }
 
-        Vector3 pos = chosenPlayer.transform.position + ((chosenPlayer.transform.position - transform.position).normalized * .8f);
-        if(GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Melee)
+        if (dist >= GetComponent<Chase>().orbitRange + 2)
+        {
+            // indicatorPlayed = false;
+            agent.acceleration = 10;
+            return chase;
+        }
+
+        /*if (GetComponent<EnemyStats>().Type == EnemyStats.enemyType.Melee)
         {
             agent.SetDestination(pos);
 
@@ -102,8 +141,11 @@ public class AttackState : State
             if (dist <= attackRange)
             {
                 //Attack();
+                Attack();
                 //print($"attacked player at {dist}");
-                StartCoroutine(GetComponent<MultiAttacker>().attacksList[randomAttack].AttackType());
+                //StartCoroutine(GetComponent<MultiAttacker>().attacksList[randomAttack].AttackType());
+                //GetComponent<MultiAttacker>().attacksList[randomAttack].AttackType();
+
                 indicatorPlayed = false;
                 agent.acceleration = 10;
                 return retreat;
@@ -121,16 +163,18 @@ public class AttackState : State
             Attack();
             //agent.acceleration = 10;
             return retreat;
-        }
-        
+        }*/
+
         return this;
 
     }
 
     public void Attack()
     {
-        GetComponent<MultiAttacker>().AttackPlayer(0, multiAttack.attacksList.Length);
+        anim.SetLayerWeight(anim.GetLayerIndex("AttackLayer"), 1);
+        multiAttack.AttackPlayer(0, multiAttack.attacksList.Length);
         print("attacked at attack state");
-        indicatorPlayed = false;
+        attacked = true;
+        //indicatorPlayed = false;
     }
 }

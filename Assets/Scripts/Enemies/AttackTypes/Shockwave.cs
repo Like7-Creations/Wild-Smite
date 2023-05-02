@@ -11,7 +11,42 @@ public class Shockwave : Attack
     [SerializeField] float knockBackStr;
     [SerializeField] float knockBacktime;
 
-    public override IEnumerator AttackType()
+    public override void attackLogic()
+    {
+        begin = true;
+    }
+
+    public override void attackVFX()
+    {
+        vfx.GetComponent<Boss_VFXHandler>().ShockwaveVFX();
+    }
+
+    public override void attackSFX()
+    {
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Boss_SFXHandler>();
+            var clip = obj.shockwaveSFX[Random.Range(0, obj.shockwaveSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
+    public override void AttackIndication()
+    {
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Boss_SFXHandler>();
+            var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+
+        if (vfx.isEnabled)
+        {
+            vfx.GetComponent<Boss_VFXHandler>().attackIndicationVFX.Play();
+        }
+    }
+
+    /*public override IEnumerator AttackType()
     {
         if (vfx.isEnabled)
         {
@@ -31,14 +66,14 @@ public class Shockwave : Attack
             audioSource.PlayOneShot(clip);
         }
         begin = true;
-    }
+    }*/
 
     public override void Update()
     {
         if (begin)
         {
             radius += Time.deltaTime * expandSpeed;
-            vfx.GetComponent<Boss_VFXHandler>().ShockwaveVFX();
+            //vfx.GetComponent<Boss_VFXHandler>().ShockwaveVFX();
             Collider[] hits;
             hits = Physics.OverlapSphere(transform.position, radius);
             foreach(Collider c in hits)
@@ -53,7 +88,7 @@ public class Shockwave : Attack
             {
                 begin = false;
 
-                vfx.GetComponent<Boss_VFXHandler>().ShockwaveVFX();
+               // vfx.GetComponent<Boss_VFXHandler>().ShockwaveVFX();
                 reset();
             }
 
@@ -63,6 +98,7 @@ public class Shockwave : Attack
     private void reset()
     {
         radius = 0;
+        GetComponent<BossBehaviors>().currentAttack = false;
     }
 
     private void OnDrawGizmos()
