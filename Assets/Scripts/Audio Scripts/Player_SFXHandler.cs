@@ -8,22 +8,28 @@ public class Player_SFXHandler : MonoBehaviour
 
     [Header("Audio Sources")]
     public AudioSource baseAudio;
-    public AudioSource loopAudio;
+    public AudioSource moveLoopAudio;
+    public AudioSource aoeChargeAudio;
 
     [Space(10)]
-    [Header("Audio Clips")]
-    [SerializeField] AudioClip playerFootsteps_SFX;
 
-    [SerializeField] AudioClip playerDash_SFX;
+    [Header("Movement SFX")]
+    [SerializeField] SFXClip playerWalk_SFX;
 
-    [SerializeField] AudioClip playerSprint_SFX;
+    [SerializeField] SFXClip playerDash_SFX;
 
-    [SerializeField] AudioClip playerAttack_SFX;
+    [SerializeField] SFXClip playerSprint_SFX;
 
-    [SerializeField] AudioClip playerAOE_SFX;
-    [SerializeField] AudioClip playerAOECharging_SFX;
+    [Space(10)]
 
-    [SerializeField] AudioClip playerDmg_SFX;
+    [Header("Attack SFX")]
+    [SerializeField] SFXClip[] playerMATKs_SFX;
+    [SerializeField] SFXClip[] playerRATKs_SFX;
+
+    [SerializeField] SFXClip playerAOE_SFX;
+    [SerializeField] SFXClip playerAOECharging_SFX;
+
+    [SerializeField] SFXClip[] playerDamage_SFX;
 
     [Space(10)]
     [Header("Audio Settings")]
@@ -37,76 +43,91 @@ public class Player_SFXHandler : MonoBehaviour
 
     public void Play_WalkingSFX()
     {
-        if (loopAudio.clip != playerFootsteps_SFX)
+        if (moveLoopAudio.clip != playerWalk_SFX.clip)
         {
             Debug.Log("Triggering WalkSFX");
-            loopAudio.clip = playerFootsteps_SFX;
-            loopAudio.Play();
+            moveLoopAudio.clip = playerWalk_SFX.clip;
+            moveLoopAudio.volume = playerWalk_SFX.voumeVal;
+            moveLoopAudio.Play();
         }
-        else if (loopAudio.isPlaying && loopAudio.clip == playerFootsteps_SFX)
+        else if (moveLoopAudio.isPlaying && moveLoopAudio.clip == playerWalk_SFX.clip)
         {
-            loopAudio.clip = null;
-            loopAudio.Stop();
+            moveLoopAudio.clip = null;
+            moveLoopAudio.Stop();
         }
     }
 
     public void Play_DashingSFX()
     {
         //baseAudio.clip = playerDash_SFX;
-        baseAudio.PlayOneShot(playerDash_SFX);
+        baseAudio.PlayOneShot(playerDash_SFX.clip, playerDash_SFX.voumeVal);
     }
 
     public void Play_SprintingSFX()
     {
         if (pActions.isSprinting)
         {
-            if (loopAudio.clip != playerSprint_SFX)
+            if (moveLoopAudio.clip != playerSprint_SFX.clip)
             {
                 Debug.Log("Triggering SprintSFX");
-                loopAudio.clip = playerSprint_SFX;
-                loopAudio.Play();
+                moveLoopAudio.clip = playerSprint_SFX.clip;
+                moveLoopAudio.volume = playerSprint_SFX.voumeVal;
+                moveLoopAudio.Play();
             }
         }
         else
         {
-            if (loopAudio.isPlaying && loopAudio.clip == playerSprint_SFX)
+            if (moveLoopAudio.isPlaying && moveLoopAudio.clip == playerSprint_SFX.clip)
             {
                 Debug.Log("Stopping SprintSFX");
 
-                loopAudio.clip = null;
-                loopAudio.Stop();
+                moveLoopAudio.clip = null;
+                moveLoopAudio.Stop();
             }
         }
     }
 
-    public void Play_AttackSFX()
+    public void Play_MATKSFX()
     {
         //baseAudio.clip = playerAttack_SFX;
-        baseAudio.PlayOneShot(playerAttack_SFX);
+
+        SFXClip attackClip = playerMATKs_SFX[Random.Range(0, playerMATKs_SFX.Length)];
+
+        baseAudio.PlayOneShot(attackClip.clip, attackClip.voumeVal);
+    }
+    
+    public void Play_RATKSFX()
+    {
+        //baseAudio.clip = playerAttack_SFX;
+
+        SFXClip attackClip = playerRATKs_SFX[Random.Range(0, playerRATKs_SFX.Length)];
+
+        baseAudio.PlayOneShot(attackClip.clip, attackClip.voumeVal);
     }
 
     public void Play_AOESFX()
     {
         //baseAudio.clip = playerAOE_SFX;
-        baseAudio.PlayOneShot(playerAOE_SFX);
+        baseAudio.PlayOneShot(playerAOE_SFX.clip, playerAOE_SFX.voumeVal);
     }
 
     public void Play_AOEChargeSFX()
     {
         if (pActions.charging)
         {
-            if (!loopAudio.isPlaying)
+            if (!aoeChargeAudio.isPlaying)
             {
-                loopAudio.clip = playerAOECharging_SFX;
-                loopAudio.Play();
+                aoeChargeAudio.clip = playerAOECharging_SFX.clip;
+                aoeChargeAudio.volume = playerAOECharging_SFX.voumeVal;
+                aoeChargeAudio.Play();
             }
         }
         else
         {
-            if (loopAudio.isPlaying && loopAudio.clip == playerAOECharging_SFX)
+            if (aoeChargeAudio.isPlaying && aoeChargeAudio.clip == playerAOECharging_SFX.clip)
             {
-                loopAudio.clip = playerAOECharging_SFX;
-                loopAudio.Stop();
+                aoeChargeAudio.clip = playerAOECharging_SFX.clip;
+                aoeChargeAudio.Stop();
             }
         }
     }
@@ -114,7 +135,11 @@ public class Player_SFXHandler : MonoBehaviour
     public void Play_DamageSFX()
     {
         //baseAudio.clip = playerDmg_SFX;
-        baseAudio.PlayOneShot(playerDmg_SFX);
+
+        SFXClip dmgClip = playerDamage_SFX[Random.Range(0, playerDamage_SFX.Length)];
+
+
+        baseAudio.PlayOneShot(dmgClip.clip, dmgClip.voumeVal);
     }
 
 

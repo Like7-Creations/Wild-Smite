@@ -7,26 +7,42 @@ public class UI_SFXHandler : MonoBehaviour
     AudioSource audioSource;
 
     #region Base Menu SFX
-    [SerializeField] AudioClip pauseGame_SFX;
-    [SerializeField] AudioClip resumeGame_SFX;
+    //[SerializeField] AudioClip pauseGame_SFX;
+    //[SerializeField] AudioClip resumeGame_SFX;
+
+    [SerializeField] SFXClip pause_SFX;
+    [SerializeField] SFXClip resume_SFX;
 
     [SerializeField] AudioClip pointerHover_SFX;
     [SerializeField] AudioClip sceneTransition_SFX;
+
+    [SerializeField] SFXClip hoverSelected_SFX;
+    [SerializeField] SFXClip transitionScene_SFX;
     #endregion
 
     #region PlayerLobby SFX
     [SerializeField] AudioClip playerJoined_SFX;
     [SerializeField] AudioClip playerReady_SFX;
+
+    [SerializeField] SFXClip pJoined_SFX;
+    [SerializeField] SFXClip pReady_SFX;
     #endregion
 
     #region Levelling Stats Screen SFX
     [SerializeField] AudioClip displayBattleLog_SFX;
+    [SerializeField] SFXClip showBattleLog_SFX;
 
     [SerializeField] AudioClip increaseStat_SFX;
     [SerializeField] AudioClip decreaseStat_SFX;
 
+    [SerializeField] SFXClip statIncrease_SFX;
+    [SerializeField] SFXClip statDecrease_SFX;
+
     [SerializeField] AudioClip lvlSliderIncrease_SFX;
     [SerializeField] AudioClip lvlSliderComplete_SFX;
+
+    [SerializeField] SFXClip increaseLvlSlider_SFX;
+    [SerializeField] SFXClip decreaseLvlSlider_SFX;
     #endregion
 
     //----------Functions----------
@@ -38,72 +54,61 @@ public class UI_SFXHandler : MonoBehaviour
     #region Base Menu SFX Functions
     public void Play_PauseGameSFX()
     {
-        audioSource.clip = pauseGame_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(pause_SFX.clip, pause_SFX.voumeVal);
     }
 
     public void Play_ResumeGameSFX()
     {
-        audioSource.clip = resumeGame_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(resume_SFX.clip, resume_SFX.voumeVal);
     }
 
     public void Play_PointerHoverSFX()
     {
-        audioSource.clip = pointerHover_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(hoverSelected_SFX.clip, hoverSelected_SFX.voumeVal);
     }
 
     public void Play_SceneTransitionSFX()
     {
-        audioSource.clip = sceneTransition_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(transitionScene_SFX.clip,transitionScene_SFX.voumeVal);
     }
     #endregion
 
     #region Player Lobby SFX Functions
     public void Play_PlayerJoinedSFX()
     {
-        audioSource.clip = playerJoined_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(pJoined_SFX.clip,pJoined_SFX.voumeVal);
     }
 
     public void Play_PlayerReadySFX()
     {
-        audioSource.clip = playerReady_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(pReady_SFX.clip,pReady_SFX.voumeVal);
     }
     #endregion
 
     #region Levelling Stats Screen SFX Functions
     public void Play_DisplayBattleLogSFX()
     {
-        audioSource.clip = displayBattleLog_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(showBattleLog_SFX.clip,showBattleLog_SFX.voumeVal);
     }
 
     public void Play_IncreaseStatSFX()
     {
-        audioSource.clip = increaseStat_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(statIncrease_SFX.clip, statIncrease_SFX.voumeVal);
     }
 
     public void Play_DecreaseStatSFX()
     {
-        audioSource.clip = decreaseStat_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(statDecrease_SFX.clip,statDecrease_SFX.voumeVal);
     }
 
     public void Play_LvlSliderSFX()
     {
-        audioSource.clip = lvlSliderIncrease_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(increaseLvlSlider_SFX.clip,increaseLvlSlider_SFX.voumeVal);
     }
 
     public void Play_LvlSliderCompleteSFX()
     {
-        audioSource.clip = lvlSliderComplete_SFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(decreaseLvlSlider_SFX.clip, decreaseLvlSlider_SFX.voumeVal);
     }
     #endregion
     //----------Functions----------
