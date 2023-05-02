@@ -92,10 +92,9 @@ public class LevelCompleteTrigger : MonoBehaviour
                 {
                     Time.timeScale = 1;
                 }
-
+            }
                 LevelCompleteUI.gameObject.SetActive(true);
                 LevelCompleteUI.ShowSummary();
-            }
         }
     }
 }
