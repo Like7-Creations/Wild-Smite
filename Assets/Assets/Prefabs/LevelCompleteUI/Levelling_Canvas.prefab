@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3571925395154390440}
         m_TargetAssemblyTypeName: StatAllocations, Assembly-CSharp
-        m_MethodName: IncreaseHP
+        m_MethodName: IncreaseSTAM
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -321,7 +321,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3571925395154390440}
         m_TargetAssemblyTypeName: StatAllocations, Assembly-CSharp
-        m_MethodName: DecreaseHP
+        m_MethodName: DecreaseRATK
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2880,7 +2880,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3571925395154390440}
         m_TargetAssemblyTypeName: StatAllocations, Assembly-CSharp
-        m_MethodName: IncreaseHP
+        m_MethodName: IncreaseMATK
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3295,7 +3295,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3571925395154390440}
         m_TargetAssemblyTypeName: StatAllocations, Assembly-CSharp
-        m_MethodName: DecreaseHP
+        m_MethodName: DecreaseSTAM
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8225,7 +8225,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3571925395154390440}
         m_TargetAssemblyTypeName: StatAllocations, Assembly-CSharp
-        m_MethodName: DecreaseHP
+        m_MethodName: DecreaseMATK
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8717,6 +8717,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297227e91f21aab48997d1e3c9da8fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelText: {fileID: 0}
+  showLevel: 0
   bars:
   - {fileID: 3571925395797390124}
   - {fileID: 3571925394090711839}
@@ -11244,7 +11246,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3571925395154390440}
         m_TargetAssemblyTypeName: StatAllocations, Assembly-CSharp
-        m_MethodName: IncreaseHP
+        m_MethodName: IncreaseRATK
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
