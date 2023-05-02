@@ -15,7 +15,9 @@ public class MultiAttacker : MonoBehaviour
     PlayerConfigManager playerConfig;
     public void AttackPlayer(int a, int b)
     {
-        StartCoroutine(attacksList[Random.Range(a, b)].AttackType());     
+        int rand = Random.Range(a, b);
+        print(rand);
+        StartCoroutine(attacksList[rand].AttackType());     
     }
 
     

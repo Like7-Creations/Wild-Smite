@@ -26,7 +26,7 @@ public class Swipe : Attack
         }
         if (sfx.isEnabled)
         {
-            var obj = GetComponent<BaseEnemy_SFXHandler>();
+            var obj = GetComponent<Enemy_SFXHandler>();
             if (obj.GetComponent<Tank_SFXHandler>() != null)
             {
                 var clipObj = obj.GetComponent<Tank_SFXHandler>();
@@ -42,15 +42,15 @@ public class Swipe : Attack
             }
         }
 
-        anim.SetTrigger("SwipePrep");
+        /*anim.SetTrigger("SwipePrep");
         AnimationClip animClip = getAnimationClip(anim, "SwipePrep");
-        float time = animClip.length;
-        yield return new WaitForSeconds(time);
+        float time = animClip.length;*/
+        yield return new WaitForSeconds(0);
 
         if (sfx.isEnabled)
         {
             // sfx 
-            var obj = GetComponent<BaseEnemy_SFXHandler>();
+            var obj = GetComponent<Enemy_SFXHandler>();
             if (obj.GetComponent<Tank_SFXHandler>() != null)
             {
                 var clipObj = obj.GetComponent<Tank_SFXHandler>();

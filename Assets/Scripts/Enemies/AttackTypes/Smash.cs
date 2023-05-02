@@ -27,7 +27,7 @@ public class Smash : Attack
         }
         if (sfx.isEnabled)
         {
-            var obj = GetComponent<BaseEnemy_SFXHandler>();
+            var obj = GetComponent<Enemy_SFXHandler>();
             if (obj.GetComponent<Tank_SFXHandler>() != null)
             {
                 var clipObj = obj.GetComponent<Tank_SFXHandler>();
@@ -43,14 +43,14 @@ public class Smash : Attack
             }
         }
 
-        anim.SetTrigger("SmashPrep");
+        /*anim.SetTrigger("SmashPrep");
         AnimationClip animClip = getAnimationClip(anim, "SmashPrep");
-        float time = animClip.length;
-        yield return new WaitForSeconds(time);
+        float time = animClip.length;*/
+        yield return new WaitForSeconds(0);
 
         if (sfx.isEnabled)
         {
-            var obj = GetComponent<BaseEnemy_SFXHandler>();
+            var obj = GetComponent<Enemy_SFXHandler>();
             if (obj.GetComponent<Tank_SFXHandler>() != null)
             {
                 var clipObj = obj.GetComponent<Tank_SFXHandler>();
