@@ -6607,7 +6607,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8677192015910937241}
         m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
-        m_MethodName: Play_AttackSFX
+        m_MethodName: Play_MATKSFX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6634,7 +6634,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8677192015910937241}
         m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
-        m_MethodName: Play_AttackSFX
+        m_MethodName: Play_MATKSFX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6912,34 +6912,45 @@ MonoBehaviour:
   moveLoopAudio: {fileID: 4671952168339284679}
   aoeChargeAudio: {fileID: 7900632539801950361}
   playerWalk_SFX:
+    name: 
     clip: {fileID: 8300000, guid: fccb178d47cc4d346a28ae027988c533, type: 3}
     voumeVal: 1
   playerDash_SFX:
+    name: 
     clip: {fileID: 8300000, guid: 7c03fd9976e31cf4594bb9b70d442a81, type: 3}
     voumeVal: 1
   playerSprint_SFX:
+    name: 
     clip: {fileID: 8300000, guid: 568bb4da116f575429d31e3112410ad2, type: 3}
     voumeVal: 1
   playerMATKs_SFX:
-  - clip: {fileID: 8300000, guid: 980186fb825495b48947865e902a03eb, type: 3}
+  - name: Attack 1
+    clip: {fileID: 8300000, guid: 980186fb825495b48947865e902a03eb, type: 3}
     voumeVal: 1
-  - clip: {fileID: 8300000, guid: 4babbf1382bad6e4ca9ee3b1244445ea, type: 3}
+  - name: Attack 2
+    clip: {fileID: 8300000, guid: 4babbf1382bad6e4ca9ee3b1244445ea, type: 3}
     voumeVal: 1
   playerRATKs_SFX:
-  - clip: {fileID: 8300000, guid: cb21613b6961d8e4490661d3df15abe6, type: 3}
+  - name: 
+    clip: {fileID: 8300000, guid: cb21613b6961d8e4490661d3df15abe6, type: 3}
     voumeVal: 1
-  - clip: {fileID: 8300000, guid: 8be99b0bb4608f04d9ccacc1766b0883, type: 3}
+  - name: 
+    clip: {fileID: 8300000, guid: 8be99b0bb4608f04d9ccacc1766b0883, type: 3}
     voumeVal: 1
   playerAOE_SFX:
+    name: 
     clip: {fileID: 8300000, guid: fe99daca802fd5443b91f7de277650de, type: 3}
     voumeVal: 1
   playerAOECharging_SFX:
+    name: 
     clip: {fileID: 8300000, guid: 625d7f0f585874a4fb5acf6622e83652, type: 3}
     voumeVal: 1
   playerDamage_SFX:
-  - clip: {fileID: 8300000, guid: 17271faf3078979459d37d5914ae5fe9, type: 3}
+  - name: 
+    clip: {fileID: 8300000, guid: 17271faf3078979459d37d5914ae5fe9, type: 3}
     voumeVal: 1
-  - clip: {fileID: 8300000, guid: 66af139dd27b60140af1e1e8ad08ba2b, type: 3}
+  - name: 
+    clip: {fileID: 8300000, guid: 66af139dd27b60140af1e1e8ad08ba2b, type: 3}
     voumeVal: 1
   volume: 0.8
 --- !u!114 &-6499161388970198589

@@ -6,6 +6,8 @@ using UnityEngine.Rendering;
 [System.Serializable]
 public class SFXClip
 {
+    public string name;
+
     public AudioClip clip;
 
     [Range(0f, 1f)]
