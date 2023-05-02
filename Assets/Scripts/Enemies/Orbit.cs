@@ -22,9 +22,12 @@ public class Orbit : State
     Vector3 dire;
     int rotateDir;
 
+    MultiAttacker multiAttack;
+
     public override void Start()
     {
         base.Start();
+        multiAttack = GetComponent<MultiAttacker>();
         orbitRange = GetComponent<Chase>().orbitRange;
         originalSpeed = agent.speed;
         rotateDir = Random.Range(1, 3);
@@ -86,6 +89,8 @@ public class Orbit : State
         {
             timer = 0;
             agent.speed = originalSpeed;
+            //GetComponent<AttackState>().attacked = false;
+            multiAttack.AttackPlayer(0, multiAttack.attacksList.Length);
             return attackState;
         }
 

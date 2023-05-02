@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 
-[CustomEditor(typeof(Attack), true)]
+/*[CustomEditor(typeof(Attack), true)]
 public class AttackEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -17,4 +17,4 @@ public class AttackEditor : Editor
             attack.StartCoroutine(attack.AttackType());
         }
     }
-}
+}*/
