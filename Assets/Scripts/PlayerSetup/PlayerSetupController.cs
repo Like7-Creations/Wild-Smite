@@ -18,8 +18,11 @@ public class PlayerSetupController : MonoBehaviour
     [SerializeField]
     TMP_Text characterText;
 
-    public GameObject defaultCharacter;
-    public Material defaultMaterial;
+    public CharacterInfo Crocodile;
+    public CharacterInfo Kangaroo;
+    CharacterInfo selectedCharacter;
+    [Range(0, 2)]
+    int selectedColor;
 
     //Old Variables
     //[SerializeField]
@@ -53,24 +56,48 @@ public class PlayerSetupController : MonoBehaviour
         playerText.text = "Player " + (pi + 1);
         deviceText.text = device;
         ignoreInputTime = Time.time + ignoreInputTime;
-        PlayerConfigManager.Instance.SetPlayerColor(PlayerIndex, defaultMaterial);
-        PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, defaultCharacter);
+        SetCharacter(0);
+        SetColor(0);        
     }
 
-    public void SetColor(Material color)
+    public void SetColor(int index)
     {
         if (!inputEnabled)
             return;
 
-        PlayerConfigManager.Instance.SetPlayerColor(PlayerIndex, color);
+        switch (index)
+        {
+            case 0:
+                PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_1);
+                break;
+            case 1:
+                PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_2);
+                break;
+            case 2:
+                PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_3);
+                break;
+        }
+
+        selectedColor = index;
+
         //readyPanel.SetActive(true);
         //readyButton.Select();
         //menuPanel.SetActive(false);
     }
 
-    public void SetCharacter(GameObject character)
+    public void SetCharacter(int index)
     {
-        PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, character);
+        switch (index)
+        {
+            case 0:
+                selectedCharacter = Crocodile;
+                SetColor(selectedColor);
+                break;
+            case 1:
+                selectedCharacter = Kangaroo;
+                SetColor(selectedColor);
+                break;
+        }        
     }
 
     public void SetCText(string name)
@@ -117,4 +144,12 @@ public class PlayerSetupController : MonoBehaviour
     //        CancelPressed();
     //    }
     //}
+}
+
+[System.Serializable]
+public class CharacterInfo
+{
+    public GameObject Character_1;
+    public GameObject Character_2;
+    public GameObject Character_3;
 }

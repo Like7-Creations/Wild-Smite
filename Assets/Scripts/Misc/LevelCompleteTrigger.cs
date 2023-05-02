@@ -91,11 +91,11 @@ public class LevelCompleteTrigger : MonoBehaviour
                 if (Time.timeScale == 0)
                 {
                     Time.timeScale = 1;
-                }
-
-                LevelCompleteUI.gameObject.SetActive(true);
-                LevelCompleteUI.ShowSummary();
+                }                
             }
+
+            LevelCompleteUI.gameObject.SetActive(true);
+            LevelCompleteUI.ShowSummary();
         }
     }
 }
