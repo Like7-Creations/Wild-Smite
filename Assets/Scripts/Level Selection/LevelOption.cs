@@ -16,6 +16,8 @@ public class LevelOption : MonoBehaviour
 
     public GameObject DifBase, DifFilled;
     public Transform DifHolder;
+    public List<GameObject> bars;
+    public float barsInterval;
 
     int levelField;
     LevelSettings.Difficulty difficultyField;
@@ -26,6 +28,7 @@ public class LevelOption : MonoBehaviour
     public Vector3 optionPosition;
 
     public Button CollapsedButton;
+    public Jun_TweenRuntime collapsedTween;
     public Button ExpandedButton;
 
     public void CreateOption()
@@ -53,11 +56,13 @@ public class LevelOption : MonoBehaviour
             {
                 for (int i = 0; i <= (int)difficultyField; i++)
                 {
-                    Instantiate(DifFilled, DifHolder);
+                    GameObject obj = Instantiate(DifFilled, DifHolder);
+                    bars.Add(obj);
                 }
                 for (int i = 2; i > (int)difficultyField; i--)
                 {
-                    Instantiate(DifBase, DifHolder);
+                    GameObject obj = Instantiate(DifBase, DifHolder);
+                    bars.Add(obj);
                 }
 
                 Info_UI.text = "REQ. LVL " + levelField;
@@ -73,6 +78,25 @@ public class LevelOption : MonoBehaviour
     {
         Settings.SetSelectedLevel(levelField, difficultyField);
         SceneManager.LoadScene(levelToLoad);
+    }
+
+    public void StartTween()
+    {
+        collapsedTween.Play();
+    }
+
+    public void BarsTween()
+    {
+        StartCoroutine(BarsSequence());
+    }
+
+    IEnumerator BarsSequence()
+    {
+        for (int i = 0; i < bars.Count; i++)
+        {
+            bars[i].GetComponent<Jun_TweenRuntime>().Play();
+            yield return new WaitForSeconds(barsInterval);
+        }
     }
 
     public void SelectOption()

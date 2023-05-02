@@ -24,6 +24,7 @@ public class LevelSelection : MonoBehaviour
     int loopCountExceded;
     public Button closeButton;
     public List<LevelOption> options;
+    public float tweenInterval;
     int currentOption;
 
     // Start is called before the first frame update
@@ -45,6 +46,20 @@ public class LevelSelection : MonoBehaviour
         Debug.Log("Selecting fisrt option");
         options[0].CollapsedButton.Select();
         currentOption = 0;
+
+        StartCoroutine(SequenctialTween());
+    }
+
+    IEnumerator SequenctialTween()
+    {
+        for (int i = 0; i < options.Count; i++)
+        {
+            options[i].StartTween();
+            yield return new WaitForSeconds(tweenInterval);
+        }
+        yield return new WaitForSeconds(.5f);
+        if (closeButton.GetComponent<Jun_TweenRuntime>() != null)
+            closeButton.GetComponent<Jun_TweenRuntime>().Play();
     }
 
     public void GenerateLevelOptions()
