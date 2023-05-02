@@ -26,7 +26,7 @@ public class Swipe : Attack
         }
         if (sfx.isEnabled)
         {
-            var obj = GetComponent<BaseEnemy_SFXHandler>();
+            var obj = GetComponent<Enemy_SFXHandler>();
             if (obj.GetComponent<Tank_SFXHandler>() != null)
             {
                 var clipObj = obj.GetComponent<Tank_SFXHandler>();
@@ -50,7 +50,7 @@ public class Swipe : Attack
         if (sfx.isEnabled)
         {
             // sfx 
-            var obj = GetComponent<BaseEnemy_SFXHandler>();
+            var obj = GetComponent<Enemy_SFXHandler>();
             if (obj.GetComponent<Tank_SFXHandler>() != null)
             {
                 var clipObj = obj.GetComponent<Tank_SFXHandler>();

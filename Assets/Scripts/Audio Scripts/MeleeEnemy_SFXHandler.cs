@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MeleeEnemy_SFXHandler : BaseEnemy_SFXHandler
 {
-    [SerializeField] AudioClip enemy_MeleeSpinVFX;
-    [SerializeField] AudioClip enemy_MeleeSwingVFX;
-    [SerializeField] AudioClip enemy_MeleeJabVFX;
+    [SerializeField] SFXClip enemy_MeleeSpinVFX;
+    [SerializeField] SFXClip enemy_MeleeSwingVFX;
+    [SerializeField] SFXClip enemy_MeleeJabVFX;
 
     void Start()
     {
@@ -15,19 +15,16 @@ public class MeleeEnemy_SFXHandler : BaseEnemy_SFXHandler
 
     public void Play_MeleeSpinSFX()
     {
-        audioSource.clip = enemy_MeleeSpinVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(enemy_MeleeSpinVFX.clip, enemy_MeleeSpinVFX.voumeVal);
     }
 
     public void Play_MeleeSwingSFX()
     {
-        audioSource.clip = enemy_MeleeSwingVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(enemy_MeleeSwingVFX.clip, enemy_MeleeSwingVFX.voumeVal);
     }
 
     public void Play_MeleeJabSFX()
     {
-        audioSource.clip = enemy_MeleeJabVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(enemy_MeleeJabVFX.clip, enemy_MeleeJabVFX.voumeVal);
     }
 }

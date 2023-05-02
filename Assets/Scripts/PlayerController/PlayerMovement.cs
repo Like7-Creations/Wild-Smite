@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnSmoothVelocity, turnSmoothTime);
 
         //Farhan's Code-----
-        AudioSource walkSource = GetComponent<Player_SFXHandler>().loopAudio;
+        AudioSource walkSource = GetComponent<Player_SFXHandler>().moveLoopAudio;
         //Farhan's Code-----
 
         if (direction != Vector3.zero)

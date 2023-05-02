@@ -17,7 +17,7 @@ public class Summon : Attack
         }
         if (sfx.isEnabled)
         {
-            var obj = GetComponent<BaseEnemy_SFXHandler>();
+            var obj = GetComponent<Enemy_SFXHandler>();
             if (obj.GetComponent<Tank_SFXHandler>() != null)
             {
                 var clipObj = obj.GetComponent<Tank_SFXHandler>();
@@ -60,7 +60,7 @@ public class Summon : Attack
             elem.transform.Translate(new Vector3(distFromTank, 5, 0));
             if (sfx.isEnabled)
             {
-                var obj = GetComponent<BaseEnemy_SFXHandler>();
+                var obj = GetComponent<Enemy_SFXHandler>();
                 if(obj.GetComponent<Tank_SFXHandler>() != null)
                 {
                     var clipObj = obj.GetComponent<Tank_SFXHandler>();
