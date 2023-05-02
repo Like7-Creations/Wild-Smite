@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RangedEnemy_SFXHandler : BaseEnemy_SFXHandler
 {
-    [SerializeField] AudioClip enemy_RangeSingleShotVFX;
-    [SerializeField] AudioClip enemy_RangeTriShotVFX;
-    [SerializeField] AudioClip enemy_RangeHomingVFX;
+    [SerializeField] SFXClip enemy_RangeSingleShotVFX;
+    [SerializeField] SFXClip enemy_RangeTriShotVFX;
+    [SerializeField] SFXClip enemy_RangeHomingVFX;
 
     void Start()
     {
@@ -15,19 +15,16 @@ public class RangedEnemy_SFXHandler : BaseEnemy_SFXHandler
 
     public void Play_RangeSingleShotSFX()
     {
-        audioSource.clip = enemy_RangeSingleShotVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(enemy_RangeSingleShotVFX.clip, enemy_RangeSingleShotVFX.voumeVal);
     }
 
     public void Play_RangeTriShotSFX()
     {
-        audioSource.clip = enemy_RangeTriShotVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(enemy_RangeTriShotVFX.clip, enemy_RangeTriShotVFX.voumeVal);
     }
 
     public void Play_RangeHomingSFX()
     {
-        audioSource.clip = enemy_RangeHomingVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(enemy_RangeHomingVFX.clip, enemy_RangeHomingVFX.voumeVal);
     }
 }

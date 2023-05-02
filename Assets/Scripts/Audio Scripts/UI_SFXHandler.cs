@@ -7,39 +7,23 @@ public class UI_SFXHandler : MonoBehaviour
     AudioSource audioSource;
 
     #region Base Menu SFX
-    //[SerializeField] AudioClip pauseGame_SFX;
-    //[SerializeField] AudioClip resumeGame_SFX;
-
     [SerializeField] SFXClip pause_SFX;
     [SerializeField] SFXClip resume_SFX;
-
-    [SerializeField] AudioClip pointerHover_SFX;
-    [SerializeField] AudioClip sceneTransition_SFX;
 
     [SerializeField] SFXClip hoverSelected_SFX;
     [SerializeField] SFXClip transitionScene_SFX;
     #endregion
 
     #region PlayerLobby SFX
-    [SerializeField] AudioClip playerJoined_SFX;
-    [SerializeField] AudioClip playerReady_SFX;
-
     [SerializeField] SFXClip pJoined_SFX;
     [SerializeField] SFXClip pReady_SFX;
     #endregion
 
     #region Levelling Stats Screen SFX
-    [SerializeField] AudioClip displayBattleLog_SFX;
     [SerializeField] SFXClip showBattleLog_SFX;
-
-    [SerializeField] AudioClip increaseStat_SFX;
-    [SerializeField] AudioClip decreaseStat_SFX;
 
     [SerializeField] SFXClip statIncrease_SFX;
     [SerializeField] SFXClip statDecrease_SFX;
-
-    [SerializeField] AudioClip lvlSliderIncrease_SFX;
-    [SerializeField] AudioClip lvlSliderComplete_SFX;
 
     [SerializeField] SFXClip increaseLvlSlider_SFX;
     [SerializeField] SFXClip decreaseLvlSlider_SFX;

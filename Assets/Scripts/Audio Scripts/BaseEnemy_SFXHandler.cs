@@ -6,51 +6,40 @@ public class BaseEnemy_SFXHandler : MonoBehaviour
 {
     protected AudioSource audioSource;
 
-    [SerializeField] AudioClip enemy_AttackWarningVFX;
+    [SerializeField] SFXClip enemy_AttackWarningVFX;
 
-    [SerializeField] AudioClip enemy_DestroyedVFX;
-    [SerializeField] AudioClip enemy_DetectedPlayerVFX;
+    [SerializeField] SFXClip[] enemy_DestroyedVFX;
+    [SerializeField] SFXClip enemy_DetectedPlayerVFX;
 
-    [SerializeField] AudioClip enemy_MovementVFX;
+    [SerializeField] SFXClip enemy_MovementVFX;
 
-    [SerializeField] AudioClip enemy_DamagedVFX;
+    [SerializeField] SFXClip[] enemy_DamagedVFX;
 
     public void Play_AttackWarningSFX()
     {
-        if (!audioSource.isPlaying)
-        {
-            audioSource.clip = enemy_AttackWarningVFX;
-            audioSource.Play();
-        }
-        else
-        {
-            audioSource.Stop();
-        }
+        audioSource.PlayOneShot(enemy_AttackWarningVFX.clip, enemy_AttackWarningVFX.voumeVal);
+
     }
 
     public void Play_DestroyedSFX()
     {
-        audioSource.clip = enemy_DestroyedVFX;
-        audioSource.Play();
+        SFXClip clip = enemy_DestroyedVFX[Random.Range(0, enemy_DestroyedVFX.Length)];
+        audioSource.PlayOneShot(clip.clip, clip.voumeVal);
     }
 
     public void Play_DetectedPlayerSFX()
     {
-        audioSource.clip = enemy_DetectedPlayerVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(enemy_DetectedPlayerVFX.clip, enemy_DetectedPlayerVFX.voumeVal);
     }
 
     public void Play_MovementSFX()
     {
-        audioSource.clip = enemy_MovementVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(enemy_MovementVFX.clip, enemy_MovementVFX.voumeVal);
     }
 
     public void Play_DamagedSFX()
     {
-        audioSource.clip = enemy_DamagedVFX;
-        audioSource.Play();
+        SFXClip clip = enemy_DamagedVFX[Random.Range(0, enemy_DamagedVFX.Length)];
+        audioSource.PlayOneShot(clip.clip, clip.voumeVal);
     }
-
-
 }
