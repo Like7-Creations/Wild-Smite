@@ -14423,6 +14423,8 @@ MonoBehaviour:
   xpSlider: {fileID: 3571925395757677867}
   battleLogRoot: {fileID: 3571925394686269335}
   logItemPrefab: {fileID: 1557396197030620668, guid: 21cbe18e5d2f0b241be9afd6e3130cf1, type: 3}
+  logs: []
+  interval: 0.25
   totalXPText: {fileID: 3571925394700580181}
   coop_SummaryPanel: {fileID: 3571925393889780956}
   levelText_1: {fileID: 3571925394504023413}
@@ -14435,7 +14437,6 @@ MonoBehaviour:
   xpSlider_2: {fileID: 3571925394786860609}
   battleLogRoot_1: {fileID: 3571925394039350460}
   battleLogRoot_2: {fileID: 3571925395382824561}
-  logItemPrefab_coop: {fileID: 1557396197030620668, guid: 21cbe18e5d2f0b241be9afd6e3130cf1, type: 3}
   totalXPText_1: {fileID: 3571925395390198529}
   totalXPText_2: {fileID: 3571925394850041611}
   levelUpPanel: {fileID: 3571925395154390442}
@@ -17324,7 +17325,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_onFinish:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3571925394869813351}
+        m_TargetAssemblyTypeName: LevelCompletion, Assembly-CSharp
+        m_MethodName: LogTween
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playType: 0
   animationStartTime: 0
   animationTime: 1
@@ -17457,7 +17470,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_onFinish:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3571925394869813351}
+        m_TargetAssemblyTypeName: LevelCompletion, Assembly-CSharp
+        m_MethodName: LogTween
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playType: 0
   animationStartTime: 0
   animationTime: 1

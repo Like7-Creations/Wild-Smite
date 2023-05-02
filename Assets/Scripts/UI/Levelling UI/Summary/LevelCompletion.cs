@@ -24,6 +24,8 @@ public class LevelCompletion : MonoBehaviour
 
     public Transform battleLogRoot;
     public GameObject logItemPrefab;
+    public List<Jun_TweenRuntime> logs;
+    public float interval;
 
     public TMP_Text totalXPText;
 
@@ -41,7 +43,6 @@ public class LevelCompletion : MonoBehaviour
 
     public Transform battleLogRoot_1;
     public Transform battleLogRoot_2;
-    public GameObject logItemPrefab_coop;
 
     public TMP_Text totalXPText_1;
     public TMP_Text totalXPText_2;
@@ -91,6 +92,7 @@ public class LevelCompletion : MonoBehaviour
                 xp += p.defeatedEnemies[i].exp;
 
                 GameObject item = Instantiate(logItemPrefab, battleLogRoot);
+                logs.Add(item.GetComponent<Jun_TweenRuntime>());
                 item.GetComponent<LogItem>().SetItem(("" + p.defeatedEnemies[i].enemyType.ToString() + " x" + p.defeatedEnemies[i].count), ("+ " + p.defeatedEnemies[i].exp.ToString("000") + " XP"));
             }
 
@@ -135,6 +137,7 @@ public class LevelCompletion : MonoBehaviour
                 xp_1 += sumXP;
 
                 GameObject item = Instantiate(logItemPrefab, battleLogRoot_1);
+                logs.Add(item.GetComponent<Jun_TweenRuntime>());
                 item.GetComponent<LogItem>().SetItem(("" + p1.defeatedEnemies[i].enemyType.ToString() + " x" + p1.defeatedEnemies[i].count), ("+ " + sumXP.ToString("000") + " XP"));
             }
             int xp_2 = 0;
@@ -186,6 +189,20 @@ public class LevelCompletion : MonoBehaviour
 
             p1.playerData.XPGained(xp_1);
             p2.playerData.XPGained(xp_2);
+        }        
+    }
+
+    public void LogTween()
+    {
+        StartCoroutine(LogSequence());
+    }
+
+    IEnumerator LogSequence()
+    {
+        for (int i = 0; i < logs.Count; i++)
+        {
+            logs[i].Play();
+            yield return new WaitForSeconds(interval);
         }
     }
 
