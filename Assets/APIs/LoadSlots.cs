@@ -17,6 +17,8 @@ public class LoadSlots : MonoBehaviour
     public TMP_Text saveInfo_P1;
     public TMP_Text saveInfo_P2;
 
+    public Jun_TweenRuntime tweenControl;
+
     public bool DebugKeys;
     bool hasData;
     bool newGame;
@@ -136,43 +138,26 @@ public class LoadSlots : MonoBehaviour
             saveInfo.text = "Empty Save";
             saveInfo_P1.text = "";
             saveInfo_P2.text = "";
-
-            //if (!newGame)
-            //{
-            //    saveInfo.color = GetComponent<Button>().colors.disabledColor;
-            //    saveInfo_P1.color = GetComponent<Button>().colors.disabledColor;
-            //    saveInfo_P2.color = GetComponent<Button>().colors.disabledColor;
-            //    GetComponent<Button>().enabled = false;
-            //}
-            //else
-            //{
-            //    saveInfo.color = GetComponent<Button>().colors.normalColor;
-            //    saveInfo_P1.color = GetComponent<Button>().colors.normalColor;
-            //    saveInfo_P2.color = GetComponent<Button>().colors.normalColor;
-            //    GetComponent<Button>().enabled = true;
-            //}
-
-            //SaveLoadSystem.EndLoad();
         }
-        //else save1.GetComponentInChildren<TextMeshProUGUI>().text = "Create New";
 
-        /*SaveLoadSystem.BeginLoad("/SlotTwo.data");
-        bool slotTwoExist = SaveLoadSystem.checkLoad();
-        if (slotTwoExist)
+        if (!newGame && !hasData)
+            DisableSlot(true);
+        else
+            DisableSlot(false);
+    }
+
+    public void DisableSlot(bool disable)
+    {
+        if (disable)
         {
-            save2.GetComponentInChildren<TextMeshProUGUI>().text = "Your Second Save";
-            SaveLoadSystem.EndLoad();
+            saveButton.enabled = false;
+            saveInfo.color = Color.gray;
         }
-        else save2.GetComponentInChildren<TextMeshProUGUI>().text = "Create New";
-
-        SaveLoadSystem.BeginLoad("/SlotThree.data");
-        bool slotThreeExist = SaveLoadSystem.checkLoad();
-        if (slotThreeExist)
+        else
         {
-            save3.GetComponentInChildren<TextMeshProUGUI>().text = "Your Third Save";
-            SaveLoadSystem.EndLoad();
+            saveButton.enabled = true;
+            saveInfo.color = Color.black;
         }
-        else save3.GetComponentInChildren<TextMeshProUGUI>().text = "Create New";*/
     }
 
     public void SlotOne()
