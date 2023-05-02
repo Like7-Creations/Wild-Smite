@@ -14,6 +14,7 @@ public class OptionsMenu : MonoBehaviour
 
     List<string> resOptions;
     int selectedResIndex;
+    int defaultResIndex;
 
     int selectedQualityIndex;
     public TMP_Text qualButton_Text;
@@ -24,11 +25,17 @@ public class OptionsMenu : MonoBehaviour
     public Slider masterSlider;
     public TMP_Text masterLabel;
 
+    public Slider playerSlider;
+    public TMP_Text playerLabel;
+
+    public Slider enemySlider;
+    public TMP_Text enemyLabel;
+
     public Slider musicSlider;
     public TMP_Text musicLabel;
 
-    public Slider sfxSlider;
-    public TMP_Text sfxLabel;
+    public Slider uiSlider;
+    public TMP_Text uiLabel;
 
     void Start()
     {
@@ -59,6 +66,7 @@ public class OptionsMenu : MonoBehaviour
                 foundCurrentRes = true;
 
                 selectedResIndex = i;
+                defaultResIndex = i;
                 UpdateResLabel();
             }
         }
@@ -83,13 +91,21 @@ public class OptionsMenu : MonoBehaviour
         masterSlider.value = vol;
         masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
 
+        mainMixer.GetFloat("PlayerVol", out vol);
+        playerSlider.value = vol;
+        playerLabel.text = Mathf.RoundToInt(playerSlider.value + 80).ToString();
+
+        mainMixer.GetFloat("EnemyVol", out vol);
+        enemySlider.value = vol;
+        enemyLabel.text = Mathf.RoundToInt(enemySlider.value + 80).ToString();
+
         mainMixer.GetFloat("MusicVol", out vol);
         musicSlider.value = vol;
         musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
 
-        mainMixer.GetFloat("SFXVol", out vol);
-        sfxSlider.value = vol;
-        sfxLabel.text = Mathf.RoundToInt(sfxSlider.value + 80).ToString();
+        mainMixer.GetFloat("UIVol", out vol);
+        uiSlider.value = vol;
+        uiLabel.text = Mathf.RoundToInt(uiSlider.value + 80).ToString();
 
         #endregion
     }
@@ -130,6 +146,11 @@ public class OptionsMenu : MonoBehaviour
 
         //Update the Quaity Label
         UpdateQualityLabel();
+    }
+
+    public void SetQualityValue(int qualIndex)
+    {
+        selectedQualityIndex = qualIndex;
     }
 
     public void UpdateQualityLabel()
@@ -183,6 +204,24 @@ public class OptionsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
     }
 
+    public void SetPlayerVol()
+    {
+        playerLabel.text = Mathf.RoundToInt(playerSlider.value + 80).ToString();
+
+        mainMixer.SetFloat("PlayerVol", playerSlider.value);
+
+        PlayerPrefs.SetFloat("PlayerVolume", playerSlider.value);
+    }
+
+    public void SetEnemyVol()
+    {
+        enemyLabel.text = Mathf.RoundToInt(enemySlider.value + 80).ToString();
+
+        mainMixer.SetFloat("EnemyVol", enemySlider.value);
+
+        PlayerPrefs.SetFloat("EnemyVolume", enemySlider.value);
+    }
+
     public void SetMusicVol()
     {
         musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
@@ -192,13 +231,13 @@ public class OptionsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
     }
 
-    public void SetSFXVol()
+    public void SetUIVol()
     {
-        sfxLabel.text = Mathf.RoundToInt(sfxSlider.value + 80).ToString();
+        uiLabel.text = Mathf.RoundToInt(uiSlider.value + 80).ToString();
 
-        mainMixer.SetFloat("SFXVol", sfxSlider.value);
+        mainMixer.SetFloat("UIVol", uiSlider.value);
 
-        PlayerPrefs.SetFloat("SFXVolume", sfxSlider.value);
+        PlayerPrefs.SetFloat("UIVolume", uiSlider.value);
     }
     #endregion
 
@@ -212,6 +251,7 @@ public class OptionsMenu : MonoBehaviour
 
     #endregion
 
+    #region Apply Settings Functions
     public void ApplyGraphics()
     {
         //Apply the new Quality Settings.
@@ -225,4 +265,63 @@ public class OptionsMenu : MonoBehaviour
     {
 
     }
+
+    #endregion
+
+    #region Rest Settings Functions
+    public void ResetGraphics()
+    {
+        //Reset Quality
+        selectedQualityIndex = 1;
+        
+        QualitySettings.SetQualityLevel(1);
+        UpdateQualityLabel();
+
+        //Reset Screen Resolution
+        selectedResIndex = defaultResIndex;
+        
+        fScreenTog.isOn = false;
+
+        Screen.SetResolution(Screen.width, Screen.height, false);
+        UpdateResLabel();
+    }
+
+    public void ResetAudio()
+    {
+        //Reset Master Audio
+        masterSlider.value = 0;
+        masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
+        mainMixer.SetFloat("MasterVol", masterSlider.value);
+
+        PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
+
+        //Reset Player Audo
+        playerSlider.value = 0;
+        playerLabel.text = Mathf.RoundToInt(playerSlider.value + 80).ToString();
+        mainMixer.SetFloat("PlayerVol", playerSlider.value);
+
+        PlayerPrefs.SetFloat("PlayerVolume", playerSlider.value);
+
+        //Reset Enemy Audio
+        enemySlider.value = 0;
+        enemyLabel.text = Mathf.RoundToInt(enemySlider.value + 80).ToString();
+        mainMixer.SetFloat("EnemyVol", enemySlider.value);
+
+        PlayerPrefs.SetFloat("EnemyVolume", enemySlider.value);
+
+        //Reset Music Audio
+        musicSlider.value = 0;
+        musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
+        mainMixer.SetFloat("MusicVol", musicSlider.value);
+
+        PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
+
+        //Reset UI Audio
+        uiSlider.value = 0;
+        uiLabel.text = Mathf.RoundToInt(uiSlider.value + 80).ToString();
+        mainMixer.SetFloat("UIVol", uiSlider.value);
+
+        PlayerPrefs.SetFloat("UIVolume", uiSlider.value);
+    }
+    #endregion
 }

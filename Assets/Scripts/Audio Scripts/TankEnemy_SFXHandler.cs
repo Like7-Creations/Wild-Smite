@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TankEnemy_SFXHandler : BaseEnemy_SFXHandler
 {
-    [SerializeField] AudioClip tank_SmashAttackVFX;
-    [SerializeField] AudioClip tank_ShootAttackVFX;
-    [SerializeField] AudioClip tank_SwipeAttackVFX;
+    [SerializeField] SFXClip tank_SmashAttackVFX;
+    [SerializeField] SFXClip tank_ShootAttackVFX;
+    [SerializeField] SFXClip tank_SwipeAttackVFX;
 
-    [SerializeField] AudioClip tank_MovementVFX;
+    [SerializeField] SFXClip tank_MovementVFX;
     
-    [SerializeField] AudioClip tank_SummonVFX;
+    [SerializeField] SFXClip tank_SummonVFX;
 
 
     void Start()
@@ -20,31 +20,26 @@ public class TankEnemy_SFXHandler : BaseEnemy_SFXHandler
 
     public void Play_TankSwipe()
     {
-        audioSource.clip = tank_SwipeAttackVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(tank_SwipeAttackVFX.clip, tank_SwipeAttackVFX.voumeVal);
     }
 
     public void Play_TankSmashSFX()
     {
-        audioSource.clip = tank_SmashAttackVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(tank_SmashAttackVFX.clip, tank_SmashAttackVFX.voumeVal);
     }
 
     public void Play_TankShootSFX()
     {
-        audioSource.clip = tank_ShootAttackVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(tank_ShootAttackVFX.clip, tank_ShootAttackVFX.voumeVal);
     }
 
     public void Play_TankMoveSFX()
     {
-        audioSource.clip = tank_MovementVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(tank_MovementVFX.clip, tank_MovementVFX.voumeVal);
     }
 
     public void Play_TankSummon()
     {
-        audioSource.clip = tank_SummonVFX;
-        audioSource.Play();
+        audioSource.PlayOneShot(tank_SummonVFX.clip, tank_SummonVFX.voumeVal);
     }
 }

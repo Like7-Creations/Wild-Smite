@@ -77,6 +77,13 @@ public class LevelCompleteTrigger : MonoBehaviour
         if (other.tag == "Player")
         {
             if (CheckConditions())
+            pauseMenu = FindObjectOfType<PauseMenuController>();
+            pauseMenu.gameObject.SetActive(false);
+
+            //Maybe disable the player as well?
+            //Or perhaps the player input. And then reenable it before loading the next scene as a precaution
+
+            if (Time.timeScale == 0)
             {
                 pauseMenu = FindObjectOfType<PauseMenuController>();
                 pauseMenu.gameObject.SetActive(false);

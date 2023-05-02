@@ -485,8 +485,6 @@ GameObject:
   - component: {fileID: 1042162744271699957}
   - component: {fileID: 1042162744271699956}
   - component: {fileID: 1042162744271699946}
-  - component: {fileID: 6898618764787981840}
-  - component: {fileID: 934433020476611114}
   - component: {fileID: 678774374960078279}
   m_Layer: 5
   m_Name: Button_Settings
@@ -504,7 +502,7 @@ RectTransform:
   m_GameObject: {fileID: 1042162744271699944}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 1042162745676396161}
   m_Father: {fileID: 1042162744509827085}
@@ -650,22 +648,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: HoverToScale, Assembly-CSharp
-          m_MethodName: PointerExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - eventID: 9
     callback:
       m_PersistentCalls:
@@ -734,90 +716,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!95 &6898618764787981840
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042162744271699944}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: da5b8f140a77e4040962429595a31b06, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &934433020476611114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042162744271699944}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411dcac04aff248c4b98f1feb5595fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_onFinish:
-    m_PersistentCalls:
-      m_Calls: []
-  playType: 0
-  animationStartTime: 0
-  animationTime: 1
-  enablePlay: 0
-  awakePlay: 1
-  lgnoreTimeScale: 1
-  randomStartValue: 0
-  startValue: 0
-  _timelineEvents: []
-  tweens:
-  - _tweenName: 
-    _tweenType: 0
-    _isSelf: 1
-    _tweenObject: {fileID: 1042162744271699945}
-    _curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    _minAnimationTime: 0
-    _maxAnimationTime: 1
-    _minTime: 0
-    _maxTime: 1
-    _isLocal: 1
-    _fromVector: {x: -620, y: -155, z: 0}
-    _toVector: {x: 0, y: -155, z: 0}
-    _fromColor: {r: 1, g: 1, b: 1, a: 1}
-    _toColor: {r: 1, g: 1, b: 1, a: 1}
-    _fromFloat: 0
-    _toFloat: 0
-    _bezierCurve: {fileID: 0}
 --- !u!114 &678774374960078279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4824,8 +4722,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4278246016
+  m_fontColor: {r: 0.5019608, g: 0.85490197, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5178,8 +5076,6 @@ GameObject:
   - component: {fileID: 1042162745757843916}
   - component: {fileID: 1042162745757843907}
   - component: {fileID: 1042162745757843905}
-  - component: {fileID: 1720878558245407659}
-  - component: {fileID: 5279915763269652386}
   - component: {fileID: 8408348428694711134}
   m_Layer: 5
   m_Name: Button_CharacterStatistics
@@ -5343,22 +5239,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: HoverToScale, Assembly-CSharp
-          m_MethodName: PointerExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - eventID: 9
     callback:
       m_PersistentCalls:
@@ -5427,90 +5307,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!95 &1720878558245407659
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042162745757843911}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: da5b8f140a77e4040962429595a31b06, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5279915763269652386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042162745757843911}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411dcac04aff248c4b98f1feb5595fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_onFinish:
-    m_PersistentCalls:
-      m_Calls: []
-  playType: 0
-  animationStartTime: 0
-  animationTime: 1
-  enablePlay: 0
-  awakePlay: 1
-  lgnoreTimeScale: 1
-  randomStartValue: 0
-  startValue: 0
-  _timelineEvents: []
-  tweens:
-  - _tweenName: 
-    _tweenType: 0
-    _isSelf: 1
-    _tweenObject: {fileID: 1042162745757843904}
-    _curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    _minAnimationTime: 0
-    _maxAnimationTime: 1
-    _minTime: 0
-    _maxTime: 1
-    _isLocal: 1
-    _fromVector: {x: -620, y: -85, z: 0}
-    _toVector: {x: 0, y: -85, z: 0}
-    _fromColor: {r: 1, g: 1, b: 1, a: 1}
-    _toColor: {r: 1, g: 1, b: 1, a: 1}
-    _fromFloat: 0
-    _toFloat: 0
-    _bezierCurve: {fileID: 0}
 --- !u!114 &8408348428694711134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5867,8 +5663,6 @@ GameObject:
   - component: {fileID: 1042162745822344180}
   - component: {fileID: 1042162745822344171}
   - component: {fileID: 1042162745822344169}
-  - component: {fileID: 1917866500753062168}
-  - component: {fileID: 9049942924624513453}
   - component: {fileID: 6998789914234263335}
   m_Layer: 5
   m_Name: Button_Controls
@@ -5996,9 +5790,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1917866500753062168}
-          m_TargetAssemblyTypeName: HoverToScale, Assembly-CSharp
-          m_MethodName: PointToEnter
+        - m_Target: {fileID: 4344926101029929095}
+          m_TargetAssemblyTypeName: UI_SFXHandler, Assembly-CSharp
+          m_MethodName: Play_PointerHoverSFX
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -6020,10 +5814,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls: []
   - eventID: 9
     callback:
       m_PersistentCalls:
@@ -6092,85 +5882,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &1917866500753062168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042162745822344175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141009dfcd1e2314f84e2df3ba25b5d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisplayPanelUI: {fileID: 1042162745195992478}
-  uiText: {fileID: 1042162745563343009}
---- !u!114 &9049942924624513453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042162745822344175}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411dcac04aff248c4b98f1feb5595fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_onFinish:
-    m_PersistentCalls:
-      m_Calls: []
-  playType: 0
-  animationStartTime: 0
-  animationTime: 1
-  enablePlay: 0
-  awakePlay: 1
-  lgnoreTimeScale: 1
-  randomStartValue: 0
-  startValue: 0
-  _timelineEvents: []
-  tweens:
-  - _tweenName: 
-    _tweenType: 0
-    _isSelf: 1
-    _tweenObject: {fileID: 1042162745822344168}
-    _curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    _minAnimationTime: 0
-    _maxAnimationTime: 1
-    _minTime: 0
-    _maxTime: 1
-    _isLocal: 1
-    _fromVector: {x: -620, y: -225, z: 0}
-    _toVector: {x: 0, y: -225, z: 0}
-    _fromColor: {r: 1, g: 1, b: 1, a: 1}
-    _toColor: {r: 1, g: 1, b: 1, a: 1}
-    _fromFloat: 0
-    _toFloat: 0
-    _bezierCurve: {fileID: 0}
 --- !u!114 &6998789914234263335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6828,9 +6539,7 @@ GameObject:
   - component: {fileID: 7480612627495909856}
   - component: {fileID: 9106762641364799509}
   - component: {fileID: 9245842463383062}
-  - component: {fileID: 71269777356063502}
   - component: {fileID: 6496561683174115202}
-  - component: {fileID: 1378091927273579943}
   - component: {fileID: 1518243528505375425}
   m_Layer: 5
   m_Name: Button_Forfeit
@@ -7006,10 +6715,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls: []
   - eventID: 9
     callback:
       m_PersistentCalls:
@@ -7078,20 +6783,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &71269777356063502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359859786090886791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141009dfcd1e2314f84e2df3ba25b5d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisplayPanelUI: {fileID: 0}
-  uiText: {fileID: 3556755765843162210}
 --- !u!114 &6496561683174115202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7105,71 +6796,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: MVP_HomeBase
---- !u!114 &1378091927273579943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359859786090886791}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411dcac04aff248c4b98f1feb5595fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_onFinish:
-    m_PersistentCalls:
-      m_Calls: []
-  playType: 0
-  animationStartTime: 0
-  animationTime: 1
-  enablePlay: 0
-  awakePlay: 1
-  lgnoreTimeScale: 1
-  randomStartValue: 0
-  startValue: 0
-  _timelineEvents: []
-  tweens:
-  - _tweenName: 
-    _tweenType: 0
-    _isSelf: 1
-    _tweenObject: {fileID: 3938452606863402736}
-    _curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    _minAnimationTime: 0
-    _maxAnimationTime: 1
-    _minTime: 0
-    _maxTime: 1
-    _isLocal: 1
-    _fromVector: {x: -620, y: -295, z: 0}
-    _toVector: {x: 0, y: -295, z: 0}
-    _fromColor: {r: 1, g: 1, b: 1, a: 1}
-    _toColor: {r: 1, g: 1, b: 1, a: 1}
-    _fromFloat: 0
-    _toFloat: 0
-    _bezierCurve: {fileID: 0}
 --- !u!114 &1518243528505375425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7658,7 +7284,7 @@ GameObject:
   - component: {fileID: 2957139741094364710}
   - component: {fileID: 3763985634130010518}
   m_Layer: 5
-  m_Name: PauseMenu_Panel 1
+  m_Name: PauseMenu_Panel [Test]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8348,9 +7974,19 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4777269059597687622, guid: 1122aa145a58e1c49b962170b53ff020, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1122aa145a58e1c49b962170b53ff020, type: 3}
+--- !u!1 &1042162745595229696 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4943720799555260141, guid: 1122aa145a58e1c49b962170b53ff020, type: 3}
+  m_PrefabInstance: {fileID: 5399005205518547181}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1042162745390840981 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4943720799757419640, guid: 1122aa145a58e1c49b962170b53ff020, type: 3}
+  m_PrefabInstance: {fileID: 5399005205518547181}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1042162745390840980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4943720799757419641, guid: 1122aa145a58e1c49b962170b53ff020, type: 3}
   m_PrefabInstance: {fileID: 5399005205518547181}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1042162745390840976 stripped
@@ -8364,97 +8000,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1042162745595229698 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4943720799555260143, guid: 1122aa145a58e1c49b962170b53ff020, type: 3}
-  m_PrefabInstance: {fileID: 5399005205518547181}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042162745595229696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1042162745595229697 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4943720799555260140, guid: 1122aa145a58e1c49b962170b53ff020, type: 3}
   m_PrefabInstance: {fileID: 5399005205518547181}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1042162745595229696 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4943720799555260141, guid: 1122aa145a58e1c49b962170b53ff020, type: 3}
-  m_PrefabInstance: {fileID: 5399005205518547181}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1042162745390840980 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4943720799757419641, guid: 1122aa145a58e1c49b962170b53ff020, type: 3}
-  m_PrefabInstance: {fileID: 5399005205518547181}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4083652126413052343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042162745390840980}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411dcac04aff248c4b98f1feb5595fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_onFinish:
-    m_PersistentCalls:
-      m_Calls: []
-  playType: 0
-  animationStartTime: 0
-  animationTime: 1
-  enablePlay: 0
-  awakePlay: 1
-  lgnoreTimeScale: 1
-  randomStartValue: 0
-  startValue: 0
-  _timelineEvents: []
-  tweens:
-  - _tweenName: 
-    _tweenType: 0
-    _isSelf: 1
-    _tweenObject: {fileID: 1042162745390840981}
-    _curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    _minAnimationTime: 0
-    _maxAnimationTime: 1
-    _minTime: 0
-    _maxTime: 1
-    _isLocal: 1
-    _fromVector: {x: -620, y: -15, z: 0}
-    _toVector: {x: 0, y: -15, z: 0}
-    _fromColor: {r: 1, g: 1, b: 1, a: 1}
-    _toColor: {r: 1, g: 1, b: 1, a: 1}
-    _fromFloat: 0
-    _toFloat: 0
-    _bezierCurve: {fileID: 0}
 --- !u!114 &4975481683439370680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8520,20 +8070,6 @@ MonoBehaviour:
     _fromFloat: 0
     _toFloat: 0
     _bezierCurve: {fileID: 0}
---- !u!114 &7183243448926079398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042162745390840980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141009dfcd1e2314f84e2df3ba25b5d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisplayPanelUI: {fileID: 0}
-  uiText: {fileID: 1042162745595229698}
 --- !u!114 &5855646752003002777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8606,6 +8142,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2957139741094364704}
     m_Modifications:
+    - target: {fileID: 1109005851153860683, guid: 85df93edcc64ed0479a6fb563bd4a8c6, type: 3}
+      propertyPath: m_text
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 1109005851451356386, guid: 85df93edcc64ed0479a6fb563bd4a8c6, type: 3}
       propertyPath: m_Name
       value: Settings_Panel
@@ -8693,6 +8233,22 @@ PrefabInstance:
     - target: {fileID: 1109005851451356389, guid: 85df93edcc64ed0479a6fb563bd4a8c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109005851840460961, guid: 85df93edcc64ed0479a6fb563bd4a8c6, type: 3}
+      propertyPath: m_text
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109005851851978293, guid: 85df93edcc64ed0479a6fb563bd4a8c6, type: 3}
+      propertyPath: m_text
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109005852568456976, guid: 85df93edcc64ed0479a6fb563bd4a8c6, type: 3}
+      propertyPath: m_text
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 5858923793449987584, guid: 85df93edcc64ed0479a6fb563bd4a8c6, type: 3}
+      propertyPath: m_text
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85df93edcc64ed0479a6fb563bd4a8c6, type: 3}
@@ -8895,14 +8451,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaffa829acdfb484d9f34d48eb40996b, type: 3}
---- !u!224 &3108713868572196744 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6786061349648774790, guid: eaffa829acdfb484d9f34d48eb40996b, type: 3}
-  m_PrefabInstance: {fileID: 8433183941342644494}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3108713866854759562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6786061348199773572, guid: eaffa829acdfb484d9f34d48eb40996b, type: 3}
+  m_PrefabInstance: {fileID: 8433183941342644494}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3108713868572196744 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6786061349648774790, guid: eaffa829acdfb484d9f34d48eb40996b, type: 3}
   m_PrefabInstance: {fileID: 8433183941342644494}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &3108713868432713776 stripped
