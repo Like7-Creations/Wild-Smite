@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
     List<SpawnPositions> enemySpawns = new List<SpawnPositions>();
     List<SpawnPositions> TankSpawns = new List<SpawnPositions>();
     List<SpawnPositions> ItemSpawns = new List<SpawnPositions>();
-
+    public int spawnedEnemies;
 
     [Range(0, 100)]
     public float enemyPercentage;
@@ -43,6 +43,7 @@ public class Spawner : MonoBehaviour
     void Awake()
     {
         //test = true;
+        spawnedEnemies = 0;
         currentLevel = levelSettings.GetSelectedLevel();
         currentDifficulty = levelSettings.GetDifficulty();
 
@@ -121,6 +122,7 @@ public class Spawner : MonoBehaviour
                     if (currentEnemy + 1 >= possibleEnemies.Length) currentEnemy = 0;
                     else currentEnemy++;
                     GameObject enemyObject = Instantiate(enemy.enemyPrefab, enemySpawns[i].points[e].position, enemySpawns[i].points[e].rotation);
+                    spawnedEnemies++;
 
                     float angleIteration = 360 / enemyAmount;
 
@@ -133,7 +135,7 @@ public class Spawner : MonoBehaviour
                     enemyObject.GetComponent<EnemyStats>().GenerateStatValues(currentDifficulty);
                 }
             }
-            enemySpawns[i].SpawnEnemies(SpawnCountRange, possibleEnemies[Random.Range(0, possibleEnemies.Length)], currentDifficulty);
+            //enemySpawns[i].SpawnEnemies(SpawnCountRange, possibleEnemies[Random.Range(0, possibleEnemies.Length)], currentDifficulty);
         }
 
         if (spawnTank)
@@ -146,6 +148,7 @@ public class Spawner : MonoBehaviour
                 SpawnPositions initialTankRoom = TankSpawns[Random.Range(0, TankSpawns.Count - 1)];
                 Transform initialTankPoint = initialTankRoom.points[Random.Range(0, initialTankRoom.points.Count - 1)];
                 GameObject enemyObject = Instantiate(tank.enemyPrefab, initialTankPoint.position, initialTankPoint.rotation);
+                spawnedEnemies++;
 
                 //Prevent duplicate spawning in same room
                 TankSpawns.Remove(initialTankRoom);
@@ -166,6 +169,7 @@ public class Spawner : MonoBehaviour
                         SpawnPositions tankRoom = TankSpawns[Random.Range(0, TankSpawns.Count - 1)];
                         Transform tankPoint = tankRoom.points[Random.Range(0, initialTankRoom.points.Count - 1)];
                         GameObject addition = Instantiate(tank.enemyPrefab, tankPoint.position, tankPoint.rotation);
+                        spawnedEnemies++;
 
                         //Prevent duplicate spawning in same room
                         TankSpawns.Remove(tankRoom);
