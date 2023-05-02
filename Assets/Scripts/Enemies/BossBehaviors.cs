@@ -21,14 +21,20 @@ public class BossBehaviors : MonoBehaviour
 
     public bool boss;
 
-    public enum Type
+    public Transform rotationPoint;
+
+    Vector3 myPos;
+
+    public bool currentAttack;
+
+   /* public enum Type
     {
         Tank,
         Boss
     }
     public Type BossType;
 
-    int a, b;
+    int a, b;*/
 
     void Start()
     {
@@ -36,6 +42,7 @@ public class BossBehaviors : MonoBehaviour
         multiAttacker = GetComponent<MultiAttacker>();
         players = FindObjectsOfType<PlayerActions>();
         if(players.Length == 1) { chosenPlayer = players[0]; }
+        myPos = transform.position;
     }
 
     // Update is called once per frame
@@ -46,9 +53,16 @@ public class BossBehaviors : MonoBehaviour
         dist = Vector3.Distance(transform.position, chosenPlayer.transform.position);
 
         if(dist < detectionRange) playerDetected = true;
-        if (playerDetected) timer += Time.deltaTime;
+        if (playerDetected && !currentAttack) timer += Time.deltaTime;
 
-        switch (BossType)
+        if(transform.position != myPos)
+        {
+            transform.position = myPos;
+        }
+
+        
+
+        /*switch (BossType)
         {
             case Type.Tank:
                 
@@ -65,16 +79,29 @@ public class BossBehaviors : MonoBehaviour
                 break;
         }
 
-        if(timer >= 10000)
+        print(multiAttacker.attacksList.Length / 2);
+        print((multiAttacker.attacksList.Length / 2) + 1);
+        print(multiAttacker.attacksList.Length);*/
+        //print($"{a} / {b}");
+
+
+        if (timer >= 5)
         {
-            print($"{a} / {b}");
-            multiAttacker.AttackPlayer(a,b);
+            if (dist <= 5)
+            {
+                multiAttacker.AttackPlayer(0, multiAttacker.attacksList.Length / 2);
+            }
+            else
+            {
+                multiAttacker.AttackPlayer((multiAttacker.attacksList.Length / 2), multiAttacker.attacksList.Length);
+            }
+            currentAttack = true;
             timer = 0;
         }
 
         Vector3 pos = chosenPlayer.transform.position;
+        rotationPoint.LookAt(pos);
        // pos.y = 0;
-        transform.LookAt(pos);
 
     }
 

@@ -35057,7 +35057,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2774266537517472710}
-  - component: {fileID: 8097472555709268412}
   - component: {fileID: 5124742657272684348}
   - component: {fileID: 5124742657272684349}
   - component: {fileID: 5124742657272684482}
@@ -35075,6 +35074,7 @@ GameObject:
   - component: {fileID: 3300008344911806851}
   - component: {fileID: 3300008344911806850}
   - component: {fileID: 8913068132140638428}
+  - component: {fileID: 4640142023752855295}
   m_Layer: 0
   m_Name: MeleeAllAttacks
   m_TagString: Untagged
@@ -35111,25 +35111,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8097472555709268412
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3300008344911806844}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 1416aa8c23bfb1c4da29e64a5ff633e5, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1f592a90c462cd143b0f9a6754d5bee0, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!136 &5124742657272684348
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -35307,6 +35288,7 @@ MonoBehaviour:
   - {fileID: 3300008344911806835}
   - {fileID: 3300008344911806834}
   - {fileID: 3300008344911806845}
+  currentAttack: {fileID: 0}
   playerAmount: []
   chosenPlayer: {fileID: 0}
   playerOne: {fileID: 0}
@@ -35329,6 +35311,7 @@ MonoBehaviour:
   state: {fileID: 0}
   stats: {fileID: 0}
   anim: {fileID: 0}
+  animTriggerName: prepSwing
   timeToAttackAfterIndicator: 1
 --- !u!114 &3300008344911806834
 MonoBehaviour:
@@ -35348,6 +35331,7 @@ MonoBehaviour:
   state: {fileID: 0}
   stats: {fileID: 0}
   anim: {fileID: 0}
+  animTriggerName: prepJab
   timeToAttackAfterIndicator: 1
 --- !u!114 &3300008344911806845
 MonoBehaviour:
@@ -35367,6 +35351,7 @@ MonoBehaviour:
   state: {fileID: 0}
   stats: {fileID: 0}
   anim: {fileID: 0}
+  animTriggerName: prepSpin
   timeToAttackAfterIndicator: 1
   noOfAttacks: 3
   TimeBetweenAttacks: 0.1
@@ -35575,6 +35560,19 @@ RotationConstraint:
   m_IsContraintActive: 1
   m_IsLocked: 0
   m_Sources: []
+--- !u!114 &4640142023752855295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300008344911806844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fa2174836efc148b96c5ec69b1813d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiAttack: {fileID: 0}
 --- !u!1 &3319035648574939687
 GameObject:
   m_ObjectHideFlags: 0
@@ -95444,6 +95442,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Melee_Enemy_Rig
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1416aa8c23bfb1c4da29e64a5ff633e5, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1f592a90c462cd143b0f9a6754d5bee0, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 1416aa8c23bfb1c4da29e64a5ff633e5, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1416aa8c23bfb1c4da29e64a5ff633e5, type: 3}
 --- !u!4 &3721422309984285370 stripped
@@ -95451,6 +95457,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1416aa8c23bfb1c4da29e64a5ff633e5, type: 3}
   m_PrefabInstance: {fileID: 3760396436755109201}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4102486185512003584 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1416aa8c23bfb1c4da29e64a5ff633e5, type: 3}
+  m_PrefabInstance: {fileID: 3760396436755109201}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8200751976393005502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4102486185512003584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fa2174836efc148b96c5ec69b1813d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiAttack: {fileID: 0}
 --- !u!1001 &3831506037573730205
 PrefabInstance:
   m_ObjectHideFlags: 0
