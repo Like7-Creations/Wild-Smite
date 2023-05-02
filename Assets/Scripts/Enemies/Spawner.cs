@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     public Vector2Int SpawnCountRange;
 
     public EnemyInfo[] possibleEnemies;
+    public EnemyInfo tankInfo;
 
     public ItemInfo[] possibleItems;
 
@@ -19,12 +20,20 @@ public class Spawner : MonoBehaviour
     SpawnPositions[] roomSpawns;
 
     List<SpawnPositions> enemySpawns = new List<SpawnPositions>();
-
+    List<SpawnPositions> TankSpawns = new List<SpawnPositions>();
     List<SpawnPositions> ItemSpawns = new List<SpawnPositions>();
-
+    public int spawnedEnemies;
 
     [Range(0, 100)]
     public float enemyPercentage;
+
+    public bool spawnTank;
+    public float tankChance;
+    [Range(0, 100)]
+    public float initialTankPercentage;
+    [Range(0, 100)]
+    public float additionalTankPercentage;
+
     [Range(0, 100)]
     public float ItemPercentage;
 
@@ -34,9 +43,12 @@ public class Spawner : MonoBehaviour
     void Awake()
     {
         //test = true;
+        spawnedEnemies = 0;
         currentLevel = levelSettings.GetSelectedLevel();
         currentDifficulty = levelSettings.GetDifficulty();
 
+        initialTankPercentage = currentLevel.initialTankChance;
+        additionalTankPercentage = currentLevel.additionalTankChance;
 
 
         for (int i = 0; i < possibleEnemies.Length; i++)
@@ -45,8 +57,11 @@ public class Spawner : MonoBehaviour
             {
                 if (possibleEnemies[i].type == currentLevel.enemyData[j].Type)
                     possibleEnemies[i].statRange = currentLevel.enemyData[j].StatRange;
+
+                if (tankInfo.type == currentLevel.enemyData[j].Type)
+                    tankInfo.statRange = currentLevel.enemyData[j].StatRange;
             }
-        }
+        }        
     }
 
     // Update is called once per frame
@@ -63,14 +78,16 @@ public class Spawner : MonoBehaviour
                     case SpawnPositions.Type.Enemy:
 
                         enemySpawns.Add(roomSpawns[i]);
-
                         break;
                     
                     case SpawnPositions.Type.Item:
                        
                         ItemSpawns.Add(roomSpawns[i]);
+                        break;
 
-                        break;                 
+                    case SpawnPositions.Type.Tank:
+                        TankSpawns.Add(roomSpawns[i]);
+                        break;
                 }
             }
 
@@ -105,6 +122,7 @@ public class Spawner : MonoBehaviour
                     if (currentEnemy + 1 >= possibleEnemies.Length) currentEnemy = 0;
                     else currentEnemy++;
                     GameObject enemyObject = Instantiate(enemy.enemyPrefab, enemySpawns[i].points[e].position, enemySpawns[i].points[e].rotation);
+                    spawnedEnemies++;
 
                     float angleIteration = 360 / enemyAmount;
 
@@ -117,7 +135,54 @@ public class Spawner : MonoBehaviour
                     enemyObject.GetComponent<EnemyStats>().GenerateStatValues(currentDifficulty);
                 }
             }
-            enemySpawns[i].SpawnEnemies(SpawnCountRange, possibleEnemies[Random.Range(0, possibleEnemies.Length)], currentDifficulty);
+            //enemySpawns[i].SpawnEnemies(SpawnCountRange, possibleEnemies[Random.Range(0, possibleEnemies.Length)], currentDifficulty);
+        }
+
+        if (spawnTank)
+        {
+            float spawn = Random.Range(0, 100);
+            tankChance = spawn;
+            if (spawn <= initialTankPercentage)
+            {
+                EnemyInfo tank = tankInfo;
+                SpawnPositions initialTankRoom = TankSpawns[Random.Range(0, TankSpawns.Count - 1)];
+                Transform initialTankPoint = initialTankRoom.points[Random.Range(0, initialTankRoom.points.Count - 1)];
+                GameObject enemyObject = Instantiate(tank.enemyPrefab, initialTankPoint.position, initialTankPoint.rotation);
+                spawnedEnemies++;
+
+                //Prevent duplicate spawning in same room
+                TankSpawns.Remove(initialTankRoom);
+
+                enemyObject.GetComponent<EnemyStats>().ESR = tankInfo.statRange;
+                enemyObject.GetComponent<EnemyStats>().GenerateStatValues(currentDifficulty);
+
+                float additionaltankChance = additionalTankPercentage;
+                int possibleTanks = 5;
+                if (TankSpawns.Count < 5)
+                    possibleTanks = TankSpawns.Count;
+                for (int i = 0; i < possibleTanks; i++)
+                {
+                    float chance = Random.Range(0, 100);
+                    if (chance <= additionaltankChance)
+                    {
+                        //Spawn additional Tank
+                        SpawnPositions tankRoom = TankSpawns[Random.Range(0, TankSpawns.Count - 1)];
+                        Transform tankPoint = tankRoom.points[Random.Range(0, initialTankRoom.points.Count - 1)];
+                        GameObject addition = Instantiate(tank.enemyPrefab, tankPoint.position, tankPoint.rotation);
+                        spawnedEnemies++;
+
+                        //Prevent duplicate spawning in same room
+                        TankSpawns.Remove(tankRoom);
+
+                        addition.GetComponent<EnemyStats>().ESR = tankInfo.statRange;
+                        addition.GetComponent<EnemyStats>().GenerateStatValues(currentDifficulty);
+
+                        //Half the chance of another being spawned
+                        additionaltankChance /= 2;
+                    }
+                    else break;
+                }
+            }            
         }
     }
 

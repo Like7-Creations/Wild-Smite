@@ -17,6 +17,9 @@ public class GameSelectionPanel : MonoBehaviour
     [Header("FirstSelectedButtons")]
     public Button modeSelect;
 
+    [Header("Tween Settings")]
+    public float interval;
+
     public void LoadCharacterSelection()
     {
         SelectionCanvas.SetActive(true);
@@ -42,6 +45,7 @@ public class GameSelectionPanel : MonoBehaviour
         }
 
         slots[0].GetComponent<Button>().Select();
+        StartCoroutine(SlotSequencialTween());
     }
 
     public void SetMode(bool mode)
@@ -67,6 +71,15 @@ public class GameSelectionPanel : MonoBehaviour
                 slots[i].SetPlayers(1);
             else
                 slots[i].SetPlayers(2);
+        }
+    }
+
+    IEnumerator SlotSequencialTween()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i].tweenControl.Play();
+            yield return new WaitForSeconds(interval);
         }
     }
 }

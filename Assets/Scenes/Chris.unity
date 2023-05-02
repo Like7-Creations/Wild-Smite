@@ -1666,7 +1666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &35352466
 Transform:
   m_ObjectHideFlags: 0
@@ -7268,6 +7268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297227e91f21aab48997d1e3c9da8fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelText: {fileID: 0}
+  showLevel: 0
   bars:
   - {fileID: 1617373119}
   - {fileID: 865310598}
@@ -11649,6 +11651,7 @@ MonoBehaviour:
   InstancePaddingY: {x: 105, y: 105}
   closeButton: {fileID: 455018894}
   options: []
+  tweenInterval: 0.2
 --- !u!114 &257028233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24362,6 +24365,7 @@ MonoBehaviour:
   InstancePaddingY: {x: 0, y: 0}
   closeButton: {fileID: 0}
   options: []
+  tweenInterval: 0
 --- !u!114 &509484150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30719,6 +30723,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: C_TestPlayer_A (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1875388763240933588, guid: 0f2ffbca409093e4d88bf41ea6523a92, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f2ffbca409093e4d88bf41ea6523a92, type: 3}
 --- !u!1 &653182551
@@ -36326,6 +36334,10 @@ PrefabInstance:
     - target: {fileID: 3588190102459546796, guid: 67e3ebbeb8e1412449470eba90910f0e, type: 3}
       propertyPath: m_Name
       value: FinalKang
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588190102459546796, guid: 67e3ebbeb8e1412449470eba90910f0e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4215403677547767318, guid: 67e3ebbeb8e1412449470eba90910f0e, type: 3}
       propertyPath: m_RootOrder
@@ -51891,6 +51903,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinalCroc
       objectReference: {fileID: 0}
+    - target: {fileID: 6806486932568584927, guid: ff88ebe14c4bba142af890ccce6ef6aa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff88ebe14c4bba142af890ccce6ef6aa, type: 3}
 --- !u!1 &1109924696
@@ -65667,6 +65683,7 @@ MonoBehaviour:
   InstancePaddingY: {x: 0, y: 0}
   closeButton: {fileID: 0}
   options: []
+  tweenInterval: 0
 --- !u!114 &1467474122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66409,7 +66426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1485465572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88644,6 +88661,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: C_TestPlayer_A
       objectReference: {fileID: 0}
+    - target: {fileID: 1875388763240933588, guid: 0f2ffbca409093e4d88bf41ea6523a92, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f2ffbca409093e4d88bf41ea6523a92, type: 3}
 --- !u!1 &2037035386
@@ -89671,6 +89692,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297227e91f21aab48997d1e3c9da8fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelText: {fileID: 0}
+  showLevel: 0
   bars:
   - {fileID: 1092453822}
   - {fileID: 1291745032}

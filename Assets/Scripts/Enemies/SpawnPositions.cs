@@ -10,6 +10,7 @@ public class SpawnPositions : MonoBehaviour
     public enum Type
     {
         Enemy,
+        Tank,
         Item
     }
 
