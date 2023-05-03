@@ -5380,7 +5380,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 25
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -5814,14 +5814,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAudio: {fileID: 4108979130654174356}
-  loopAudio: {fileID: 4671952168339284679}
-  playerFootsteps_SFX: {fileID: 8300000, guid: fccb178d47cc4d346a28ae027988c533, type: 3}
-  playerDash_SFX: {fileID: 8300000, guid: 7c03fd9976e31cf4594bb9b70d442a81, type: 3}
-  playerSprint_SFX: {fileID: 8300000, guid: 568bb4da116f575429d31e3112410ad2, type: 3}
-  playerAttack_SFX: {fileID: 8300000, guid: 980186fb825495b48947865e902a03eb, type: 3}
-  playerAOE_SFX: {fileID: 8300000, guid: fe99daca802fd5443b91f7de277650de, type: 3}
-  playerAOECharging_SFX: {fileID: 8300000, guid: 625d7f0f585874a4fb5acf6622e83652, type: 3}
-  playerDmg_SFX: {fileID: 8300000, guid: 17271faf3078979459d37d5914ae5fe9, type: 3}
+  moveLoopAudio: {fileID: 0}
+  aoeChargeAudio: {fileID: 0}
+  playerWalk_SFX:
+    name: 
+    clip: {fileID: 0}
+    voumeVal: 1
+  playerDash_SFX:
+    name: 
+    clip: {fileID: 0}
+    voumeVal: 1
+  playerSprint_SFX:
+    name: 
+    clip: {fileID: 0}
+    voumeVal: 1
+  playerMATKs_SFX: []
+  playerRATKs_SFX: []
+  playerAOE_SFX:
+    name: 
+    clip: {fileID: 0}
+    voumeVal: 1
+  playerAOECharging_SFX:
+    name: 
+    clip: {fileID: 0}
+    voumeVal: 1
+  playerDamage_SFX: []
   volume: 0.8
 --- !u!114 &-6499161388970198589
 MonoBehaviour:
