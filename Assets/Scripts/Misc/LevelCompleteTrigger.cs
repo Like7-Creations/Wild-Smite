@@ -23,21 +23,30 @@ public class LevelCompleteTrigger : MonoBehaviour
     //DelayedStart
     float timer;
     bool init;
+    bool exitOpen;
+
+    private void Awake()
+    {
+        GetComponent<Collider>().enabled = false;
+    }
 
     private void Update()
     {
-        if (timer > .6f && !init)
+        if (timer > .6f)
         {
-            pauseMenu = FindObjectOfType<PauseMenuController>();
-            totalEnemies = FindObjectOfType<Spawner>().spawnedEnemies;
+            if (!init)
+            {
+                pauseMenu = FindObjectOfType<PauseMenuController>();
+                totalEnemies = FindObjectOfType<Spawner>().spawnedEnemies;
 
-            killAmount = Mathf.RoundToInt(totalEnemies * killPercent);
-            if (!RedParticle.isPlaying)
-                RedParticle.Play();
-            if (GreenParticle.isPlaying)
-                GreenParticle.Stop();
+                killAmount = Mathf.RoundToInt(totalEnemies * killPercent);
+                if (!RedParticle.isPlaying)
+                    RedParticle.Play();
+                if (GreenParticle.isPlaying)
+                    GreenParticle.Stop();
 
-            init = true;
+                init = true;
+            }
         }
         else
             timer += Time.deltaTime;
@@ -60,6 +69,8 @@ public class LevelCompleteTrigger : MonoBehaviour
                 RedParticle.Stop();
             if (!GreenParticle.isPlaying)
                 GreenParticle.Play();
+            exitOpen = true;
+            GetComponent<Collider>().enabled = true;
             return true;
         }
         else
@@ -76,9 +87,8 @@ public class LevelCompleteTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (CheckConditions())
-            pauseMenu = FindObjectOfType<PauseMenuController>();
-            pauseMenu.gameObject.SetActive(false);
+            //pauseMenu = FindObjectOfType<PauseMenuController>();
+            //pauseMenu.gameObject.SetActive(false);
 
             //Maybe disable the player as well?
             //Or perhaps the player input. And then reenable it before loading the next scene as a precaution
@@ -91,7 +101,7 @@ public class LevelCompleteTrigger : MonoBehaviour
                 if (Time.timeScale == 0)
                 {
                     Time.timeScale = 1;
-                }                
+                }
             }
 
             LevelCompleteUI.gameObject.SetActive(true);
