@@ -45,6 +45,7 @@ public class PauseMenuController : MonoBehaviour
 
                 Time.timeScale = 0;
                 IsPaused = true;
+                PlayerConfigManager.Instance.TogglePausedState(IsPaused);
             }
             else
             {
@@ -55,6 +56,7 @@ public class PauseMenuController : MonoBehaviour
                 Time.timeScale = 1;
                 Destroy(pauseMenu);
                 IsPaused = false;
+                PlayerConfigManager.Instance.TogglePausedState(IsPaused);
                 currentPlayerIndex = -1;
             }
         }
@@ -68,6 +70,7 @@ public class PauseMenuController : MonoBehaviour
         Time.timeScale = 1;
         Destroy(pauseMenu);
         IsPaused = false;
+        PlayerConfigManager.Instance.TogglePausedState(IsPaused);
         currentPlayerIndex = -1;
     }
 

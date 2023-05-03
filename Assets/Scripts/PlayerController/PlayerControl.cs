@@ -33,7 +33,7 @@ public class PlayerControl : MonoBehaviour
 
     public void OnInputAction(InputAction.CallbackContext context)
     {
-        if (!isPaused)
+        if (!playerConfig.isPaused)
         {
             //Dashing
             if (context.action.name == controls.Player.Dash.name && context.performed)
@@ -130,17 +130,7 @@ public class PlayerControl : MonoBehaviour
             PauseMenuController pause = FindObjectOfType<PauseMenuController>();
             if (pause != null)
                 pause.PauseGame(playerConfig);
-
-            if (isPaused)
-            {
-                isPaused = false;
-            }
-            else
-            {
-                isPaused = true;
-            }
         }
-
 
     }
 

@@ -36,6 +36,8 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
     public GameObject defaultCharacter;
     public Material defaultMaterial;
 
+    bool isPaused;
+
     public static PlayerConfigManager Instance { get; private set; }
 
     private void OnEnable()
@@ -148,6 +150,13 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
     public List<PlayerConfig> GetPlayerConfigs()
     {
         return playerConfigs;
+    }
+
+    public void TogglePausedState(bool state)
+    {
+        isPaused = state;
+        for (int i = 0; i < playerConfigs.Count;i++)
+            playerConfigs[i].isPaused = isPaused;
     }
 
     public void SetPlayerColor(int index, Material color)
@@ -273,6 +282,8 @@ public class PlayerConfig
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
+    public bool isPaused { get; set; }
+
     public Material PlayerMat { get; set; }
     public GameObject Character { get; set; }
 

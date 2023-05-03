@@ -18,6 +18,7 @@ public class PlayerSetupController : MonoBehaviour
     [SerializeField]
     TMP_Text characterText;
 
+    public RawImage charSprite;
     public CharacterInfo Crocodile;
     public CharacterInfo Kangaroo;
     CharacterInfo selectedCharacter;
@@ -41,6 +42,7 @@ public class PlayerSetupController : MonoBehaviour
     private void Awake()
     {
         ready = false;
+        SetCharacter(0);
     }
 
     // Update is called once per frame
@@ -57,7 +59,7 @@ public class PlayerSetupController : MonoBehaviour
         deviceText.text = device;
         ignoreInputTime = Time.time + ignoreInputTime;
         SetCharacter(0);
-        SetColor(0);        
+        //SetColor(0);        
     }
 
     public void SetColor(int index)
@@ -69,12 +71,15 @@ public class PlayerSetupController : MonoBehaviour
         {
             case 0:
                 PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_1);
+                charSprite.texture = selectedCharacter.Char1_Sprite;
                 break;
             case 1:
                 PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_2);
+                charSprite.texture = selectedCharacter.Char2_Sprite;
                 break;
             case 2:
                 PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_3);
+                charSprite.texture = selectedCharacter.Char3_Sprite;
                 break;
         }
 
@@ -152,4 +157,7 @@ public class CharacterInfo
     public GameObject Character_1;
     public GameObject Character_2;
     public GameObject Character_3;
+    public RenderTexture Char1_Sprite;
+    public RenderTexture Char2_Sprite;
+    public RenderTexture Char3_Sprite;
 }
