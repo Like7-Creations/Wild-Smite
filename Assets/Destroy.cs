@@ -39,7 +39,7 @@ public class Destroy : MonoBehaviour
             if (other.gameObject.GetComponent<EnemyStats>() != null)
             {
                 EnemyStats victim = other.gameObject.GetComponent<EnemyStats>();
-                victim.TakeDamage(actions.pStats.r_ATK, actions.pStats);// Deal damage to the enemy
+                victim.TakeDamage(actions.pStats.r_ATK, actions.pStats, transform.forward, 1);// Deal damage to the enemy
                 BulletDie();
             }
             else BulletDie();
@@ -55,7 +55,7 @@ public class Destroy : MonoBehaviour
             if (other.gameObject.GetComponent<PlayerActions>() != null)
             {
                 PlayerStats anotherVictim = other.gameObject.GetComponent<PlayerStats>();
-                anotherVictim.GetComponent<PlayerActions>().TakeDamage(damage);
+                anotherVictim.GetComponent<PlayerActions>().TakeDamage(damage, transform.forward);
                 BulletDie();
             }
             else BulletDie();

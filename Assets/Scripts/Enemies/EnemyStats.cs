@@ -140,7 +140,7 @@ public class EnemyStats : MonoBehaviour
         AllocateStats();
     }
 
-    public void TakeDamage(float damageToTake, PlayerStats player)
+    public void TakeDamage(float damageToTake, PlayerStats player, Vector3 knockBackDir, float knockbackStrength)
     {
         hitPlayer = player;
 
@@ -165,6 +165,11 @@ public class EnemyStats : MonoBehaviour
         //health -= damageToTake;
         //player = attacker.transform;
 
+        Vector3 direction = (knockBackDir - transform.position).normalized;
+        Vector3 knockbackVector = direction * knockbackStrength;
+        agent.SetDestination(transform.position + knockbackVector);
+
+
         if (vfx.isEnabled)
         {
             vfx.enemyHitVFX.Play();
@@ -180,7 +185,7 @@ public class EnemyStats : MonoBehaviour
 
     public IEnumerator DeathWait(float deathTime)
     {
-        yield return new WaitForSeconds(deathTime); //A timer with a value of 2f is created and once it is done ticking - bye bye dear AI :D
+        yield return new WaitForSeconds(deathTime);
         GameObject.Destroy(this.gameObject);
     }
 
@@ -208,7 +213,7 @@ public class EnemyStats : MonoBehaviour
     public void playerTakeDamage(float damage)
     {
         // check if player is in range;
-        GetComponent<StateManager>().currentState.chosenPlayer.GetComponent<PlayerActions>().TakeDamage(damage);
+        GetComponent<StateManager>().currentState.chosenPlayer.GetComponent<PlayerActions>().TakeDamage(damage,transform.forward);
     }
 
 }

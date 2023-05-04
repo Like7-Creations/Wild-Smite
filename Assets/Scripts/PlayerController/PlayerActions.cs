@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-//using System.Diagnostics;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -15,9 +13,6 @@ public class PlayerActions : MonoBehaviour
 
     public PlayerMovement playerController;
     PlayerVFX VFX;
-
-    [HideInInspector] public Guid myGuid;
-    PlayerActions[] players;
 
     Vector2 rotation;
 
@@ -33,6 +28,7 @@ public class PlayerActions : MonoBehaviour
     public int combo;
     Animator animator;
     bool invincible;
+    [SerializeField] int hitIndex;
     [SerializeField] bool isAttacking;
     [SerializeField] float meleeDash;
     [SerializeField] float meleeknockback;
@@ -121,14 +117,13 @@ public class PlayerActions : MonoBehaviour
 
     void Start()
     {
-        myGuid = Guid.NewGuid();
-        players = FindObjectsOfType<PlayerActions>();
         playerController = GetComponent<PlayerMovement>();
         VFX = GetComponent<PlayerVFX>();
         pStats = GetComponent<PlayerStats>();
         animator = GetComponent<Animator>();
         OriginalSpeed = playerController.playerSpeed;
         startRotation = transform.rotation.eulerAngles;
+        hitIndex = 0;
     }
 
     public float currentCharge = 0;
@@ -288,7 +283,7 @@ public class PlayerActions : MonoBehaviour
     }
 
     #region Player Take Damage
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, Vector3 knockBackDir)
     {
         print("Take damage called");
         if (!invincible)
@@ -297,6 +292,7 @@ public class PlayerActions : MonoBehaviour
             {
                 animator.SetTrigger("Hit");
             }
+            StartCoroutine(Mover(30, 0.1f, knockBackDir));
             //Color origin = hit.material.color;
             //flash.gameObject.SetActive(true);
             /* hit.materials[0].color = Color.red;
@@ -311,7 +307,6 @@ public class PlayerActions : MonoBehaviour
 
             //Farhan's Code-----
 
-            //StartCoroutine(Mover(10, 0.03f, knockbackdir));
             //playerController.controller.Move(transform.forward * meleeknockback * Time.deltaTime);
             //Vector3 knockBack = transform.position - transform.forward * knockbackStr;
             //knockBack.y = 0;
@@ -330,6 +325,7 @@ public class PlayerActions : MonoBehaviour
     #endregion
 
     bool testCombat;
+    bool testAnim;
     [SerializeField] List<int> lastrands = new List<int>();
 
     public void Attack(/*InputAction.CallbackContext context*/)
@@ -341,39 +337,21 @@ public class PlayerActions : MonoBehaviour
                 //transform.LookAt(playerLookDir);
                 if (enemiesInDot.Count > 0) { transform.LookAt(GetClosestEnemy(enemiesInDot).transform); };
                 //StartCoroutine(Mover(2, 0.1f, Dashdir));
-                int randomNumber = UnityEngine.Random.Range(0, 2);
-                int previous = randomNumber;
+                //int randomNumber = Random.Range(0, 2);
+                // int previous = randomNumber
 
 
+                print(hitIndex);
+                animator.SetTrigger("Attack" + hitIndex);
 
-                if (!lastrands.Contains(randomNumber))
+                hitIndex++;
+                if (hitIndex > 1)
                 {
-                    animator.SetTrigger("Attack" + randomNumber.ToString());
-
-                    /*int i = 0;
-
-                    if (i == 0)
-                    {
-                        trigger_attack_right.Invoke();
-                        i++;
-                    }
-                    else if (i == 1)
-                    {
-                        trigger_attack_left.Invoke();
-                        i--;
-                    }*/
-
-
-                    lastrands.Add(randomNumber);
-
+                    hitIndex = 0;
                 }
-                else
-                {
-                    Attack();
-                }
+                testCombat = true;
             }
         }
-
     }
 
     EnemyStats GetClosestEnemy(List<EnemyStats> enemies)
@@ -410,15 +388,10 @@ public class PlayerActions : MonoBehaviour
     {
         playerController.playerSpeed = 0f;
         isAttacking = false;
-        if (combo < 3)
-        {
-            combo++;
-        }
     }
     public void FinishAni()
     {
         isAttacking = false;
-        combo = 0;
     }
 
     //Event Required
@@ -429,7 +402,7 @@ public class PlayerActions : MonoBehaviour
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
                 Debug.Log("enable collider called");
-                enemiesInDot[i].TakeDamage(pStats.m_ATK, pStats);
+                enemiesInDot[i].TakeDamage(pStats.m_ATK, pStats, transform.forward, 3);
             }
         }
         //VFX.Melee();
@@ -442,6 +415,7 @@ public class PlayerActions : MonoBehaviour
         //animator.applyRootMotion = true;
         //VFX.Melee();
         playerController.enabled = true;
+        testCombat = false;
     }
 
     public void SwipeLeft()
