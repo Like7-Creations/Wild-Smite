@@ -17,7 +17,7 @@ public class Swing : Attack
             float dist = Vector3.Distance(state.players[e].transform.position, transform.position);
             if (dist < stats.attackRange)
             {
-                state.chosenPlayer.TakeDamage(stats.MATK,transform.forward);
+                state.chosenPlayer.TakeDamage(stats.MATK);
             }
         }
     }

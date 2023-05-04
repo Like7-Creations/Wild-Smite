@@ -48,7 +48,7 @@ public class Swipe : Attack
             playersInArea = playersInArea.Distinct().ToList();
             for (int i = 0; i < playersInArea.Count; i++)
             {
-                playersInArea[i].TakeDamage(stats.MATK,transform.forward);
+                playersInArea[i].TakeDamage(stats.MATK);
                 StartCoroutine(playersInArea[i].Mover(knockBackStr, knockBacktime, transform.forward));
                 GetComponent<BossBehaviors>().currentAttack = false;
             }
