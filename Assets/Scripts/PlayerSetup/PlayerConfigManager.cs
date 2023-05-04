@@ -36,7 +36,7 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
     public GameObject defaultCharacter;
     public Material defaultMaterial;
 
-    bool isPaused;
+    public bool isPaused;
 
     public static PlayerConfigManager Instance { get; private set; }
 
@@ -105,6 +105,26 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
     {
 
     }*/
+
+    public void EnableIngameControls()
+    {
+        List<PlayerConfig> players = GetPlayerConfigs();
+
+        foreach (PlayerConfig pc in playerConfigs)
+        {
+            pc.Input.actions.FindActionMap("Player").Enable();
+        }
+    }
+
+    public void DisableIngameControls()
+    {
+        List<PlayerConfig> players = GetPlayerConfigs();
+
+        foreach (PlayerConfig pc in playerConfigs)
+        {
+            pc.Input.actions.FindActionMap("Player").Disable();
+        }
+    }
 
     public void ResetManager(GameObject SelectionPanel)
     {

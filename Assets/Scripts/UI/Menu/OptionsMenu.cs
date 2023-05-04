@@ -37,6 +37,8 @@ public class OptionsMenu : MonoBehaviour
     public Slider uiSlider;
     public TMP_Text uiLabel;
 
+    public TMP_Text uiScaleLabel;
+
     void Start()
     {
         #region Prepping Graphics Settings
@@ -113,6 +115,18 @@ public class OptionsMenu : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public float CalculatePercentage(float percentage)
+    {
+        if (percentage > 5)
+        {
+            percentage = 5;
+        }
+
+        float result = (percentage / 100) * 20;
+
+        return result;
     }
 
     #region Graphics Functions
@@ -199,7 +213,7 @@ public class OptionsMenu : MonoBehaviour
     {
         masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
 
-        mainMixer.SetFloat("MasterVol", masterSlider.value);
+        mainMixer.SetFloat("MasterVol", Mathf.Log(masterSlider.value) * 20f);
 
         PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
     }
@@ -208,7 +222,7 @@ public class OptionsMenu : MonoBehaviour
     {
         playerLabel.text = Mathf.RoundToInt(playerSlider.value + 80).ToString();
 
-        mainMixer.SetFloat("PlayerVol", playerSlider.value);
+        mainMixer.SetFloat("PlayerVol", Mathf.Log(playerSlider.value) * 20f);
 
         PlayerPrefs.SetFloat("PlayerVolume", playerSlider.value);
     }
@@ -217,7 +231,7 @@ public class OptionsMenu : MonoBehaviour
     {
         enemyLabel.text = Mathf.RoundToInt(enemySlider.value + 80).ToString();
 
-        mainMixer.SetFloat("EnemyVol", enemySlider.value);
+        mainMixer.SetFloat("EnemyVol", Mathf.Log(enemySlider.value) * 20f);
 
         PlayerPrefs.SetFloat("EnemyVolume", enemySlider.value);
     }
@@ -226,7 +240,7 @@ public class OptionsMenu : MonoBehaviour
     {
         musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
 
-        mainMixer.SetFloat("MusicVol", musicSlider.value);
+        mainMixer.SetFloat("MusicVol", Mathf.Log(musicSlider.value) * 20f);
 
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
     }
@@ -235,7 +249,7 @@ public class OptionsMenu : MonoBehaviour
     {
         uiLabel.text = Mathf.RoundToInt(uiSlider.value + 80).ToString();
 
-        mainMixer.SetFloat("UIVol", uiSlider.value);
+        mainMixer.SetFloat("UIVol", Mathf.Log(uiSlider.value) * 20f);
 
         PlayerPrefs.SetFloat("UIVolume", uiSlider.value);
     }
@@ -243,11 +257,23 @@ public class OptionsMenu : MonoBehaviour
 
     #region General GameSetting Functions
 
-    //Create a function that enables key recording mode.
+    //Create a function that takes an int parameter, and uses it to scale the game UI in the scene.
 
-    //Create function that unbinds a key from an action.
+    public void ScaleUI(float scaleVal)
+    {
+        int scale = Mathf.RoundToInt(scaleVal);
 
-    //Create function that binds a key to an action.
+        float uiScale = CalculatePercentage(scale);
+
+        PlayerPrefs.SetFloat("GameUIScale", uiScale);
+
+        UpdateScaleSliderText(uiScale);
+    }
+
+    public void UpdateScaleSliderText(float val)
+    {
+        uiScaleLabel.text = val.ToString();
+    }
 
     #endregion
 
@@ -263,7 +289,7 @@ public class OptionsMenu : MonoBehaviour
 
     public void ApplyAudio()
     {
-
+        
     }
 
     #endregion
@@ -273,13 +299,13 @@ public class OptionsMenu : MonoBehaviour
     {
         //Reset Quality
         selectedQualityIndex = 1;
-        
+
         QualitySettings.SetQualityLevel(1);
         UpdateQualityLabel();
 
         //Reset Screen Resolution
         selectedResIndex = defaultResIndex;
-        
+
         fScreenTog.isOn = false;
 
         Screen.SetResolution(Screen.width, Screen.height, false);

@@ -12,13 +12,17 @@ public class StatsScreen : MonoBehaviour
     // Start is called before the first frame update
     public void ShowStats(PlayerStat_Data data)
     {
-        if (showLevel)
+        if (levelText != null)
         {
-            levelText.color = data.config.PlayerMat.color;
-            levelText.text = $"P{data.playerIndex}   //Level {data.lvl}";
+
+            if (showLevel)
+            {
+                levelText.color = data.config.PlayerMat.color;
+                levelText.text = $"P{data.playerIndex}   //Level {data.lvl}";
+            }
+            else
+                levelText.gameObject.SetActive(false);
         }
-        else
-            levelText.gameObject.SetActive(false);
 
         for (int i = 0; i < bars.Length; i++)
             bars[i].SetBars(data);

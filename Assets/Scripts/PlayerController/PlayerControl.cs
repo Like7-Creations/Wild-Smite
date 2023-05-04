@@ -49,7 +49,7 @@ public class PlayerControl : MonoBehaviour
             }
 
             //Melee Attack
-            if (context.action.name == controls.Player.Attack.name )
+            if (context.action.name == controls.Player.Attack.name)
             {
                 pActions.Attack();
             }
@@ -100,7 +100,8 @@ public class PlayerControl : MonoBehaviour
 
             if (context.action.name == controls.Player.AreaOfEffect.name && context.canceled)
             {
-                pActions.ReleaseAOE(pActions.chargedSTAM, pActions.chargedMELEE, pActions.chargedRANGE);
+                //pActions.ReleaseAOE(pActions.chargedSTAM, pActions.chargedMELEE, pActions.chargedRANGE);
+                pActions.charging = false;
             }
 
             // Sprinting
@@ -123,9 +124,14 @@ public class PlayerControl : MonoBehaviour
         // Pause Game
         if (context.action.name == controls.Player.PauseGame.name && context.performed)
         {
-            PauseMenuController pause = FindObjectOfType<PauseMenuController>();
+            //PauseMenuController pause = FindObjectOfType<PauseMenuController>();
+            PauseGame pause = GameObject.Find("PauseMenu_Canvas").GetComponentInChildren<PauseGame>();
+
+            //PauseGame pause = FindObjectOfType<PauseGame>();
             if (pause != null)
-                pause.PauseGame(playerConfig);
+            {
+                pause.GamePause(playerConfig);
+            }
         }
 
     }

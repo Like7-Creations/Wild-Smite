@@ -31,9 +31,13 @@ public class LevelOption : MonoBehaviour
     public Jun_TweenRuntime collapsedTween;
     public Button ExpandedButton;
 
+    [Header("BarColors")]
+    public Color easyColor;
+    public Color mediumColor;
+    public Color hardColor;
+
     public void CreateOption()
     {
-
         List<PlayerConfig> players = new List<PlayerConfig>();
         if (PlayerConfigManager.Instance != null)
             players = PlayerConfigManager.Instance.GetPlayerConfigs();
@@ -52,17 +56,35 @@ public class LevelOption : MonoBehaviour
             levelField = Random.Range(0, maxLvl);
             difficultyField = (LevelSettings.Difficulty)Random.Range(0, 3);
 
+            int dif = 0;
+
             if (Info_UI != null)
             {
                 for (int i = 0; i <= (int)difficultyField; i++)
                 {
                     GameObject obj = Instantiate(DifFilled, DifHolder);
                     bars.Add(obj);
+                    dif++;
+
+                    if (dif == 1)
+                        obj.GetComponent<Image>().color = easyColor;
+                    else if (dif == 2)
+                        obj.GetComponent<Image>().color = mediumColor;
+                    else if (dif == 3)
+                        obj.GetComponent<Image>().color = hardColor;
+
                 }
                 for (int i = 2; i > (int)difficultyField; i--)
                 {
                     GameObject obj = Instantiate(DifBase, DifHolder);
                     bars.Add(obj);
+
+                    if (dif == 1)
+                        obj.GetComponent<Image>().color = easyColor;
+                    else if (dif == 2)
+                        obj.GetComponent<Image>().color = mediumColor;
+                    else if (dif == 3)
+                        obj.GetComponent<Image>().color = hardColor;
                 }
 
                 Info_UI.text = "REQ. LVL " + levelField;
