@@ -104,6 +104,14 @@ public class LevelCompleteTrigger : MonoBehaviour
                 }
             }
 
+            List<PlayerConfig> pcs = PlayerConfigManager.Instance.GetPlayerConfigs();
+
+            foreach (PlayerConfig pc in pcs)
+            {
+                PlayerControl pControl = GameObject.Find(pc.Name).GetComponent<PlayerActions>().Pc;
+                pControl.enabled = false;
+            }
+
             LevelCompleteUI.gameObject.SetActive(true);
             LevelCompleteUI.ShowSummary();
         }

@@ -100,7 +100,8 @@ public class PlayerControl : MonoBehaviour
 
             if (context.action.name == controls.Player.AreaOfEffect.name && context.canceled)
             {
-                pActions.ReleaseAOE(pActions.chargedSTAM, pActions.chargedMELEE, pActions.chargedRANGE);
+                //pActions.ReleaseAOE(pActions.chargedSTAM, pActions.chargedMELEE, pActions.chargedRANGE);
+                pActions.charging = false;
             }
 
             // Sprinting

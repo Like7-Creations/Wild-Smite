@@ -78,7 +78,7 @@ public class PlayerActions : MonoBehaviour
     public ParticleSystem rain;
 
     public List<EnemyStats> enemiesInDot = new List<EnemyStats>();
-    PlayerControl Pc;
+    public PlayerControl Pc;
     PlayerControls controls;
 
     [Space(5)]
@@ -623,6 +623,9 @@ public class PlayerActions : MonoBehaviour
         {
             playerController.playerSpeed = SprintSpeed; //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
             isSprinting = true;
+
+            trigger_sprintVFX.Invoke();
+            trigger_sprintSFX.Invoke();
         }
         else
         {

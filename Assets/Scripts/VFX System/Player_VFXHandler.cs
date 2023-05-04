@@ -106,6 +106,13 @@ public class Player_VFXHandler : MonoBehaviour
 
                 playerAOE_VFX.gameObject.transform.localScale = new Vector3(pActions.currentCharge, pActions.currentCharge, pActions.currentCharge);
             }
+            else if (playerAOE_VFX.isPlaying)
+            {
+                playerAOE_VFX.Stop();
+
+                playerAOE_VFX.Play();
+                playerAOE_VFX.gameObject.transform.localScale = new Vector3(pActions.currentCharge, pActions.currentCharge, pActions.currentCharge);
+            }
         }
         else if (!pActions.charging || pActions.currentCharge == 0)
         {

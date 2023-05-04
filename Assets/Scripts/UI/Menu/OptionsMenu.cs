@@ -199,7 +199,7 @@ public class OptionsMenu : MonoBehaviour
     {
         masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
 
-        mainMixer.SetFloat("MasterVol", masterSlider.value);
+        mainMixer.SetFloat("MasterVol", Mathf.Log(masterSlider.value) * 20f);
 
         PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
     }
@@ -208,7 +208,7 @@ public class OptionsMenu : MonoBehaviour
     {
         playerLabel.text = Mathf.RoundToInt(playerSlider.value + 80).ToString();
 
-        mainMixer.SetFloat("PlayerVol", playerSlider.value);
+        mainMixer.SetFloat("PlayerVol", Mathf.Log(playerSlider.value) * 20f);
 
         PlayerPrefs.SetFloat("PlayerVolume", playerSlider.value);
     }
@@ -217,7 +217,7 @@ public class OptionsMenu : MonoBehaviour
     {
         enemyLabel.text = Mathf.RoundToInt(enemySlider.value + 80).ToString();
 
-        mainMixer.SetFloat("EnemyVol", enemySlider.value);
+        mainMixer.SetFloat("EnemyVol", Mathf.Log(enemySlider.value) * 20f);
 
         PlayerPrefs.SetFloat("EnemyVolume", enemySlider.value);
     }
@@ -226,7 +226,7 @@ public class OptionsMenu : MonoBehaviour
     {
         musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
 
-        mainMixer.SetFloat("MusicVol", musicSlider.value);
+        mainMixer.SetFloat("MusicVol", Mathf.Log(musicSlider.value) * 20f);
 
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
     }
@@ -235,7 +235,7 @@ public class OptionsMenu : MonoBehaviour
     {
         uiLabel.text = Mathf.RoundToInt(uiSlider.value + 80).ToString();
 
-        mainMixer.SetFloat("UIVol", uiSlider.value);
+        mainMixer.SetFloat("UIVol", Mathf.Log(uiSlider.value) * 20f);
 
         PlayerPrefs.SetFloat("UIVolume", uiSlider.value);
     }
