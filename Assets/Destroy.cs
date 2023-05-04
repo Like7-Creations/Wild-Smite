@@ -33,32 +33,39 @@ public class Destroy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collision detecteddddddddddd");
-        if (playershot & other.gameObject.GetComponent<EnemyStats>() != null)
+        Debug.Log(other.gameObject.name);
+        if(playershot && other.gameObject.tag != "Player")
         {
-            EnemyStats victim = other.gameObject.GetComponent<EnemyStats>();
-            victim.TakeDamage(actions.pStats.r_ATK, actions.pStats);// Deal damage to the enemy
-            destroyedVFX.transform.parent = null;
-            destroyedVFX.Play();
-            Destroy(gameObject);
+            if (other.gameObject.GetComponent<EnemyStats>() != null)
+            {
+                EnemyStats victim = other.gameObject.GetComponent<EnemyStats>();
+                victim.TakeDamage(actions.pStats.r_ATK, actions.pStats);// Deal damage to the enemy
+                BulletDie();
+            }
+            else BulletDie();
         }
 
-        if (!playershot & other.gameObject.GetComponent<PlayerActions>() != null)
+        if(!playershot && other.gameObject.tag == "Player")
         {
-            PlayerStats anotherVictim = other.gameObject.GetComponent<PlayerStats>();
-            anotherVictim.GetComponent<PlayerActions>().TakeDamage(damage);
-            destroyedVFX.transform.parent = null;
-            destroyedVFX.Play();
-            Destroy(gameObject);
+            BulletDie();
         }
 
-        if (other.gameObject.CompareTag("Building"))
+        if(!playershot && other.gameObject.tag != "Enemy")
         {
-            Debug.Log("collider with building");
-            destroyedVFX.transform.parent = null;
-            destroyedVFX.transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z);
-            destroyedVFX.Play();
-            Destroy(gameObject,0.05f);
+            if (other.gameObject.GetComponent<PlayerActions>() != null)
+            {
+                PlayerStats anotherVictim = other.gameObject.GetComponent<PlayerStats>();
+                anotherVictim.GetComponent<PlayerActions>().TakeDamage(damage);
+                BulletDie();
+            }
+            else BulletDie();
         }
+    }
+
+    void BulletDie()
+    {
+        destroyedVFX.transform.parent = null;
+        destroyedVFX.Play();
+        Destroy(gameObject);
     }
 }
