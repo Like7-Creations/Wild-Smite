@@ -40,7 +40,7 @@ public class Smash : Attack
                         vfx.GetComponent<Boss_VFXHandler>().SmashVFX();
                     }//vfx;//vfx
                 }
-                player.TakeDamage(stats.MATK);
+                player.TakeDamage(stats.MATK, transform.forward);
             }
         }
         GetComponent<BossBehaviors>().currentAttack = false;
