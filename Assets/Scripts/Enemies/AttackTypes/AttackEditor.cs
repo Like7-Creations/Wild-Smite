@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEditor;
+using UnityEditor;
 
 #if (UNITY_EDITOR)
 [CustomEditor(typeof(Attack), true)]
@@ -16,7 +16,7 @@ public class AttackEditor : Editor
 
         if (GUILayout.Button("Activate Attack"))
         {
-            attack.StartCoroutine(attack.AttackType());
+            attack.startAttack();
         }
     }
 }

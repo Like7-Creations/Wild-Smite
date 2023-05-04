@@ -94,10 +94,10 @@ public class PlayerMovement : MonoBehaviour
             //VFX Walk
 
             //Farhan's Code-----
-            if (!walkSource.isPlaying)
-            {
-                PA.trigger_walkSFX.Invoke();
-            }
+            //if (!walkSource.isPlaying)
+            //{
+                //PA.trigger_walkSFX.Invoke();
+           //}
             //Farhan's Code-----
 
             Vector3 lookDirection = transform.forward;
@@ -122,10 +122,10 @@ public class PlayerMovement : MonoBehaviour
             //animator.SetBool("Sprinting", false);
 
             //Farhan's Code-----
-            if (walkSource.isPlaying)
-            {
-                PA.trigger_walkSFX.Invoke();
-            }
+            //if (walkSource.isPlaying)
+           // {
+                //PA.trigger_walkSFX.Invoke();
+            //}
             //Farhan's Code-----
         }
 
@@ -142,6 +142,7 @@ public class PlayerMovement : MonoBehaviour
         {
         }
 
+        if(!controller.isGrounded)
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
