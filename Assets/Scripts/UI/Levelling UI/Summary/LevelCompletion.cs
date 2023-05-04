@@ -110,7 +110,7 @@ public class LevelCompletion : MonoBehaviour
             currentXPText.text = currentXP.ToString("000") + "/" + currentMax.ToString("000");
             totalXPText.text = xp.ToString("000") + " XP";
 
-            if (currentXP > currentMax)
+            if (currentXP >= currentMax)
                 playersToLevel.Enqueue(p);
 
             p.playerData.XPGained(xp);
@@ -182,9 +182,9 @@ public class LevelCompletion : MonoBehaviour
             currentXPText_2.text = currentXP_2.ToString("000") + "/" + currentMax_2.ToString("000");
             totalXPText_2.text = xp_2.ToString("000") + " XP";
 
-            if (currentXP_1 > currentMax_1)
+            if (currentXP_1 >= currentMax_1)
                 playersToLevel.Enqueue(p1);
-            if (currentXP_2 > currentMax_2)
+            if (currentXP_2 >= currentMax_2)
                 playersToLevel.Enqueue(p2);
 
             p1.playerData.XPGained(xp_1);
