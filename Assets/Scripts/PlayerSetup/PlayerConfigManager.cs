@@ -36,7 +36,7 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
     public GameObject defaultCharacter;
     public Material defaultMaterial;
 
-    bool isPaused;
+    public bool isPaused;
 
     public static PlayerConfigManager Instance { get; private set; }
 

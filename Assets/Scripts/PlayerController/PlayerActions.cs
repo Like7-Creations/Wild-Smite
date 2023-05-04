@@ -350,6 +350,19 @@ public class PlayerActions : MonoBehaviour
                 {
                     animator.SetTrigger("Attack" + randomNumber.ToString());
 
+                    /*int i = 0;
+
+                    if (i == 0)
+                    {
+                        trigger_attack_right.Invoke();
+                        i++;
+                    }
+                    else if (i == 1)
+                    {
+                        trigger_attack_left.Invoke();
+                        i--;
+                    }*/
+
 
                     lastrands.Add(randomNumber);
 
