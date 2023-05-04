@@ -116,7 +116,7 @@ public class LevelCompleteTrigger : MonoBehaviour
 
             PlayerConfigManager.Instance.DisableIngameControls();
 
-            Debug.Log($"{pa.gameObject.name} has been disabled");
+            Debug.Log($"Player has been disabled");
 
 
             LevelCompleteUI.gameObject.SetActive(true);
