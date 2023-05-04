@@ -37,6 +37,8 @@ public class OptionsMenu : MonoBehaviour
     public Slider uiSlider;
     public TMP_Text uiLabel;
 
+    public TMP_Text uiScaleLabel;
+
     void Start()
     {
         #region Prepping Graphics Settings
@@ -122,7 +124,7 @@ public class OptionsMenu : MonoBehaviour
             percentage = 5;
         }
 
-        float result = (percentage * 10 / 100) * 20;
+        float result = (percentage / 100) * 20;
 
         return result;
     }
@@ -257,11 +259,20 @@ public class OptionsMenu : MonoBehaviour
 
     //Create a function that takes an int parameter, and uses it to scale the game UI in the scene.
 
-    public void ScaleUI(int scaleVal)
+    public void ScaleUI(float scaleVal)
     {
-        float uiScale = CalculatePercentage(scaleVal);
+        int scale = Mathf.RoundToInt(scaleVal);
+
+        float uiScale = CalculatePercentage(scale);
 
         PlayerPrefs.SetFloat("GameUIScale", uiScale);
+
+        UpdateScaleSliderText(uiScale);
+    }
+
+    public void UpdateScaleSliderText(float val)
+    {
+        uiScaleLabel.text = val.ToString();
     }
 
     #endregion
