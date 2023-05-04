@@ -104,13 +104,20 @@ public class LevelCompleteTrigger : MonoBehaviour
                 }
             }
 
-            List<PlayerConfig> pcs = PlayerConfigManager.Instance.GetPlayerConfigs();
+            //PlayerActions[] pcs = FindObjectsOfType<PlayerActions>();
 
-            foreach (PlayerConfig pc in pcs)
+            /*foreach (PlayerActions pa in pcs)
             {
-                PlayerControl pControl = GameObject.Find(pc.Name).GetComponent<PlayerActions>().Pc;
-                pControl.enabled = false;
-            }
+                
+
+                //pa.gameObject.SetActive(false);
+                Debug.Log($"{pa.gameObject.name} has been disabled");
+            }*/
+
+            PlayerConfigManager.Instance.DisableIngameControls();
+
+            Debug.Log($"{pa.gameObject.name} has been disabled");
+
 
             LevelCompleteUI.gameObject.SetActive(true);
             LevelCompleteUI.ShowSummary();

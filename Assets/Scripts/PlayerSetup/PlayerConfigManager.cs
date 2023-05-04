@@ -106,6 +106,26 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
 
     }*/
 
+    public void EnableIngameControls()
+    {
+        List<PlayerConfig> players = GetPlayerConfigs();
+
+        foreach (PlayerConfig pc in playerConfigs)
+        {
+            pc.Input.actions.FindActionMap("Player").Enable();
+        }
+    }
+
+    public void DisableIngameControls()
+    {
+        List<PlayerConfig> players = GetPlayerConfigs();
+
+        foreach (PlayerConfig pc in playerConfigs)
+        {
+            pc.Input.actions.FindActionMap("Player").Disable();
+        }
+    }
+
     public void ResetManager(GameObject SelectionPanel)
     {
         for (int i = 0; i < SelectionPanel.transform.childCount; i++)
