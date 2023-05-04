@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     float turnSmoothTime = 0.1f;
     [SerializeField] private float gravity = -9.81f;
     private Vector2 movementInput;
+    private Vector2 rotationInput;
     public float turnSmoothVelocity;
     Vector3 velocity;
     [HideInInspector] public CharacterController controller;
@@ -59,8 +60,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
-
         Vector3 pos = new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, transform.position.z + zOffset);
 
         cam.transform.position = Vector3.Lerp(cam.transform.position, pos, 4 * Time.deltaTime);
@@ -147,6 +146,20 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
         animCheck();
+
+       // if (Mathf.Abs(direction.x) > deadzone || Mathf.Abs(direction.y) > deadzone)
+        {
+            Vector3 playerDir = Vector3.right * rotationInput.x + Vector3.forward * rotationInput.y;
+
+            Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, newrotation, 1000f * Time.deltaTime);
+            if (playerDir.sqrMagnitude > 0.0f)
+            {
+            }
+        }
+
+        print(rotationInput);
+
     }
 
     public void animCheck()
@@ -162,6 +175,12 @@ public class PlayerMovement : MonoBehaviour
     public void onMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
+    }
+
+
+    public void OnRotation(InputAction.CallbackContext context)
+    {
+        rotationInput = context.ReadValue<Vector2>();
     }
 
     /*void Input_onActionTriggered(CallbackContext obj)

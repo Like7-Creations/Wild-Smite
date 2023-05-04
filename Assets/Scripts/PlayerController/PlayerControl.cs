@@ -12,8 +12,6 @@ public class PlayerControl : MonoBehaviour
     PlayerMovement pMovement;
     PlayerInventory pInventory;
 
-    bool isPaused;
-
     public Renderer[] matMeshes;
     Animator anim;
 
@@ -28,7 +26,7 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        pActions.Rotation();
+        //pActions.Rotation();
     }
 
     public void OnInputAction(InputAction.CallbackContext context)
@@ -51,21 +49,23 @@ public class PlayerControl : MonoBehaviour
             }
 
             //Melee Attack
-            if (context.action.name == controls.Player.Attack.name && context.performed)
+            if (context.action.name == controls.Player.Attack.name )
             {
                 pActions.Attack();
             }
 
-         //GamePad Rotation
-         if (context.action.name == controls.Player.Rotation.name && context.performed)
-         {
-             //pActions.shooting = true;
-         }
+            //Rotation
+            if (context.action.name == controls.Player.Rotation.name && context.performed)
+            {
+                //pActions.rotating = true;
+                // pActions.OnRotate(context);
+                pMovement.OnRotation(context);
+            }
 
-         if (context.action.name == controls.Player.Rotation.name && context.canceled)
-         {
-             //pActions.shooting = false;
-         }
+            /*if (context.action.name == controls.Player.Rotation.name && context.canceled)
+            {
+                pActions.rotating = false;
+            }*/
 
             //GamePad Range Attack
             if (context.action.name == controls.Player.GamePadRangeAttack.name && context.performed)
@@ -85,15 +85,11 @@ public class PlayerControl : MonoBehaviour
             {
                 pActions.shooting = true;
                 pActions.mouseShooting = true;
-
-                UnityEngine.Debug.Log("Player is shooting");
-                //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 1);
             }
             if (context.action.name == controls.Player.RangeAttack.name && context.canceled)
             {
                 pActions.shooting = false;
                 pActions.mouseShooting = false;
-                //anim.SetLayerWeight(anim.GetLayerIndex("Shooting Layer"), 0);
             }
 
             // AOE
@@ -143,6 +139,7 @@ public class PlayerControl : MonoBehaviour
         GetComponent<PlayerStats>().SetData(pc.playerStats);
         pActions = GetComponent<PlayerActions>();
         playerConfig.Input.onActionTriggered += OnInputAction;
+        //playerConfig.Input.actions["Rotation"]. += OnRotate;
         //playerMesh.material = pc.PlayerMat;
         if (matMeshes.Length > 0)
             for (int i = 0; i < matMeshes.Length; i++)

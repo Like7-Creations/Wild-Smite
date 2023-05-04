@@ -1,16 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using System.Threading;
-using System.Linq;
-using UnityEditor;
-using UnityEngine.Rendering;
-using UnityEngine.Scripting.APIUpdating;
-using UnityEditor.UIElements;
 using UnityEngine.Events;
-using System;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 //using System.Diagnostics;
 
 public class PlayerActions : MonoBehaviour
@@ -22,6 +15,11 @@ public class PlayerActions : MonoBehaviour
 
     public PlayerMovement playerController;
     PlayerVFX VFX;
+
+    [HideInInspector] public Guid myGuid;
+    PlayerActions[] players;
+
+    Vector2 rotation;
 
     [Header("Stats stuff")]
     public PlayerStats pStats;
@@ -56,6 +54,7 @@ public class PlayerActions : MonoBehaviour
     [HideInInspector] public Vector2 playerLookDir;
     [HideInInspector] public bool shooting;
     [HideInInspector] public bool mouseShooting;
+    [HideInInspector] public bool rotating;
     float deadzone = 0.1f;
 
     [Space(5)]
@@ -122,6 +121,8 @@ public class PlayerActions : MonoBehaviour
 
     void Start()
     {
+        myGuid = Guid.NewGuid();
+        players = FindObjectsOfType<PlayerActions>();
         playerController = GetComponent<PlayerMovement>();
         VFX = GetComponent<PlayerVFX>();
         pStats = GetComponent<PlayerStats>();
@@ -197,7 +198,7 @@ public class PlayerActions : MonoBehaviour
             //float dist = Vector3.Distance(transform.position, pointToLook);
             //if(dist >= 1.5f)
             if(!Pc.controlScheme)
-            transform.LookAt(pointToLook);
+            //transform.LookAt(pointToLook);
             if (mouseShooting)
             {
                 ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
@@ -216,12 +217,11 @@ public class PlayerActions : MonoBehaviour
         }
 
         //Rotation();
-        aim = controls.Player.Rotation.ReadValue<Vector2>();
-        if (shooting)
-        {
-            RangeAttack();
-            //Rotation();
-        }
+        //aim = controls.Player.Rotation.ReadValue<Vector2>();
+
+        if (shooting) RangeAttack();
+        // if (rotating) Rotation();
+        //Rotation(rotation);
         #endregion
 
         //Debug.Log(playerController.controller.velocity);
@@ -661,21 +661,26 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    public void Rotation()
+   /* public void Rotation(Vector2 direction)
     {
         //Debug.Log(aim);
 
-        if (Mathf.Abs(aim.x) > deadzone || Mathf.Abs(aim.y) > deadzone)
+        if (Mathf.Abs(direction.x) > deadzone || Mathf.Abs(direction.y) > deadzone)
         {
-            Vector3 playerDir = Vector3.right * aim.x + Vector3.forward * aim.y;
+            Vector3 playerDir = Vector3.right * direction.x + Vector3.forward * direction.y;
 
             if (playerDir.sqrMagnitude > 0.0f)
             {
-                 Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
-                 transform.rotation = Quaternion.RotateTowards(transform.rotation, newrotation, 1000f * Time.deltaTime);   
+                Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, newrotation, 1000f * Time.deltaTime);   
             }
         }
     }
+
+    public void OnRotate(InputAction.CallbackContext context)
+    {
+        rotation = context.ReadValue<Vector2>();
+    }*/
     #endregion
 
 
