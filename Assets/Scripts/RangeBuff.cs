@@ -14,6 +14,8 @@ public class RangeBuff : Item
         //timer = duration;
         //itemUI.GetComponentInChildren<Image>().fillAmount = 1;
         useItem = true;
+
+        Play_UseItemSFX();
     }
 
     public override void Update()
@@ -39,6 +41,9 @@ public class RangeBuff : Item
             if (pl.heldItem == null)
             {
                 pl.heldItem = this;
+
+                Play_CollectItemSFX();
+
                 plStats = pl.GetComponent<PlayerStats>();
                 transform.parent = other.transform;
                 timer = duration;
