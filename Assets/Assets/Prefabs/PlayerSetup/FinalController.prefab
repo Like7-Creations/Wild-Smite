@@ -5424,6 +5424,7 @@ MonoBehaviour:
     Radius: 1
     enemyFound: 0
   combo: 0
+  hitIndex: 0
   isAttacking: 0
   meleeDash: 0.2
   meleeknockback: 0.2
@@ -5456,6 +5457,7 @@ MonoBehaviour:
   maxRadius: 6
   rain: {fileID: 8100889888736289804}
   enemiesInDot: []
+  Pc: {fileID: 0}
   trigger_dash:
     m_PersistentCalls:
       m_Calls:
@@ -5805,15 +5807,15 @@ MonoBehaviour:
   aoeChargeAudio: {fileID: 5785413539197843316}
   playerWalk_SFX:
     name: 
-    clip: {fileID: 8300000, guid: fccb178d47cc4d346a28ae027988c533, type: 3}
+    clip: {fileID: 8300000, guid: 0635871140c4e9541a4f9f5ccf251fc4, type: 3}
     voumeVal: 1
   playerDash_SFX:
     name: 
-    clip: {fileID: 8300000, guid: 7c03fd9976e31cf4594bb9b70d442a81, type: 3}
+    clip: {fileID: 8300000, guid: ebf2d316a7ce5f841829f25a48bc007c, type: 3}
     voumeVal: 1
   playerSprint_SFX:
     name: 
-    clip: {fileID: 8300000, guid: 568bb4da116f575429d31e3112410ad2, type: 3}
+    clip: {fileID: 8300000, guid: c65a154ffb4cdbd43993cc131d226b3c, type: 3}
     voumeVal: 1
   playerMATKs_SFX:
   - name: Attack 1
@@ -5831,8 +5833,8 @@ MonoBehaviour:
     voumeVal: 1
   playerAOE_SFX:
     name: 
-    clip: {fileID: 8300000, guid: fe99daca802fd5443b91f7de277650de, type: 3}
-    voumeVal: 1
+    clip: {fileID: 8300000, guid: a59be4020d51fb0468689ea3c29591b0, type: 3}
+    voumeVal: 0.8
   playerAOECharging_SFX:
     name: 
     clip: {fileID: 8300000, guid: 625d7f0f585874a4fb5acf6622e83652, type: 3}
