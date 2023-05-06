@@ -23,6 +23,8 @@ public class SpeedBuff : Item
         timer = duration;
         //temUI.GetComponentInChildren<Image>().fillAmount = 1;
         useItem = true;
+
+        Play_UseItemSFX();
     }
 
     public override void Update()
@@ -30,13 +32,16 @@ public class SpeedBuff : Item
         transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         if (useItem)
         {
-           // itemUI.SetActive(true);
+            // itemUI.SetActive(true);
             float thisint = timer / duration;
-           // itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
+            // itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-           //     itemUI.SetActive(false);
+                //     itemUI.SetActive(false);
+
+                Play_CollectItemSFX();
+
                 pActions.OriginalSpeed = plMovement.playerSpeed - buffAmount;
                 plMovement.playerSpeed = pActions.OriginalSpeed;
                 pActions.SprintSpeed = originalSprintSpeed;

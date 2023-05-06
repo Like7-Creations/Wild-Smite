@@ -16,6 +16,11 @@ public abstract class Item : MonoBehaviour
 
     public Sprite itemUI;
 
+    public AudioSource itemAudio;
+
+    public SFXClip item_CollectSFX;
+    public SFXClip item_UseSFX;
+
     void Awake()
     {
         timer = 10;     
@@ -24,4 +29,14 @@ public abstract class Item : MonoBehaviour
     public abstract void Effect(PlayerStats stats);
 
     public abstract void Update();
+
+    public void Play_CollectItemSFX()
+    {
+        itemAudio.PlayOneShot(item_CollectSFX.clip, item_CollectSFX.voumeVal);
+    }
+
+    public void Play_UseItemSFX()
+    {
+        itemAudio.PlayOneShot(item_UseSFX.clip, item_UseSFX.voumeVal);
+    }
 }
