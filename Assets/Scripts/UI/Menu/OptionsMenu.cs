@@ -211,47 +211,57 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetMasterVol()
     {
-        masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
+        masterLabel.text = Mathf.RoundToInt(masterSlider.value).ToString();
+
+        float volVal = Mathf.Log(masterSlider.value) * 20f;
 
         mainMixer.SetFloat("MasterVol", Mathf.Log(masterSlider.value) * 20f);
 
-        PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
+        PlayerPrefs.SetFloat("MasterVolume", volVal);
     }
 
     public void SetPlayerVol()
     {
-        playerLabel.text = Mathf.RoundToInt(playerSlider.value + 80).ToString();
+        playerLabel.text = Mathf.RoundToInt(playerSlider.value).ToString();
 
-        mainMixer.SetFloat("PlayerVol", Mathf.Log(playerSlider.value) * 20f);
+        float volVal = Mathf.Log(playerSlider.value) * 20f;
 
-        PlayerPrefs.SetFloat("PlayerVolume", playerSlider.value);
+        mainMixer.SetFloat("PlayerVol", volVal);
+
+        PlayerPrefs.SetFloat("PlayerVolume", volVal);
     }
 
     public void SetEnemyVol()
     {
-        enemyLabel.text = Mathf.RoundToInt(enemySlider.value + 80).ToString();
+        enemyLabel.text = Mathf.RoundToInt(enemySlider.value).ToString();
 
-        mainMixer.SetFloat("EnemyVol", Mathf.Log(enemySlider.value) * 20f);
+        float volVal = Mathf.Log(enemySlider.value) * 20f;
 
-        PlayerPrefs.SetFloat("EnemyVolume", enemySlider.value);
+        mainMixer.SetFloat("EnemyVol", volVal);
+
+        PlayerPrefs.SetFloat("EnemyVolume", volVal);
     }
 
     public void SetMusicVol()
     {
-        musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
+        musicLabel.text = Mathf.RoundToInt(musicSlider.value).ToString();
 
-        mainMixer.SetFloat("MusicVol", Mathf.Log(musicSlider.value) * 20f);
+        float volVal = Mathf.Log(musicSlider.value) * 20f;
 
-        PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
+        mainMixer.SetFloat("MusicVol", volVal);
+
+        PlayerPrefs.SetFloat("MusicVolume", volVal);
     }
 
     public void SetUIVol()
     {
-        uiLabel.text = Mathf.RoundToInt(uiSlider.value + 80).ToString();
+        uiLabel.text = Mathf.RoundToInt(uiSlider.value).ToString();
 
-        mainMixer.SetFloat("UIVol", Mathf.Log(uiSlider.value) * 20f);
+        float volVal = (Mathf.Log(uiSlider.value) * 20f) - 80;
 
-        PlayerPrefs.SetFloat("UIVolume", uiSlider.value);
+        mainMixer.SetFloat("UIVol", volVal);
+
+        PlayerPrefs.SetFloat("UIVolume", volVal);
     }
     #endregion
 
