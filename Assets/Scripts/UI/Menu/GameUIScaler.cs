@@ -6,7 +6,11 @@ public class GameUIScaler : MonoBehaviour
 {
     void Awake()
     {
-        List<GameObject> playerUI = new List<GameObject>()
+        float newScale = PlayerPrefs.GetFloat("GameUIScale");
+
+        transform.localScale += new Vector3(newScale, newScale, 0);
+
+        /*List<GameObject> playerUI = new List<GameObject>()
         {
             GameObject.Find("Player_1_UI")
         };
@@ -18,9 +22,9 @@ public class GameUIScaler : MonoBehaviour
 
         foreach(GameObject pUI in playerUI)
         {
-            float newScale = PlayerPrefs.GetFloat("GameUIScale");
+            newScale = PlayerPrefs.GetFloat("GameUIScale");
 
             pUI.transform.localScale += new Vector3(newScale, newScale, 0);
-        }
+        }*/
     }
 }
