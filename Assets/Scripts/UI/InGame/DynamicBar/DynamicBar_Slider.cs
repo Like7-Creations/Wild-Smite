@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class DynamicBar_Slider : MonoBehaviour
 {
+    public bool noPlayer;
+
     [Header("Bar Settings")]
     int midBarCount = 1;
 
@@ -33,6 +35,12 @@ public class DynamicBar_Slider : MonoBehaviour
     public List<Slider> midBarSliders = new List<Slider>();
 
     bool obtainedValue;
+
+    private void Awake()
+    {
+        if (noPlayer)
+            SetSliderValues(maxValue);
+    }
 
     // Update is called once per frame
     void Update()
