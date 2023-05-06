@@ -37,10 +37,15 @@ public class OptionsMenu : MonoBehaviour
     public Slider uiSlider;
     public TMP_Text uiLabel;
 
+    public List<float> uiScaleValues;
     public TMP_Text uiScaleLabel;
 
     void Start()
     {
+        #region Prepping Game Settings
+
+        #endregion
+
         #region Prepping Graphics Settings
 
         fScreenTog.isOn = Screen.fullScreen;
@@ -267,9 +272,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void ScaleUI(float scaleVal)
     {
-        int scale = Mathf.RoundToInt(scaleVal);
-
-        uiScale = CalculatePercentage(scale);
+        uiScale = uiScaleValues[(int)(scaleVal - 1)];
+        Debug.Log("Set UI Scale to add " + uiScale);
 
         UpdateScaleSliderText(scaleVal);
     }
