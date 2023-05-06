@@ -20,7 +20,7 @@ public class GameUIScaler : MonoBehaviour
         {
             float newScale = PlayerPrefs.GetFloat("GameUIScale");
 
-            pUI.transform.localScale = new Vector3(newScale, newScale, 1);
+            pUI.transform.localScale += new Vector3(newScale, newScale, 0);
         }
     }
 }
