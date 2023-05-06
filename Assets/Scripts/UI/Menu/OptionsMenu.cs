@@ -263,15 +263,15 @@ public class OptionsMenu : MonoBehaviour
 
     //Create a function that takes an int parameter, and uses it to scale the game UI in the scene.
 
+    float uiScale = 0;
+
     public void ScaleUI(float scaleVal)
     {
         int scale = Mathf.RoundToInt(scaleVal);
 
-        float uiScale = CalculatePercentage(scale);
+        uiScale = CalculatePercentage(scale);
 
-        PlayerPrefs.SetFloat("GameUIScale", uiScale);
-
-        UpdateScaleSliderText(uiScale);
+        UpdateScaleSliderText(scaleVal);
     }
 
     public void UpdateScaleSliderText(float val)
@@ -302,6 +302,11 @@ public class OptionsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
 
         PlayerPrefs.SetFloat("UIVolume", uiSlider.value);
+    }
+
+    public void ApplyGame()
+    {
+        PlayerPrefs.SetFloat("GameUIScale", uiScale);
     }
 
     #endregion
