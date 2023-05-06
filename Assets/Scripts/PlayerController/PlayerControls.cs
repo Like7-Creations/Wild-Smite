@@ -352,6 +352,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d70cfaaa-d315-4dcd-a9db-6c08ec9286f7"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""RangeAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""63720114-5c97-4585-95bc-8dd7af10c8f1"",
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
