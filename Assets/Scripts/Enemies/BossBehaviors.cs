@@ -100,6 +100,7 @@ public class BossBehaviors : MonoBehaviour
         }
 
         Vector3 pos = chosenPlayer.transform.position;
+        pos.y= 2.5f;
         rotationPoint.LookAt(pos);
        // pos.y = 0;
 
