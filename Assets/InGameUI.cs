@@ -49,6 +49,8 @@ public class InGameUI : MonoBehaviour
 
     bool solo;
 
+    private AudioSource[] allAudioSources;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -130,13 +132,13 @@ public class InGameUI : MonoBehaviour
             }
         }
 
-        if(p1Inv.heldItem != p1Held)
+        if (p1Inv.heldItem != p1Held)
         {
             p1Held = p1Inv.heldItem;
             UpdateItemIcon(p1Held, P1_ItemUI);
         }
 
-        
+
 
         if (p1_HP <= 0)
         {
@@ -151,6 +153,22 @@ public class InGameUI : MonoBehaviour
         {
             if (p1_dead)
             {
+                /* allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+                   foreach (AudioSource audioS in allAudioSources)
+                   {
+                       audioS.Stop();
+                   } */
+
+                EnemyStats[] enemies = FindObjectsOfType<EnemyStats>();
+                foreach (EnemyStats enemy in enemies)
+                    enemy.gameObject.SetActive(false);
+
+                GameObject[] gameObjectArray = GameObject.FindGameObjectsWithTag("Ambience");
+                foreach (GameObject go in gameObjectArray)
+                {
+                    go.SetActive(false);
+                }
+
                 gameOverUI.SetActive(true);
             }
         }
@@ -161,6 +179,22 @@ public class InGameUI : MonoBehaviour
 
             if (p2_dead & p1_dead)
             {
+                /* allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+                   foreach (AudioSource audioS in allAudioSources)
+                   {
+                       audioS.Stop();
+                   } */
+
+                EnemyStats[] enemies = FindObjectsOfType<EnemyStats>();
+                foreach (EnemyStats enemy in enemies)
+                    enemy.gameObject.SetActive(false);
+
+                GameObject[] gameObjectArray = GameObject.FindGameObjectsWithTag("Ambience");
+                foreach (GameObject go in gameObjectArray)
+                {
+                    go.SetActive(false);
+                }
+
                 gameOverUI.SetActive(true);
             }
             else if (p2_dead & !p1_dead)
@@ -246,7 +280,7 @@ public class InGameUI : MonoBehaviour
 
     void UpdateItemIcon(Item item, Image Icon)
     {
-        if(item != null)
+        if (item != null)
         {
             Icon.sprite = item.itemUI;
         }
@@ -261,7 +295,7 @@ public class InGameUI : MonoBehaviour
         sliderTimer.maxValue = duration;
         sliderTimer.value = 0;
         float timer = 0;
-        
+
         while (timer <= duration)
         {
             timer += 0.01f * 2f;
