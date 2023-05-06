@@ -56,11 +56,16 @@ public class OptionsMenu : MonoBehaviour
 
         selectedQualityIndex = QualitySettings.GetQualityLevel();
 
-        qualButton_Text.text = qualityOptions[selectedQualityIndex];
+        //qualButton_Text.text = qualityOptions[selectedQualityIndex];
         #endregion
 
         #region Identifying All Available Resolutions & Displaying Current One
         resolutions = Screen.resolutions;
+
+        if(resolutions.Length == 0)
+        {
+            Debug.Log("No resolutions found");
+        }
 
         List<string> resOptions = new List<string>();
 
@@ -169,7 +174,9 @@ public class OptionsMenu : MonoBehaviour
     public void UpdateQualityLabel()
     {
         //Access the text element of the Quality Label, and then take the specified quality, convert it into a string and paste it.
-        qualButton_Text.text = qualityOptions[selectedQualityIndex];
+        //qualButton_Text.text = qualityOptions[selectedQualityIndex];
+
+        //Replace with code that resets the current toggled quality to the default one./
     }
     #endregion
 
