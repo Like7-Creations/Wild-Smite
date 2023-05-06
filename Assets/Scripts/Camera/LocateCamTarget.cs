@@ -7,6 +7,11 @@ public class LocateCamTarget : MonoBehaviour
 {
     CinemachineVirtualCamera cam;
 
+    void Start()
+    {
+        cam = GetComponent<CinemachineVirtualCamera>();
+    }
+
     void Update()
     {
         if(cam.LookAt == null)
