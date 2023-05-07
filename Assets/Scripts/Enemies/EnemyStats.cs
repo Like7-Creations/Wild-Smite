@@ -167,7 +167,10 @@ public class EnemyStats : MonoBehaviour
 
         Vector3 direction = (knockBackDir - transform.position).normalized;
         Vector3 knockbackVector = direction * knockbackStrength;
-        agent.SetDestination(transform.position + knockbackVector);
+        if(!isDead)
+        {
+            agent.SetDestination(transform.position + knockbackVector);
+        }
 
 
         if (vfx.isEnabled)
