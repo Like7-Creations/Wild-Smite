@@ -1183,7 +1183,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 490170576}
-  m_LocalRotation: {x: 0.3826835, y: 0.000000015896624, z: -0.000000006584597, w: 0.92387956}
+  m_LocalRotation: {x: 0.3826835, y: -0.000000015896621, z: 0.000000006584596, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 25, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3099,7 +3099,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659551844}
-  m_LocalRotation: {x: 0.3826835, y: 0.000000015896624, z: -0.000000006584597, w: 0.92387956}
+  m_LocalRotation: {x: 0.3826835, y: -0.000000015896621, z: 0.000000006584596, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 25, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5577,9 +5577,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5098998115211520827, guid: 2f89571d98ef11948951c0ac5af37172, type: 3}
+      propertyPath: P1_Cam
+      value: 
+      objectReference: {fileID: 490170581}
+    - target: {fileID: 5098998115211520827, guid: 2f89571d98ef11948951c0ac5af37172, type: 3}
+      propertyPath: P2_Cam
+      value: 
+      objectReference: {fileID: 1038017646}
+    - target: {fileID: 5098998115211520827, guid: 2f89571d98ef11948951c0ac5af37172, type: 3}
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 1992571600}
+    - target: {fileID: 5098998115211520827, guid: 2f89571d98ef11948951c0ac5af37172, type: 3}
+      propertyPath: p1_Tracker
+      value: 
+      objectReference: {fileID: 342386845}
+    - target: {fileID: 5098998115211520827, guid: 2f89571d98ef11948951c0ac5af37172, type: 3}
+      propertyPath: p2_Tracker
+      value: 
+      objectReference: {fileID: 1036632428}
     - target: {fileID: 5098998115211962229, guid: 2f89571d98ef11948951c0ac5af37172, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
