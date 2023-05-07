@@ -9,8 +9,8 @@ public class Chase : State
 
 
     [SerializeField] public int orbitRange;
-    [SerializeField] int orbitRangeMin;
-    [SerializeField] int orbitRangeMax;
+    [SerializeField] public int orbitRangeMin;
+    [SerializeField] public int orbitRangeMax;
 
 
 
@@ -29,6 +29,7 @@ public class Chase : State
     {
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
 
+        if (!stats.isDead)
         agent.SetDestination(chosenPlayer.transform.position);
 
         /*if (dist >= orbitRange)
