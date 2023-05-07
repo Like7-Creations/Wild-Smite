@@ -5500,48 +5500,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  trigger_attack_left:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1539933998243019925}
-        m_TargetAssemblyTypeName: Player_VFXHandler, Assembly-CSharp
-        m_MethodName: TriggerAttackVFX_Left
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8677192015910937241}
-        m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
-        m_MethodName: Play_MATKSFX
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   trigger_attack_right:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1539933998243019925}
-        m_TargetAssemblyTypeName: Player_VFXHandler, Assembly-CSharp
-        m_MethodName: TriggerAttackVFX_Right
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 8677192015910937241}
         m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
         m_MethodName: Play_MATKSFX
@@ -5689,6 +5650,21 @@ MonoBehaviour:
       - m_Target: {fileID: 8677192015910937241}
         m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
         m_MethodName: Play_AOEChargeSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  trigger_rangeAttackSFX:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8677192015910937241}
+        m_TargetAssemblyTypeName: Player_SFXHandler, Assembly-CSharp
+        m_MethodName: Play_RATKSFX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5887,7 +5863,7 @@ AudioSource:
   m_GameObject: {fileID: 1875388763240933588}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8626765718417806876, guid: 23c7295f032401d42aebc040ea7003c7, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -5983,7 +5959,7 @@ AudioSource:
   m_GameObject: {fileID: 1875388763240933588}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8626765718417806876, guid: 23c7295f032401d42aebc040ea7003c7, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -6079,7 +6055,7 @@ AudioSource:
   m_GameObject: {fileID: 1875388763240933588}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8626765718417806876, guid: 23c7295f032401d42aebc040ea7003c7, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

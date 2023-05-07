@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction != Vector3.zero)
         {
-                transform.rotation = Quaternion.Euler(0, angle, 0f);
+            transform.rotation = Quaternion.Euler(0, angle, 0f);
             /*if (!PA.shooting)
             {
             }*/
@@ -93,10 +93,10 @@ public class PlayerMovement : MonoBehaviour
             //VFX Walk
 
             //Farhan's Code-----
-            //if (!walkSource.isPlaying)
-            //{
-                //PA.trigger_walkSFX.Invoke();
-           //}
+            if (!walkSource.isPlaying)
+            {
+                PA.trigger_walkSFX.Invoke();
+            }
             //Farhan's Code-----
 
             Vector3 lookDirection = transform.forward;
@@ -121,10 +121,10 @@ public class PlayerMovement : MonoBehaviour
             //animator.SetBool("Sprinting", false);
 
             //Farhan's Code-----
-            //if (walkSource.isPlaying)
-           // {
-                //PA.trigger_walkSFX.Invoke();
-            //}
+            if (walkSource.isPlaying)
+            {
+                PA.trigger_walkSFX.Invoke();
+            }
             //Farhan's Code-----
         }
 
@@ -141,14 +141,14 @@ public class PlayerMovement : MonoBehaviour
         {
         }
 
-        if(!controller.isGrounded)
-        velocity.y += gravity * Time.deltaTime;
+        if (!controller.isGrounded)
+            velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
         animCheck();
 
-       // if (Mathf.Abs(direction.x) > deadzone || Mathf.Abs(direction.y) > deadzone)
-        if(rotationInput != Vector2.zero)
+        // if (Mathf.Abs(direction.x) > deadzone || Mathf.Abs(direction.y) > deadzone)
+        if (rotationInput != Vector2.zero)
         {
             Vector3 playerDir = Vector3.right * rotationInput.x + Vector3.forward * rotationInput.y;
 

@@ -19645,7 +19645,7 @@ AudioSource:
   m_GameObject: {fileID: 3300008344911806844}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3159755586102219857, guid: 23c7295f032401d42aebc040ea7003c7, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -19764,6 +19764,7 @@ MonoBehaviour:
   weakness: 0
   meleeWeakness: {r: 0, g: 0, b: 0, a: 0}
   rangedWeakness: {r: 0, g: 0, b: 0, a: 0}
+  deathsfx: {fileID: 0}
 --- !u!195 &5124742657272684350
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -19916,6 +19917,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9464016e7963b32458583d35ac23f9af, type: 3}
   - {fileID: 8300000, guid: d99e8637a933b2e41a2a756acc868048, type: 3}
   - {fileID: 8300000, guid: 202ef5a476448184faa5803dbc86e7c0, type: 3}
+  enemyDeathSFX:
+  - name: Destroy1 [With Electricity]
+    clip: {fileID: 8300000, guid: 9464016e7963b32458583d35ac23f9af, type: 3}
+    voumeVal: 1
+  - name: Destroy2 [With Electricity]
+    clip: {fileID: 8300000, guid: d99e8637a933b2e41a2a756acc868048, type: 3}
+    voumeVal: 1
+  - name: Destroy3 [With Electricity]
+    clip: {fileID: 8300000, guid: 202ef5a476448184faa5803dbc86e7c0, type: 3}
+    voumeVal: 1
   swingSFX:
   - {fileID: 8300000, guid: 1a437a09496f12940b94db8ed5b4b60d, type: 3}
   - {fileID: 8300000, guid: f5c525bc3aa4bed4d9fb8eb75ffa4ee7, type: 3}
