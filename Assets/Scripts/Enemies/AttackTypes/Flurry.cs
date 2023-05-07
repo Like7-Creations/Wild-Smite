@@ -8,6 +8,7 @@ public class Flurry : Attack
 {
     public GameObject Bullet;
     public GameObject[] origins;
+    public float offsetAngle;
     public float spinDuration;
     public float speed;
     public float fireRate;
@@ -75,6 +76,8 @@ public class Flurry : Attack
         {
             Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(origin.transform.forward * bulletspeed, ForceMode.Impulse);
+
+            rb.AddForce(origin.transform.up * offsetAngle, ForceMode.Impulse);
             yield return new WaitForSeconds(fireRate);
         }
        // yield return null;
