@@ -46,6 +46,7 @@ public class PlayerInventory : MonoBehaviour
             heldItem.Effect(plStats);
             itemDuration = heldItem.duration;
             isHappening = true;
+            heldItem = null;
         }
     }
 }

@@ -61,15 +61,6 @@ public class Flurry : Attack
         //StartCoroutine(OriginsShoot());
     }
 
-    IEnumerator OriginsShoot()
-    {
-        for (int i = 0; i < origins.Length; i++)
-        {
-            StartCoroutine(Shoot(origins[i]));
-        }
-            yield return null;
-    }
-
     IEnumerator Shoot(GameObject origin)
     {
         for (int i = 0; i < bulletsPerArm; i++)
