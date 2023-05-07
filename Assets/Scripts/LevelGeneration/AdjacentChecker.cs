@@ -58,7 +58,11 @@ public class AdjacentChecker : MonoBehaviour
 
     public bool RoomCheck()
     {
-        return Physics.CheckBox(transform.TransformPoint(boxCollider.center), boxCollider.size / 2f, transform.rotation, roomLayer);
+        if (boxCollider != null)
+            return Physics.CheckBox(transform.TransformPoint(boxCollider.center), boxCollider.size / 2f, transform.rotation, roomLayer);
+        else
+            return false;
+
     }
 
     public bool PreSpawnCheck()

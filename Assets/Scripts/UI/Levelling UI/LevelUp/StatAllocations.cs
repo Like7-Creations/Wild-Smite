@@ -8,6 +8,7 @@ public class StatAllocations : MonoBehaviour
 {
     [Header("General")]
     public TMP_Text StatPointCount_Text;
+    public Jun_TweenRuntime flashTween;
     int StatPoints;
     int startingPoints;
     public Leveling_Data data;
@@ -112,6 +113,8 @@ public class StatAllocations : MonoBehaviour
             StatPanel.GetComponent<StatsScreen>().ShowStats(player);
             AllocatePanel.SetActive(false);
         }
+        else
+            flashTween.Play();
     }
 
     public void AddBar(Transform root)
