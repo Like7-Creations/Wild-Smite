@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class BossBehaviors : MonoBehaviour
 {
@@ -33,6 +32,9 @@ public class BossBehaviors : MonoBehaviour
     public float timeSpeed;
 
     [SerializeField] bool playerFound;
+
+    bool bossEnd;
+    float timerEnd;
 
     void Start()
     {
@@ -100,6 +102,16 @@ public class BossBehaviors : MonoBehaviour
             if(boss && GetComponent<EnemyStats>().Health <= 0)
             {
                 UIOVer.SetActive(true);
+                bossEnd = true;
+            }
+
+            if (bossEnd)
+            {
+                timerEnd += Time.deltaTime;
+                if(timerEnd >= 5)
+                {
+                    SceneManager.LoadScene("_MVP_MainMenu");
+                }
             }
         }
     }
