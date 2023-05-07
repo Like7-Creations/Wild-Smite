@@ -11,12 +11,12 @@ public class LevelCompletion : MonoBehaviour
     public ExperienceData xpData;
     PlayerStats[] players;
 
-    public RenderTexture crocOrange;
-    public RenderTexture crocGreen;
-    public RenderTexture crocBlue;
-    public RenderTexture rooOrange;
-    public RenderTexture rooGreen;
-    public RenderTexture rooBlue;
+    //public RenderTexture crocOrange;
+    //public RenderTexture crocGreen;
+    //public RenderTexture crocBlue;
+    //public RenderTexture rooOrange;
+    //public RenderTexture rooGreen;
+    //public RenderTexture rooBlue;
 
     public int mXP, rXP, tXP;
 
@@ -24,7 +24,7 @@ public class LevelCompletion : MonoBehaviour
     //Summary Text Items
     public GameObject solo_SummaryPanel;
     public TMP_Text levelText;
-    public RawImage SoloRender;
+    //public RawImage SoloRender;
 
     public TMP_Text gainedXPText;
     public TMP_Text currentXPText;
@@ -39,8 +39,8 @@ public class LevelCompletion : MonoBehaviour
     public GameObject coop_SummaryPanel;
     public TMP_Text levelText_1;
     public TMP_Text levelText_2;
-    public RawImage p1_Render;
-    public RawImage p2_Render;
+    //public RawImage p1_Render;
+    //public RawImage p2_Render;
 
     public TMP_Text gainedXPText_1;
     public TMP_Text gainedXPText_2;
@@ -84,32 +84,32 @@ public class LevelCompletion : MonoBehaviour
             solo_SummaryPanel.SetActive(true);
 
             PlayerStats p = players[0];
-            List<PlayerConfig> configs = PlayerConfigManager.Instance.GetPlayerConfigs();
+            //List<PlayerConfig> configs = PlayerConfigManager.Instance.GetPlayerConfigs();
 
-            if (configs[0].Character.name == "FinalCroc Orange")
-                SoloRender.texture = crocOrange;
-            else if (configs[0].Character.name == "FinalCroc")
-                SoloRender.texture = crocGreen;
-            else if (configs[0].Character.name == "FinalCroc Blue")
-                SoloRender.texture = crocBlue;
-            else if (configs[0].Character.name == "FinalKang")
-                SoloRender.texture = rooOrange;
-            else if (configs[0].Character.name == "FinalKang Green")
-                SoloRender.texture = rooGreen;
-            else if (configs[0].Character.name == "FinalKang Blue")
-                SoloRender.texture = rooBlue;
+            //if (configs[0].Character.name == "FinalCroc Orange")
+            //    SoloRender.texture = crocOrange;
+            //else if (configs[0].Character.name == "FinalCroc")
+            //    SoloRender.texture = crocGreen;
+            //else if (configs[0].Character.name == "FinalCroc Blue")
+            //    SoloRender.texture = crocBlue;
+            //else if (configs[0].Character.name == "FinalKang")
+            //    SoloRender.texture = rooOrange;
+            //else if (configs[0].Character.name == "FinalKang Green")
+            //    SoloRender.texture = rooGreen;
+            //else if (configs[0].Character.name == "FinalKang Blue")
+            //    SoloRender.texture = rooBlue;
 
-                                                int xp = 0;
+            int xp = 0;
             for (int i = 0; i < p.defeatedEnemies.Count; i++)
             {
-                
 
-               /* if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Melee)
-                    sumXP = p.defeatedEnemies[i].count * mXP;
-                else if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Ranged)
-                    sumXP = p.defeatedEnemies[i].count * rXP;
-                else if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Tank)
-                    sumXP = p.defeatedEnemies[i].count * tXP;*/
+
+                /* if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Melee)
+                     sumXP = p.defeatedEnemies[i].count * mXP;
+                 else if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Ranged)
+                     sumXP = p.defeatedEnemies[i].count * rXP;
+                 else if (p.defeatedEnemies[i].enemyType == EnemyInfo.Type.Tank)
+                     sumXP = p.defeatedEnemies[i].count * tXP;*/
 
                 xp += p.defeatedEnemies[i].exp;
 
@@ -143,33 +143,33 @@ public class LevelCompletion : MonoBehaviour
             PlayerStats p1 = players[0];
             PlayerStats p2 = players[1];
 
-            List<PlayerConfig> configs = PlayerConfigManager.Instance.GetPlayerConfigs();
+            //List<PlayerConfig> configs = PlayerConfigManager.Instance.GetPlayerConfigs();
 
-            if (configs[0].Character.name == "FinalCroc Orange")
-                p1_Render.texture = crocOrange;
-            else if (configs[0].Character.name == "FinalCroc")
-                p1_Render.texture = crocGreen;
-            else if (configs[0].Character.name == "FinalCroc Blue")
-                p1_Render.texture = crocBlue;
-            else if (configs[0].Character.name == "FinalKang")
-                p1_Render.texture = rooOrange;
-            else if (configs[0].Character.name == "FinalKang Green")
-                p1_Render.texture = rooGreen;
-            else if (configs[0].Character.name == "FinalKang Blue")
-                p1_Render.texture = rooBlue;
-            
-            if (configs[1].Character.name == "FinalCroc Orange")
-                p2_Render.texture = crocOrange;
-            else if (configs[1].Character.name == "FinalCroc")
-                p2_Render.texture = crocGreen;
-            else if (configs[1].Character.name == "FinalCroc Blue")
-                p2_Render.texture = crocBlue;
-            else if (configs[1].Character.name == "FinalKang")
-                p2_Render.texture = rooOrange;
-            else if (configs[1].Character.name == "FinalKang Green")
-                p2_Render.texture = rooGreen;
-            else if (configs[1].Character.name == "FinalKang Blue")
-                p2_Render.texture = rooBlue;
+            //if (configs[0].Character.name == "FinalCroc Orange")
+            //    p1_Render.texture = crocOrange;
+            //else if (configs[0].Character.name == "FinalCroc")
+            //    p1_Render.texture = crocGreen;
+            //else if (configs[0].Character.name == "FinalCroc Blue")
+            //    p1_Render.texture = crocBlue;
+            //else if (configs[0].Character.name == "FinalKang")
+            //    p1_Render.texture = rooOrange;
+            //else if (configs[0].Character.name == "FinalKang Green")
+            //    p1_Render.texture = rooGreen;
+            //else if (configs[0].Character.name == "FinalKang Blue")
+            //    p1_Render.texture = rooBlue;
+
+            //if (configs[1].Character.name == "FinalCroc Orange")
+            //    p2_Render.texture = crocOrange;
+            //else if (configs[1].Character.name == "FinalCroc")
+            //    p2_Render.texture = crocGreen;
+            //else if (configs[1].Character.name == "FinalCroc Blue")
+            //    p2_Render.texture = crocBlue;
+            //else if (configs[1].Character.name == "FinalKang")
+            //    p2_Render.texture = rooOrange;
+            //else if (configs[1].Character.name == "FinalKang Green")
+            //    p2_Render.texture = rooGreen;
+            //else if (configs[1].Character.name == "FinalKang Blue")
+            //    p2_Render.texture = rooBlue;
 
             int xp_1 = 0;
             for (int i = 0; i < p1.defeatedEnemies.Count; i++)
@@ -237,7 +237,7 @@ public class LevelCompletion : MonoBehaviour
 
             p1.playerData.XPGained(xp_1);
             p2.playerData.XPGained(xp_2);
-        }        
+        }
     }
 
     public void LogTween()
@@ -279,15 +279,15 @@ public class LevelCompletion : MonoBehaviour
             levelUpPanel.SetActive(true);
             PlayerStat_Data player = playersToLevel.Dequeue().playerData;
             levelUpPanel.GetComponent<StatAllocations>().BeginAllocations(player);
-            if (player.playerIndex == 0)
-            {
-                if (SoloRender.texture != null)
-                levelUpPanel.GetComponent<StatAllocations>().GiveRenderTexture(p1_Render);
-                else
-                levelUpPanel.GetComponent<StatAllocations>().GiveRenderTexture(SoloRender);
-            }
-            else
-                levelUpPanel.GetComponent<StatAllocations>().GiveRenderTexture(p2_Render);
+            //if (player.playerIndex == 0)
+            //{
+            //    if (SoloRender.texture != null)
+            //        levelUpPanel.GetComponent<StatAllocations>().GiveRenderTexture(p1_Render);
+            //    else
+            //        levelUpPanel.GetComponent<StatAllocations>().GiveRenderTexture(SoloRender);
+            //}
+            //else
+            //    levelUpPanel.GetComponent<StatAllocations>().GiveRenderTexture(p2_Render);
 
             Debug.Log("Levelling Player at top of queue, queue is now: " + playersToLevel.Count);
         }
