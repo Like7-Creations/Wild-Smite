@@ -51502,6 +51502,9 @@ MonoBehaviour:
   RCDN: 0
   exp: 0
   generalCDN: 0
+  weakness: 0
+  meleeWeakness: {r: 0, g: 0, b: 0, a: 0}
+  rangedWeakness: {r: 0, g: 0, b: 0, a: 0}
 --- !u!195 &984735722681861742
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -51568,6 +51571,8 @@ MonoBehaviour:
   Bullet: {fileID: 6062017532498056028, guid: 61faec11d1115e142aab9d6346601f13, type: 3}
   origin: {fileID: 984735723363959617}
   attackIndication: {fileID: 0}
+  bulletDuration: 20
+  bulletSpeed: 15
 --- !u!114 &984735722681861737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51616,6 +51621,8 @@ MonoBehaviour:
   origin: {fileID: 984735723363959617}
   interval: 0.3
   offsetAngle: 10
+  bulletSpeed: 15
+  bulletDuration: 20
 --- !u!114 &5054671459959129742
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class BossBehaviors : MonoBehaviour
     public bool boss;
     float dist;
 
-    [HideInInspector] public PlayerActions[] players;
+    [SerializeField] public PlayerActions[] players;
 
     [HideInInspector] public PlayerActions chosenPlayer;
 
@@ -29,6 +29,8 @@ public class BossBehaviors : MonoBehaviour
 
     public float timeSpeed;
 
+    [SerializeField] bool playerFound;
+
     void Start()
     {
         stats = GetComponent<EnemyStats>();
@@ -37,69 +39,61 @@ public class BossBehaviors : MonoBehaviour
         if(players.Length == 1) { chosenPlayer = players[0]; }
         myPos = transform.position;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        Time.timeScale = timeSpeed;
-        if (players.Length > 1) chosenPlayer = findClosestPlayer(players);
-
-        dist = Vector3.Distance(transform.position, chosenPlayer.transform.position);
-
-        if(dist < detectionRange) playerDetected = true;
-        if (playerDetected && !currentAttack) timer += Time.deltaTime;
-
-        if(transform.position != myPos)
+        if (!playerFound)
         {
-            transform.position = myPos;
-        }
-
-        
-
-        /*switch (BossType)
-        {
-            case Type.Tank:
-                
-                if (dist < 5) { a = 0; b = 2; }
-                else { a = 2; b = 4; }
-                   
-                break;
-
-            case Type.Boss:
+            players = FindObjectsOfType<PlayerActions>();
+            if (boss)
+            {
+                BossDisable[] gb = FindObjectsOfType<BossDisable>();
+                for (int i = 0; i < gb.Length; i++)
+                    gb[i].gameObject.SetActive(false);
                
-                if (dist < 5) { a = 0; b = 3; }
-                else { a = 4; b = 7; }
-                
-                break;
+            }
         }
 
-        print(multiAttacker.attacksList.Length / 2);
-        print((multiAttacker.attacksList.Length / 2) + 1);
-        print(multiAttacker.attacksList.Length);*/
-        //print($"{a} / {b}");
+        if (players.Length != 0) playerFound = true;
 
+        print(playerFound);
 
-        if (timer >= attackRate)
+        if (playerFound)
         {
-            Debug.Log("Called Attack");
-            GetComponentInChildren<Animator>().SetBool("FlurryLoop", true); // this is soo that the flurry attack can keep happening the rig
-            if (dist <= meleeRange)
+            Time.timeScale = timeSpeed;
+            if (players.Length > 0) chosenPlayer = findClosestPlayer(players);
+
+            dist = Vector3.Distance(transform.position, chosenPlayer.transform.position);
+
+            if (dist < detectionRange) playerDetected = true;
+            if (playerDetected && !currentAttack) timer += Time.deltaTime;
+
+            if (transform.position != myPos)
             {
-                multiAttacker.AttackPlayer(0, multiAttacker.attacksList.Length / 2);
+                transform.position = myPos;
             }
-            else
+
+            if (timer >= attackRate)
             {
-                multiAttacker.AttackPlayer((multiAttacker.attacksList.Length / 2), multiAttacker.attacksList.Length);
+                Debug.Log("Called Attack");
+                GetComponentInChildren<Animator>().SetBool("FlurryLoop", true); // this is soo that the flurry attack can keep happening the rig
+                if (dist <= meleeRange)
+                {
+                    multiAttacker.AttackPlayer(0, multiAttacker.attacksList.Length / 2);
+                }
+                else
+                {
+                    multiAttacker.AttackPlayer((multiAttacker.attacksList.Length / 2), multiAttacker.attacksList.Length);
+                }
+                currentAttack = true;
+                timer = 0;
             }
-            currentAttack = true;
-            timer = 0;
+
+            Vector3 pos = chosenPlayer.transform.position;
+            if (boss) pos.y = 20; else pos.y = 2.5f;
+            //pos.y = boss ? 10 : 2.5f;
+            rotationPoint.LookAt(pos);
         }
-
-        Vector3 pos = chosenPlayer.transform.position;
-        pos.y= 2.5f;
-        rotationPoint.LookAt(pos);
-       // pos.y = 0;
-
     }
 
     public PlayerActions findClosestPlayer(PlayerActions[] Players)

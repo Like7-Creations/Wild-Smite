@@ -13,14 +13,20 @@ public class BossSummon : Attack
 
     public override void attackLogic()
     {
-        for (int i = 0; i < meleeOrigins.Length; i++)
+        int randomMelee = Random.Range(0, meleeOrigins.Length);
+        int randomRange = Random.Range(0, rangeOrigins.Length);
+
+        for (int i = 0; i < randomMelee; i++)
         {
-            Instantiate(meleePrefab, meleeOrigins[i].transform.position, Quaternion.identity);
+            GameObject gb = Instantiate(meleePrefab, meleeOrigins[i].transform.position, Quaternion.identity);
+            gb.GetComponent<Wander>().chaseRange = 100;
         }
 
-        for (int i = 0; i < rangeOrigins.Length; i++)
+        for (int i = 0; i < randomRange; i++)
         {
-            Instantiate(rangePrefab, rangeOrigins[i].transform.position, Quaternion.identity);
+            GameObject gb = Instantiate(rangePrefab, rangeOrigins[i].transform.position, Quaternion.identity);
+            
+            EnemiesSummon(gb);
         }
         GetComponent<BossBehaviors>().currentAttack = false;
     }
@@ -56,6 +62,16 @@ public class BossSummon : Attack
         {
             vfx.GetComponent<Boss_VFXHandler>().attackIndicationVFX.Play();
         }
+    }
+
+    public void EnemiesSummon(GameObject gb)
+    {
+        Wander enemy = gb.GetComponent<Wander>();
+        enemy.chaseRange = 100;
+
+        Chase enemyTwo = enemy.GetComponent<Chase>();
+        enemyTwo.orbitRangeMin= 70;
+        enemyTwo.orbitRangeMax= 100;
     }
 
     /*public override IEnumerator AttackType()

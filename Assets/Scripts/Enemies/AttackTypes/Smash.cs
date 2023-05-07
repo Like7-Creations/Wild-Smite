@@ -9,9 +9,7 @@ public class Smash : Attack
     [SerializeField] Transform VFX;
     BossBehaviors bossbe;
     Vector3 targetHit;
-
-
-    [SerializeField] float test;
+    [SerializeField] GameObject rotationPoint;
     
     public override void Start()
     {
@@ -27,7 +25,7 @@ public class Smash : Attack
 
 
         targetHit = smashPos.position;
-        Collider[] hits;
+        /*Collider[] hits;
         hits = Physics.OverlapSphere(targetHit, Radius);
         foreach (Collider c in hits)
         {
@@ -46,9 +44,9 @@ public class Smash : Attack
                         vfx.GetComponent<Boss_VFXHandler>().SmashVFX();
                     }//vfx;//vfx
                 }
-                player.TakeDamage(stats.MATK, transform.forward);
+                player.TakeDamage(stats.MATK, Vector3.zero);
             }
-        }
+        }*/
         GetComponent<BossBehaviors>().currentAttack = false;
     }
 

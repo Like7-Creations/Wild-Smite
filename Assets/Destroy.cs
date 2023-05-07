@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class Destroy : MonoBehaviour
 {
-    [SerializeField] float timer;
+    [SerializeField] public float timer;
     PlayerMovement player;
     PlayerActions actions;
     [SerializeField] bool enemy;
