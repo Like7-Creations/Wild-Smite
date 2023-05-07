@@ -45,6 +45,8 @@ public class PlayerActions : MonoBehaviour
     float timer;
     [SerializeField] float FireRate;
     [SerializeField] float bulletSpeed;
+    [SerializeField] float aimAssistRadius;
+    [SerializeField] float sphereCastRange;
     bool fired;
     [HideInInspector] public Vector2 aim;
     [HideInInspector] public Vector2 playerLookDir;
@@ -180,16 +182,27 @@ public class PlayerActions : MonoBehaviour
         #endregion
 
         #region Range System
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float raylength;
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        if (groundPlane.Raycast(cameraRay, out raylength))
+        //Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //float raylength;
+        //Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, aimAssistRadius, transform.forward, out hit, sphereCastRange))
         {
-            Vector3 pointToLook = cameraRay.GetPoint(raylength);
-            playerLookDir = pointToLook;
+            if(hit.collider.gameObject.GetComponent<EnemyStats>() != null)
+            {
+                Vector3 PointToLook = hit.collider.transform.position;
+                ProjectileOrigin.transform.LookAt(new Vector3(PointToLook.x, ProjectileOrigin.transform.position.y, PointToLook.z));
+            }
+            else
+            {
+                
+            }
+            //Gizmos.DrawSphere()
+            //Vector3 pointToLook = cameraRay.GetPoint(raylength);
+           // playerLookDir = pointToLook;
             //pointToLook.y = 1;
             //playerLookDir.y = 1;
-            Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+           // Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
             //float dist = Vector3.Distance(transform.position, pointToLook);
             //if(dist >= 1.5f)
             //if(!Pc.controlScheme)
