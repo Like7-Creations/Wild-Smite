@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour
     public AudioMixer mixer;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (PlayerPrefs.HasKey("MasterVolume"))
             mixer.SetFloat("MasterVol", Mathf.Log(PlayerPrefs.GetFloat("MasterVolume")) * 20f);

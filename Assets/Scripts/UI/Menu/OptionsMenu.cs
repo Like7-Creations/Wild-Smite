@@ -40,7 +40,7 @@ public class OptionsMenu : MonoBehaviour
     public List<float> uiScaleValues;
     public TMP_Text uiScaleLabel;
 
-    void Start()
+    void Awake()
     {
         #region Prepping Game Settings
 

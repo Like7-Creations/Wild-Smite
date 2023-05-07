@@ -10,6 +10,9 @@ public class LevelCompleteTrigger : MonoBehaviour
     [SerializeField] PauseMenuController pauseMenu;
     int totalEnemies;
 
+    [Header("Music")]
+    public MusicPlayer level;
+    public MusicPlayer complete;
 
     [Range(0, 1)]
     public float killPercent;
@@ -122,6 +125,9 @@ public class LevelCompleteTrigger : MonoBehaviour
             {
                 go.SetActive(false);
             }
+
+            level.FadeOut();
+            complete.FadeIn();
 
             LevelCompleteUI.gameObject.SetActive(true);
             LevelCompleteUI.ShowSummary();
