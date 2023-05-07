@@ -115,9 +115,13 @@ public class LevelCompleteTrigger : MonoBehaviour
             }*/
 
             PlayerConfigManager.Instance.DisableIngameControls();
-
             Debug.Log($"Player has been disabled");
 
+            GameObject[] gameObjectArray = GameObject.FindGameObjectsWithTag("Ambience");
+            foreach (GameObject go in gameObjectArray)
+            {
+                go.SetActive(false);
+            }
 
             LevelCompleteUI.gameObject.SetActive(true);
             LevelCompleteUI.ShowSummary();
