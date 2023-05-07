@@ -305,6 +305,7 @@ public class PlayerActions : MonoBehaviour
             {
                 animator.SetTrigger("Hit");
             }
+            knockBackDir.y = 1;
             StartCoroutine(Mover(30, 0.1f, knockBackDir));
             //Color origin = hit.material.color;
             //flash.gameObject.SetActive(true);

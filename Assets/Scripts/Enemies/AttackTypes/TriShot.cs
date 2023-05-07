@@ -8,6 +8,8 @@ public class TriShot : Attack
     [SerializeField] GameObject origin;
     [SerializeField] float interval;
     [SerializeField] float offsetAngle;
+    [SerializeField] float bulletSpeed;
+    [SerializeField] float bulletDuration;
 
     public override void Start()
     {
@@ -19,8 +21,11 @@ public class TriShot : Attack
         for (int i = 0; i < 3; i++)
         {
             Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-            rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
+            rb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
+            Destroy obj = rb.GetComponent<Destroy>();
+            obj.damage = GetComponent<EnemyStats>().RATK;
+            obj.timer = bulletDuration;
+
 
             if (i == 0)
             {
