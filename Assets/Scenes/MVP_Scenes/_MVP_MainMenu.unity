@@ -5293,7 +5293,6 @@ GameObject:
   m_Component:
   - component: {fileID: 435094265}
   - component: {fileID: 435094264}
-  - component: {fileID: 435094263}
   - component: {fileID: 435094262}
   m_Layer: 0
   m_Name: Cam_Green_Kang
@@ -5335,14 +5334,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &435094263
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435094261}
-  m_Enabled: 1
 --- !u!20 &435094264
 Camera:
   m_ObjectHideFlags: 0
@@ -6595,6 +6586,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 6166213622614991690, guid: 291ae51e0c970a540aff9f8ae14528c0, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 1122515923}
     - target: {fileID: 6166213622614991691, guid: 291ae51e0c970a540aff9f8ae14528c0, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -8674,7 +8669,6 @@ GameObject:
   m_Component:
   - component: {fileID: 629775920}
   - component: {fileID: 629775919}
-  - component: {fileID: 629775918}
   - component: {fileID: 629775917}
   m_Layer: 0
   m_Name: Cam_Green_Croc
@@ -8716,14 +8710,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &629775918
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629775916}
-  m_Enabled: 1
 --- !u!20 &629775919
 Camera:
   m_ObjectHideFlags: 0
@@ -13895,7 +13881,6 @@ GameObject:
   m_Component:
   - component: {fileID: 977886022}
   - component: {fileID: 977886021}
-  - component: {fileID: 977886020}
   - component: {fileID: 977886019}
   m_Layer: 0
   m_Name: Cam_Blue_Croc
@@ -13937,14 +13922,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &977886020
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977886018}
-  m_Enabled: 1
 --- !u!20 &977886021
 Camera:
   m_ObjectHideFlags: 0
@@ -15733,7 +15710,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1104984245}
   - component: {fileID: 1104984244}
-  - component: {fileID: 1104984243}
   - component: {fileID: 1104984242}
   m_Layer: 0
   m_Name: Cam_Orange_Croc
@@ -15775,14 +15751,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1104984243
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104984241}
-  m_Enabled: 1
 --- !u!20 &1104984244
 Camera:
   m_ObjectHideFlags: 0
@@ -16546,6 +16514,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4497756645856669570, guid: fd4090ff3c510e246a1c84184f69d16b, type: 3}
   m_PrefabInstance: {fileID: 1122515919}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1122515923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2430359101271491245, guid: fd4090ff3c510e246a1c84184f69d16b, type: 3}
+  m_PrefabInstance: {fileID: 1122515919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122515922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48c655c5736d5146842f3ed9e3f9c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1152198217
 GameObject:
   m_ObjectHideFlags: 0
@@ -20327,7 +20306,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1504603132}
   - component: {fileID: 1504603131}
-  - component: {fileID: 1504603130}
   - component: {fileID: 1504603129}
   m_Layer: 0
   m_Name: Cam_Orange_Kang
@@ -20369,14 +20347,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1504603130
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504603128}
-  m_Enabled: 1
 --- !u!20 &1504603131
 Camera:
   m_ObjectHideFlags: 0
@@ -23978,7 +23948,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1809256360}
   - component: {fileID: 1809256359}
-  - component: {fileID: 1809256358}
   - component: {fileID: 1809256357}
   m_Layer: 0
   m_Name: Cam_Blue_Kang
@@ -24020,14 +23989,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1809256358
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809256356}
-  m_Enabled: 1
 --- !u!20 &1809256359
 Camera:
   m_ObjectHideFlags: 0
