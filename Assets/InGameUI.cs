@@ -82,17 +82,19 @@ public class InGameUI : MonoBehaviour
     {
 
         //Player 1 Check Values
-        if (p1_HP != player1.hp)
-        {
-            p1_HP = player1.hp;
-            UpdateBars(player1_HealthBars, p1_HP);
+        if (player1 != null)
+            if (p1_HP != player1.hp)
+            {
+                p1_HP = player1.hp;
+                UpdateBars(player1_HealthBars, p1_HP);
 
-        }
-        if (p1_STAM != player1.stamina)
-        {
-            p1_STAM = player1.stamina;
-            UpdateBars(player1_StaminaBars, p1_STAM);
-        }
+            }
+        if (player1 != null)
+            if (p1_STAM != player1.stamina)
+            {
+                p1_STAM = player1.stamina;
+                UpdateBars(player1_StaminaBars, p1_STAM);
+            }
         //if (p1_Inventory.currentitem != heldItem)
         //{
         //    //update icon
@@ -115,16 +117,18 @@ public class InGameUI : MonoBehaviour
         //Player 2 Check Values
         if (!solo)
         {
-            if (p2_HP != player2.hp && !solo)
-            {
-                p2_HP = player2.hp;
-                UpdateBars(player2_HealthBars, p2_HP);
-            }
-            if (p2_STAM != player2.stamina && !solo)
-            {
-                p2_STAM = player2.stamina;
-                UpdateBars(player2_StaminaBars, p2_STAM);
-            }
+            if (player1 != null)
+                if (p2_HP != player2.hp && !solo)
+                {
+                    p2_HP = player2.hp;
+                    UpdateBars(player2_HealthBars, p2_HP);
+                }
+            if (player1 != null)
+                if (p2_STAM != player2.stamina && !solo)
+                {
+                    p2_STAM = player2.stamina;
+                    UpdateBars(player2_StaminaBars, p2_STAM);
+                }
             if (p2Inv.heldItem != p2Held)
             {
                 p2Held = p2Inv.heldItem;
