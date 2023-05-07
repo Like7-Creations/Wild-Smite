@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class BossBehaviors : MonoBehaviour
@@ -93,6 +94,11 @@ public class BossBehaviors : MonoBehaviour
             if (boss) pos.y = 20; else pos.y = 2.5f;
             //pos.y = boss ? 10 : 2.5f;
             rotationPoint.LookAt(pos);
+
+            if(boss && GetComponent<EnemyStats>().Health <= 0)
+            {
+                SceneManager.LoadScene("_MVP_MainMenu");
+            }
         }
     }
 
