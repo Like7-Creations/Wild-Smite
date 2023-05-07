@@ -6,6 +6,7 @@ public class Shoot : Attack
 {
     [SerializeField] float bulletInterval;
     [SerializeField] float flurryInterval;
+    [SerializeField] float bulletSpeed;
     [SerializeField] GameObject Bullet;
     [SerializeField] GameObject origin;
 
@@ -27,7 +28,7 @@ public class Shoot : Attack
                 Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
                 rb.GetComponent<Destroy>().damage = stats.RATK;
                 Vector3 target = GetComponent<BossBehaviors>().chosenPlayer.transform.position - origin.transform.position;
-                rb.AddForce(target.normalized * 10f, ForceMode.Impulse);
+                rb.AddForce(target.normalized * bulletSpeed, ForceMode.Impulse);
                 yield return new WaitForSeconds(bulletInterval);
             }
             yield return new WaitForSeconds(flurryInterval);

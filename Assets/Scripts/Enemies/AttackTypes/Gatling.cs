@@ -5,19 +5,42 @@ using UnityEngine;
 
 public class Gatling : Attack
 {
-    public float shootingDuration;
-    public float delayBetweenBullets;
-    public float durationTimer;
-    public float delayTimer;
+    public float flurryInterval;
+    public float bulletInterval;
+    public float duration;
+    public float bulletAmount;
+    public float bulletSpeed;
     bool abilityActivated;
 
-    public GameObject origin;
+    public GameObject[] origins;
 
     public GameObject Bullet;
 
     public override void attackLogic()
     {
-        abilityActivated = true;
+        //abilityActivated = true;
+        for (int i = 0; i < origins.Length; i++)
+        {
+            StartCoroutine(shoot(i));
+        }
+    }
+
+    IEnumerator shoot(int g)
+    {
+        float endTime = Time.time + duration;
+        while (endTime >= Time.time)
+        {
+            for (int i = 0; i < bulletAmount; i++)
+            {
+                Rigidbody rb = Instantiate(Bullet, origins[g].transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                rb.GetComponent<Destroy>().damage = stats.RATK;
+                Vector3 target = GetComponent<BossBehaviors>().chosenPlayer.transform.position - origins[g].transform.position;
+                rb.AddForce(target.normalized * bulletSpeed, ForceMode.Impulse);
+                yield return new WaitForSeconds(bulletInterval);
+            }
+            yield return new WaitForSeconds(flurryInterval);
+        }
+        GetComponent<BossBehaviors>().currentAttack = false;
     }
 
     public override void attackVFX()
@@ -56,13 +79,13 @@ public class Gatling : Attack
 
     public override void Update()
     {
-        if (abilityActivated)
+        /*if (abilityActivated)
         {
             durationTimer += Time.deltaTime;
-            if(durationTimer <= shootingDuration)
+            if(durationTimer <= flurryInterval)
             {
                 delayTimer += Time.deltaTime;
-                if(delayTimer >= delayBetweenBullets) 
+                if(delayTimer >= bulletInterval) 
                 {
                     GameObject rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity);
                     rb.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
@@ -76,6 +99,6 @@ public class Gatling : Attack
                 durationTimer = 0;
                 GetComponent<BossBehaviors>().currentAttack = false;
             }
-        }
+        }*/
     }
 }
