@@ -84,7 +84,6 @@ public class PlayerActions : MonoBehaviour
 
     public UnityEvent trigger_dash;
 
-    public UnityEvent trigger_attack_left;
     public UnityEvent trigger_attack_right;
     public UnityEvent trigger_dmg;
 
@@ -103,7 +102,7 @@ public class PlayerActions : MonoBehaviour
     public UnityEvent trigger_sprintSFX;
 
     public UnityEvent trigger_aoeChargeSFX;
-
+    public UnityEvent trigger_rangeAttackSFX;
 
 
     void Awake()
@@ -357,6 +356,13 @@ public class PlayerActions : MonoBehaviour
 
                 print(hitIndex);
                 animator.SetTrigger("Attack" + hitIndex);
+
+                AudioSource baseSource = GetComponent<Player_SFXHandler>().baseAudio;
+
+                if (!baseSource.isPlaying)
+                {
+                    trigger_attack_right.Invoke();
+                }
 
                 hitIndex++;
                 if (hitIndex > 1)
@@ -660,6 +666,13 @@ public class PlayerActions : MonoBehaviour
                 bullets.GetComponent<Destroy>().damage = pStats.r_ATK;
                 bullets.GetComponent<Destroy>().playershot = true;
                 fired = true;
+
+                AudioSource baseAudio = GetComponent<Player_SFXHandler>().baseAudio;
+
+                if (!baseAudio.isPlaying)
+                {
+                    trigger_rangeAttackSFX.Invoke();
+                }
             }
         }
     }

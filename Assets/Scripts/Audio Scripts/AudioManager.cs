@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour
     public AudioMixer mixer;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         float vol = 0f;
 

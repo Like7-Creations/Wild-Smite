@@ -54,10 +54,13 @@ public class EnemyStats : MonoBehaviour
     public Color meleeWeakness;
     public Color rangedWeakness;
 
+    public AudioSource deathsfx;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        deathsfx = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -212,9 +215,8 @@ public class EnemyStats : MonoBehaviour
             var deathclip = sfx.enemyDestroyedSFX[Random.Range(0, sfx.enemyDestroyedSFX.Length)];
             vfx.enemyDeathVFX.transform.parent = null;
 
-            AudioSource deathsfx = vfx.enemyDeathVFX.gameObject.AddComponent<AudioSource>();
             //deathsfx.clip = deathclip;
-            deathsfx.PlayOneShot(deathclip, 0.85f);
+            audioSource.PlayOneShot(deathclip, 1f);
             vfx.enemyDeathVFX.Play();
             isDead = true;
             StartCoroutine(DeathWait(0f));
