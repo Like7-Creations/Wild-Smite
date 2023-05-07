@@ -214,8 +214,8 @@ public class EnemyStats : MonoBehaviour
 
             var deathclip = sfx.enemyDestroyedSFX[Random.Range(0, sfx.enemyDestroyedSFX.Length)];
             vfx.enemyDeathVFX.transform.parent = null;
-            vfx.gameObject.AddComponent<AudioSource>().clip = deathclip;
-            vfx.gameObject.GetComponent<AudioSource>().Play();
+            vfx.enemyDeathVFX.gameObject.AddComponent<AudioSource>().clip = deathclip;
+            vfx.enemyDeathVFX.gameObject.GetComponent<AudioSource>().Play();
 
             //deathsfx.clip = deathclip;
             audioSource.PlayOneShot(deathclip, 1f);
