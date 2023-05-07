@@ -13,7 +13,6 @@ public class BossSummon : Attack
 
     public override void attackLogic()
     {
-
         for (int i = 0; i < meleeOrigins.Length; i++)
         {
             Instantiate(meleePrefab, meleeOrigins[i].transform.position, Quaternion.identity);

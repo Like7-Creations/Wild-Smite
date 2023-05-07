@@ -49,6 +49,11 @@ public class EnemyStats : MonoBehaviour
 
     public float generalCDN;
 
+    public bool weakness;
+
+    public Color meleeWeakness;
+    public Color rangedWeakness;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -82,6 +87,10 @@ public class EnemyStats : MonoBehaviour
                 generalCDN= RCDN;
                 break;
         }
+
+        // if weak to melee true, if weak to ranged false;
+        //weakness = MCDN < RDEF ? //make color = melee ? make color = ranged
+
     }
 
     void Update()
@@ -167,7 +176,10 @@ public class EnemyStats : MonoBehaviour
 
         Vector3 direction = (knockBackDir - transform.position).normalized;
         Vector3 knockbackVector = direction * knockbackStrength;
-        agent.SetDestination(transform.position + knockbackVector);
+        if(!isDead)
+        {
+            agent.SetDestination(transform.position + knockbackVector);
+        }
 
 
         if (vfx.isEnabled)

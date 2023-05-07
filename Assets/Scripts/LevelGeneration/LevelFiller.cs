@@ -12,7 +12,7 @@ public class LevelFiller : MonoBehaviour
 
     IEnumerator FillLevel()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(.4f);
 
         int rooms = transform.childCount;
 
