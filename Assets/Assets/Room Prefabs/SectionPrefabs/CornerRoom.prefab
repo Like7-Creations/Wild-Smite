@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2353418394730971760}
   - component: {fileID: 2353418394730971761}
+  - component: {fileID: 7035133861254963441}
   m_Layer: 0
   m_Name: CornerRoom
   m_TagString: Untagged
@@ -57,6 +58,19 @@ MonoBehaviour:
   Exits: {fileID: 2353418394876149007}
   Bounds: {fileID: 2353418396129310968}
   DeadEndChance: 5
+--- !u!114 &7035133861254963441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2353418394730971726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9342bc70019f143991db2bc290d165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls: {fileID: 0}
 --- !u!1 &2353418394876149004
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82588beffc5ef58488564e59c06194dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sectionAdjacents: {fileID: 7035133861254963441}
   variants:
   - {fileID: 1315104586288683909, guid: 2bf9d7cf4c90fbf46abe950810d3f76d, type: 3}
   - {fileID: 684292427794177776, guid: 08efbb924480ad1429c97eb1a6837eb3, type: 3}

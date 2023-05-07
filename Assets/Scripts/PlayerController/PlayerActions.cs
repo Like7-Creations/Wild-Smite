@@ -618,9 +618,6 @@ public class PlayerActions : MonoBehaviour
         {
             isSprinting = false;
         }
-
-        trigger_sprintVFX.Invoke();
-        trigger_sprintSFX.Invoke();
     }
 
     //Event Required
