@@ -19922,6 +19922,9 @@ MonoBehaviour:
   RCDN: 5
   exp: 0
   generalCDN: 0
+  weakness: 0
+  meleeWeakness: {r: 0, g: 0, b: 0, a: 0}
+  rangedWeakness: {r: 0, g: 0, b: 0, a: 0}
 --- !u!195 &4350474145898906469
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -19965,6 +19968,7 @@ MonoBehaviour:
   chosenPlayer: {fileID: 0}
   rotationPoint: {fileID: 7573613697087575874}
   currentAttack: 0
+  timeSpeed: 1
 --- !u!114 &4350474145898906470
 MonoBehaviour:
   m_ObjectHideFlags: 0
