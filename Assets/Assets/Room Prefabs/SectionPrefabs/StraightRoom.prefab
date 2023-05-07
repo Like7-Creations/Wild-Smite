@@ -98,6 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2441034141426471598}
   - component: {fileID: 2441034141426471599}
+  - component: {fileID: 3261656333548973058}
   m_Layer: 0
   m_Name: StraightRoom
   m_TagString: Untagged
@@ -145,6 +146,19 @@ MonoBehaviour:
   Exits: {fileID: 2441034141620923857}
   Bounds: {fileID: 2441034140023531558}
   DeadEndChance: 5
+--- !u!114 &3261656333548973058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441034141426471568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9342bc70019f143991db2bc290d165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls: {fileID: 0}
 --- !u!1 &2441034141620923858
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82588beffc5ef58488564e59c06194dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sectionAdjacents: {fileID: 3261656333548973058}
   variants:
   - {fileID: 1931142112844043648, guid: 43566d2b75366e34d992d9128be320f2, type: 3}
   - {fileID: 146050563101903613, guid: 110f19af5a557684b92a6d0df7cbd6ad, type: 3}
