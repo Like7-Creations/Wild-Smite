@@ -158,9 +158,6 @@ public class PlayerMovement : MonoBehaviour
             {
             }
         }
-
-        print(aiming);
-
     }
 
     public void animCheck()

@@ -60,7 +60,7 @@ public class PlayerControl : MonoBehaviour
                 //pActions.rotating = true;
                 // pActions.OnRotate(context);
                 pMovement.OnRotation(context);
-                pMovement.aiming = true;
+               // pMovement.aiming = true;
             }
 
             /*if (context.action.name == controls.Player.Rotation.name && context.canceled)
