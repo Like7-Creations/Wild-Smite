@@ -15,6 +15,7 @@ public class Dynamic_SplitScreen : MonoBehaviour
     public Vector3 camTrack1;
     public Vector3 camTrack2;
 
+    public LayerMask p1Cam_Settings;
     public LayerMask p2Cam_Settings;
 
     public bool isSplit;
@@ -60,6 +61,7 @@ public class Dynamic_SplitScreen : MonoBehaviour
         //Set Cam2 to ignore the TransparentFX layer, so that the splitter is only rendered forCam1
         //c2.cullingMask = ~(1 << LayerMask.NameToLayer("TransparentFX"));
 
+        c1.cullingMask = p1Cam_Settings;
         c2.cullingMask = p2Cam_Settings;
         //c2.cullingMask = ~(2 << LayerMask.NameToLayer("Player1 Cam"));
 

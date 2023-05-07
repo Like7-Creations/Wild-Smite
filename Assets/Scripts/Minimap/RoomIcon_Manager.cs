@@ -18,7 +18,7 @@ public class RoomIcon_Manager : MonoBehaviour
     [SerializeField] Color exploredColor;
     [SerializeField] Color hiddenColor;
 
-    [SerializeField] Color tankColor;
+    [SerializeField] Sprite tankIcon;
 
     [SerializeField] LayerMask minimapLayer;
     [SerializeField] float rayMagnitude;
@@ -61,7 +61,8 @@ public class RoomIcon_Manager : MonoBehaviour
                 break;
 
             case RoomStatus.Tank:
-                roomIcon.color = tankColor;
+                roomIcon.sprite = tankIcon;
+                roomIcon.color = currentColor;
 
                 break;
         }

@@ -11,19 +11,19 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         if (PlayerPrefs.HasKey("MasterVolume"))
-            mixer.SetFloat("MasterVol", PlayerPrefs.GetFloat("MasterVolume"));
+            mixer.SetFloat("MasterVol", Mathf.Log(PlayerPrefs.GetFloat("MasterVolume")) * 20f);
 
         if (PlayerPrefs.HasKey("PlayerVolume"))
-            mixer.SetFloat("PlayerVol", PlayerPrefs.GetFloat("PlayerVolume"));
+            mixer.SetFloat("PlayerVol", Mathf.Log(PlayerPrefs.GetFloat("PlayerVolume")) * 20f);
 
         if (PlayerPrefs.HasKey("EnemyVolume"))
-            mixer.SetFloat("EnemyVol", PlayerPrefs.GetFloat("EnemyVolume"));
+            mixer.SetFloat("EnemyVol", Mathf.Log(PlayerPrefs.GetFloat("EnemyVolume")) * 20f);
 
         if (PlayerPrefs.HasKey("UIVolume"))
-            mixer.SetFloat("UIVol", PlayerPrefs.GetFloat("UIVolume"));
+            mixer.SetFloat("UIVol", Mathf.Log(PlayerPrefs.GetFloat("UIVolume")) * 20f);
 
         if (PlayerPrefs.HasKey("MusicVolume"))
-            mixer.SetFloat("MusicVol", PlayerPrefs.GetFloat("MusicVolume"));
+            mixer.SetFloat("MusicVol", Mathf.Log(PlayerPrefs.GetFloat("MusicVolume")) * 20f);
 
     }
 }
