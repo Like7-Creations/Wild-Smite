@@ -24,8 +24,6 @@ public class LevelCompletion : MonoBehaviour
 
     public Transform battleLogRoot;
     public GameObject logItemPrefab;
-    public List<Jun_TweenRuntime> logs;
-    public float interval;
 
     public TMP_Text totalXPText;
 
@@ -92,7 +90,6 @@ public class LevelCompletion : MonoBehaviour
                 xp += p.defeatedEnemies[i].exp;
 
                 GameObject item = Instantiate(logItemPrefab, battleLogRoot);
-                logs.Add(item.GetComponent<Jun_TweenRuntime>());
                 item.GetComponent<LogItem>().SetItem(("" + p.defeatedEnemies[i].enemyType.ToString() + " x" + p.defeatedEnemies[i].count), ("+ " + p.defeatedEnemies[i].exp.ToString("000") + " XP"));
             }
 
@@ -137,7 +134,6 @@ public class LevelCompletion : MonoBehaviour
                 xp_1 += sumXP;
 
                 GameObject item = Instantiate(logItemPrefab, battleLogRoot_1);
-                logs.Add(item.GetComponent<Jun_TweenRuntime>());
                 item.GetComponent<LogItem>().SetItem(("" + p1.defeatedEnemies[i].enemyType.ToString() + " x" + p1.defeatedEnemies[i].count), ("+ " + sumXP.ToString("000") + " XP"));
             }
             int xp_2 = 0;
@@ -199,10 +195,23 @@ public class LevelCompletion : MonoBehaviour
 
     IEnumerator LogSequence()
     {
-        for (int i = 0; i < logs.Count; i++)
+
+        for (int i = 0; i < battleLogRoot.childCount; i++)
         {
-            logs[i].Play();
-            yield return new WaitForSeconds(interval);
+            battleLogRoot.GetChild(i).GetComponent<Jun_TweenRuntime>().Play();
+            yield return new WaitForSeconds(.3f);
+        }
+
+        for (int i = 0; i < battleLogRoot_1.childCount; i++)
+        {
+            battleLogRoot_1.GetChild(i).GetComponent<Jun_TweenRuntime>().Play();
+            yield return new WaitForSeconds(.3f);
+        }
+
+        for (int i = 0; i < battleLogRoot_2.childCount; i++)
+        {
+            battleLogRoot_2.GetChild(i).GetComponent<Jun_TweenRuntime>().Play();
+            yield return new WaitForSeconds(.3f);
         }
     }
 

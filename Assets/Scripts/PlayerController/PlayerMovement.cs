@@ -74,10 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction != Vector3.zero)
         {
-            if (!PA.shooting)
-            {
                 transform.rotation = Quaternion.Euler(0, angle, 0f);
-            }
+            /*if (!PA.shooting)
+            {
+            }*/
 
             Vector3 moveDir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
             PA.Dashdir = moveDir; // this is for dash to Make the player dash to their forward
@@ -148,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
         animCheck();
 
        // if (Mathf.Abs(direction.x) > deadzone || Mathf.Abs(direction.y) > deadzone)
+        if(rotationInput != Vector2.zero)
         {
             Vector3 playerDir = Vector3.right * rotationInput.x + Vector3.forward * rotationInput.y;
 
@@ -157,9 +158,6 @@ public class PlayerMovement : MonoBehaviour
             {
             }
         }
-
-        print(rotationInput);
-
     }
 
     public void animCheck()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class Destroy : MonoBehaviour
 {
@@ -18,11 +19,11 @@ public class Destroy : MonoBehaviour
     {
         player = FindObjectOfType<PlayerMovement>();
         actions = player.GetComponent<PlayerActions>();
+        Destroy(gameObject, timer);
     }
 
     void Update()
     {
-        Destroy(gameObject, timer);
         Vector3 playerPos = player.transform.position;
         if (enemy)
         {
@@ -33,13 +34,16 @@ public class Destroy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Collision detection of bullet,
         Debug.Log(other.gameObject.name);
         if(playershot && other.gameObject.tag != "Player")
         {
             if (other.gameObject.GetComponent<EnemyStats>() != null)
             {
                 EnemyStats victim = other.gameObject.GetComponent<EnemyStats>();
-                victim.TakeDamage(actions.pStats.r_ATK, actions.pStats, transform.forward, 1);// Deal damage to the enemy
+                int knockbackMulti = 1;
+                if (!victim.weakness) { knockbackMulti = 2; }
+                victim.TakeDamage(actions.pStats.r_ATK, actions.pStats, transform.forward, knockbackMulti);// Deal damage to the enemy
                 BulletDie();
             }
             else BulletDie();

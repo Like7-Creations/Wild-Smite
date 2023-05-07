@@ -9,32 +9,25 @@ public class BossBehaviors : MonoBehaviour
     EnemyStats stats;
     MultiAttacker multiAttacker;
 
+    [Header("General Settings")]
+    [SerializeField] float meleeRange;
     [SerializeField] float detectionRange;
-    float dist;
-    bool playerDetected;
-
-    public PlayerActions[] players;
-
-    public PlayerActions chosenPlayer;
-
+    [SerializeField] bool playerDetected;
     public float attackRate;
-
     public bool boss;
+    float dist;
+
+    [HideInInspector] public PlayerActions[] players;
+
+    [HideInInspector] public PlayerActions chosenPlayer;
 
     public Transform rotationPoint;
 
     Vector3 myPos;
 
-    public bool currentAttack;
+    [HideInInspector] public bool currentAttack;
 
-   /* public enum Type
-    {
-        Tank,
-        Boss
-    }
-    public Type BossType;
-
-    int a, b;*/
+    public float timeSpeed;
 
     void Start()
     {
@@ -48,6 +41,7 @@ public class BossBehaviors : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Time.timeScale = timeSpeed;
         if (players.Length > 1) chosenPlayer = findClosestPlayer(players);
 
         dist = Vector3.Distance(transform.position, chosenPlayer.transform.position);
@@ -85,9 +79,11 @@ public class BossBehaviors : MonoBehaviour
         //print($"{a} / {b}");
 
 
-        if (timer >= 5)
+        if (timer >= attackRate)
         {
-            if (dist <= 5)
+            Debug.Log("Called Attack");
+            GetComponentInChildren<Animator>().SetBool("FlurryLoop", true); // this is soo that the flurry attack can keep happening the rig
+            if (dist <= meleeRange)
             {
                 multiAttacker.AttackPlayer(0, multiAttacker.attacksList.Length / 2);
             }

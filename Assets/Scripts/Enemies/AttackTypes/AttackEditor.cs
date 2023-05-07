@@ -16,7 +16,7 @@ public class AttackEditor : Editor
 
         if (GUILayout.Button("Activate Attack"))
         {
-            attack.startAttack();
+            attack.attackLogic();
         }
     }
 }

@@ -45,6 +45,8 @@ public class PlayerActions : MonoBehaviour
     float timer;
     [SerializeField] float FireRate;
     [SerializeField] float bulletSpeed;
+    [SerializeField] float aimAssistRadius;
+    [SerializeField] float sphereCastRange;
     bool fired;
     [HideInInspector] public Vector2 aim;
     [HideInInspector] public Vector2 playerLookDir;
@@ -180,24 +182,35 @@ public class PlayerActions : MonoBehaviour
         #endregion
 
         #region Range System
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float raylength;
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        if (groundPlane.Raycast(cameraRay, out raylength))
+        //Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //float raylength;
+        //Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, aimAssistRadius, transform.forward, out hit, sphereCastRange))
         {
-            Vector3 pointToLook = cameraRay.GetPoint(raylength);
-            playerLookDir = pointToLook;
+            if(hit.collider.gameObject.GetComponent<EnemyStats>() != null)
+            {
+                Vector3 PointToLook = hit.collider.transform.position;
+                ProjectileOrigin.transform.LookAt(new Vector3(PointToLook.x, ProjectileOrigin.transform.position.y, PointToLook.z));
+            }
+            else
+            {
+                
+            }
+            //Gizmos.DrawSphere()
+            //Vector3 pointToLook = cameraRay.GetPoint(raylength);
+           // playerLookDir = pointToLook;
             //pointToLook.y = 1;
             //playerLookDir.y = 1;
-            Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+           // Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
             //float dist = Vector3.Distance(transform.position, pointToLook);
             //if(dist >= 1.5f)
-            if(!Pc.controlScheme)
+            //if(!Pc.controlScheme)
             //transform.LookAt(pointToLook);
-            if (mouseShooting)
+            /*if (mouseShooting)
             {
                 ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
-            }
+            }*/
         }
         //transform.LookAt(playerLookDir);
 
@@ -402,7 +415,9 @@ public class PlayerActions : MonoBehaviour
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
                 Debug.Log("enable collider called");
-                enemiesInDot[i].TakeDamage(pStats.m_ATK, pStats, transform.forward, 3);
+                int knockbackMulti = 1;
+                if (enemiesInDot[i].weakness) knockbackMulti = 2;
+                enemiesInDot[i].TakeDamage(pStats.m_ATK, pStats, transform.forward, knockbackMulti);
             }
         }
         //VFX.Melee();
