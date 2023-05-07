@@ -10,20 +10,72 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        float vol = 0f;
+
         if (PlayerPrefs.HasKey("MasterVolume"))
-            mixer.SetFloat("MasterVol", Mathf.Log(PlayerPrefs.GetFloat("MasterVolume")) * 20f);
+        {
+            vol = PlayerPrefs.GetFloat("MasterVolume");
+            vol = CalculateVal(vol);
+            Debug.Log("Retrieved " + vol + "From player Prefs Master");
+
+            mixer.SetFloat("MasterVol", vol);
+        }
 
         if (PlayerPrefs.HasKey("PlayerVolume"))
-            mixer.SetFloat("PlayerVol", Mathf.Log(PlayerPrefs.GetFloat("PlayerVolume")) * 20f);
+        {
+            vol = PlayerPrefs.GetFloat("PlayerVolume");
+            vol = CalculateVal(vol);
+            Debug.Log("Retrieved " + vol + "From player Prefs Player");
+
+            mixer.SetFloat("PlayerVol", vol);
+        }
 
         if (PlayerPrefs.HasKey("EnemyVolume"))
-            mixer.SetFloat("EnemyVol", Mathf.Log(PlayerPrefs.GetFloat("EnemyVolume")) * 20f);
+        {
+            vol = PlayerPrefs.GetFloat("EnemyVolume");
+            vol = CalculateVal(vol);
+            Debug.Log("Retrieved " + vol + "From player Prefs Enemy");
+
+            mixer.SetFloat("EnemyVol", vol);
+        }
 
         if (PlayerPrefs.HasKey("UIVolume"))
-            mixer.SetFloat("UIVol", Mathf.Log(PlayerPrefs.GetFloat("UIVolume")) * 20f);
+        {
+            vol = PlayerPrefs.GetFloat("UIVolume");
+            vol= CalculateVal(vol);
+            Debug.Log("Retrieved " + vol + "From player Prefs UI");
+
+            mixer.SetFloat("UIVol", vol);
+        }
 
         if (PlayerPrefs.HasKey("MusicVolume"))
-            mixer.SetFloat("MusicVol", Mathf.Log(PlayerPrefs.GetFloat("MusicVolume")) * 20f);
+        {
+            vol = PlayerPrefs.GetFloat("MusicVolume");
+            vol= CalculateVal(vol);
+            Debug.Log("Retrieved " + vol + "From player Prefs Music");
 
+            mixer.SetFloat("MusicVol", vol);
+        }
+
+    }
+
+    float CalculateVal(float sliderVal)
+    {
+        float val = 0;
+
+        if (sliderVal == 0)
+        {
+            val = -80f;
+        }
+        else if (sliderVal == 1)
+        {
+            val = 0;
+        }
+        else
+        {
+            val = Mathf.Log(sliderVal) * 20f;
+        }
+
+        return val;
     }
 }

@@ -227,5 +227,4 @@ public class EnemyStats : MonoBehaviour
         // check if player is in range;
         GetComponent<StateManager>().currentState.chosenPlayer.GetComponent<PlayerActions>().TakeDamage(damage,transform.forward);
     }
-
 }
