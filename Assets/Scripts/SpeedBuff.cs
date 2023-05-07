@@ -10,21 +10,25 @@ public class SpeedBuff : Item
 
     float originalSprintSpeed;
     float originalSpeed;
+    bool used;
 
     public override void Effect(PlayerStats stats)
     {
-        originalSpeed = pActions.OriginalSpeed;
-        originalSprintSpeed = pActions.SprintSpeed;
-        plMovement.playerSpeed += buffAmount;
-        pActions.SprintSpeed = plMovement.playerSpeed;
-        pActions.OriginalSpeed = plMovement.playerSpeed;
-        originalAmount = (int)plMovement.playerSpeed;
-        //plStats.ori
-        timer = duration;
-        //temUI.GetComponentInChildren<Image>().fillAmount = 1;
-        useItem = true;
+        if (!used) // this if statement code was added 1 hour before submission..thats why its amatuer
+        {
+            originalSpeed = pActions.OriginalSpeed;
+            originalSprintSpeed = pActions.SprintSpeed;
+            plMovement.playerSpeed += buffAmount;
+            pActions.SprintSpeed = plMovement.playerSpeed;
+            pActions.OriginalSpeed = plMovement.playerSpeed;
+            originalAmount = (int)plMovement.playerSpeed;
+            //plStats.ori
+            timer = duration;
+            //temUI.GetComponentInChildren<Image>().fillAmount = 1;
+            useItem = true;
 
-        Play_UseItemSFX();
+            Play_UseItemSFX();
+        }
     }
 
     public override void Update()

@@ -20210,6 +20210,7 @@ MonoBehaviour:
   weakness: 0
   meleeWeakness: {r: 0, g: 0, b: 0, a: 0}
   rangedWeakness: {r: 0, g: 0, b: 0, a: 0}
+  deathsfx: {fileID: 0}
 --- !u!195 &4350474145898906469
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -20303,7 +20304,7 @@ MonoBehaviour:
   Radius: 5
   smashPos: {fileID: 4350474146660462635}
   VFX: {fileID: 1223235614189505136}
-  test: 0
+  rotationPoint: {fileID: 0}
 --- !u!114 &4350474145898906466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20330,7 +20331,7 @@ MonoBehaviour:
     Radius: 5.62
     enemyFound: 0
   knockBackStr: 30
-  knockBacktime: 0.2
+  rotationPoint: {fileID: 0}
   swipePoint: {fileID: 7019647275046554833}
 --- !u!114 &4350474145898906476
 MonoBehaviour:
@@ -20358,6 +20359,7 @@ MonoBehaviour:
   expandSpeed: 2
   knockBackStr: 100
   knockBacktime: 0.2
+  rotationPoint: {fileID: 0}
 --- !u!114 &4350474145898906464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20384,6 +20386,7 @@ MonoBehaviour:
   - {fileID: 3388436874818667675}
   - {fileID: 2358825620233207801}
   - {fileID: 255788545582158231}
+  offsetAngle: 0
   spinDuration: 3
   speed: 2
   fireRate: 0.05
@@ -20528,6 +20531,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0a179e7baa92a7a498940233c9c2f834, type: 3}
   - {fileID: 8300000, guid: bf0f4527edb323e42b1f8c731f6bd54b, type: 3}
   - {fileID: 8300000, guid: b9447059601521a47932869acb7322df, type: 3}
+  enemyDeathSFX:
+  - name: Destroy1 [With Electricity]
+    clip: {fileID: 8300000, guid: 9464016e7963b32458583d35ac23f9af, type: 3}
+    voumeVal: 1
+  - name: Destroy2 [With Electricity]
+    clip: {fileID: 8300000, guid: d99e8637a933b2e41a2a756acc868048, type: 3}
+    voumeVal: 1
+  - name: Destroy3 [With Electricity]
+    clip: {fileID: 8300000, guid: 202ef5a476448184faa5803dbc86e7c0, type: 3}
+    voumeVal: 1
   smashSFX:
   - {fileID: 8300000, guid: 070b77cd29c0c854881f4642d30840d9, type: 3}
   - {fileID: 8300000, guid: 6e51a83116ea36c4e92eebd3e232b558, type: 3}

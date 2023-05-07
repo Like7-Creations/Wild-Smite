@@ -51505,6 +51505,7 @@ MonoBehaviour:
   weakness: 0
   meleeWeakness: {r: 0, g: 0, b: 0, a: 0}
   rangedWeakness: {r: 0, g: 0, b: 0, a: 0}
+  deathsfx: {fileID: 0}
 --- !u!195 &984735722681861742
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -51805,6 +51806,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9464016e7963b32458583d35ac23f9af, type: 3}
   - {fileID: 8300000, guid: d99e8637a933b2e41a2a756acc868048, type: 3}
   - {fileID: 8300000, guid: 202ef5a476448184faa5803dbc86e7c0, type: 3}
+  enemyDeathSFX:
+  - name: Destroy1 [With Electricity]
+    clip: {fileID: 8300000, guid: 9464016e7963b32458583d35ac23f9af, type: 3}
+    voumeVal: 1
+  - name: Destroy2 [With Electricity]
+    clip: {fileID: 8300000, guid: d99e8637a933b2e41a2a756acc868048, type: 3}
+    voumeVal: 1
+  - name: Destroy3 [With Electricity]
+    clip: {fileID: 8300000, guid: 202ef5a476448184faa5803dbc86e7c0, type: 3}
+    voumeVal: 1
   singleShotSFX:
   - {fileID: 8300000, guid: cf33613c8def73b439262623923937b1, type: 3}
   - {fileID: 8300000, guid: 463910a9367c2b649a1e10053c41840a, type: 3}

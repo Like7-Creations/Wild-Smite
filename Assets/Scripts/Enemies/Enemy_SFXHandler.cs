@@ -13,6 +13,7 @@ public class Enemy_SFXHandler : MonoBehaviour
     [SerializeField] public AudioClip[] enemyHitSFX;
                       
     [SerializeField] public AudioClip[] enemyDestroyedSFX;
+    [SerializeField] public SFXClip[] enemyDeathSFX;
 
     //AudioClip enemyFootSteps;
 }
