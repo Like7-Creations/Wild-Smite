@@ -18,6 +18,8 @@ public class BossBehaviors : MonoBehaviour
     public bool boss;
     float dist;
 
+    public GameObject UIOVer;
+
     [SerializeField] public PlayerActions[] players;
 
     [HideInInspector] public PlayerActions chosenPlayer;
@@ -97,7 +99,7 @@ public class BossBehaviors : MonoBehaviour
 
             if(boss && GetComponent<EnemyStats>().Health <= 0)
             {
-                SceneManager.LoadScene("_MVP_MainMenu");
+                UIOVer.SetActive(true);
             }
         }
     }
