@@ -192,12 +192,12 @@ public class PlayerActions : MonoBehaviour
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
             //float dist = Vector3.Distance(transform.position, pointToLook);
             //if(dist >= 1.5f)
-            if(!Pc.controlScheme)
+            //if(!Pc.controlScheme)
             //transform.LookAt(pointToLook);
-            if (mouseShooting)
+            /*if (mouseShooting)
             {
                 ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
-            }
+            }*/
         }
         //transform.LookAt(playerLookDir);
 
