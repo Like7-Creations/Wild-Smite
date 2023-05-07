@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class Destroy : MonoBehaviour
 {
@@ -39,7 +40,9 @@ public class Destroy : MonoBehaviour
             if (other.gameObject.GetComponent<EnemyStats>() != null)
             {
                 EnemyStats victim = other.gameObject.GetComponent<EnemyStats>();
-                victim.TakeDamage(actions.pStats.r_ATK, actions.pStats, transform.forward, 1);// Deal damage to the enemy
+                int knockbackMulti = 1;
+                if (!victim.weakness) { knockbackMulti = 2; }
+                victim.TakeDamage(actions.pStats.r_ATK, actions.pStats, transform.forward, knockbackMulti);// Deal damage to the enemy
                 BulletDie();
             }
             else BulletDie();
