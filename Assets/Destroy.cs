@@ -19,11 +19,11 @@ public class Destroy : MonoBehaviour
     {
         player = FindObjectOfType<PlayerMovement>();
         actions = player.GetComponent<PlayerActions>();
+        Destroy(gameObject, timer);
     }
 
     void Update()
     {
-        Destroy(gameObject, timer);
         Vector3 playerPos = player.transform.position;
         if (enemy)
         {
@@ -34,6 +34,7 @@ public class Destroy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Collision detection of bullet,
         Debug.Log(other.gameObject.name);
         if(playershot && other.gameObject.tag != "Player")
         {
