@@ -7,6 +7,7 @@ using TMPro;
 public class StatAllocations : MonoBehaviour
 {
     [Header("General")]
+    public RawImage render;
     public TMP_Text StatPointCount_Text;
     public Jun_TweenRuntime flashTween;
     int StatPoints;
@@ -57,6 +58,11 @@ public class StatAllocations : MonoBehaviour
     int baseRATK;
     int currentRATK;
     int newRATK;
+
+    public void GiveRenderTexture(RawImage tex)
+    {
+        render.texture = tex.texture;
+    }
 
     public void BeginAllocations(PlayerStat_Data p)
     {
