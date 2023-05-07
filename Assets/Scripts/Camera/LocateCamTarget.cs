@@ -14,7 +14,7 @@ public class LocateCamTarget : MonoBehaviour
 
     void Update()
     {
-        if(cam.LookAt == null)
+        if(cam.Follow == null)
         {
             Transform target = FindObjectOfType<PlayerActions>().gameObject.transform;
             cam.LookAt = target;
