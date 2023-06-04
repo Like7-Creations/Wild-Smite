@@ -106,6 +106,7 @@ public class LoadSlots : MonoBehaviour
     {
         SaveLoadSystem.BeginLoad(filePath);
         bool slotExist = SaveLoadSystem.checkLoad();
+ 
         if (slotExist)
         {
             hasData = true;

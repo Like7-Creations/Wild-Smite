@@ -5,17 +5,63 @@ using UnityEngine;
 
 public class Gatling : Attack
 {
-    public float shootingDuration;
-    public float delayBetweenBullets;
-    public float durationTimer;
-    public float delayTimer;
+    public float flurryInterval;
+    public float bulletInterval;
+    public float duration;
+    public float bulletAmount;
+    public float bulletSpeed;
     bool abilityActivated;
 
-    public GameObject origin;
+    public GameObject[] origins;
 
     public GameObject Bullet;
 
-    public override IEnumerator AttackType()
+    public override void attackLogic()
+    {
+        //abilityActivated = true;
+        for (int i = 0; i < origins.Length; i++)
+        {
+            StartCoroutine(shoot(i));
+        }
+    }
+
+    IEnumerator shoot(int g)
+    {
+        float endTime = Time.time + duration;
+        while (endTime >= Time.time)
+        {
+            for (int i = 0; i < bulletAmount; i++)
+            {
+                Rigidbody rb = Instantiate(Bullet, origins[g].transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                rb.GetComponent<Destroy>().damage = stats.RATK;
+                Vector3 target = GetComponent<BossBehaviors>().chosenPlayer.transform.position - origins[g].transform.position;
+                rb.AddForce(target.normalized * bulletSpeed, ForceMode.Impulse);
+                yield return new WaitForSeconds(bulletInterval);
+            }
+            yield return new WaitForSeconds(flurryInterval);
+        }
+        GetComponent<BossBehaviors>().currentAttack = false;
+    }
+
+    public override void attackVFX()
+    {
+        if (vfx.isEnabled)
+        {
+            vfx.GetComponent<Boss_VFXHandler>().GatlingVFX();
+        }
+    }
+
+    public override void attackSFX()
+    {
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Boss_SFXHandler>();
+            var clip = obj.gatlingSFX[Random.Range(0, obj.gatlingSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
+    /*public override IEnumerator AttackType()
     {
         if (vfx.isEnabled)
         {
@@ -29,35 +75,21 @@ public class Gatling : Attack
         }
         yield return new WaitForSeconds(timeToAttackAfterIndicator);
         abilityActivated = true;
-    }
+    }*/
 
     public override void Update()
     {
-        if (abilityActivated)
+        /*if (abilityActivated)
         {
             durationTimer += Time.deltaTime;
-            if(durationTimer <= shootingDuration)
+            if(durationTimer <= flurryInterval)
             {
                 delayTimer += Time.deltaTime;
-                if(delayTimer >= delayBetweenBullets) 
+                if(delayTimer >= bulletInterval) 
                 {
                     GameObject rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity);
                     rb.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
                     rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
-                    if(vfx.isEnabled)
-                    {
-                        vfx.GetComponent<Boss_VFXHandler>().GatlingVFX();
-                    }
-                    if (sfx.isEnabled)
-                    {
-                        var obj = GetComponent<Boss_SFXHandler>();
-                        var clip = obj.gatlingSFX[Random.Range(0, obj.gatlingSFX.Length)];
-                        audioSource.PlayOneShot(clip);
-                    }
-                    if (vfx.isEnabled)
-                    {
-                        vfx.GetComponent<Boss_VFXHandler>().GatlingVFX();
-                    }
                     delayTimer = 0;
                 }
             }
@@ -65,7 +97,8 @@ public class Gatling : Attack
             {
                 abilityActivated = false;
                 durationTimer = 0;
+                GetComponent<BossBehaviors>().currentAttack = false;
             }
-        }
+        }*/
     }
 }

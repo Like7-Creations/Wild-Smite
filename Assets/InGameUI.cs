@@ -49,6 +49,8 @@ public class InGameUI : MonoBehaviour
 
     bool solo;
 
+    private AudioSource[] allAudioSources;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,17 +82,19 @@ public class InGameUI : MonoBehaviour
     {
 
         //Player 1 Check Values
-        if (p1_HP != player1.hp)
-        {
-            p1_HP = player1.hp;
-            UpdateBars(player1_HealthBars, p1_HP);
+        if (player1 != null)
+            if (p1_HP != player1.hp)
+            {
+                p1_HP = player1.hp;
+                UpdateBars(player1_HealthBars, p1_HP);
 
-        }
-        if (p1_STAM != player1.stamina)
-        {
-            p1_STAM = player1.stamina;
-            UpdateBars(player1_StaminaBars, p1_STAM);
-        }
+            }
+        if (player1 != null)
+            if (p1_STAM != player1.stamina)
+            {
+                p1_STAM = player1.stamina;
+                UpdateBars(player1_StaminaBars, p1_STAM);
+            }
         //if (p1_Inventory.currentitem != heldItem)
         //{
         //    //update icon
@@ -113,16 +117,18 @@ public class InGameUI : MonoBehaviour
         //Player 2 Check Values
         if (!solo)
         {
-            if (p2_HP != player2.hp && !solo)
-            {
-                p2_HP = player2.hp;
-                UpdateBars(player2_HealthBars, p2_HP);
-            }
-            if (p2_STAM != player2.stamina && !solo)
-            {
-                p2_STAM = player2.stamina;
-                UpdateBars(player2_StaminaBars, p2_STAM);
-            }
+            if (player1 != null)
+                if (p2_HP != player2.hp && !solo)
+                {
+                    p2_HP = player2.hp;
+                    UpdateBars(player2_HealthBars, p2_HP);
+                }
+            if (player1 != null)
+                if (p2_STAM != player2.stamina && !solo)
+                {
+                    p2_STAM = player2.stamina;
+                    UpdateBars(player2_StaminaBars, p2_STAM);
+                }
             if (p2Inv.heldItem != p2Held)
             {
                 p2Held = p2Inv.heldItem;
@@ -130,13 +136,13 @@ public class InGameUI : MonoBehaviour
             }
         }
 
-        if(p1Inv.heldItem != p1Held)
+        if (p1Inv.heldItem != p1Held)
         {
             p1Held = p1Inv.heldItem;
             UpdateItemIcon(p1Held, P1_ItemUI);
         }
 
-        
+
 
         if (p1_HP <= 0)
         {
@@ -151,6 +157,22 @@ public class InGameUI : MonoBehaviour
         {
             if (p1_dead)
             {
+                /* allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+                   foreach (AudioSource audioS in allAudioSources)
+                   {
+                       audioS.Stop();
+                   } */
+
+                EnemyStats[] enemies = FindObjectsOfType<EnemyStats>();
+                foreach (EnemyStats enemy in enemies)
+                    enemy.gameObject.SetActive(false);
+
+                GameObject[] gameObjectArray = GameObject.FindGameObjectsWithTag("Ambience");
+                foreach (GameObject go in gameObjectArray)
+                {
+                    go.SetActive(false);
+                }
+
                 gameOverUI.SetActive(true);
             }
         }
@@ -161,6 +183,22 @@ public class InGameUI : MonoBehaviour
 
             if (p2_dead & p1_dead)
             {
+                /* allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+                   foreach (AudioSource audioS in allAudioSources)
+                   {
+                       audioS.Stop();
+                   } */
+
+                EnemyStats[] enemies = FindObjectsOfType<EnemyStats>();
+                foreach (EnemyStats enemy in enemies)
+                    enemy.gameObject.SetActive(false);
+
+                GameObject[] gameObjectArray = GameObject.FindGameObjectsWithTag("Ambience");
+                foreach (GameObject go in gameObjectArray)
+                {
+                    go.SetActive(false);
+                }
+
                 gameOverUI.SetActive(true);
             }
             else if (p2_dead & !p1_dead)
@@ -246,7 +284,7 @@ public class InGameUI : MonoBehaviour
 
     void UpdateItemIcon(Item item, Image Icon)
     {
-        if(item != null)
+        if (item != null)
         {
             Icon.sprite = item.itemUI;
         }
@@ -261,7 +299,7 @@ public class InGameUI : MonoBehaviour
         sliderTimer.maxValue = duration;
         sliderTimer.value = 0;
         float timer = 0;
-        
+
         while (timer <= duration)
         {
             timer += 0.01f * 2f;

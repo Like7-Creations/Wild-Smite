@@ -8,13 +8,67 @@ public class TriShot : Attack
     [SerializeField] GameObject origin;
     [SerializeField] float interval;
     [SerializeField] float offsetAngle;
+    [SerializeField] float bulletSpeed;
+    [SerializeField] float bulletDuration;
 
     public override void Start()
     {
         base.Start();
     }
 
-    public override IEnumerator AttackType()
+    public override void attackLogic()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
+            Destroy obj = rb.GetComponent<Destroy>();
+            obj.damage = GetComponent<EnemyStats>().RATK;
+            obj.timer = bulletDuration;
+
+
+            if (i == 0)
+            {
+                rb.AddForce(origin.transform.right * offsetAngle, ForceMode.Impulse);
+            }
+            if (i == 2)
+            {
+                rb.AddForce(origin.transform.right * -offsetAngle, ForceMode.Impulse);
+            }
+        }
+    }
+
+    public override void attackVFX()
+    {
+
+    }
+
+    public override void attackSFX()
+    {
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Range_SFXHandler>();
+            var clip = obj.triShotSFX[Random.Range(0, obj.triShotSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
+    public override void AttackIndication()
+    {
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Range_SFXHandler>();
+            var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+
+        if (vfx.isEnabled)
+        {
+            vfx.GetComponent<Range_VFXHandler>().attackIndicationVFX.Play();
+        }
+    }
+
+    /*public override IEnumerator AttackType()
     {
         // Attack indication for ranged and melee are implemented in the state machine, therefore they dont have to be here
 
@@ -42,5 +96,5 @@ public class TriShot : Attack
             }
         }
 
-    }
+    }*/
 }

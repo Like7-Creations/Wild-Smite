@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class BossBehaviors : MonoBehaviour
 {
@@ -9,26 +9,32 @@ public class BossBehaviors : MonoBehaviour
     EnemyStats stats;
     MultiAttacker multiAttacker;
 
+    [Header("General Settings")]
+    [SerializeField] float meleeRange;
     [SerializeField] float detectionRange;
-    float dist;
-    bool playerDetected;
-
-    public PlayerActions[] players;
-
-    public PlayerActions chosenPlayer;
-
+    [SerializeField] bool playerDetected;
     public float attackRate;
-
     public bool boss;
+    float dist;
 
-    public enum Type
-    {
-        Tank,
-        Boss
-    }
-    public Type BossType;
+    public GameObject UIOVer;
 
-    int a, b;
+    [SerializeField] public PlayerActions[] players;
+
+    [HideInInspector] public PlayerActions chosenPlayer;
+
+    public Transform rotationPoint;
+
+    Vector3 myPos;
+
+    [HideInInspector] public bool currentAttack;
+
+    public float timeSpeed;
+
+    [SerializeField] bool playerFound;
+
+    bool bossEnd;
+    float timerEnd;
 
     void Start()
     {
@@ -36,46 +42,78 @@ public class BossBehaviors : MonoBehaviour
         multiAttacker = GetComponent<MultiAttacker>();
         players = FindObjectsOfType<PlayerActions>();
         if(players.Length == 1) { chosenPlayer = players[0]; }
+        myPos = transform.position;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        if (players.Length > 1) chosenPlayer = findClosestPlayer(players);
-
-        dist = Vector3.Distance(transform.position, chosenPlayer.transform.position);
-
-        if(dist < detectionRange) playerDetected = true;
-        if (playerDetected) timer += Time.deltaTime;
-
-        switch (BossType)
+        if (!playerFound)
         {
-            case Type.Tank:
-                
-                if (dist < 5) { a = 0; b = 2; }
-                else { a = 2; b = 4; }
-                   
-                break;
-
-            case Type.Boss:
+            players = FindObjectsOfType<PlayerActions>();
+            if (boss)
+            {
+                BossDisable[] gb = FindObjectsOfType<BossDisable>();
+                for (int i = 0; i < gb.Length; i++)
+                    gb[i].gameObject.SetActive(false);
                
-                if (dist < 5) { a = 0; b = 3; }
-                else { a = 4; b = 7; }
-                
-                break;
+            }
         }
 
-        if(timer >= 10000)
+        if (players.Length != 0) playerFound = true;
+
+        print(playerFound);
+
+        if (playerFound)
         {
-            print($"{a} / {b}");
-            multiAttacker.AttackPlayer(a,b);
-            timer = 0;
+            Time.timeScale = timeSpeed;
+            if (players.Length > 0) chosenPlayer = findClosestPlayer(players);
+
+            dist = Vector3.Distance(transform.position, chosenPlayer.transform.position);
+
+            if (dist < detectionRange) playerDetected = true;
+            if (playerDetected && !currentAttack) timer += Time.deltaTime;
+
+            if (transform.position != myPos)
+            {
+                transform.position = myPos;
+            }
+
+            if (timer >= attackRate)
+            {
+                Debug.Log("Called Attack");
+                GetComponentInChildren<Animator>().SetBool("FlurryLoop", true); // this is soo that the flurry attack can keep happening the rig
+                if (dist <= meleeRange)
+                {
+                    multiAttacker.AttackPlayer(0, multiAttacker.attacksList.Length / 2);
+                }
+                else
+                {
+                    multiAttacker.AttackPlayer((multiAttacker.attacksList.Length / 2), multiAttacker.attacksList.Length);
+                }
+                currentAttack = true;
+                timer = 0;
+            }
+
+            Vector3 pos = chosenPlayer.transform.position;
+            if (boss) pos.y = 20; else pos.y = 2.5f;
+            //pos.y = boss ? 10 : 2.5f;
+            rotationPoint.LookAt(pos);
+
+            if(boss && GetComponent<EnemyStats>().Health <= 0)
+            {
+                UIOVer.SetActive(true);
+                bossEnd = true;
+            }
+
+            if (bossEnd)
+            {
+                timerEnd += Time.deltaTime;
+                if(timerEnd >= 5)
+                {
+                    SceneManager.LoadScene("_MVP_MainMenu");
+                }
+            }
         }
-
-        Vector3 pos = chosenPlayer.transform.position;
-       // pos.y = 0;
-        transform.LookAt(pos);
-
     }
 
     public PlayerActions findClosestPlayer(PlayerActions[] Players)

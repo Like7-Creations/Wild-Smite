@@ -9,7 +9,7 @@ public class RoomIcon_Manager : MonoBehaviour
 
     [SerializeField] Minimap_DetectionPoint local_detectionPoint;
 
-    public enum RoomStatus { Current, Hidden, Adjacent }
+    public enum RoomStatus { Current, Hidden, Adjacent, Tank }
     public RoomStatus roomStatus;
 
     public bool exploredRoom = false;
@@ -17,6 +17,8 @@ public class RoomIcon_Manager : MonoBehaviour
     [SerializeField] Color unexploredColor;
     [SerializeField] Color exploredColor;
     [SerializeField] Color hiddenColor;
+
+    [SerializeField] Sprite tankIcon;
 
     [SerializeField] LayerMask minimapLayer;
     [SerializeField] float rayMagnitude;
@@ -55,6 +57,12 @@ public class RoomIcon_Manager : MonoBehaviour
                     roomIcon.color = exploredColor;
                 else
                     roomIcon.color = hiddenColor;
+
+                break;
+
+            case RoomStatus.Tank:
+                roomIcon.sprite = tankIcon;
+                roomIcon.color = currentColor;
 
                 break;
         }
@@ -130,12 +138,22 @@ public class RoomIcon_Manager : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        /*if (other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
+        {
             if (roomStatus != RoomStatus.Current)
             {
                 roomStatus = RoomStatus.Current;
                 UpdateRoomState();
-            }*/
+            }
+        }
+        else if (other.CompareTag("Tank"))
+        {
+            if (roomStatus != RoomStatus.Tank)
+            {
+                roomStatus = RoomStatus.Tank;
+                UpdateRoomState();
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)

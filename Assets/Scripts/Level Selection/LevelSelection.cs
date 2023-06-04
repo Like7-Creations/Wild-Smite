@@ -43,7 +43,7 @@ public class LevelSelection : MonoBehaviour
 
     public void SelectFirstOption()
     {
-        Debug.Log("Selecting fisrt option");
+        //Debug.Log("Selecting fisrt option");
         options[0].CollapsedButton.Select();
         currentOption = 0;
 
@@ -65,7 +65,7 @@ public class LevelSelection : MonoBehaviour
     public void GenerateLevelOptions()
     {
         int amount = Random.Range(minLevels, maxLevels);
-        Debug.Log($"Want to spawn {amount} options");
+        //Debug.Log($"Want to spawn {amount} options");
         for (int i = 0; i < amount; i++)
         {
             GameObject option = Instantiate(optionPrefab, transform);
@@ -120,7 +120,7 @@ public class LevelSelection : MonoBehaviour
     {
         int run = 0;
         Vector3 position = new Vector3(Random.Range(MinPosValues.x, MaxPosValues.x), Random.Range(MinPosValues.y, MaxPosValues.y), 0);
-        Debug.Log($"First Generated Position is: " + position);
+        //Debug.Log($"First Generated Position is: " + position);
 
         if (placedPositions.Count > 0 && placedPositions != null)
         {
@@ -137,7 +137,7 @@ public class LevelSelection : MonoBehaviour
 
                 for (int i = 0; i < placedPositions.Count; i++)
                 {
-                    Debug.Log("Comparing Generated Position to Option " + (i + 1));
+                    //Debug.Log("Comparing Generated Position to Option " + (i + 1));
 
                     if ((position.x < placedPositions[i].x && position.x > placedPositions[i].x - InstancePaddingX.x) || (position.x > placedPositions[i].x && position.x < placedPositions[i].x + InstancePaddingX.y))
                         tooCloseX = true;
@@ -148,11 +148,11 @@ public class LevelSelection : MonoBehaviour
                     {
                         //validPosition = true;
                         validCount++;
-                        Debug.Log($"Position is Valid {validCount}/{placedPositions.Count}");
+                        //Debug.Log($"Position is Valid {validCount}/{placedPositions.Count}");
                     }
                 }
 
-                Debug.Log($"Final Valid count is {validCount}/{placedPositions.Count}");
+                //Debug.Log($"Final Valid count is {validCount}/{placedPositions.Count}");
 
                 if (validCount == placedPositions.Count)
                 {
@@ -162,13 +162,13 @@ public class LevelSelection : MonoBehaviour
                 else
                 {
                     position = new Vector3(Random.Range(MinPosValues.x, MaxPosValues.x), Random.Range(MinPosValues.y, MaxPosValues.y), 0);
-                    Debug.Log("Position is not Valid");
-                    Debug.Log($"New Generated Position {run} is: " + position);
+                    //Debug.Log("Position is not Valid");
+                    //Debug.Log($"New Generated Position {run} is: " + position);
                 }
 
                 if (loopCount > 100)
                 {
-                    Debug.Log("Loop Count Exceeded, breaking Loop");
+                    //Debug.Log("Loop Count Exceeded, breaking Loop");
                     loopCountExceded++;
                     break;
                 }

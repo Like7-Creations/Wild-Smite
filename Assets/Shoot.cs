@@ -4,11 +4,72 @@ using UnityEngine;
 
 public class Shoot : Attack
 {
-    [SerializeField] float interval;
+    [SerializeField] float bulletInterval;
+    [SerializeField] float flurryInterval;
+    [SerializeField] float bulletSpeed;
     [SerializeField] GameObject Bullet;
     [SerializeField] GameObject origin;
 
-    public override IEnumerator AttackType()
+    [SerializeField] int bulletAmount;
+    [SerializeField] float duration;
+
+    public override void attackLogic()
+    {
+        StartCoroutine(shoot());
+    }
+
+    IEnumerator shoot()
+    {
+        float endTime = Time.time + duration;
+        while (endTime >= Time.time)
+        {
+            for (int i = 0; i < bulletAmount; i++)
+            {
+                Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                rb.GetComponent<Destroy>().damage = stats.RATK;
+                Vector3 target = GetComponent<BossBehaviors>().chosenPlayer.transform.position - origin.transform.position;
+                rb.AddForce(target.normalized * bulletSpeed, ForceMode.Impulse);
+                yield return new WaitForSeconds(bulletInterval);
+            }
+            yield return new WaitForSeconds(flurryInterval);
+        }
+        GetComponent<BossBehaviors>().currentAttack = false;
+    }
+
+    public override void attackVFX()
+    {
+        if (vfx.isEnabled)
+        {
+            vfx.GetComponent<Tank_VFXHandler>().ShootVFX();
+        }
+    }
+
+    public override void attackSFX()
+    {
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Tank_SFXHandler>();
+            var clip = obj.shootSFX[Random.Range(0, obj.shootSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
+    public override void AttackIndication()
+    {
+        if (sfx.isEnabled)
+        {
+            var obj = GetComponent<Tank_SFXHandler>();
+            var clip = obj.enemyAttackIndicatorSFX[Random.Range(0, obj.enemyAttackIndicatorSFX.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+
+        if (vfx.isEnabled)
+        {
+            vfx.GetComponent<Enemy_VFXHandler>().attackIndicationVFX.Play();
+        }
+    }
+
+    /*public override IEnumerator AttackType()
     {
         // triggert animation
         if (vfx.isEnabled)
@@ -22,10 +83,6 @@ public class Shoot : Attack
             audioSource.PlayOneShot(clip);
         }
 
-       /* anim.SetTrigger("ShootPrep");
-        AnimationClip animClip = getAnimationClip(anim, "ShootPrep");
-        float time = animClip.length;
-        yield return new WaitForSeconds(time);*/
 
         for (int i = 0; i < 3; i++)
         {
@@ -49,5 +106,5 @@ public class Shoot : Attack
             }
             yield return new WaitForSeconds(interval);
         }
-    }
+    }*/
 }

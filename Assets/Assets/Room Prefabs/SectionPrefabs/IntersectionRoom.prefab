@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642856522375855037}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.70710677}
-  m_LocalPosition: {x: 16.5, y: 1.4, z: -0.000009938293}
+  m_LocalPosition: {x: 14, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3400649842456018001}
@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705035011582876658}
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -16.5, y: 1.4, z: 0.000009938293}
+  m_LocalPosition: {x: -14, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3400649842456018001}
@@ -84,7 +84,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2159775818984149488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: -16.5}
+  m_LocalPosition: {x: 0, y: 0, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3400649842456018001}
@@ -287,6 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8144228862662897574}
   - component: {fileID: 8144228862662897575}
+  - component: {fileID: 3329316938446373968}
   m_Layer: 0
   m_Name: IntersectionRoom
   m_TagString: Untagged
@@ -332,6 +333,19 @@ MonoBehaviour:
   Exits: {fileID: 8144228862574219481}
   Bounds: {fileID: 8144228864070391086}
   DeadEndChance: 1
+--- !u!114 &3329316938446373968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144228862662897560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9342bc70019f143991db2bc290d165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls: {fileID: 0}
 --- !u!1 &8144228864000379099
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8799395851349458309}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1.4, z: 16.5}
+  m_LocalPosition: {x: 0, y: 0, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3400649842456018001}
@@ -494,6 +508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82588beffc5ef58488564e59c06194dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sectionAdjacents: {fileID: 3329316938446373968}
+  adjacentControls: {fileID: 0}
   variants:
   - {fileID: 8669667646613100786, guid: dba3731ebb102854d95141e395267346, type: 3}
   - {fileID: 3605492800496714873, guid: 517eb74cdf985de4bba21163b4b8839c, type: 3}

@@ -37,8 +37,17 @@ public class OptionsMenu : MonoBehaviour
     public Slider uiSlider;
     public TMP_Text uiLabel;
 
-    void Start()
+    public List<float> uiScaleValues;
+    public TMP_Text uiScaleLabel;
+
+    public bool audioInitialized = false;
+
+    void Awake()
     {
+        #region Prepping Game Settings
+
+        #endregion
+
         #region Prepping Graphics Settings
 
         fScreenTog.isOn = Screen.fullScreen;
@@ -49,11 +58,16 @@ public class OptionsMenu : MonoBehaviour
 
         selectedQualityIndex = QualitySettings.GetQualityLevel();
 
-        qualButton_Text.text = qualityOptions[selectedQualityIndex];
+        //qualButton_Text.text = qualityOptions[selectedQualityIndex];
         #endregion
 
         #region Identifying All Available Resolutions & Displaying Current One
         resolutions = Screen.resolutions;
+
+        if (resolutions.Length == 0)
+        {
+            Debug.Log("No resolutions found");
+        }
 
         List<string> resOptions = new List<string>();
 
@@ -86,26 +100,7 @@ public class OptionsMenu : MonoBehaviour
 
         #region Prepping Audio Settings
 
-        float vol = 0;
-        mainMixer.GetFloat("MasterVol", out vol);
-        masterSlider.value = vol;
-        masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
-
-        mainMixer.GetFloat("PlayerVol", out vol);
-        playerSlider.value = vol;
-        playerLabel.text = Mathf.RoundToInt(playerSlider.value + 80).ToString();
-
-        mainMixer.GetFloat("EnemyVol", out vol);
-        enemySlider.value = vol;
-        enemyLabel.text = Mathf.RoundToInt(enemySlider.value + 80).ToString();
-
-        mainMixer.GetFloat("MusicVol", out vol);
-        musicSlider.value = vol;
-        musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
-
-        mainMixer.GetFloat("UIVol", out vol);
-        uiSlider.value = vol;
-        uiLabel.text = Mathf.RoundToInt(uiSlider.value + 80).ToString();
+        InitializeAudio();
 
         #endregion
     }
@@ -115,10 +110,22 @@ public class OptionsMenu : MonoBehaviour
 
     }
 
+    public float CalculatePercentage(float percentage)
+    {
+        if (percentage > 5)
+        {
+            percentage = 5;
+        }
+
+        float result = (percentage / 100) * 20;
+
+        return result;
+    }
+
     #region Graphics Functions
 
     #region Quality Functions
-    public void SelectPrevQuality()
+    /*public void SelectPrevQuality()
     {
         //Decrease the selected QualityIndex.
         selectedQualityIndex--;
@@ -147,7 +154,7 @@ public class OptionsMenu : MonoBehaviour
         //Update the Quaity Label
         UpdateQualityLabel();
     }
-
+    */  //Deprecate Later
     public void SetQualityValue(int qualIndex)
     {
         selectedQualityIndex = qualIndex;
@@ -156,7 +163,9 @@ public class OptionsMenu : MonoBehaviour
     public void UpdateQualityLabel()
     {
         //Access the text element of the Quality Label, and then take the specified quality, convert it into a string and paste it.
-        qualButton_Text.text = qualityOptions[selectedQualityIndex];
+        //qualButton_Text.text = qualityOptions[selectedQualityIndex];
+
+        //Replace with code that resets the current toggled quality to the default one./
     }
     #endregion
 
@@ -195,59 +204,98 @@ public class OptionsMenu : MonoBehaviour
 
     #region Audio Functions
 
+    float CalculateVolumeVal(float sliderVal)
+    {
+        float val = 0f;
+
+        if (sliderVal == 0)
+        {
+            val = -80f;
+        }
+        else if (sliderVal == 1)
+        {
+            val = 0;
+        }
+        else
+        {
+            val = Mathf.Log(sliderVal) * 20f;
+        }
+
+        return val;
+    }
+
+    public void InitializeAudio()
+    {
+        masterSlider.value = PlayerPrefs.GetFloat("MasterVolume");
+        masterLabel.text = Mathf.RoundToInt(masterSlider.value * 100).ToString();
+
+        playerSlider.value = PlayerPrefs.GetFloat("PlayerVolume");
+        playerLabel.text = Mathf.RoundToInt(playerSlider.value * 100).ToString();
+
+        enemySlider.value = PlayerPrefs.GetFloat("EnemyVolume");
+        enemyLabel.text = Mathf.RoundToInt(enemySlider.value * 100).ToString();
+
+        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        musicLabel.text = Mathf.RoundToInt(musicSlider.value * 100).ToString();
+
+        uiSlider.value = PlayerPrefs.GetFloat("UIVolume");
+        uiLabel.text = Mathf.RoundToInt(uiSlider.value * 100).ToString();
+    }
+
     public void SetMasterVol()
     {
-        masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
+        masterLabel.text = Mathf.RoundToInt(masterSlider.value * 100).ToString();
 
-        mainMixer.SetFloat("MasterVol", masterSlider.value);
-
-        PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
+        mainMixer.SetFloat("MasterVol", CalculateVolumeVal(masterSlider.value));
     }
 
     public void SetPlayerVol()
     {
-        playerLabel.text = Mathf.RoundToInt(playerSlider.value + 80).ToString();
+        playerLabel.text = Mathf.RoundToInt(playerSlider.value * 100).ToString();
 
-        mainMixer.SetFloat("PlayerVol", playerSlider.value);
-
-        PlayerPrefs.SetFloat("PlayerVolume", playerSlider.value);
+        mainMixer.SetFloat("PlayerVol", CalculateVolumeVal(playerSlider.value));
     }
 
     public void SetEnemyVol()
     {
-        enemyLabel.text = Mathf.RoundToInt(enemySlider.value + 80).ToString();
+        enemyLabel.text = Mathf.RoundToInt(enemySlider.value * 100).ToString();
 
-        mainMixer.SetFloat("EnemyVol", enemySlider.value);
-
-        PlayerPrefs.SetFloat("EnemyVolume", enemySlider.value);
+        mainMixer.SetFloat("EnemyVol", CalculateVolumeVal(enemySlider.value));
     }
 
     public void SetMusicVol()
     {
-        musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
+        musicLabel.text = Mathf.RoundToInt(musicSlider.value * 100).ToString();
 
-        mainMixer.SetFloat("MusicVol", musicSlider.value);
-
-        PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
+        mainMixer.SetFloat("MusicVol", CalculateVolumeVal(musicSlider.value));
     }
 
     public void SetUIVol()
     {
-        uiLabel.text = Mathf.RoundToInt(uiSlider.value + 80).ToString();
+        uiLabel.text = Mathf.RoundToInt(uiSlider.value * 100).ToString();
 
-        mainMixer.SetFloat("UIVol", uiSlider.value);
-
-        PlayerPrefs.SetFloat("UIVolume", uiSlider.value);
+        mainMixer.SetFloat("UIVol", CalculateVolumeVal(uiSlider.value));
     }
     #endregion
 
     #region General GameSetting Functions
 
-    //Create a function that enables key recording mode.
+    //Create a function that takes an int parameter, and uses it to scale the game UI in the scene.
 
-    //Create function that unbinds a key from an action.
+    float uiScale = 0;
 
-    //Create function that binds a key to an action.
+    public void ScaleUI(float scaleVal)
+    {
+        uiScale = uiScaleValues[(int)(scaleVal - 1)];
+        Debug.Log("Set UI Scale to add " + uiScale);
+
+        UpdateScaleSliderText(scaleVal);
+    }
+
+    public void UpdateScaleSliderText(float val)
+    {
+        uiScaleLabel.text = val.ToString();
+    }
 
     #endregion
 
@@ -263,7 +311,20 @@ public class OptionsMenu : MonoBehaviour
 
     public void ApplyAudio()
     {
+        PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
 
+        PlayerPrefs.SetFloat("PlayerVolume", playerSlider.value);
+
+        PlayerPrefs.SetFloat("EnemyVolume", enemySlider.value);
+
+        PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
+
+        PlayerPrefs.SetFloat("UIVolume", uiSlider.value);
+    }
+
+    public void ApplyGame()
+    {
+        PlayerPrefs.SetFloat("GameUIScale", uiScale);
     }
 
     #endregion
@@ -273,13 +334,13 @@ public class OptionsMenu : MonoBehaviour
     {
         //Reset Quality
         selectedQualityIndex = 1;
-        
+
         QualitySettings.SetQualityLevel(1);
         UpdateQualityLabel();
 
         //Reset Screen Resolution
         selectedResIndex = defaultResIndex;
-        
+
         fScreenTog.isOn = false;
 
         Screen.SetResolution(Screen.width, Screen.height, false);
@@ -289,36 +350,36 @@ public class OptionsMenu : MonoBehaviour
     public void ResetAudio()
     {
         //Reset Master Audio
-        masterSlider.value = 0;
-        masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
+        masterSlider.value = 0.5f;
+        masterLabel.text = Mathf.RoundToInt(masterSlider.value * 100).ToString();
         mainMixer.SetFloat("MasterVol", masterSlider.value);
 
         PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
 
         //Reset Player Audo
-        playerSlider.value = 0;
-        playerLabel.text = Mathf.RoundToInt(playerSlider.value + 80).ToString();
+        playerSlider.value = 0.5f;
+        playerLabel.text = Mathf.RoundToInt(playerSlider.value * 100).ToString();
         mainMixer.SetFloat("PlayerVol", playerSlider.value);
 
         PlayerPrefs.SetFloat("PlayerVolume", playerSlider.value);
 
         //Reset Enemy Audio
-        enemySlider.value = 0;
-        enemyLabel.text = Mathf.RoundToInt(enemySlider.value + 80).ToString();
+        enemySlider.value = 0.5f;
+        enemyLabel.text = Mathf.RoundToInt(enemySlider.value * 100).ToString();
         mainMixer.SetFloat("EnemyVol", enemySlider.value);
 
         PlayerPrefs.SetFloat("EnemyVolume", enemySlider.value);
 
         //Reset Music Audio
-        musicSlider.value = 0;
-        musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
+        musicSlider.value = 0.5f;
+        musicLabel.text = Mathf.RoundToInt(musicSlider.value * 100).ToString();
         mainMixer.SetFloat("MusicVol", musicSlider.value);
 
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
 
         //Reset UI Audio
-        uiSlider.value = 0;
-        uiLabel.text = Mathf.RoundToInt(uiSlider.value + 80).ToString();
+        uiSlider.value = 0.5f;
+        uiLabel.text = Mathf.RoundToInt(uiSlider.value * 100).ToString();
         mainMixer.SetFloat("UIVol", uiSlider.value);
 
         PlayerPrefs.SetFloat("UIVolume", uiSlider.value);

@@ -5,6 +5,9 @@ using UnityEngine;
 public class SelectRoomVariant : MonoBehaviour
 {
 
+    public SectionAdjacents sectionAdjacents;
+    public AdjacentControls adjacentControls;
+
     public GameObject[] variants;
 
     [Range(0, 100)]
@@ -16,7 +19,10 @@ public class SelectRoomVariant : MonoBehaviour
     private void Awake()
     {
         int index = Random.Range(0, variants.Length);
-        Instantiate(variants[index], transform);
+        GameObject obj = Instantiate(variants[index], transform);
+        adjacentControls = obj.GetComponentInChildren<AdjacentControls>();
+        if (adjacentControls != null)
+            sectionAdjacents.controls = adjacentControls;
 
         if (SpawnLayouts.Length > 0)
         {
@@ -28,7 +34,8 @@ public class SelectRoomVariant : MonoBehaviour
             else
                 spawnerRoot = transform;
 
-            GameObject obj = Instantiate(SpawnLayouts[layout], transform);
+            Instantiate(SpawnLayouts[layout], transform);
+
             //obj.transform.SetParent(spawnerRoot);
         }
 

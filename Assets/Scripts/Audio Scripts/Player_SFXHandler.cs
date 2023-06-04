@@ -108,7 +108,7 @@ public class Player_SFXHandler : MonoBehaviour
     public void Play_AOESFX()
     {
         //baseAudio.clip = playerAOE_SFX;
-        baseAudio.PlayOneShot(playerAOE_SFX.clip, playerAOE_SFX.voumeVal);
+        aoeChargeAudio.PlayOneShot(playerAOE_SFX.clip, playerAOE_SFX.voumeVal);
     }
 
     public void Play_AOEChargeSFX()

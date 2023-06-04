@@ -6,14 +6,20 @@ using UnityEngine.UI;
 public class RangeBuff : Item
 {
     PlayerStats plStats;
+    bool used;
 
     public override void Effect(PlayerStats stats)
     {
-        originalAmount = plStats.r_ATK;
-        plStats.r_ATK += buffAmount;
-        //timer = duration;
-        //itemUI.GetComponentInChildren<Image>().fillAmount = 1;
-        useItem = true;
+        if (!used)  // this if statement code was added 1 hour before submission..thats why its amatuer
+        {
+            originalAmount = plStats.r_ATK;
+            plStats.r_ATK += buffAmount;
+            //timer = duration;
+            //itemUI.GetComponentInChildren<Image>().fillAmount = 1;
+            useItem = true;
+
+            Play_UseItemSFX();
+        }
     }
 
     public override void Update()
@@ -39,6 +45,9 @@ public class RangeBuff : Item
             if (pl.heldItem == null)
             {
                 pl.heldItem = this;
+
+                Play_CollectItemSFX();
+
                 plStats = pl.GetComponent<PlayerStats>();
                 transform.parent = other.transform;
                 timer = duration;

@@ -20,8 +20,8 @@
                     "id": "c893ad87-c6db-4a68-a654-5738bcca1552",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": true
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Attack",
@@ -177,7 +177,7 @@
                 {
                     "name": "",
                     "id": "3648ab39-e399-4d36-9681-e1410f0c8b70",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -241,6 +241,61 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "ArrowKeys",
+                    "id": "f6597657-f0d0-495b-bb67-2da5ebba25fc",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "55663eaa-95e7-4389-9ea5-81a2d568e033",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "9f08cfd7-7d3e-4217-9f7d-cd797614f578",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "49af7697-05fc-4e2b-883c-66d9e5859957",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "23e38e03-757a-4c4a-a870-f74d7939a7d9",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "fca27286-b0eb-4969-aed2-92e27681310e",
                     "path": "<Keyboard>/shift",
@@ -265,10 +320,21 @@
                 {
                     "name": "",
                     "id": "36072f1b-e05d-42b8-ac3f-79bab67c4ef3",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "RangeAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d70cfaaa-d315-4dcd-a9db-6c08ec9286f7",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
                     "action": "RangeAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -287,7 +353,7 @@
                 {
                     "name": "",
                     "id": "37699f12-74eb-4d20-9d06-4337783b2a19",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

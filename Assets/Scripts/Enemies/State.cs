@@ -16,13 +16,15 @@ public abstract class State : MonoBehaviour
     [HideInInspector] public Enemy_SFXHandler sfx;
     [HideInInspector] public AudioSource audioSource;
     [HideInInspector] public Animator anim;
+    [HideInInspector] public EnemyStats stats;
 
 
     public abstract State RunCurrentState();
 
     public virtual void Start()
     {
-        anim = GetComponent<Animator>();
+        stats = GetComponent<EnemyStats>();
+        anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         players = FindObjectsOfType<PlayerActions>();
         audioSource = GetComponent<AudioSource>();

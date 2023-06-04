@@ -38,6 +38,10 @@ public class CamTrackerMove : MonoBehaviour
     Vector3 velocity;
     #endregion
 
+    #region Debug
+    public bool debug;
+    #endregion
+
     Vector3 IdentifyTargetPos()
     {
         //Grab a list of enemies from the PlayerActions script that are within range of the player.
@@ -129,6 +133,26 @@ public class CamTrackerMove : MonoBehaviour
 
     void Update()
     {
+        if (debug)
+        {
+            if (playerTarget == null)
+            {
+                PlayerActions[] players = FindObjectsOfType<PlayerActions>();
+
+                for (int i = 0; i < players.Length; i++)
+                {
+                    if (CompareTag("Player1"))
+                    {
+                        playerTarget = players[0].gameObject;
+                    }
+                    else if (CompareTag("Player2"))
+                    {
+                        playerTarget = players[1].gameObject;
+                    }
+                }
+            }
+        }
+
         if (playerTarget != null)
         {
             pActions = playerTarget.GetComponent<PlayerActions>();

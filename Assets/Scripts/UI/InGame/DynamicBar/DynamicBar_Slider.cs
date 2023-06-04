@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class DynamicBar_Slider : MonoBehaviour
 {
+    public bool noPlayer;
+
     [Header("Bar Settings")]
     int midBarCount = 1;
 
@@ -32,7 +34,28 @@ public class DynamicBar_Slider : MonoBehaviour
     public Slider endBar;
     public List<Slider> midBarSliders = new List<Slider>();
 
+    [Header("ColorSettings")]
+    public Color baseColor;
+    public Gradient ColorGradient;
+    public bool useGradient;
+    public bool pulse;
+    public AnimationCurve pulseCurve;
+    public AnimationCurve speedCurve;
+    public float pulseDuration;
+    float pulseTimer;
+
     bool obtainedValue;
+
+    private void Awake()
+    {
+        if (noPlayer)
+            SetSliderValues(maxValue);
+
+        startBar.GetComponent<Bar>().SetSpriteColors(baseColor);
+        endBar.GetComponent<Bar>().SetSpriteColors(baseColor);
+        for (int i = 0; i < midBarSliders.Count; i++)
+            midBarSliders[i].GetComponent<Bar>().SetSpriteColors(baseColor);
+    }
 
     // Update is called once per frame
     void Update()
@@ -82,6 +105,36 @@ public class DynamicBar_Slider : MonoBehaviour
             currentValue = Mathf.MoveTowards(currentValue, desiredValue, reduceSpeed * Time.deltaTime);
             UpdateSliderValues();
         }
+
+        if (useGradient)
+        {
+            if (pulse)
+            {
+                pulseTimer += Time.deltaTime;
+                pulseDuration = speedCurve.Evaluate(currentValue / maxValue);
+
+                float factor = pulseCurve.Evaluate(pulseTimer / pulseDuration);
+
+                Color col = Color.Lerp(baseColor, ColorGradient.Evaluate(currentValue / maxValue), factor);
+                startBar.GetComponent<Bar>().SetSpriteColors(col);
+                endBar.GetComponent<Bar>().SetSpriteColors(col);
+                for (int i = 0; i < midBarSliders.Count; i++)
+                    midBarSliders[i].GetComponent<Bar>().SetSpriteColors(col);
+
+                if (pulseTimer >= pulseDuration)
+                    pulseTimer = 0;
+            }
+            else
+            {
+                Color col = ColorGradient.Evaluate(currentValue / maxValue);
+
+                startBar.GetComponent<Bar>().SetSpriteColors(col);
+                endBar.GetComponent<Bar>().SetSpriteColors(col);
+                for (int i = 0; i < midBarSliders.Count; i++)
+                    midBarSliders[i].GetComponent<Bar>().SetSpriteColors(col);
+            }
+        }
+
 
         //UpdateSliderValues();
     }
@@ -199,6 +252,11 @@ public class DynamicBar_Slider : MonoBehaviour
     public void ChangeValue(float amount)
     {
         desiredValue = amount;
+    }
+
+    public void DeductValue(float value)
+    {
+        desiredValue -= value;
     }
 
     public void FullValue()

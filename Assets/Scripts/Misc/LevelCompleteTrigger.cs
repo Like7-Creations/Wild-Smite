@@ -10,6 +10,9 @@ public class LevelCompleteTrigger : MonoBehaviour
     [SerializeField] PauseMenuController pauseMenu;
     int totalEnemies;
 
+    [Header("Music")]
+    public MusicPlayer level;
+    public MusicPlayer complete;
 
     [Range(0, 1)]
     public float killPercent;
@@ -103,6 +106,27 @@ public class LevelCompleteTrigger : MonoBehaviour
                     Time.timeScale = 1;
                 }
             }
+
+            PlayerActions[] pcs = FindObjectsOfType<PlayerActions>();
+
+            foreach (PlayerActions pa in pcs)
+            {
+                pa.GetComponent<PlayerMovement>().enabled = false;
+                //pa.gameObject.SetActive(false);
+                Debug.Log($"{pa.gameObject.name} has been disabled");
+            }
+
+            PlayerConfigManager.Instance.DisableIngameControls();
+            Debug.Log($"Player has been disabled");
+
+            GameObject[] gameObjectArray = GameObject.FindGameObjectsWithTag("Ambience");
+            foreach (GameObject go in gameObjectArray)
+            {
+                go.SetActive(false);
+            }
+
+            level.FadeOut();
+            complete.FadeIn();
 
             LevelCompleteUI.gameObject.SetActive(true);
             LevelCompleteUI.ShowSummary();

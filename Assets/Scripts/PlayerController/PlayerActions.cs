@@ -1,17 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using System.Threading;
-using System.Linq;
-using UnityEditor;
-using UnityEngine.Rendering;
-using UnityEngine.Scripting.APIUpdating;
-using UnityEditor.UIElements;
 using UnityEngine.Events;
-using System;
-using UnityEngine.SceneManagement;
-//using System.Diagnostics;
+using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -22,6 +13,8 @@ public class PlayerActions : MonoBehaviour
 
     public PlayerMovement playerController;
     PlayerVFX VFX;
+
+    Vector2 rotation;
 
     [Header("Stats stuff")]
     public PlayerStats pStats;
@@ -35,6 +28,7 @@ public class PlayerActions : MonoBehaviour
     public int combo;
     Animator animator;
     bool invincible;
+    [SerializeField] int hitIndex;
     [SerializeField] bool isAttacking;
     [SerializeField] float meleeDash;
     [SerializeField] float meleeknockback;
@@ -51,11 +45,14 @@ public class PlayerActions : MonoBehaviour
     float timer;
     [SerializeField] float FireRate;
     [SerializeField] float bulletSpeed;
+    [SerializeField] float aimAssistRadius;
+    [SerializeField] float sphereCastRange;
     bool fired;
     [HideInInspector] public Vector2 aim;
     [HideInInspector] public Vector2 playerLookDir;
     [HideInInspector] public bool shooting;
     [HideInInspector] public bool mouseShooting;
+    [HideInInspector] public bool rotating;
     float deadzone = 0.1f;
 
     [Space(5)]
@@ -79,7 +76,7 @@ public class PlayerActions : MonoBehaviour
     public ParticleSystem rain;
 
     public List<EnemyStats> enemiesInDot = new List<EnemyStats>();
-    PlayerControl Pc;
+    public PlayerControl Pc;
     PlayerControls controls;
 
     [Space(5)]
@@ -87,7 +84,6 @@ public class PlayerActions : MonoBehaviour
 
     public UnityEvent trigger_dash;
 
-    public UnityEvent trigger_attack_left;
     public UnityEvent trigger_attack_right;
     public UnityEvent trigger_dmg;
 
@@ -106,7 +102,7 @@ public class PlayerActions : MonoBehaviour
     public UnityEvent trigger_sprintSFX;
 
     public UnityEvent trigger_aoeChargeSFX;
-
+    public UnityEvent trigger_rangeAttackSFX;
 
 
     void Awake()
@@ -128,6 +124,7 @@ public class PlayerActions : MonoBehaviour
         animator = GetComponent<Animator>();
         OriginalSpeed = playerController.playerSpeed;
         startRotation = transform.rotation.eulerAngles;
+        hitIndex = 0;
     }
 
     public float currentCharge = 0;
@@ -184,24 +181,35 @@ public class PlayerActions : MonoBehaviour
         #endregion
 
         #region Range System
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float raylength;
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        if (groundPlane.Raycast(cameraRay, out raylength))
+        //Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //float raylength;
+        //Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, aimAssistRadius, transform.forward, out hit, sphereCastRange))
         {
-            Vector3 pointToLook = cameraRay.GetPoint(raylength);
-            playerLookDir = pointToLook;
+            if(hit.collider.gameObject.GetComponent<EnemyStats>() != null)
+            {
+                Vector3 PointToLook = hit.collider.transform.position;
+                ProjectileOrigin.transform.LookAt(new Vector3(PointToLook.x, ProjectileOrigin.transform.position.y, PointToLook.z));
+            }
+            else
+            {
+                
+            }
+            //Gizmos.DrawSphere()
+            //Vector3 pointToLook = cameraRay.GetPoint(raylength);
+           // playerLookDir = pointToLook;
             //pointToLook.y = 1;
             //playerLookDir.y = 1;
-            Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+           // Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
             //float dist = Vector3.Distance(transform.position, pointToLook);
             //if(dist >= 1.5f)
-            if(!Pc.controlScheme)
-            transform.LookAt(pointToLook);
-            if (mouseShooting)
+            //if(!Pc.controlScheme)
+            //transform.LookAt(pointToLook);
+            /*if (mouseShooting)
             {
                 ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
-            }
+            }*/
         }
         //transform.LookAt(playerLookDir);
 
@@ -216,12 +224,11 @@ public class PlayerActions : MonoBehaviour
         }
 
         //Rotation();
-        aim = controls.Player.Rotation.ReadValue<Vector2>();
-        if (shooting)
-        {
-            RangeAttack();
-            //Rotation();
-        }
+        //aim = controls.Player.Rotation.ReadValue<Vector2>();
+
+        if (shooting) RangeAttack();
+        // if (rotating) Rotation();
+        //Rotation(rotation);
         #endregion
 
         //Debug.Log(playerController.controller.velocity);
@@ -288,7 +295,7 @@ public class PlayerActions : MonoBehaviour
     }
 
     #region Player Take Damage
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, Vector3 knockBackDir)
     {
         print("Take damage called");
         if (!invincible)
@@ -297,6 +304,8 @@ public class PlayerActions : MonoBehaviour
             {
                 animator.SetTrigger("Hit");
             }
+            knockBackDir.y = 1;
+            StartCoroutine(Mover(30, 0.1f, knockBackDir));
             //Color origin = hit.material.color;
             //flash.gameObject.SetActive(true);
             /* hit.materials[0].color = Color.red;
@@ -311,7 +320,6 @@ public class PlayerActions : MonoBehaviour
 
             //Farhan's Code-----
 
-            //StartCoroutine(Mover(10, 0.03f, knockbackdir));
             //playerController.controller.Move(transform.forward * meleeknockback * Time.deltaTime);
             //Vector3 knockBack = transform.position - transform.forward * knockbackStr;
             //knockBack.y = 0;
@@ -330,6 +338,7 @@ public class PlayerActions : MonoBehaviour
     #endregion
 
     bool testCombat;
+    bool testAnim;
     [SerializeField] List<int> lastrands = new List<int>();
 
     public void Attack(/*InputAction.CallbackContext context*/)
@@ -341,26 +350,28 @@ public class PlayerActions : MonoBehaviour
                 //transform.LookAt(playerLookDir);
                 if (enemiesInDot.Count > 0) { transform.LookAt(GetClosestEnemy(enemiesInDot).transform); };
                 //StartCoroutine(Mover(2, 0.1f, Dashdir));
-                int randomNumber = UnityEngine.Random.Range(0, 2);
-                int previous = randomNumber;
+                //int randomNumber = Random.Range(0, 2);
+                // int previous = randomNumber
 
 
+                print(hitIndex);
+                animator.SetTrigger("Attack" + hitIndex);
 
-                if (!lastrands.Contains(randomNumber))
+                AudioSource baseSource = GetComponent<Player_SFXHandler>().baseAudio;
+
+                if (!baseSource.isPlaying)
                 {
-                    animator.SetTrigger("Attack" + randomNumber.ToString());
-
-
-                    lastrands.Add(randomNumber);
-
+                    trigger_attack_right.Invoke();
                 }
-                else
+
+                hitIndex++;
+                if (hitIndex > 1)
                 {
-                    Attack();
+                    hitIndex = 0;
                 }
+                testCombat = true;
             }
         }
-
     }
 
     EnemyStats GetClosestEnemy(List<EnemyStats> enemies)
@@ -397,15 +408,10 @@ public class PlayerActions : MonoBehaviour
     {
         playerController.playerSpeed = 0f;
         isAttacking = false;
-        if (combo < 3)
-        {
-            combo++;
-        }
     }
     public void FinishAni()
     {
         isAttacking = false;
-        combo = 0;
     }
 
     //Event Required
@@ -416,7 +422,9 @@ public class PlayerActions : MonoBehaviour
             for (int i = 0; i < enemiesInDot.Count; i++)
             {
                 Debug.Log("enable collider called");
-                enemiesInDot[i].TakeDamage(pStats.m_ATK, pStats);
+                int knockbackMulti = 1;
+                if (enemiesInDot[i].weakness) knockbackMulti = 2;
+                enemiesInDot[i].TakeDamage(pStats.m_ATK, pStats, transform.forward, knockbackMulti);
             }
         }
         //VFX.Melee();
@@ -429,6 +437,7 @@ public class PlayerActions : MonoBehaviour
         //animator.applyRootMotion = true;
         //VFX.Melee();
         playerController.enabled = true;
+        testCombat = false;
     }
 
     public void SwipeLeft()
@@ -623,14 +632,14 @@ public class PlayerActions : MonoBehaviour
         {
             playerController.playerSpeed = SprintSpeed; //Sprinting stuff. Need to add logic to deplete stamina over time (in seconds)
             isSprinting = true;
+
+            trigger_sprintVFX.Invoke();
+            trigger_sprintSFX.Invoke();
         }
         else
         {
             isSprinting = false;
         }
-
-        trigger_sprintVFX.Invoke();
-        trigger_sprintSFX.Invoke();
     }
 
     //Event Required
@@ -657,25 +666,37 @@ public class PlayerActions : MonoBehaviour
                 bullets.GetComponent<Destroy>().damage = pStats.r_ATK;
                 bullets.GetComponent<Destroy>().playershot = true;
                 fired = true;
+
+                AudioSource baseAudio = GetComponent<Player_SFXHandler>().baseAudio;
+
+                if (!baseAudio.isPlaying)
+                {
+                    trigger_rangeAttackSFX.Invoke();
+                }
             }
         }
     }
 
-    public void Rotation()
+   /* public void Rotation(Vector2 direction)
     {
         //Debug.Log(aim);
 
-        if (Mathf.Abs(aim.x) > deadzone || Mathf.Abs(aim.y) > deadzone)
+        if (Mathf.Abs(direction.x) > deadzone || Mathf.Abs(direction.y) > deadzone)
         {
-            Vector3 playerDir = Vector3.right * aim.x + Vector3.forward * aim.y;
+            Vector3 playerDir = Vector3.right * direction.x + Vector3.forward * direction.y;
 
             if (playerDir.sqrMagnitude > 0.0f)
             {
-                 Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
-                 transform.rotation = Quaternion.RotateTowards(transform.rotation, newrotation, 1000f * Time.deltaTime);   
+                Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, newrotation, 1000f * Time.deltaTime);   
             }
         }
     }
+
+    public void OnRotate(InputAction.CallbackContext context)
+    {
+        rotation = context.ReadValue<Vector2>();
+    }*/
     #endregion
 
 
