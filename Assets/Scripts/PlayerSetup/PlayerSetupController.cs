@@ -36,13 +36,16 @@ public class PlayerSetupController : MonoBehaviour
 
     [SerializeField]
     Toggle readyButton;
-    Toggle charAButton;
+    //[SerializeField]
+    //Toggle charAButton;
+    //[SerializeField]
+    //Toggle charBButton;
     Button backButton;
 
     private void Awake()
     {
         ready = false;
-        SetCharacter(0);
+        //SetCharacter(0);
     }
 
     // Update is called once per frame
@@ -59,7 +62,9 @@ public class PlayerSetupController : MonoBehaviour
         deviceText.text = device;
         ignoreInputTime = Time.time + ignoreInputTime;
         SetCharacter(0);
-        //SetColor(0);        
+        charSprite.texture = selectedCharacter.Char1_Sprite;
+
+        //SetColor(0);
     }
 
     public void SetColor(int index)
