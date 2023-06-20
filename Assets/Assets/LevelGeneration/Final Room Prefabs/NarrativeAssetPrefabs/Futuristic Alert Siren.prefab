@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1169477778400807993}
   - component: {fileID: 2227461905793409463}
-  - component: {fileID: 7180991883621101384}
   m_Layer: 0
   m_Name: Futuristic Alert Siren
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,22 +48,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.2, y: 2.3628001, z: 2.2}
   m_Center: {x: 0, y: 0.74531585, z: 0}
---- !u!208 &7180991883621101384
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977363341214701187}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.1, y: 1.1814, z: 1.1}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.7453158, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &2668738144525706706
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,11 +57,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5443406231688540643}
-  - component: {fileID: 6757656987414827927}
   - component: {fileID: 8377806982133308685}
+  - component: {fileID: 5236247075487557542}
+  - component: {fileID: 5421686500951453165}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,14 +81,6 @@ Transform:
   m_Father: {fileID: 1169477778400807993}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6757656987414827927
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2668738144525706706}
-  m_Mesh: {fileID: 2534964839176971238, guid: 9bb3b40e5be88004eaa0aec451a43c08, type: 3}
 --- !u!23 &8377806982133308685
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -146,6 +122,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &5236247075487557542
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2668738144525706706}
+  m_Mesh: {fileID: 2534964839176971238, guid: 9bb3b40e5be88004eaa0aec451a43c08, type: 3}
+--- !u!114 &5421686500951453165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2668738144525706706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &7032130541398395617
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,11 +157,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5346795160663111939}
-  - component: {fileID: 3366417506682747843}
   - component: {fileID: 8471706216505312104}
+  - component: {fileID: 4702475142154663901}
+  - component: {fileID: 4069411371245645252}
   m_Layer: 0
   m_Name: Cylinder.001
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,14 +181,6 @@ Transform:
   m_Father: {fileID: 1169477778400807993}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3366417506682747843
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7032130541398395617}
-  m_Mesh: {fileID: -7387706064836869012, guid: 9bb3b40e5be88004eaa0aec451a43c08, type: 3}
 --- !u!23 &8471706216505312104
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -227,6 +222,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4702475142154663901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7032130541398395617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
+--- !u!33 &4069411371245645252
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7032130541398395617}
+  m_Mesh: {fileID: -7387706064836869012, guid: 9bb3b40e5be88004eaa0aec451a43c08, type: 3}
 --- !u!1 &7123368251749945180
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,9 +258,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7123368251749945179}
   - component: {fileID: 7123368251749945178}
+  - component: {fileID: 7720117575266787980}
   m_Layer: 0
   m_Name: Siren Light (1)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -320,6 +342,24 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &7720117575266787980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123368251749945180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &7123368252081956315
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,12 +369,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7123368252081956314}
-  - component: {fileID: 7123368252081956295}
   - component: {fileID: 7123368252081956312}
-  - component: {fileID: 7123368252081956313}
+  - component: {fileID: 1639610776258164029}
+  - component: {fileID: 5414587771340854938}
   m_Layer: 0
   m_Name: Stand (1)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -353,14 +393,6 @@ Transform:
   m_Father: {fileID: 1169477778400807993}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7123368252081956295
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7123368252081956315}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7123368252081956312
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -402,19 +434,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7123368252081956313
-BoxCollider:
+--- !u!114 &1639610776258164029
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7123368252081956315}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
+--- !u!33 &5414587771340854938
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123368252081956315}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7123368252113385765
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,9 +470,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7123368252113385764}
   - component: {fileID: 7123368252113385763}
+  - component: {fileID: 948071294799982369}
   m_Layer: 0
   m_Name: Siren Light (2)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -508,6 +554,24 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &948071294799982369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123368252113385765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &7123368253322014286
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,13 +581,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7123368253322014285}
-  - component: {fileID: 7123368253322014282}
   - component: {fileID: 7123368253322014283}
-  - component: {fileID: 7123368253322014284}
   - component: {fileID: 7123368253322014281}
+  - component: {fileID: 3869513762544720503}
+  - component: {fileID: 657608350610054600}
   m_Layer: 0
   m_Name: Siren Lighting (1)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -544,14 +608,6 @@ Transform:
   m_Father: {fileID: 1169477778400807993}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 629.226, z: 0}
---- !u!33 &7123368253322014282
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7123368253322014286}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7123368253322014283
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -593,19 +649,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7123368253322014284
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7123368253322014286}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7123368253322014281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,3 +663,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 7123368253322014286}
   rotationAmount: {x: 0, y: 90, z: 0}
+--- !u!114 &3869513762544720503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123368253322014286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
+--- !u!33 &657608350610054600
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123368253322014286}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
