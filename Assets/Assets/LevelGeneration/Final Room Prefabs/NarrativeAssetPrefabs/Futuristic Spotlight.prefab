@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2465033337129994050}
   - component: {fileID: 2982900839343304628}
   - component: {fileID: 208282664176214968}
+  - component: {fileID: 7647729112213480637}
   m_Layer: 0
   m_Name: Cylinder (3.1)
   m_TagString: Untagged
@@ -144,6 +145,24 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &7647729112213480637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208282664176214971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &401151251562330768
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1070445335670890538}
   - component: {fileID: 6917753013236386018}
+  - component: {fileID: 1922580520411420214}
   m_Layer: 0
   m_Name: Futuristic Spotlight
   m_TagString: Untagged
@@ -192,6 +212,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5667343, y: 1.4254826, z: 1.5918779}
   m_Center: {x: -0.0022125244, y: 0.6084192, z: 0.0054955482}
+--- !u!208 &1922580520411420214
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401151251562330768}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.783367, y: 0.7127415, z: 0.795939}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.002212524, y: 0.6084192, z: 0.005495548}
+  m_TimeToStationary: 0.5
 --- !u!1 &671112355516623858
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 671112355516623859}
   - component: {fileID: 671112355516623856}
+  - component: {fileID: 1582018579771742141}
   m_Layer: 0
   m_Name: Cylinder (2)
   m_TagString: Untagged
@@ -243,6 +280,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1582018579771742141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671112355516623858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &3161166285080436951
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +309,7 @@ GameObject:
   - component: {fileID: 2835040285093662829}
   - component: {fileID: 8568927542566714170}
   - component: {fileID: 7301821597314882362}
+  - component: {fileID: 1605611308287466040}
   m_Layer: 0
   m_Name: Cylinder (2.1)
   m_TagString: Untagged
@@ -324,6 +380,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1605611308287466040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161166285080436951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &4317103456722962881
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +409,7 @@ GameObject:
   - component: {fileID: 6154996462105746928}
   - component: {fileID: 4839162547173343108}
   - component: {fileID: 7684230148350013726}
+  - component: {fileID: 3315060589513979413}
   m_Layer: 0
   m_Name: Cylinder (1)
   m_TagString: Untagged
@@ -405,6 +480,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3315060589513979413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4317103456722962881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &8209897980557762775
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +509,7 @@ GameObject:
   - component: {fileID: 5184452162533280773}
   - component: {fileID: 5446992129483207516}
   - component: {fileID: 503420729854880888}
+  - component: {fileID: 3186625038769792072}
   m_Layer: 0
   m_Name: Cylinder (4)
   m_TagString: Untagged
@@ -486,6 +580,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3186625038769792072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8209897980557762775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
 --- !u!1 &9184819806230161138
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +610,7 @@ GameObject:
   - component: {fileID: 3483472092745373648}
   - component: {fileID: 7742152167253651323}
   - component: {fileID: 9184819806230161139}
+  - component: {fileID: 7763392478661169062}
   m_Layer: 0
   m_Name: Cylinder (3)
   m_TagString: Untagged
@@ -588,3 +701,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7763392478661169062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184819806230161138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41145319ace6f9649b08aed6e56e9147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cams: []
+  PrefabMats: []
+  distFromCam: 0
+  minDitherDist: 5
+  maxDitherDist: 55
+  ditherPercentage: 0
