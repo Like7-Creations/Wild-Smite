@@ -8,7 +8,9 @@ public class Swipe : Attack
     List<PlayerActions> playersInArea;
     public HitArea Hitarea;
     public float knockBackStr;
-    public float knockBacktime;
+    [SerializeField] GameObject rotationPoint;
+
+    public Transform swipePoint;
 
     public override void Start()
     {
@@ -25,13 +27,13 @@ public class Swipe : Attack
             if (c.GetComponent<PlayerActions>() != null)
             {
                 PlayerActions player = c.GetComponent<PlayerActions>();
-                Vector3 enemy = transform.position;
+                Vector3 enemy = swipePoint.transform.position;
                 Vector3 toPlayer = player.gameObject.transform.position - enemy;
                 toPlayer.y = 0;
 
                 if (toPlayer.magnitude <= Hitarea.Radius)
                 {
-                    if (Vector3.Dot(toPlayer.normalized, transform.forward) > Mathf.Cos(Hitarea.Angle * 0.5f * Mathf.Deg2Rad))
+                    if (Vector3.Dot(toPlayer.normalized, swipePoint.transform.forward) > Mathf.Cos(Hitarea.Angle * 0.5f * Mathf.Deg2Rad))
                     {
                         Hitarea.enemyFound = true;
                         playersInArea.Add(player);
@@ -48,8 +50,8 @@ public class Swipe : Attack
             playersInArea = playersInArea.Distinct().ToList();
             for (int i = 0; i < playersInArea.Count; i++)
             {
-                playersInArea[i].TakeDamage(stats.MATK);
-                StartCoroutine(playersInArea[i].Mover(knockBackStr, knockBacktime, transform.forward));
+                playersInArea[i].TakeDamage(stats.MATK, rotationPoint.transform.forward * knockBackStr);
+                //StartCoroutine(playersInArea[i].Mover(knockBackStr, knockBacktime, transform.forward));
                 GetComponent<BossBehaviors>().currentAttack = false;
             }
         }
@@ -228,22 +230,23 @@ public class Swipe : Attack
     }*/
     private void OnDrawGizmosSelected()
     {
-        
+    #if (UNITY_EDITOR)
         if (Hitarea.enemyFound)
         {
             Color c = new Color(0f, 0, 1, 0.4f);
-           // UnityEditor.Handles.color = c;
+            UnityEditor.Handles.color = c;
         }
         else
         {
             Color c = new Color(0.8f, 0, 0, 0.4f);
-           // UnityEditor.Handles.color = c;
+            UnityEditor.Handles.color = c;
         }
         Vector3 rotatedForward = Quaternion.Euler(0,
          -Hitarea.Direction * 0.5f,
-         0) * transform.forward;
+         0) * swipePoint.transform.forward;
 
-       // UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, rotatedForward, Hitarea.Angle, Hitarea.Radius);
+         UnityEditor.Handles.DrawSolidArc(swipePoint.transform.position, Vector3.up, rotatedForward, Hitarea.Angle, Hitarea.Radius);
+#endif
     }
 }
 

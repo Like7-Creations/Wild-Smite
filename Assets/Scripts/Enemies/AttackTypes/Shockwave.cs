@@ -10,6 +10,7 @@ public class Shockwave : Attack
     [SerializeField] float expandSpeed;
     [SerializeField] float knockBackStr;
     [SerializeField] float knockBacktime;
+    [SerializeField] GameObject rotationPoint;
 
     public override void attackLogic()
     {
@@ -81,7 +82,7 @@ public class Shockwave : Attack
                 if (c.GetComponent<PlayerActions>() != null)
                 {
                     PlayerActions player = c.GetComponent<PlayerActions>();
-                    StartCoroutine(player.Mover(knockBackStr, knockBacktime, transform.forward));
+                    player.TakeDamage(stats.MATK, rotationPoint.transform.forward);
                 }
             }
             if(radius >= radiusEnd)

@@ -146,7 +146,7 @@ public class PlayerStat_Data : ScriptableObject
     }
     #endregion
 
-    #region Save & Load Functions [Trevor Mock Edition]
+    #region Save & Load Functions [Trevor Mock Edition] (Deprecate Later)
 
     /*public void LoadData(GameData data)
     {
@@ -252,7 +252,4 @@ public class PlayerStat_Data : ScriptableObject
         m_ATK += pointAllocations[2];
         r_ATK += pointAllocations[3];
     }
-
-    
-
 }

@@ -4,116 +4,95 @@ using UnityEngine;
 
 public class RoomEdgeCollider : MonoBehaviour
 {
+    public BoxCollider col;
 
-    bool colliding;
-    BoxCollider col;
-    public List<Collider> neighbors;
+    public bool spawnFillRoom;
+    public Transform forwardFillSpawn;
+    public Transform leftFillSpawn;
+    public Transform rightFillSpawn;
 
-    public enum direction
-    {
-        Xpos,
-        Xneg,
-        Zpos,
-        Zneg,
-    }
+    public bool fillRoad;
+    public GameObject fillPrefab;
+    public GameObject fillRoadPrefab;
 
-    Vector3 origin;
-    Vector3 dir;
-    public bool showDir;
+    public AdjacentChecker forwardCheck;
+    public AdjacentChecker CornerLeftCheck;
+    public AdjacentChecker CornerRightCheck;
 
-    public direction rayDir;
-    public LayerMask ignorLayers;
-    public float raycastDistance = 1.0f; // the maximum distance to check for the floor
+    bool checkedForward;
+    bool checkedRight;
+    bool checkedLeft;
+
+    bool colliderHidden;
 
     private void Awake()
     {
-        //col = GetComponent<BoxCollider>();
-        //if (neighbors.Contains(col))
-        //    neighbors.Remove(col);
+        col = GetComponent<BoxCollider>();
 
-        //origin = new Vector3(0, 1, 0);
-        //dir = Vector3.zero;
-        //switch (rayDir)
-        //{
-        //    case direction.Xpos:
-        //        dir = Quaternion.Euler(0f, 0, 60) * -transform.up;
-        //        break;
-        //    case direction.Zpos:
-        //        dir = Quaternion.Euler(-60, 0, 0) * -transform.up;
-        //        break;
-        //    case direction.Xneg:
-        //        dir = Quaternion.Euler(0, 0, -60) * -transform.up;
-        //        break;
-        //    case direction.Zneg:
-        //        dir = Quaternion.Euler(60, 0, 0) * -transform.up;
-        //        break;
-        //}
+        if (forwardCheck.RoomCheck() && !spawnFillRoom)
+            HideCollider();
     }
 
-    public void Touching()
+    public void HideCollider()
     {
-        colliding = true;
+        //Destroy(gameObject);
+        //col.enabled = false;
+        if (forwardCheck.RoomCheck())
+        {
+            col.enabled = false;
+            colliderHidden = true;
+        }
     }
 
-    private void Update()
+    public void RunForwardChecks()
     {
-        //Vector3 raycastDirection = Quaternion.Euler(45.0f, 0.0f, 0.0f) * -transform.up;
+        if (spawnFillRoom)
+        {
+            if (forwardCheck.PreSpawnCheck())
+            {
+                //if (col.enabled)
+                //    col.enabled = false;
 
-        // Perform the raycast to check for the floor
-        //RaycastHit hit;
-        //if (Physics.Raycast(transform.position + origin, dir, out hit, raycastDistance, ~ignorLayers))
-        //{
-        //    // A floor was detected
-        //    Debug.Log("Floor detected!");
-        //    colliding = true;
-        //    HideCollider();
-        //}
-        //else
-        //{
-        //    // No floor was detected
-        //    Debug.Log("No floor detected.");
-        //    colliding = false;
-        //}
+                if (fillRoad)
+                    Instantiate(fillRoadPrefab, forwardFillSpawn);
+                else
+                    Instantiate(fillPrefab, forwardFillSpawn);
+            }
+        }
+        checkedForward = true;
+
     }
 
-    //private void OnCollisionStay(Collision collision)
-    //{
-    //    Debug.Log("BarrierCollision");
-    //    if (!neighbors.Contains(collision.collider))
-    //    {
-    //        Destroy(collision.gameObject);
-    //        HideCollider();
-    //    }
-    //}
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    Debug.Log("BarrierCollision");
-    //    if (!neighbors.Contains(other))
-    //    {
-    //        Destroy(other.gameObject);
-    //        HideCollider();
-    //    }
-    //}
-
-    void HideCollider()
+    public void RunLeftChecks()
     {
-        Destroy(gameObject);
+        if (spawnFillRoom)
+        {
+            if (CornerLeftCheck.PreSpawnCheck())
+                Instantiate(fillPrefab, leftFillSpawn);
+        }
+        checkedLeft = true;
     }
 
-    //public void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.green;
-    //    if (colliding)
-    //        Gizmos.color = Color.red;
+    public void RunRightChecks()
+    {
+        if (spawnFillRoom)
+        {
+            if (CornerRightCheck.PreSpawnCheck())
+                Instantiate(fillPrefab, rightFillSpawn);
+        }
+        checkedRight = true;
+    }
 
-    //    Gizmos.matrix = this.transform.localToWorldMatrix;
+    public void OnDrawGizmos()
+    {
+        if (col != null)
+        {
+            Gizmos.color = Color.green;
+            if (!col.enabled)
+                Gizmos.color = Color.red;
 
-    //    if (col != null)
-    //    {
-    //        Gizmos.DrawWireCube(Vector3.zero, col.size);
-    //    }
-
-
-    //}
+            if (col.enabled)
+                Gizmos.DrawWireCube(transform.position + col.center, col.size);
+        }
+    }
 }

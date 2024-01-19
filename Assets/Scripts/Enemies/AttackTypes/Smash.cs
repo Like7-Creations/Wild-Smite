@@ -6,11 +6,10 @@ public class Smash : Attack
 {
     [SerializeField] float Radius;
     [SerializeField] Transform smashPos;
+    [SerializeField] Transform VFX;
     BossBehaviors bossbe;
     Vector3 targetHit;
-
-
-    [SerializeField] float test;
+    [SerializeField] GameObject rotationPoint;
     
     public override void Start()
     {
@@ -20,8 +19,13 @@ public class Smash : Attack
 
     public override void attackLogic()
     {
+
+        smashPos.transform.position = bossbe.chosenPlayer.transform.position;
+        vfx.transform.position = smashPos.transform.position;
+
+
         targetHit = smashPos.position;
-        Collider[] hits;
+        /*Collider[] hits;
         hits = Physics.OverlapSphere(targetHit, Radius);
         foreach (Collider c in hits)
         {
@@ -40,9 +44,9 @@ public class Smash : Attack
                         vfx.GetComponent<Boss_VFXHandler>().SmashVFX();
                     }//vfx;//vfx
                 }
-                player.TakeDamage(stats.MATK);
+                player.TakeDamage(stats.MATK, Vector3.zero);
             }
-        }
+        }*/
         GetComponent<BossBehaviors>().currentAttack = false;
     }
 
@@ -190,7 +194,7 @@ public class Smash : Attack
 
     public override void Update()
     {
-        float dist = Vector3.Distance(transform.position, bossbe.chosenPlayer.transform.position);
+        /*float dist = Vector3.Distance(transform.position, bossbe.chosenPlayer.transform.position);
 
         if(dist <= GetComponent<Swipe>().Hitarea.Radius)
         {
@@ -206,7 +210,7 @@ public class Smash : Attack
             {
                 vfx.GetComponent<Boss_VFXHandler>().smash_VFX.transform.position = smashPos.localPosition;
             }//vfx;
-        }
+        }*/
         /*else 
         { 
             smashPos.transform.position = Vector3.Lerp(smashPos.position, bossbe.chosenPlayer.transform.position, 5f * Time.deltaTime);

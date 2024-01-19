@@ -7,7 +7,9 @@ using TMPro;
 public class StatAllocations : MonoBehaviour
 {
     [Header("General")]
+    public RawImage render;
     public TMP_Text StatPointCount_Text;
+    public Jun_TweenRuntime flashTween;
     int StatPoints;
     int startingPoints;
     public Leveling_Data data;
@@ -26,6 +28,7 @@ public class StatAllocations : MonoBehaviour
     public TMP_Text NewHP_Text;
     public Transform HP_Bars;
 
+    int baseHP;
     int currentHP;
     int newHP;
 
@@ -34,6 +37,7 @@ public class StatAllocations : MonoBehaviour
     public TMP_Text NewSTAM_Text;
     public Transform STAM_Bars;
 
+    int baseSTAM;
     int currentSTAM;
     int newSTAM;
 
@@ -42,6 +46,7 @@ public class StatAllocations : MonoBehaviour
     public TMP_Text NewMATK_Text;
     public Transform MATK_Bars;
 
+    int baseMATK;
     int currentMATK;
     int newMATK;
 
@@ -50,8 +55,14 @@ public class StatAllocations : MonoBehaviour
     public TMP_Text NewRATK_Text;
     public Transform RATK_Bars;
 
+    int baseRATK;
     int currentRATK;
     int newRATK;
+
+    public void GiveRenderTexture(RawImage tex)
+    {
+        render.texture = tex.texture;
+    }
 
     public void BeginAllocations(PlayerStat_Data p)
     {
@@ -70,21 +81,25 @@ public class StatAllocations : MonoBehaviour
 
         currentHP = player.hp;
         CurrentHP_Text.text = "" + currentHP;
+        baseHP = data.HP_Increment;
         newHP = data.HP_Increment;
         NewHP_Text.text = "" + newHP;
 
         currentSTAM = player.stamina;
         CurrentSTAM_Text.text = "" + currentSTAM;
+        baseSTAM = data.STAM_Increment;
         newSTAM = data.STAM_Increment;
         NewSTAM_Text.text = "" + newSTAM;
 
         currentMATK = player.m_ATK;
         CurrentMATK_Text.text = "" + currentMATK;
+        baseMATK = data.M_ATK_Increment;
         newMATK = data.M_ATK_Increment;
         NewMATK_Text.text = "" + newMATK;
 
         currentRATK = player.r_ATK;
         CurrentRATK_Text.text = "" + currentRATK;
+        baseRATK = data.R_ATK_Increment;
         newRATK = data.R_ATK_Increment;
         NewRATK_Text.text = "" + newRATK;
     }
@@ -104,6 +119,8 @@ public class StatAllocations : MonoBehaviour
             StatPanel.GetComponent<StatsScreen>().ShowStats(player);
             AllocatePanel.SetActive(false);
         }
+        else
+            flashTween.Play();
     }
 
     public void AddBar(Transform root)
@@ -147,7 +164,7 @@ public class StatAllocations : MonoBehaviour
     }
     public void DecreaseHP()
     {
-        if (StatPoints < startingPoints && newHP - data.hp_Conversion >= currentHP)
+        if (StatPoints < startingPoints && newHP - data.hp_Conversion >= baseHP)
         {
             newHP -= data.hp_Conversion;
             NewHP_Text.text = "" + newHP;
@@ -172,7 +189,7 @@ public class StatAllocations : MonoBehaviour
     }
     public void DecreaseSTAM()
     {
-        if (StatPoints < startingPoints && newSTAM - data.stamina_Conversion >= currentSTAM)
+        if (StatPoints < startingPoints && newSTAM - data.stamina_Conversion >= baseSTAM)
         {
             newSTAM -= data.stamina_Conversion;
             NewSTAM_Text.text = "" + newSTAM;
@@ -197,7 +214,7 @@ public class StatAllocations : MonoBehaviour
     }
     public void DecreaseMATK()
     {
-        if (StatPoints < startingPoints && newMATK - data.mATK_Conversion >= currentMATK)
+        if (StatPoints < startingPoints && newMATK - data.mATK_Conversion >= baseMATK)
         {
             newMATK -= data.mATK_Conversion;
             NewMATK_Text.text = "" + newMATK;
@@ -222,7 +239,7 @@ public class StatAllocations : MonoBehaviour
     }
     public void DecreaseRATK()
     {
-        if (StatPoints < startingPoints && newRATK - data.rATK_Conversion >= currentRATK)
+        if (StatPoints < startingPoints && newRATK - data.rATK_Conversion >= baseRATK)
         {
             newRATK -= data.rATK_Conversion;
             NewRATK_Text.text = "" + newRATK;

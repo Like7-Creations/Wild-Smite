@@ -10,19 +10,25 @@ public class SpeedBuff : Item
 
     float originalSprintSpeed;
     float originalSpeed;
+    bool used;
 
     public override void Effect(PlayerStats stats)
     {
-        originalSpeed = pActions.OriginalSpeed;
-        originalSprintSpeed = pActions.SprintSpeed;
-        plMovement.playerSpeed += buffAmount;
-        pActions.SprintSpeed = plMovement.playerSpeed;
-        pActions.OriginalSpeed = plMovement.playerSpeed;
-        originalAmount = (int)plMovement.playerSpeed;
-        //plStats.ori
-        timer = duration;
-        //temUI.GetComponentInChildren<Image>().fillAmount = 1;
-        useItem = true;
+        if (!used) // this if statement code was added 1 hour before submission..thats why its amatuer
+        {
+            originalSpeed = pActions.OriginalSpeed;
+            originalSprintSpeed = pActions.SprintSpeed;
+            plMovement.playerSpeed += buffAmount;
+            pActions.SprintSpeed = plMovement.playerSpeed;
+            pActions.OriginalSpeed = plMovement.playerSpeed;
+            originalAmount = (int)plMovement.playerSpeed;
+            //plStats.ori
+            timer = duration;
+            //temUI.GetComponentInChildren<Image>().fillAmount = 1;
+            useItem = true;
+
+            Play_UseItemSFX();
+        }
     }
 
     public override void Update()
@@ -30,13 +36,16 @@ public class SpeedBuff : Item
         transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         if (useItem)
         {
-           // itemUI.SetActive(true);
+            // itemUI.SetActive(true);
             float thisint = timer / duration;
-           // itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
+            // itemUI.GetComponentInChildren<Image>().fillAmount = thisint;
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-           //     itemUI.SetActive(false);
+                //     itemUI.SetActive(false);
+
+                Play_CollectItemSFX();
+
                 pActions.OriginalSpeed = plMovement.playerSpeed - buffAmount;
                 plMovement.playerSpeed = pActions.OriginalSpeed;
                 pActions.SprintSpeed = originalSprintSpeed;

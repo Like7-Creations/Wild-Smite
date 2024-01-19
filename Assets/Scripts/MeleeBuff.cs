@@ -6,14 +6,23 @@ public class MeleeBuff : Item
 {
     PlayerStats plStats;
     public Slider itemImage;
+    bool used;
 
     public override void Effect(PlayerStats stats)
     {
-        originalAmount = plStats.m_ATK;
-        plStats.m_ATK += buffAmount;
-        timer = duration;
-        //itemUI.GetComponentInChildren<Slider>().fillAmount = 1;
-        useItem = true;
+        if (!used) // this if statement code was added 1 hour before submission..thats why its amatuer
+        {
+
+
+            originalAmount = plStats.m_ATK;
+            plStats.m_ATK += buffAmount;
+            timer = duration;
+            //itemUI.GetComponentInChildren<Slider>().fillAmount = 1;
+            useItem = true;
+
+            Play_UseItemSFX();
+            used= true;
+        }
     }
 
     public override void Update()
@@ -42,6 +51,9 @@ public class MeleeBuff : Item
             if(pl.heldItem == null)
             {
                 pl.heldItem = this;
+
+                Play_CollectItemSFX();
+
                 plStats = pl.GetComponent<PlayerStats>();
                 transform.parent = other.transform;
                 GetComponent<MeshRenderer>().enabled = false;

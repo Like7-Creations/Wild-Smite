@@ -13,6 +13,8 @@ public class HealPack : Item
     {
         plStats.hp += healthToAdd;
         plStats.GetComponent<PlayerInventory>().heldItem= null;
+
+        Play_UseItemSFX();
     }
 
     public override void Update()
@@ -29,6 +31,9 @@ public class HealPack : Item
             if (pl.heldItem == null)
             {
                 pl.heldItem = this;
+
+                Play_CollectItemSFX();
+
                 plStats = pl.GetComponent<PlayerStats>();
                 transform.parent = other.transform;
                 GetComponent<MeshRenderer>().enabled = false;

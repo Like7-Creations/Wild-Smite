@@ -20,7 +20,7 @@ public class Spin : Attack
             float dist = Vector3.Distance(state.players[e].transform.position, transform.position);
             if (dist < stats.attackRange)
             {
-                state.chosenPlayer.TakeDamage(stats.MATK);
+                state.chosenPlayer.TakeDamage(stats.MATK,transform.forward);
             }
             if (sfx.isEnabled)
             {

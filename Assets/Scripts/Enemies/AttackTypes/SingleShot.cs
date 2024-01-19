@@ -7,6 +7,9 @@ public class SingleShot : Attack
     [SerializeField] GameObject Bullet;
     [SerializeField] GameObject origin;
     [SerializeField] ParticleSystem attackIndication;
+    [SerializeField] float bulletDuration;
+
+    [SerializeField] float bulletSpeed;
 
     public override void Start()
     {
@@ -16,8 +19,10 @@ public class SingleShot : Attack
     public override void attackLogic()
     {
         Rigidbody rb = Instantiate(Bullet, origin.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-        rb.GetComponent<Destroy>().damage = GetComponent<EnemyStats>().RATK;
+        rb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
+        Destroy obj = rb.GetComponent<Destroy>();
+        obj.damage = GetComponent<EnemyStats>().RATK;
+        obj.timer = bulletDuration;
     }
 
     public override void attackVFX()
