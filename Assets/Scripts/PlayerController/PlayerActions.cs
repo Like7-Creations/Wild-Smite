@@ -36,6 +36,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] GameObject flash;
     [SerializeField] SkinnedMeshRenderer hit;
     [SerializeField] Material red;
+    [SerializeField] ParticleSystem slashRightVFX;
+    [SerializeField] ParticleSystem SlashLeftVFX;
     [HideInInspector] public Vector3 knockBackDir;
 
     [Space(5)]
@@ -181,9 +183,6 @@ public class PlayerActions : MonoBehaviour
         #endregion
 
         #region Range System
-        //Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //float raylength;
-        //Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         RaycastHit hit;
         if (Physics.SphereCast(transform.position, aimAssistRadius, transform.forward, out hit, sphereCastRange))
         {
@@ -196,22 +195,7 @@ public class PlayerActions : MonoBehaviour
             {
                 
             }
-            //Gizmos.DrawSphere()
-            //Vector3 pointToLook = cameraRay.GetPoint(raylength);
-           // playerLookDir = pointToLook;
-            //pointToLook.y = 1;
-            //playerLookDir.y = 1;
-           // Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
-            //float dist = Vector3.Distance(transform.position, pointToLook);
-            //if(dist >= 1.5f)
-            //if(!Pc.controlScheme)
-            //transform.LookAt(pointToLook);
-            /*if (mouseShooting)
-            {
-                ProjectileOrigin.transform.LookAt(new Vector3(pointToLook.x, ProjectileOrigin.transform.position.y, pointToLook.z));
-            }*/
         }
-        //transform.LookAt(playerLookDir);
 
         if (fired)
         {
@@ -223,12 +207,9 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        //Rotation();
-        //aim = controls.Player.Rotation.ReadValue<Vector2>();
+       
 
         if (shooting) RangeAttack();
-        // if (rotating) Rotation();
-        //Rotation(rotation);
         #endregion
 
         //Debug.Log(playerController.controller.velocity);
@@ -359,10 +340,10 @@ public class PlayerActions : MonoBehaviour
 
                 AudioSource baseSource = GetComponent<Player_SFXHandler>().baseAudio;
 
-                if (!baseSource.isPlaying)
+                /*if (!baseSource.isPlaying)
                 {
                     trigger_attack_right.Invoke();
-                }
+                }*/
 
                 hitIndex++;
                 if (hitIndex > 1)
@@ -427,6 +408,8 @@ public class PlayerActions : MonoBehaviour
                 enemiesInDot[i].TakeDamage(pStats.m_ATK, pStats, transform.forward, knockbackMulti);
             }
         }
+
+        animator.SetLayerWeight(1, 0);
         //VFX.Melee();
     }
 
@@ -438,16 +421,19 @@ public class PlayerActions : MonoBehaviour
         //VFX.Melee();
         playerController.enabled = true;
         testCombat = false;
+        animator.SetLayerWeight(1, 1);
     }
 
     public void SwipeLeft()
     {
         //trigger_attackVFX_left.Invoke();
+        SlashLeftVFX.Play();
     }
 
     public void SwipeRight()
     {
         //trigger_attackVFX_right.Invoke();
+        slashRightVFX.Play();
     }
 
     #region Calculting Percentages

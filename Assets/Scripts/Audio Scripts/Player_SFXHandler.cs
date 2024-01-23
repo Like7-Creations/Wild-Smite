@@ -45,7 +45,7 @@ public class Player_SFXHandler : MonoBehaviour
     {
         if (moveLoopAudio.clip != playerWalk_SFX.clip)
         {
-            Debug.Log("Triggering WalkSFX");
+            //Debug.Log("Triggering WalkSFX");
             moveLoopAudio.clip = playerWalk_SFX.clip;
             moveLoopAudio.volume = playerWalk_SFX.voumeVal;
             moveLoopAudio.Play();
@@ -69,7 +69,7 @@ public class Player_SFXHandler : MonoBehaviour
         {
             if (moveLoopAudio.clip != playerSprint_SFX.clip)
             {
-                Debug.Log("Triggering SprintSFX");
+                //Debug.Log("Triggering SprintSFX");
                 moveLoopAudio.clip = playerSprint_SFX.clip;
                 moveLoopAudio.volume = playerSprint_SFX.voumeVal;
                 moveLoopAudio.Play();
@@ -79,7 +79,7 @@ public class Player_SFXHandler : MonoBehaviour
         {
             if (moveLoopAudio.isPlaying && moveLoopAudio.clip == playerSprint_SFX.clip)
             {
-                Debug.Log("Stopping SprintSFX");
+                //Debug.Log("Stopping SprintSFX");
 
                 moveLoopAudio.clip = null;
                 moveLoopAudio.Stop();

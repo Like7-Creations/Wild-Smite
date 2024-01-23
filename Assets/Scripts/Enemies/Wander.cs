@@ -53,7 +53,7 @@ public class Wander : State
         
         // have to do null check cuz its  causingg errors at first frame...
 
-        print("wander state");
+        //print("wander state");
         if(dist <= chaseRange && chosenPlayer != null)
         {
             return chaseState;
