@@ -26,6 +26,8 @@ public class MainMenu : MonoBehaviour
     public GameObject MenuPanel;
     public Button firstButton;
 
+    public PanelTweenController tweenControl;
+    
     private void Awake()
     {
         // playerConfigManager = PlayerConfigManager.Instance;
@@ -52,9 +54,15 @@ public class MainMenu : MonoBehaviour
     public void ToggleMenuState()
     {
         if (MenuPanel.active)
+        {
             MenuPanel.SetActive(false);
+            tweenControl.ResetButtonTweens();
+        }
         else
+        {
             MenuPanel.SetActive(true);
+            tweenControl.TweenButtons();
+        }
     }
 
     public void SetPlayerJoins(bool state)
@@ -78,6 +86,7 @@ public class MainMenu : MonoBehaviour
         Invoke("DelayQuitGame", delayTime);
     }
 
+    
 
     /*//Farhan's Code
     public void SetVolume(float volume)

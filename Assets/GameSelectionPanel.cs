@@ -74,6 +74,14 @@ public class GameSelectionPanel : MonoBehaviour
         }
     }
 
+    public void ResetSlotTweens()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i].ResetTweens();
+        }
+    }
+
     IEnumerator SlotSequencialTween()
     {
         for (int i = 0; i < slots.Length; i++)
