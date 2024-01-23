@@ -149,18 +149,31 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
         animCheck();
 
-        // if (Mathf.Abs(direction.x) > deadzone || Mathf.Abs(direction.y) > deadzone)
+
         if (rotationInput != Vector2.zero)
+        {
+            // Get the camera's forward direction without vertical component
+            Vector3 cameraForward = Camera.main.transform.forward;
+            cameraForward.y = 0f;
+            cameraForward.Normalize();
+
+            Vector3 playerDir = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f) * new Vector3(rotationInput.x, 0f, rotationInput.y);
+
+            Quaternion newRotation = Quaternion.LookRotation(playerDir, Vector3.up);
+
+            turret.transform.rotation = Quaternion.RotateTowards(turret.transform.rotation, newRotation, 1000f * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, 1000f * Time.deltaTime);
+        }
+
+        // if (Mathf.Abs(direction.x) > deadzone || Mathf.Abs(direction.y) > deadzone)
+        /*if (rotationInput != Vector2.zero)
         {
             Vector3 playerDir = Vector3.right * rotationInput.x + Vector3.forward * rotationInput.y;
 
             Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
             turret.transform.rotation = Quaternion.RotateTowards(turret.transform.rotation, newrotation, 1000f * Time.deltaTime);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, newrotation, 1000f * Time.deltaTime);
-            if (playerDir.sqrMagnitude > 0.0f)
-            {
-            }
-        }
+        }*/
     }
 
     public void animCheck()
