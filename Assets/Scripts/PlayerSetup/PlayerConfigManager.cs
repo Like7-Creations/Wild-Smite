@@ -184,9 +184,11 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
         playerConfigs[index].PlayerMat = color;
     }
 
-    public void SetPlayerCharacter(int index, GameObject character)
+    public void SetPlayerCharacter(int index, GameObject character, int col, int type)
     {
         playerConfigs[index].Character = character;
+        playerConfigs[index].characterType = type;
+        playerConfigs[index].selectedColor = col;
     }
 
     public void ReadyPlayer(int index, bool ready)
@@ -240,7 +242,7 @@ public class PlayerConfigManager : MonoBehaviour//, IDataPersistence
             if (!playerConfigs.Any(p => p.PlayerIndex == pInput.playerIndex))
             {
                 pInput.transform.SetParent(transform);
-                PlayerConfig p = new PlayerConfig(pInput, experienceData, levelData);
+                PlayerConfig p = new PlayerConfig(pInput, experienceData, levelData, 1, 1);
 
                 /*if (!DataPersistenceManager.instance.firstInstance)
                 {
@@ -307,7 +309,10 @@ public class PlayerConfig
     public Material PlayerMat { get; set; }
     public GameObject Character { get; set; }
 
-    public PlayerConfig(PlayerInput pInput, ExperienceData xpData, Leveling_Data lvlData)
+    public int characterType;
+    public int selectedColor;
+
+    public PlayerConfig(PlayerInput pInput, ExperienceData xpData, Leveling_Data lvlData, int charType, int selectedColor)
     {
         PlayerIndex = pInput.playerIndex;
         playerStats = ScriptableObject.CreateInstance<PlayerStat_Data>();
