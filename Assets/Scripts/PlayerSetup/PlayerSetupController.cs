@@ -62,6 +62,7 @@ public class PlayerSetupController : MonoBehaviour
         deviceText.text = device;
         ignoreInputTime = Time.time + ignoreInputTime;
         SetCharacter(0);
+        PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, Crocodile.Character_1, 1, Crocodile.charIndex);
         charSprite.texture = selectedCharacter.Char1_Sprite;
 
         //SetColor(0);
@@ -75,15 +76,15 @@ public class PlayerSetupController : MonoBehaviour
         switch (index)
         {
             case 0:
-                PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_1);
+                PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_1, 1, selectedCharacter.charIndex);
                 charSprite.texture = selectedCharacter.Char1_Sprite;
                 break;
             case 1:
-                PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_2);
+                PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_2, 2, selectedCharacter.charIndex);
                 charSprite.texture = selectedCharacter.Char2_Sprite;
                 break;
             case 2:
-                PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_3);
+                PlayerConfigManager.Instance.SetPlayerCharacter(PlayerIndex, selectedCharacter.Character_3, 3, selectedCharacter.charIndex);
                 charSprite.texture = selectedCharacter.Char3_Sprite;
                 break;
         }
@@ -159,6 +160,7 @@ public class PlayerSetupController : MonoBehaviour
 [System.Serializable]
 public class CharacterInfo
 {
+    public int charIndex;
     public GameObject Character_1;
     public GameObject Character_2;
     public GameObject Character_3;
