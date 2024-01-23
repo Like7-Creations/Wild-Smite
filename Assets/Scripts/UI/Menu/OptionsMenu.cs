@@ -7,6 +7,7 @@ using TMPro;
 
 public class OptionsMenu : MonoBehaviour
 {
+    #region Graphics Variables
     public Toggle fScreenTog;
 
     public Resolution[] resolutions;
@@ -17,9 +18,15 @@ public class OptionsMenu : MonoBehaviour
     int defaultResIndex;
 
     int selectedQualityIndex;
+    public List<Toggle> qualToggles;
+
+    //-------------Deprecate-------------------
     public TMP_Text qualButton_Text;
     string[] qualityOptions;
+    //-------------Deprecate-------------------
+    #endregion
 
+    #region Audio Variables
     public AudioMixer mainMixer;
 
     public Slider masterSlider;
@@ -37,15 +44,41 @@ public class OptionsMenu : MonoBehaviour
     public Slider uiSlider;
     public TMP_Text uiLabel;
 
+    public bool audioInitialized = false;
+    #endregion
+
+    #region General Settings Variables
+    public Slider uiScaleSlider;
     public List<float> uiScaleValues;
     public TMP_Text uiScaleLabel;
 
-    public bool audioInitialized = false;
+    public GameObject uiPreview;
+    public GameObject uiCurrent;
+
+    #endregion
 
     void Awake()
     {
         #region Prepping Game Settings
+        uiScale = PlayerPrefs.GetFloat("GameUIScale");
 
+        Debug.Log("Retrieved UI Scale of :" + uiScale);
+
+        int currentScaleIndex = 0;
+
+        for (int i = 0; i < uiScaleValues.Count; i++)
+        {
+            if(uiScale == uiScaleValues[i])
+            {
+                currentScaleIndex = i;
+            }
+        }
+
+        uiPreview.transform.localScale = new Vector3(1 + uiScale, 1 + uiScale, 1 + uiScale);
+        uiCurrent.transform.localScale = new Vector3(1 + uiScale, 1 + uiScale, 1 + uiScale);
+        
+        UpdateScaleSliderText(currentScaleIndex + 1);
+        uiScaleSlider.value = currentScaleIndex + 1;
         #endregion
 
         #region Prepping Graphics Settings
@@ -53,10 +86,11 @@ public class OptionsMenu : MonoBehaviour
         fScreenTog.isOn = Screen.fullScreen;
 
         #region Identifying All Available Quality Options & Displaying Current One
-        qualityOptions = new string[QualitySettings.names.Length];
-        qualityOptions = QualitySettings.names;
+        /*qualityOptions = new string[QualitySettings.names.Length];
+        qualityOptions = QualitySettings.names;*/
 
         selectedQualityIndex = QualitySettings.GetQualityLevel();
+        qualToggles[selectedQualityIndex].isOn = true;
 
         //qualButton_Text.text = qualityOptions[selectedQualityIndex];
         #endregion
@@ -125,6 +159,12 @@ public class OptionsMenu : MonoBehaviour
     #region Graphics Functions
 
     #region Quality Functions
+    public void SetQualityValue(int qualIndex)
+    {
+        selectedQualityIndex = qualIndex;
+    }
+
+    //-------------Deprecate-------------------
     /*public void SelectPrevQuality()
     {
         //Decrease the selected QualityIndex.
@@ -154,19 +194,18 @@ public class OptionsMenu : MonoBehaviour
         //Update the Quaity Label
         UpdateQualityLabel();
     }
-    */  //Deprecate Later
-    public void SetQualityValue(int qualIndex)
-    {
-        selectedQualityIndex = qualIndex;
-    }
+    */
 
-    public void UpdateQualityLabel()
+    /*public void UpdateQualityLabel()
     {
-        //Access the text element of the Quality Label, and then take the specified quality, convert it into a string and paste it.
-        //qualButton_Text.text = qualityOptions[selectedQualityIndex];
+            //Access the text element of the Quality Label, and then take the specified quality, convert it into a string and paste it.
+            //qualButton_Text.text = qualityOptions[selectedQualityIndex];
+        
+
 
         //Replace with code that resets the current toggled quality to the default one./
-    }
+    }*/
+    //-------------Deprecate-------------------
     #endregion
 
     #region Resolution Functions
@@ -289,6 +328,7 @@ public class OptionsMenu : MonoBehaviour
         uiScale = uiScaleValues[(int)(scaleVal - 1)];
         Debug.Log("Set UI Scale to add " + uiScale);
 
+        uiPreview.transform.localScale = new Vector3(1 + uiScale, 1 + uiScale, 1 + uiScale);
         UpdateScaleSliderText(scaleVal);
     }
 
@@ -329,14 +369,31 @@ public class OptionsMenu : MonoBehaviour
 
     #endregion
 
-    #region Rest Settings Functions
+    #region Reset Settings Functions
+    public void ResetGameSettings()
+    {
+        uiScale = uiScaleValues[0];
+
+        PlayerPrefs.SetFloat("GameUIScale", 0);
+
+        uiPreview.transform.localScale = new Vector3(1, 1, 1);
+        UpdateScaleSliderText(1);
+        uiScaleSlider.value = 1;
+    }
+
     public void ResetGraphics()
     {
         //Reset Quality
         selectedQualityIndex = 1;
 
         QualitySettings.SetQualityLevel(1);
-        UpdateQualityLabel();
+        //From the list of Quality Toggles, select the element at index [selectedQualityIndex]
+
+        qualToggles[selectedQualityIndex].isOn = true;
+
+        //-------------Deprecate-------------------
+                    //UpdateQualityLabel();
+        //-------------Deprecate-------------------
 
         //Reset Screen Resolution
         selectedResIndex = defaultResIndex;
