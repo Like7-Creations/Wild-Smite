@@ -18,7 +18,7 @@ public class RectDimensionsControl : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        rectTransform.sizeDelta = from;
+        ResetTween();
     }
 
     // Update is called once per frame
@@ -35,6 +35,13 @@ public class RectDimensionsControl : MonoBehaviour
     {
         rectTransform.sizeDelta = from;
         trigger = true;
+        timer = 0;
+    }
+
+    public void ResetTween()
+    {
+        rectTransform.sizeDelta = from;
+        trigger = false;
         timer = 0;
     }
 }

@@ -18,6 +18,8 @@ public class LoadSlots : MonoBehaviour
     public TMP_Text saveInfo_P2;
 
     public Jun_TweenRuntime tweenControl;
+    public RectDimensionsControl rectControl;
+    public RectDimensionsControl rectControlOutline;
 
     public bool DebugKeys;
     bool hasData;
@@ -53,6 +55,12 @@ public class LoadSlots : MonoBehaviour
                 LoadSaveInfo();
             }
         }
+    }
+
+    public void ResetTweens()
+    {
+        rectControl.ResetTween();
+        rectControlOutline.ResetTween();
     }
 
     void Save()
