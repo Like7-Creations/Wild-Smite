@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     public float yOffset;
     public float zOffset;
 
+    public GameObject turret;
+
     void Start()
     {
         // for testing
@@ -153,6 +155,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 playerDir = Vector3.right * rotationInput.x + Vector3.forward * rotationInput.y;
 
             Quaternion newrotation = Quaternion.LookRotation(playerDir, Vector3.up);
+            turret.transform.rotation = Quaternion.RotateTowards(turret.transform.rotation, newrotation, 1000f * Time.deltaTime);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, newrotation, 1000f * Time.deltaTime);
             if (playerDir.sqrMagnitude > 0.0f)
             {
