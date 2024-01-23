@@ -18,7 +18,7 @@ public class StatsScreen : MonoBehaviour
             if (showLevel)
             {
                 levelText.color = data.config.PlayerMat.color;
-                levelText.text = $"P{data.playerIndex}   //Level {data.lvl}";
+                levelText.text = $"P{data.playerIndex + 1}   //Level {data.lvl}";
             }
             else
                 levelText.gameObject.SetActive(false);
