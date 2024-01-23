@@ -20,10 +20,6 @@ public class OptionsMenu : MonoBehaviour
     int selectedQualityIndex;
     public List<Toggle> qualToggles;
 
-    //-------------Deprecate-------------------
-    public TMP_Text qualButton_Text;
-    string[] qualityOptions;
-    //-------------Deprecate-------------------
     #endregion
 
     #region Audio Variables
@@ -48,6 +44,7 @@ public class OptionsMenu : MonoBehaviour
     #endregion
 
     #region General Settings Variables
+
     public Slider uiScaleSlider;
     public List<float> uiScaleValues;
     public TMP_Text uiScaleLabel;
@@ -86,13 +83,10 @@ public class OptionsMenu : MonoBehaviour
         fScreenTog.isOn = Screen.fullScreen;
 
         #region Identifying All Available Quality Options & Displaying Current One
-        /*qualityOptions = new string[QualitySettings.names.Length];
-        qualityOptions = QualitySettings.names;*/
 
         selectedQualityIndex = QualitySettings.GetQualityLevel();
         qualToggles[selectedQualityIndex].isOn = true;
 
-        //qualButton_Text.text = qualityOptions[selectedQualityIndex];
         #endregion
 
         #region Identifying All Available Resolutions & Displaying Current One

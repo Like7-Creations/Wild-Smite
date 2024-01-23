@@ -8,7 +8,7 @@ public class GameUIScaler : MonoBehaviour
     {
         float newScale = PlayerPrefs.GetFloat("GameUIScale");
 
-        transform.localScale += new Vector3(newScale, newScale, 0);
+        transform.localScale += new Vector3(1 + newScale, 1 + newScale, 0);
 
         /*List<GameObject> playerUI = new List<GameObject>()
         {
