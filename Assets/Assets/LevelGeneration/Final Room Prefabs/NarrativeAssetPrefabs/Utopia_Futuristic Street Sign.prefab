@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 3210814864567351069}
   - component: {fileID: 2865639249898958244}
   - component: {fileID: 660123528822506077}
+  - component: {fileID: 7843260099922173182}
   m_Layer: 0
   m_Name: Utopia_Futuristic Street Sign
   m_TagString: Untagged
@@ -330,6 +331,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.2, y: 10.2, z: 1.8}
   m_Center: {x: -0, y: 4.7, z: 0}
+--- !u!208 &7843260099922173182
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2865639249898958247}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.1, y: 5.1, z: 0.9}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4.7, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5878409106697574633
 GameObject:
   m_ObjectHideFlags: 0

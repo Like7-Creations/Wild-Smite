@@ -221,7 +221,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bc04c6e524b19114084529a6bf214122, type: 2}
+  - {fileID: 2100000, guid: e62ec04713f0a9c438e8146274df4b82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -253,6 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5690365726017353400}
   - component: {fileID: 5022619512959282181}
+  - component: {fileID: 7077353281278039226}
   m_Layer: 0
   m_Name: Car 2 (2)
   m_TagString: Untagged
@@ -291,6 +292,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.3, y: 1.7, z: 2.8}
   m_Center: {x: 7.9, y: 0.75, z: 0.3}
+--- !u!208 &7077353281278039226
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022619512959282178}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3.15, y: 0.85, z: 1.4}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 7.9, y: 0.75, z: 0.3}
+  m_TimeToStationary: 0.5
 --- !u!1 &6026488541135896762
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +367,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bc04c6e524b19114084529a6bf214122, type: 2}
+  - {fileID: 2100000, guid: e62ec04713f0a9c438e8146274df4b82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

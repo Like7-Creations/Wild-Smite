@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1254705080673864194}
   - component: {fileID: 1254705080673864195}
   - component: {fileID: 1254705080673864193}
+  - component: {fileID: 7756630407869554797}
   m_Layer: 3
   m_Name: Forcefield
   m_TagString: Untagged
@@ -113,6 +114,22 @@ MonoBehaviour:
   - {r: 0.091415405, g: 0, b: 1, a: 0}
   - {r: 0, g: 1, b: 0.70603323, a: 0}
   colorIndex: 0
+--- !u!208 &7756630407869554797
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254705080673864199}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5126806106286820562
 GameObject:
   m_ObjectHideFlags: 0

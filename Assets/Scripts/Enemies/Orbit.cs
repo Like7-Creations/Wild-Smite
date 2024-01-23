@@ -51,7 +51,7 @@ public class Orbit : State
 
     public override State RunCurrentState()
     {
-        print("orbit state");
+        //print("orbit state");
         //print(orbitRange);
         dist = Vector3.Distance(chosenPlayer.transform.position, transform.position);
         if(!backOff)
@@ -71,7 +71,7 @@ public class Orbit : State
         {
             agent.speed = 2;
             agent.SetDestination(retreatOBj.transform.position);
-            print("movingg away from player");
+            //print("movingg away from player");
             backOff = true;
         }
         else if(dist > orbitRange + 1)
