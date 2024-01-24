@@ -16,6 +16,9 @@ public class Boss_CamSwitch : MonoBehaviour
     {
         if (!arenaCam)
         {
+            Transform arenaCam = gameObject.transform.GetChild(1);
+            arenaCam.gameObject.SetActive(true);
+
             Transform hallCam = gameObject.transform.GetChild(0);
             hallCam.gameObject.SetActive(false);
         }
@@ -25,7 +28,10 @@ public class Boss_CamSwitch : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        SwitchBossCamState();
-        gameObject.GetComponent<BoxCollider>().enabled = false;
+        if (other.CompareTag("Player1") || other.CompareTag("Player2"))
+        {
+            SwitchBossCamState();
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
     }
 }
