@@ -3047,7 +3047,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089832923}
   m_LocalRotation: {x: 0.0040150518, y: 0.9959513, z: -0.067471415, w: 0.05926652}
-  m_LocalPosition: {x: -1.3317388, y: 21.463478, z: -7.7870445}
+  m_LocalPosition: {x: -1.3317388, y: 21.463478, z: -14.067043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1376387373}
@@ -4255,6 +4255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1726320583}
   - component: {fileID: 1726320581}
+  - component: {fileID: 1726320582}
   m_Layer: 0
   m_Name: CamHandler
   m_TagString: Untagged
@@ -4273,8 +4274,20 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.917252, y: 2.4499242, z: 1}
-  m_Center: {x: -0.22663498, y: 0.7249621, z: 0}
+  m_Size: {x: 18.981028, y: 0.5955373, z: 14.970459}
+  m_Center: {x: 1.1118765, y: -0.20223135, z: 6.9852295}
+--- !u!114 &1726320582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726320580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd637565c0149144a9d9c1df8e15350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1726320583
 Transform:
   m_ObjectHideFlags: 0
@@ -4283,7 +4296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726320580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49, y: 0.98, z: -59.84}
+  m_LocalPosition: {x: 0.49, y: 0.98, z: -53.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2095059681}
@@ -4597,7 +4610,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095059679}
   m_LocalRotation: {x: 0.059678987, y: -0, z: -0, w: 0.99821764}
-  m_LocalPosition: {x: -0.49, y: 1.4200001, z: -108.56}
+  m_LocalPosition: {x: -0.49, y: 1.4200001, z: -114.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1162040004}
