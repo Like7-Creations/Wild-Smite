@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Boss_CamSwitch : MonoBehaviour
 {
-    public Animator bossCamAnimator;
-
     bool arenaCam = false;
 
     void Awake()
@@ -17,7 +16,8 @@ public class Boss_CamSwitch : MonoBehaviour
     {
         if (!arenaCam)
         {
-            bossCamAnimator.Play("Arena_DollyCam");
+            Transform hallCam = gameObject.transform.GetChild(0);
+            hallCam.gameObject.SetActive(false);
         }
 
         arenaCam = true;
@@ -26,6 +26,6 @@ public class Boss_CamSwitch : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         SwitchBossCamState();
-        gameObject.SetActive(false);
+        gameObject.GetComponent<BoxCollider>().enabled = false;
     }
 }
