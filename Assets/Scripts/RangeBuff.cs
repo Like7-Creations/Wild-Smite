@@ -18,6 +18,8 @@ public class RangeBuff : Item
             //itemUI.GetComponentInChildren<Image>().fillAmount = 1;
             useItem = true;
 
+            used = true;
+
             Play_UseItemSFX();
         }
     }

@@ -27,6 +27,8 @@ public class SpeedBuff : Item
             //temUI.GetComponentInChildren<Image>().fillAmount = 1;
             useItem = true;
 
+            used = true;
+
             Play_UseItemSFX();
         }
     }
