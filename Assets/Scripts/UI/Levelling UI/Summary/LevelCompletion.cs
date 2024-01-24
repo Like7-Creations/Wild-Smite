@@ -11,20 +11,11 @@ public class LevelCompletion : MonoBehaviour
     public ExperienceData xpData;
     PlayerStats[] players;
 
-    //public RenderTexture crocOrange;
-    //public RenderTexture crocGreen;
-    //public RenderTexture crocBlue;
-    //public RenderTexture rooOrange;
-    //public RenderTexture rooGreen;
-    //public RenderTexture rooBlue;
-
     public int mXP, rXP, tXP;
 
     [Header("Solo Summary Panel")]
-    //Summary Text Items
     public GameObject solo_SummaryPanel;
     public TMP_Text levelText;
-    //public RawImage SoloRender;
 
     public TMP_Text gainedXPText;
     public TMP_Text currentXPText;
@@ -39,8 +30,6 @@ public class LevelCompletion : MonoBehaviour
     public GameObject coop_SummaryPanel;
     public TMP_Text levelText_1;
     public TMP_Text levelText_2;
-    //public RawImage p1_Render;
-    //public RawImage p2_Render;
 
     public TMP_Text gainedXPText_1;
     public TMP_Text gainedXPText_2;
@@ -62,6 +51,17 @@ public class LevelCompletion : MonoBehaviour
     bool levelUp;
     Queue<PlayerStats> playersToLevel;
 
+    [Header("Portraits")]
+    public RawImage soloPortrait1;
+    public RawImage soloPortrait2;
+    public RawImage p1Portrait;
+    public RawImage p2Portrait;
+
+    int p1Character, p1Color;
+    int p2Character, p2Color;
+
+    public RenderTexture c1, c2, c3, r1, r2, r3;
+
     private void Awake()
     {
         playersToLevel = new Queue<PlayerStats>();
@@ -74,6 +74,11 @@ public class LevelCompletion : MonoBehaviour
     public void ShowSummary()
     {
         players = FindObjectsOfType<PlayerStats>();
+            
+        List<PlayerConfig> configs = PlayerConfigManager.Instance.GetPlayerConfigs();
+        if (configs.Count > 1)
+            SetCharacterRenders(2, configs);
+        SetCharacterRenders(1, configs);
 
         if (battleLogRoot.childCount != 0)
             for (int i = 0; i < battleLogRoot.childCount; i++)
@@ -84,7 +89,6 @@ public class LevelCompletion : MonoBehaviour
             solo_SummaryPanel.SetActive(true);
 
             PlayerStats p = players[0];
-            //List<PlayerConfig> configs = PlayerConfigManager.Instance.GetPlayerConfigs();
 
             //if (configs[0].Character.name == "FinalCroc Orange")
             //    SoloRender.texture = crocOrange;
@@ -237,6 +241,60 @@ public class LevelCompletion : MonoBehaviour
 
             p1.playerData.XPGained(xp_1);
             p2.playerData.XPGained(xp_2);
+        }
+    }
+
+    public void SetCharacterRenders(int player, List<PlayerConfig> configs)
+    {
+        if (player == 1)
+        {
+            p1Character = configs[0].characterType;
+            p1Color = configs[0].selectedColor;
+
+            updateImage(soloPortrait1, p1Character, p1Color);
+            updateImage(soloPortrait2, p1Character, p1Color);
+            updateImage(p1Portrait, p1Character, p1Color);
+        }
+        else if (player == 2)
+        {
+            p2Character = configs[1].characterType;
+            p2Color = configs[1].selectedColor;
+
+            updateImage(p2Portrait, p2Character, p2Color);
+        }
+    }
+
+    void updateImage(RawImage image, int type, int color)
+    {
+        if (type == 1)
+        {
+            switch (color)
+            {
+                case 1:
+                    image.texture = c1;
+                    break;
+                case 2:
+                    image.texture = c2;
+                    break;
+                case 3:
+                    image.texture = c3;
+                    break;
+            }
+        }
+        else if (type == 2)
+        {
+            switch (color)
+            {
+                case 1:
+                    image.texture = r1;
+                    break;
+                case 2:
+                    image.texture = r2;
+                    break;
+                case 3:
+                    image.texture = r3;
+                    break;
+            }
         }
     }
 
