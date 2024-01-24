@@ -46,6 +46,7 @@ public class InGameUI : MonoBehaviour
     Item p2Held;
 
     public GameObject gameOverUI;
+    public Button returnButton;
 
     bool solo;
 
@@ -65,13 +66,20 @@ public class InGameUI : MonoBehaviour
         else
             solo = false;
 
+
         splitScreen = FindObjectOfType<Dynamic_SplitScreen>();
 
-        P1_Cam = splitScreen.p1_Cam.GetComponent<Camera>();
-        p1_Tracker = splitScreen.camTracker_P1.GetComponent<CamTrackerMove>();
+        if (P1_Cam != null)
+        {
+            P1_Cam = splitScreen.p1_Cam.GetComponent<Camera>();
+            p1_Tracker = splitScreen.camTracker_P1.GetComponent<CamTrackerMove>();
+        }
 
-        P2_Cam = splitScreen.p2_Cam.GetComponent<Camera>();
-        p2_Tracker = splitScreen.camTracker_P2.GetComponent<CamTrackerMove>();
+        if (P2_Cam != null)
+        {
+            P2_Cam = splitScreen.p2_Cam.GetComponent<Camera>();
+            p2_Tracker = splitScreen.camTracker_P2.GetComponent<CamTrackerMove>();
+        }
     }
 
 
@@ -173,7 +181,7 @@ public class InGameUI : MonoBehaviour
                     go.SetActive(false);
                 }
 
-                gameOverUI.SetActive(true);
+                GameOver();
             }
         }
 
@@ -199,43 +207,55 @@ public class InGameUI : MonoBehaviour
                     go.SetActive(false);
                 }
 
-                gameOverUI.SetActive(true);
+                GameOver();
             }
             else if (p2_dead & !p1_dead)
             {
-                //-Reset the Split-Offset for the P1_CamTracker
-                p1_Tracker.splitOffset = Vector3.zero;
+                if (P2_Cam != null)
+                {
+                    //-Reset the Split-Offset for the P1_CamTracker
+                    p1_Tracker.splitOffset = Vector3.zero;
 
-                //-Disable Dynamic Splitscreen component
-                splitScreen.enabled = false;
+                    //-Disable Dynamic Splitscreen component
+                    splitScreen.enabled = false;
 
-                //- Disable the Splitter Child obj
-                P1_Cam.transform.Find("Splitter").gameObject.SetActive(false);
+                    //- Disable the Splitter Child obj
+                    P1_Cam.transform.Find("Splitter").gameObject.SetActive(false);
 
-                //- Disable the P2_CamTracker
-                p2_Tracker.gameObject.SetActive(false);
+                    //- Disable the P2_CamTracker
+                    p2_Tracker.gameObject.SetActive(false);
 
-                //- Disable the P2_Cam
-                P2_Cam.gameObject.SetActive(false);
+                    //- Disable the P2_Cam
+                    P2_Cam.gameObject.SetActive(false);
+                }
             }
             else if (!p2_dead & p1_dead)
             {
-                //-Reset the Split-Offset for the P2_CamTracker
-                p2_Tracker.splitOffset = Vector3.zero;
+                if (P1_Cam != null)
+                {
+                    //-Reset the Split-Offset for the P2_CamTracker
+                    p2_Tracker.splitOffset = Vector3.zero;
 
-                //-Disable DynamicSplitscreen component
-                splitScreen.enabled = false;
+                    //-Disable DynamicSplitscreen component
+                    splitScreen.enabled = false;
 
-                //- Disable the Camera component on P1_Cam
-                P1_Cam.enabled = false;
+                    //- Disable the Camera component on P1_Cam
+                    P1_Cam.enabled = false;
 
-                //- Disable the Splitter Child obj
-                P1_Cam.transform.Find("Splitter").gameObject.SetActive(false);
+                    //- Disable the Splitter Child obj
+                    P1_Cam.transform.Find("Splitter").gameObject.SetActive(false);
 
-                //- Disable the P1_CamTracker
-                p1_Tracker.gameObject.SetActive(false);
+                    //- Disable the P1_CamTracker
+                    p1_Tracker.gameObject.SetActive(false);
+                }
             }
         }
+    }
+
+    void GameOver()
+    {
+        gameOverUI.SetActive(true);
+        returnButton.Select();
     }
 
     public void AssignPlayer(int index, PlayerStats stats, PlayerInventory pinv)
