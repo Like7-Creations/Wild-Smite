@@ -28,7 +28,7 @@ public class Boss_CamSwitch : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player1") || other.CompareTag("Player2"))
+        if (other.CompareTag("Player"))
         {
             SwitchBossCamState();
             gameObject.GetComponent<BoxCollider>().enabled = false;
